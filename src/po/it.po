@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 0.1.20\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-04 15:26+0200\n"
-"PO-Revision-Date: 2003-06-10 16:20+0200\n"
+"POT-Creation-Date: 2003-07-21 16:40+0200\n"
+"PO-Revision-Date: 2003-07-21 16:40+0200\n"
 "Last-Translator: Yuri Bongiorno <yuri.bongiorno AT libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: main.c:57
@@ -27,17 +27,17 @@ msgstr ""
 "Copyright @ 2002 Thomas Leonard.\n"
 "ROX-Session non fornisce ALCUNA GARANZIA,\n"
 "nei limiti permessi dalla legge.\n"
-"È possibile ridistribuire copie di ROX-Session\n"
+"Ãˆ possibile ridistribuire copie di ROX-Session\n"
 "secondo i termini della GNU General Public License.\n"
 "Per ulteriori informazioni, vedere il file COPYING.\n"
 
 #: main.c:66
 msgid "Try `ROX-Session/AppRun --help' for more information.\n"
-msgstr "Usare «ROX-Session/AppRun --help» per ulteriori informazioni.\n"
+msgstr "Usare Â«ROX-Session/AppRun --helpÂ» per ulteriori informazioni.\n"
 
 #: main.c:69
 msgid "Try `ROX-Session/AppRun -h' for more information.\n"
-msgstr "Usare «ROX-Session/AppRun -h» per ulteriori informazioni.\n"
+msgstr "Usare Â«ROX-Session/AppRun -hÂ» per ulteriori informazioni.\n"
 
 #: main.c:71
 msgid ""
@@ -46,7 +46,7 @@ msgid ""
 "\n"
 msgstr ""
 "NOTA: questo sistema non supporta le opzioni lunghe,\n"
-"è necessario usare quelle corte.\n"
+"Ã¨ necessario usare quelle corte.\n"
 
 #: main.c:75
 msgid ""
@@ -65,7 +65,7 @@ msgid ""
 "Report bugs to <tal197@users.sourceforge.net>.\n"
 msgstr ""
 "Uso: ROX-Session/AppRun [OPZIONE]...\n"
-"Se ROX-Session sta già gestendo la sessione, allora visualizza \n"
+"Se ROX-Session sta giÃ  gestendo la sessione, allora visualizza \n"
 "la finestra di fine sessione. Altrimenti, rende ROX-Session il \n"
 "gestore di sessione predefinito per il futuro.\n"
 "\n"
@@ -73,14 +73,14 @@ msgstr ""
 "  -v, --version\t\tmostra le informazioni sulla versione ed esce\n"
 "  -w, --wait\t\taspetta fino a quando viene eseguito di nuovo (uso interno)\n"
 "\n"
-"La versione più recente si trova al sito web:\n"
+"La versione piÃ¹ recente si trova al sito web:\n"
 "\thttp://rox.sourceforge.net\n"
 "\n"
 "Segnalare i bug a <tal197@users.sourceforge.net>.\n"
 
 #: main.c:206
 msgid "ROX-Session is already managing your session - can't manage it twice!"
-msgstr "ROX-Session sta già gestendo la sessione: non può farlo due volte!"
+msgstr "ROX-Session sta giÃ  gestendo la sessione: non puÃ² farlo due volte!"
 
 #: main.c:333
 msgid "Would you like to make ROX-Session your session manager?"
@@ -95,7 +95,7 @@ msgid ""
 "Make sure your .xsession and .xinitrc files are OK, then report the problem "
 "to tal197@users.sourceforge.net - thanks"
 msgstr ""
-"Accidenti, non funziona e il motivo è sconosciuto!\n"
+"Accidenti, non funziona e il motivo Ã¨ sconosciuto!\n"
 "L'errore era:\n"
 "%s\n"
 "Assicurarsi che i file .xsession e .xinitrc siano corretti, poi segnalare il "
@@ -107,37 +107,36 @@ msgid ""
 "your session manager.\n"
 "You can edit your .xsession file to customise things..."
 msgstr ""
-"Termina adesso la sessione con la solita procedura e dal prossimo accesso al "
-"sistema, ROX-Session sarà il gestore di sessione predefinito. È possibile "
-"modificare .xsession per personalizzare il tutto..."
+"Uscire adesso con la solita procedura e al prossimo accesso al sistema, ROX-"
+"Session sarÃ  il gestore di sessione predefinito. Ãˆ possibile modificare ."
+"xsession per personalizzare il tutto..."
 
 #: main.c:387
 #, c-format
 msgid "Your login script (%s) died"
-msgstr "Lo script di accesso al sistema (%s) è terminato"
+msgstr "Lo script di accesso al sistema (%s) Ã¨ terminato"
 
 #: main.c:390
 #, c-format
 msgid "Your login script (%s) exited with exit status %d"
 msgstr ""
-"Lo script di accesso al sistema (%s) è terminato con lo stato di uscita %d"
+"Lo script di accesso al sistema (%s) Ã¨ terminato con lo stato di uscita %d"
 
 #: main.c:395
 msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
 msgstr ""
-". Verrà eseguito un xterm per cercare di risolvere il problema. Sebbene ROX-"
-"Session sia in esecuzione correttamente, lo si esegua nuovamente per "
-"terminare la sessione."
+". VerrÃ  eseguito un xterm per cercare di risolvere il problema. Sebbene ROX-"
+"Session sia in esecuzione correttamente, lo si esegua nuovamente per uscire."
 
 #: i18n.c:38
 msgid ""
 "Note that you must save your choices, logout and log back in again before "
 "the new settings will take full effect."
 msgstr ""
-"Affinché le nuove impostazioni abbiano effetto, bisogna salvare le "
-"preferenze, terminare la sessione e accedere di nuovo al sistema."
+"AffinchÃ© le nuove impostazioni abbiano effetto, bisogna salvare le "
+"preferenze, uscire e accedere di nuovo al sistema."
 
 #: log.c:364
 msgid "ROX-Session: write to stderr failed!\n"
@@ -176,7 +175,7 @@ msgstr "_Ripristina"
 msgid "Restore all choices to how they were when the Options box was opened."
 msgstr ""
 "Rimette le preferenze come erano prima dell'apertura della finestra "
-"«Opzioni»."
+"Â«OpzioniÂ»."
 
 #: options.c:912
 #, c-format
@@ -235,7 +234,7 @@ msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
 msgstr ""
-"Terminare la sessione?\n"
+"Uscire veramente?\n"
 "(i dati non salvati andranno persi)"
 
 #: session.c:300
@@ -244,7 +243,7 @@ msgstr "Impostazioni di sessione"
 
 #: session.c:307
 msgid "Logout"
-msgstr "Termina sessione"
+msgstr "Esci"
 
 #: session.c:361
 #, c-format
@@ -276,13 +275,13 @@ msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
 msgstr ""
-"ROX-Session non gestisce XSettings perciò i cambiamenti non avranno effetto "
+"ROX-Session non gestisce XSettings perciÃ² i cambiamenti non avranno effetto "
 "immediato..."
 
 #: session.c:681
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
-msgstr "ROX-Filer è terminato (crash?). Provare a riavviarlo."
+msgstr "ROX-Filer Ã¨ terminato (crash?). Provare a riavviarlo."
 
 #: session.c:683
 msgid "Do nothing"
@@ -302,7 +301,7 @@ msgid ""
 "Failed to run '%s':\n"
 "%s"
 msgstr ""
-"Fallita l'esecuzione di «%s»:\n"
+"Fallita l'esecuzione di Â«%sÂ»:\n"
 "%s"
 
 #: wm.c:74
@@ -310,7 +309,7 @@ msgid ""
 "Your window manager has crashed (or quit). Please restart it, or choose "
 "another window manager."
 msgstr ""
-"Il window manager è andato in crash (o è stato chiuso). Riavviarlo o "
+"Il window manager Ã¨ andato in crash (o Ã¨ stato chiuso). Riavviarlo o "
 "sceglierne un altro."
 
 #: wm.c:143
@@ -319,7 +318,7 @@ msgid ""
 "Error loading window manager list '%s':\n"
 "%s"
 msgstr ""
-"Errore di caricamento dell'elenco «%s» dei window manager:\n"
+"Errore di caricamento dell'elenco Â«%sÂ» dei window manager:\n"
 "%s"
 
 #: wm.c:164
@@ -327,15 +326,15 @@ msgid ""
 "The window manager which ROX-Session started for you is still running. Quit "
 "it before starting a new one."
 msgstr ""
-"Il window manager con cui ROX-Session è stato avviato è ancora in "
-"esecuzione. È necessario chiuderlo prima di avviarne un'altro."
+"Il window manager con cui ROX-Session Ã¨ stato avviato Ã¨ ancora in "
+"esecuzione. Ãˆ necessario chiuderlo prima di avviarne un'altro."
 
 #: wm.c:172
 msgid ""
 "No window manager is currently selected.\n"
 "Please choose a window manager now."
 msgstr ""
-"Non è stato selezionato alcun window manager.\n"
+"Non Ã¨ stato selezionato alcun window manager.\n"
 "Sceglierne uno adesso."
 
 #: wm.c:190
@@ -362,7 +361,7 @@ msgid ""
 "The window manager is a program which puts title bars and frames on windows. "
 "It allows you to move windows around, resize them, close them and so on."
 msgstr ""
-"Il window manager è un programma che disegna sulle finestre le barre dei "
+"Il window manager Ã¨ un programma che disegna sulle finestre le barre dei "
 "titoli e le cornici. Permette di muovere le finestre, di ridimensionarle, di "
 "chiuderle e altro ancora."
 
@@ -479,8 +478,8 @@ msgid ""
 "When the pointer is moved quickly more than the threshold number of pixels, "
 "its speed is multiplied by this number."
 msgstr ""
-"Quando il puntatore viene mosso più rapidamente del numero di pixel della "
-"soglia, la sua velocità viene moltiplicata per questo numero."
+"Quando il puntatore viene mosso piÃ¹ rapidamente del numero di pixel della "
+"soglia, la sua velocitÃ  viene moltiplicata per questo numero."
 
 #: tips:32
 msgid "DnD Drag Threshold"
@@ -502,7 +501,7 @@ msgstr "Pulsanti"
 
 #: tips:36
 msgid "Double-click speed: (fast)"
-msgstr "Velocità del doppio clic: (alta)"
+msgstr "VelocitÃ  del doppio clic: (alta)"
 
 #: tips:37 tips:43
 msgid "(slow)"
@@ -532,11 +531,11 @@ msgstr "Cursore lampeggiante"
 
 #: tips:42
 msgid "Speed: (fast)"
-msgstr "Velocità: (alta)"
+msgstr "VelocitÃ : (alta)"
 
 #: tips:44 tips:45
 msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
-msgstr "La velocità con la quale il cursore lampeggia (se abilitato)."
+msgstr "La velocitÃ  con la quale il cursore lampeggia (se abilitato)."
 
 #: tips:46
 msgid "Shortcuts"
@@ -544,7 +543,7 @@ msgstr "Scorciatoie"
 
 #: tips:47
 msgid "Allow keybindings to be changed from menus"
-msgstr "Permette di cambiare le associazioni di tasti dai menù"
+msgstr "Permette di cambiare le associazioni di tasti dai menÃ¹"
 
 #: tips:48
 msgid ""
@@ -552,8 +551,8 @@ msgid ""
 "pointer over the menu item and pressing the key. If off, short-cuts cannot "
 "be changed."
 msgstr ""
-"Se attivato, permette di impostare una scorciatoria per un menù tenendo il "
-"puntatore sul menù e premendo il tasto. Se disattivato, le scorciatoie non "
+"Se attivato, permette di impostare una scorciatoria per un menÃ¹ tenendo il "
+"puntatore sul menÃ¹ e premendo il tasto. Se disattivato, le scorciatoie non "
 "possono essere cambiate."
 
 #: tips:49 tips:50 tips:51
@@ -561,7 +560,7 @@ msgid ""
 "You can set global shortcuts (which work from any\n"
 "application) by assigning them to icons on a ROX-Filer pinboard or panel."
 msgstr ""
-"È possibile impostare scorciatorie globali (che funzionano da qualsiasi "
+"Ãˆ possibile impostare scorciatorie globali (che funzionano da qualsiasi "
 "applicazione) associandole alle icone sul pannello o sulla bacheca del ROX-"
 "Filer."
 
@@ -576,8 +575,8 @@ msgid ""
 "program it starts. It displays all the messages it collects this way briefly "
 "on screen."
 msgstr ""
-"Tutti i programmi hanno uno «standard error» sul quale scrivono messaggi di "
-"testo. ROX-Session crea una connessione tra sè e ogni programma che avvia e "
+"Tutti i programmi hanno uno Â«standard errorÂ» sul quale scrivono messaggi di "
+"testo. ROX-Session crea una connessione tra sÃ¨ e ogni programma che avvia e "
 "visualizza brevemente sullo schermo tutti questi messaggi."
 
 #: tips:54
@@ -617,7 +616,7 @@ msgid ""
 msgstr ""
 "Questi comandi possono essere selezionati nella finestra di fine sessione "
 "come alternativa alla disconnessione. Le impostazioni corrette variano a "
-"seconda dei sistemi. Può essere necessario l'uso di xsu o di sudo se gli "
+"seconda dei sistemi. PuÃ² essere necessario l'uso di xsu o di sudo se gli "
 "utenti normali non hanno i permessi di arrestare o riavviare il computer."
 
 #: tips:64
@@ -626,7 +625,7 @@ msgstr "Comando per spegnere:"
 
 #: tips:65
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
-msgstr "Alcuni comandi per spegnere sono «halt» e «shutdown -t now»"
+msgstr "Alcuni comandi per spegnere sono Â«haltÂ» e Â«shutdown -t nowÂ»"
 
 #: tips:66
 msgid "Reboot command:"
@@ -634,7 +633,7 @@ msgstr "Comando per riavviare:"
 
 #: tips:67
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
-msgstr "Alcuni comandi per riavviare sono «reboot» e «shutdown -t now -r»"
+msgstr "Alcuni comandi per riavviare sono Â«rebootÂ» e Â«shutdown -t now -rÂ»"
 
 #: tips:68
 msgid "Suspend command:"
@@ -646,6 +645,6 @@ msgid ""
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
 "need a kernel with the correct system compiled in and enabled."
 msgstr ""
-"Se il sistema usa APM per la gestione dell'energia, provare «apm -s» o "
-"simili. Gli utenti con ACPI possono provare «xset dpms force off; echo 1 > /"
-"proc/acpi/sleep». È necessario un kernel opportunamente compilato."
+"Se il sistema usa APM per la gestione dell'energia, provare Â«apm -sÂ» o "
+"simili. Gli utenti con ACPI possono provare Â«xset dpms force off; echo 1 > /"
+"proc/acpi/sleepÂ». Ãˆ necessario un kernel opportunamente compilato."
