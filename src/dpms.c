@@ -22,6 +22,7 @@
 
 #include "dpms.h"
 
+#include <X11/Xmd.h>
 # include <X11/extensions/dpms.h>
 
 

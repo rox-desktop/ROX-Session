@@ -73,7 +73,7 @@ AC_PATH_XTRA
 if test x$no_x = xyes ; then
   AC_MSG_ERROR([X development libraries not found])
 fi
-LIBS="$LIBS $X_LIBS -lX11 $X_EXTRA_LIBS"
+LIBS="$LIBS $X_LIBS -lX11 -lXext $X_EXTRA_LIBS"
 CFLAGS="$CFLAGS $X_CFLAGS"
 
 dnl Extract version info from AppInfo.xml

@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+22-Jul-2004
+~~~~~~~~~~~
+Compatability fixes: /bin/sh behaviour, DPMS, availability of long options
+(Stephen Watson).
+
 01-Jul-2004
 ~~~~~~~~~~~
 Message log sizing/positioning code takes Xinerama into account and window is
