@@ -2,6 +2,11 @@
 			A very simple session manager
 			by Thomas Leonard
 
+28-Nov-2002
+~~~~~~~~~~~
+Automatically create a default panel containing ROX-Session and some mount
+points.
+
 25-Nov-2002
 ~~~~~~~~~~~
 Added widget to test mouse double-click speed (suggested by Tony Houghton).

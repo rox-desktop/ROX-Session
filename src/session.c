@@ -26,6 +26,9 @@
 #include <fcntl.h>
 #include <ctype.h>
 #include <signal.h>
+#include <sys/param.h>
+#include <limits.h>
+#include <stdlib.h>
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
@@ -110,6 +113,7 @@ static void xsettings_changed(void);
 static void show_session_options(void);
 static GtkWidget *op_button(const char *text, const char *stock,
 			    Option *command, const char *message);
+static char *pathdup(const char *path);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -294,7 +298,7 @@ void run_login_script(void)
 {
 	static gboolean logged_in = FALSE;
 	GError	*error = NULL;
-	gchar	*argv[2];
+	gchar	*argv[3];
 	gint	pid;
 
 	if (logged_in || test_mode)
@@ -305,10 +309,12 @@ void run_login_script(void)
 	if (!argv[0])
 		argv[0] = g_strconcat(app_dir, "/Login", NULL);
 
-	argv[1] = NULL;
+	argv[1] = pathdup(app_dir);
+	argv[2] = NULL;
 	g_spawn_async(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD,
 			NULL, NULL, &pid, &error);
 	g_free(argv[0]);
+	g_free(argv[1]);
 
 	if (error)
 	{
@@ -467,4 +473,17 @@ static GtkWidget *op_button(const char *text, const char *stock,
 	g_signal_connect(button, "clicked", G_CALLBACK(op_clicked), command);
 
 	return button;
+}
+
+/* Like g_strdup, but does realpath() too (if possible) */
+static char *pathdup(const char *path)
+{
+	char real[MAXPATHLEN];
+
+	g_return_val_if_fail(path != NULL, NULL);
+
+	if (realpath(path, real))
+		return g_strdup(real);
+
+	return g_strdup(path);
 }

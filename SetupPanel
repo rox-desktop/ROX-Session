@@ -1,0 +1,42 @@
+#!/bin/sh
+# No panel is currently set up. Create a new one.
+
+SESSION="$1"
+MYCHOICES="$2"
+
+if [ -z "$MYCHOICES" ]; then
+  echo Usage: SetupPanel /path/ROX-Session /path/Choices >&2
+  exit 1
+fi
+
+PANEL="$MYCHOICES/ROX-Filer/pan_Default"
+
+if [ -f "$PANEL" ]; then
+  echo "SetupPanel -- $PANEL already exists!" >&2
+  exit 1
+fi
+
+mkdir "$MYCHOICES" 2> /dev/null
+mkdir "$MYCHOICES/ROX-Filer" 2> /dev/null
+DRIVES=""
+if [ -d "/mnt" ]; then
+for DRIVE in /floppy /cdrom /zip /mnt/*; do
+  LEAF=`basename "$DRIVE"`
+  [ -d "$DRIVE" ] && DRIVES="$DRIVES<icon label='$LEAF'>$DRIVE</icon>"
+done
+
+cat > "$PANEL" << EOF
+<?xml version="1.0"?>
+<panel>
+<start>
+<icon label="Home">~</icon>
+<icon label="Apps">`dirname "$1"`</icon>
+$DRIVES
+</start>
+<end>
+<icon label="Session" shortcut="Control+Shift+F12">$1</icon>
+</end>
+</panel>
+EOF
+fi
+
