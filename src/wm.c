@@ -204,13 +204,18 @@ static guchar *read_combo(Option *option)
 
 static GList *wm_combo(Option *option, xmlNode *node, guchar *label)
 {
-	GtkWidget	*combo, *entry;
+	GtkWidget	*combo, *entry, *hbox;
 	GList		*wms;
 
 	g_return_val_if_fail(option != NULL, NULL);
 
+	hbox = gtk_hbox_new(FALSE, 4);
+
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(label)),
+				FALSE, TRUE, 0);
 
 	combo = gtk_combo_new();
+	gtk_box_pack_start(GTK_BOX(hbox), combo, TRUE, TRUE, 0);
 	entry = GTK_COMBO(combo)->entry;
 	gtk_combo_disable_activate(GTK_COMBO(combo));
 	GTK_WIDGET_SET_FLAGS(entry, GTK_CAN_FOCUS);
@@ -238,7 +243,7 @@ static GList *wm_combo(Option *option, xmlNode *node, guchar *label)
 			GTK_SIGNAL_FUNC(option_check_widget),
 			(GtkObject *) option);
 
-	return g_list_append(NULL, combo);
+	return g_list_append(NULL, hbox);
 }
 
 static GList *start_wm_button(Option *option, xmlNode *node, guchar *label)

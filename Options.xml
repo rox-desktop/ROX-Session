@@ -7,8 +7,7 @@
     <start-wm/>
   </section>
   <section title='XSettings'>
-    <label>These settings affect all XSettings-aware programs immediately.
-Older programs will not be affected.</label>
+    <label>These settings affect all XSettings-aware programs immediately. Older programs will not be affected.</label>
     <spacer/>
   
     <label>Double-click timeout (in milliseconds)</label>
