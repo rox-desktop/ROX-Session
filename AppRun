@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$#" = 0 -o "x$1" = "x--install" ]; then
-  exec `dirname $0`/interactive.py "$@"
+  exec `dirname "$0"`/interactive.py "$@"
 fi
 
 # Use 0 in the next 2 lines if you want anti-aliased fonts turned off,
@@ -12,7 +12,7 @@ QT_XFT=1; export QT_XFT
 
 PROG=ROX-Session
 
-APP_DIR=`dirname $0`
+APP_DIR=`dirname "$0"`
 APP_DIR=`cd "$APP_DIR";pwd`; export APP_DIR
 
 if [ "x$PLATFORM" = x ]; then
