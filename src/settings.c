@@ -228,6 +228,10 @@ set_left_handed (void)
 
 /* Helper functions */
 
+#if !GLIB_CHECK_VERSION(2, 4, 0)
+typedef gint GPid;
+#endif
+
 /*
  * Helper function for spawn_with_input() - wait for a child
  * to exit.

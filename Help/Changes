@@ -2,6 +2,10 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+15-Oct-2004
+~~~~~~~~~~~
+Allow Xcursor code to compile under GLib 2.2 (Stephen Watson).
+
 06-Sep-2004 (Release 0.1.25)
 ~~~~~~~~~~~
 Use new ROX-Lib system for getting root access (Thomas Leonard).
