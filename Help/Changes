@@ -4,6 +4,10 @@
 
 TODO: Never overwrite .xsession.old
 
+10-Apr-2004
+~~~~~~~~~~~
+Start a session D-BUS daemon running on login, if one isn't running already.
+
 05-Apr-2004
 ~~~~~~~~~~~
 Updated Spanish translation (Marcelo Ramos).

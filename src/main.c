@@ -53,6 +53,7 @@
 #include "session.h"
 #include "options.h"
 #include "i18n.h"
+#include "dbus.h"
 
 #define COPYING								\
 	     N_("Copyright (C) 2002 Thomas Leonard.\n"			\
@@ -245,12 +246,15 @@ int main(int argc, char **argv)
 	session_init();
 
 	log_init();		/* Capture standard error */
+
+	dbus_init();
+
 	start_window_manager();
 
 	if (test_mode)
 	{
 		/* show_main_window(); */
-		system("dfdfd&");
+		system("env&");
 	}
 
 	gtk_main();
