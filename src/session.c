@@ -60,9 +60,6 @@ static pid_t	rox_pid = -1;
 /* If log.c gets any data and this is TRUE, it calls child_died_callback() */
 gboolean call_child_died = FALSE;
 
-static Option mouse_accel_threshold;
-static Option mouse_accel_factor;
-
 static Option halt_command, reboot_command, suspend_command;
 
 static const char * bad_xpm[] = {
@@ -98,7 +95,6 @@ static GtkWidget *op_button(const char *text, const char *stock,
 static char *pathdup(const char *path);
 static void rox_process_died(void);
 static void run_rox_process(void);
-static void options_changed(void);
 
 
 /****************************************************************
@@ -116,9 +112,6 @@ void session_init(void)
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_NOCLDSTOP;
 	sigaction(SIGCHLD, &act, NULL);
-
-	option_add_int(&mouse_accel_threshold, "accel_threshold", 10);
-	option_add_int(&mouse_accel_factor, "accel_factor", 20);
 
 	option_add_string(&halt_command, "halt_command", "halt");
 	option_add_string(&reboot_command, "reboot_command", "reboot");
@@ -150,8 +143,6 @@ void session_init(void)
 		gtk_icon_set_unref(iset);
 	}
 	gtk_icon_factory_add_default(factory);
-
-	option_add_notify(options_changed);
 }
 
 /* Called from the mainloop sometime after child_died executes */
@@ -310,13 +301,6 @@ void run_login_script(void)
 /****************************************************************
  *			INTERNAL FUNCTIONS			*
  ****************************************************************/
-
-static void options_changed(void)
-{
-	XChangePointerControl(GDK_DISPLAY(), True, True,
-				mouse_accel_factor.int_value, 10,
-				mouse_accel_threshold.int_value);
-}
 
 /* This is called as a signal handler.
  * Don't do the waitpid here, because this might get called before

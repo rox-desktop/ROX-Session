@@ -51,9 +51,95 @@
 
 XSettingsManager *xsettings_manager = NULL;
 
-static void terminate_xsettings(void *data);
-
 static xmlDoc *settings_doc = NULL;
+
+static int mouse_accel_factor = 20, mouse_accel_threshold = 10;
+
+/* Static prototypes */
+static void terminate_xsettings(void *data);
+static void set_from_xml(xmlNode *setting);
+static DBusMessage *xsettings_handler(DBusMessage *message, DBusError *error);
+static void activate_changes(void);
+
+/****************************************************************
+ *			EXTERNAL INTERFACE			*
+ ****************************************************************/
+
+void settings_init(void)
+{
+	const char *xsettings_path[] = {"Settings", NULL};
+	char *path;
+
+	register_object_path(xsettings_path, xsettings_handler);
+
+	if (xsettings_manager_check_running(gdk_display,
+					    DefaultScreen(gdk_display)))
+	{
+		g_printerr("An XSETTINGS manager is already running. "
+				"Not taking control of XSETTINGS...\n");
+	}
+	else
+		xsettings_manager = xsettings_manager_new(gdk_display,
+						DefaultScreen(gdk_display),
+					        terminate_xsettings, NULL);
+
+	path = choices_find_path_load(SETTINGS_FILE, PROJECT);
+	if (path)
+	{
+		settings_doc = xmlParseFile(path);
+		g_free(path);
+	}
+
+	if (settings_doc)
+	{
+		xmlNode *root = xmlDocGetRootElement(settings_doc);
+		xmlNode *child;
+
+		for (child = root->xmlChildrenNode; child; child = child->next)
+		{
+			if (child->type != XML_ELEMENT_NODE)
+				continue;
+			if (strcmp(child->name, "Setting") != 0)
+				continue;
+
+			set_from_xml(child);
+		}
+	}
+	else
+	{
+		settings_doc = xmlNewDoc("1.0");
+		xmlDocSetRootElement(settings_doc,
+				xmlNewDocNode(settings_doc, NULL, "Settings", NULL));
+		/* Override annoying defaults... */
+		xsettings_manager_set_int(xsettings_manager, "Gtk/CanChangeAccels", 1);
+		xsettings_manager_set_string(xsettings_manager,
+						"Gtk/KeyThemeName", "Emacs");
+	}
+
+	activate_changes();
+}
+
+/****************************************************************
+ *			INTERNAL FUNCTIONS			*
+ ****************************************************************/
+
+static void set_rox_setting(const char *name, int value)
+{
+	if (strcmp(name, "AccelThreshold") == 0)
+		mouse_accel_threshold = value;
+	else if (strcmp(name, "AccelFactor") == 0)
+		mouse_accel_factor = value;
+	else
+		g_warning("Unknown ROX setting 'ROX/%s'", name);
+}
+
+static void activate_changes(void)
+{
+	xsettings_manager_notify(xsettings_manager);
+	XChangePointerControl(GDK_DISPLAY(), True, True,
+				mouse_accel_factor, 10,
+				mouse_accel_threshold);
+}
 
 /* Find the setting element in settings_doc, or create a new one. */
 static xmlNode *get_node(const char *name, gboolean create_if_missing)
@@ -113,9 +199,6 @@ static void set_int(const char *name, int value)
 	xmlNode *node;
 	char *str;
 
-	xsettings_manager_set_int(xsettings_manager, name, value);
-	xsettings_manager_notify(xsettings_manager);
-
 	str = g_strdup_printf("%d", value);
 
 	node = get_node(name, TRUE);
@@ -124,6 +207,9 @@ static void set_int(const char *name, int value)
 
 	g_free(str);
 	
+	set_from_xml(node);
+	activate_changes();
+
 	save_settings();
 }
 
@@ -131,12 +217,12 @@ static void set_string(const char *name, char *value)
 {
 	xmlNode *node;
 
-	xsettings_manager_set_string(xsettings_manager, name, value);
-	xsettings_manager_notify(xsettings_manager);
-	
 	node = get_node(name, TRUE);
 	xmlSetProp(node, "value", value);
 	xmlSetProp(node, "type", "string");
+
+	set_from_xml(node);
+	activate_changes();
 
 	save_settings();
 }
@@ -239,64 +325,19 @@ static void set_from_xml(xmlNode *setting)
 
 	g_return_if_fail(name && type && value);
 
+	/* The ROX/ settings aren't actually XSettings, but are still set in
+	 * the same way.
+	 */
+	if (strncmp(name, "ROX/", 4) == 0)
+	{
+		set_rox_setting(name + 4, atoi(value));
+		return;
+	}
+
 	if (strcmp(type, "string") == 0)
 		xsettings_manager_set_string(xsettings_manager, name, value);
 	else if (strcmp(type, "int") == 0)
 		xsettings_manager_set_int(xsettings_manager, name, atoi(value));
 	else
 		g_warning("Unknown type '%s' in Settings file", type);
-}
-
-void settings_init(void)
-{
-	const char *xsettings_path[] = {"Settings", NULL};
-	char *path;
-
-	register_object_path(xsettings_path, xsettings_handler);
-
-	if (xsettings_manager_check_running(gdk_display,
-					    DefaultScreen(gdk_display)))
-	{
-		g_printerr("An XSETTINGS manager is already running. "
-				"Not taking control of XSETTINGS...\n");
-	}
-	else
-		xsettings_manager = xsettings_manager_new(gdk_display,
-						DefaultScreen(gdk_display),
-					        terminate_xsettings, NULL);
-
-	path = choices_find_path_load(SETTINGS_FILE, PROJECT);
-	if (path)
-	{
-		settings_doc = xmlParseFile(path);
-		g_free(path);
-	}
-
-	if (settings_doc)
-	{
-		xmlNode *root = xmlDocGetRootElement(settings_doc);
-		xmlNode *child;
-
-		for (child = root->xmlChildrenNode; child; child = child->next)
-		{
-			if (child->type != XML_ELEMENT_NODE)
-				continue;
-			if (strcmp(child->name, "Setting") != 0)
-				continue;
-
-			set_from_xml(child);
-		}
-	}
-	else
-	{
-		settings_doc = xmlNewDoc("1.0");
-		xmlDocSetRootElement(settings_doc,
-				xmlNewDocNode(settings_doc, NULL, "Settings", NULL));
-		/* Override annoying defaults... */
-		xsettings_manager_set_int(xsettings_manager, "Gtk/CanChangeAccels", 1);
-		xsettings_manager_set_string(xsettings_manager,
-						"Gtk/KeyThemeName", "Emacs");
-	}
-
-	xsettings_manager_notify(xsettings_manager);
 }
