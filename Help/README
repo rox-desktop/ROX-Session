@@ -164,9 +164,16 @@ Every process has an error stream that it can write to. All processes run
 by the Login script have their standard error output connected to
 ROX-Session's logging system.
 
-These messages are displayed in a popup window for five seconds, as well
-as being copied to ROX-Session's own standard error (where it often ends
-up in the file ~/.xsession-errors).
+These messages are displayed directly on the screen for five seconds, as well
+as being copied to ROX-Session's own standard error (where it often ends up in
+the file ~/.xsession-errors).
+
+Click the left mouse button on the messages to hide them (until the next
+message is produced). Click the right mouse button to open a window showing
+recent messages (new messages appear here instead of being shown directly on
+the screen). You can also open this window by running ROX-Session again and
+using Preferences to show the Options window. There is a 'Show message log'
+button in the Messages section.
 
 As well as using this for displaying error messages, you can write other
 things to it too, eg...
@@ -175,6 +182,15 @@ Put:
 	echo Loading Netscape... >&2
 in Netscape's AppRun file to get a message letting you know it's loading,
 etc.
+
+If you don't want to see errors from a program, you can redirect them
+elsewhere:
+
+	prog 2>/dev/null
+
+sends stream 2 ('standard error') to the big bit-bucket in the sky.
+Complaining to the program's author is also a good move, as redirecting errors
+could make you miss something important.
 
 
 Window manager list
