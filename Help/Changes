@@ -2,6 +2,11 @@
 			A very simple session manager
 			by Thomas Leonard
 
+10-Jan-2001
+~~~~~~~~~~~
+Now traps standard error output and displays it overlayed on the
+desktop.
+
 01-Jan-2001
 ~~~~~~~~~~~
 Improved the icon (slightly).

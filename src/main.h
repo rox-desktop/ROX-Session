@@ -12,5 +12,6 @@ extern int number_of_windows;
 
 /* Prototypes */
 int main(int argc, char **argv);
+void login_failure(int error);
 
 #endif /* _MAIN_H */

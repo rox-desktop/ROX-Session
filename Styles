@@ -1,0 +1,9 @@
+style "log_text"
+{
+  fg[NORMAL] = { 0.3, 0.8, 0.3 }
+  bg[NORMAL] = { 0.0, 0.0, 0.0 }
+  font = "fixed"
+  #font = "linux8x16"
+}
+
+class "GtkDrawingArea" style "log_text"

@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <fcntl.h>
 #include <errno.h>
 
 #include <gtk/gtk.h>
@@ -40,6 +41,7 @@
 #endif
 
 #include "main.h"
+#include "log.h"
 #include "gui_support.h"
 #include "choices.h"
 
@@ -90,6 +92,13 @@ static GtkWidget *ipc_window;
 
 static guchar *app_dir;
 
+/* The pid of the Login script. -1 if terminated. If this process
+ * exits with a non-zero exit status then we assume the session went
+ * wrong and try to fix it.
+ */
+static pid_t	login_child = -1;
+int		login_error = 0;	/* Non-zero => error */
+
 /* Static prototypes */
 static GdkWindow *get_existing_session();
 static gboolean get_session(GdkWindow *window, Window *r_xid);
@@ -100,12 +109,43 @@ static gboolean session_prop_touched(GtkWidget *window,
 static int become_default_session(void);
 static void run_login_script(void);
 
+/* This is called as a signal handler */
+static void child_died(int signum)
+{
+	int	child;
+	int	status;
+
+	/* Find out which children exited and allow them to die */
+	while (1)
+	{
+		child = waitpid(-1, &status, WNOHANG);
+
+		if (child == 0 || child == -1)
+			return;
+
+		if (child == login_child &&
+			(WIFEXITED(status) == 0 || WEXITSTATUS(status) != 0))
+		{
+			/* Wake up! Use non-blocking I/O in case the pipe is
+			 * already full (if so, we'll catch the flag later).
+			 */
+			login_child = -1;
+			login_error = WIFEXITED(status) == 0
+						? -1	/* Signal death */
+						: WEXITSTATUS(status);
+			fcntl(STDERR_FILENO, O_NONBLOCK, TRUE);
+			write(STDERR_FILENO, "\n", 1);
+		}
+	}
+}
+
 int main(int argc, char **argv)
 {
 	GdkWindowPrivate	*window;
 	GdkWindow		*existing_session_window;
 	struct sigaction	act;
 	gboolean		wait_mode = FALSE;
+	guchar			*rc_file;
 
 	app_dir = g_strdup(getenv("APP_DIR"));
 
@@ -157,6 +197,10 @@ int main(int argc, char **argv)
 		}
 	}
 
+	rc_file = g_strconcat(app_dir, "/Styles", NULL);
+	gtk_rc_parse(rc_file);
+	g_free(rc_file);
+
 	rox_session_window = gdk_atom_intern("_ROX_SESSION_WINDOW2", FALSE);
 
 	existing_session_window = get_existing_session();
@@ -194,14 +238,16 @@ int main(int argc, char **argv)
 			XA_WINDOW, 32, GDK_PROP_MODE_REPLACE,
 			(guchar *) &window->xwindow, 1);
 
-	run_login_script();
-	
-	/* Ignore dying children */
-	act.sa_handler = SIG_IGN;
+	/* Let child processes die */
+	act.sa_handler = child_died;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_NOCLDSTOP;
 	sigaction(SIGCHLD, &act, NULL);
-	
+
+	log_init();		/* Capture standard error */
+
+	run_login_script();
+
 	gtk_main();
 
 	return EXIT_SUCCESS;
@@ -327,20 +373,49 @@ static int become_default_session(void)
 	return EXIT_SUCCESS;
 }
 
-static void run_login_script(void)
+void login_failure(int error)
 {
-	pid_t	child;
-	guchar	*login;
-	guchar	*error = NULL;
-	int	status;
+	GString		*message;
+	guchar		*login;
 
 	login = choices_find_path_load("Login", "ROX-Session");
 	if (!login)
 		login = g_strconcat(app_dir, "/Login", NULL);
 
-	child = fork();
+	message = g_string_new(NULL);
 
-	switch (child)
+	if (error < 0)
+		g_string_sprintf(message, _("Your login script (%s) died"),
+					login);
+	else
+		g_string_sprintf(message, _("Your login script (%s) exited "
+					    "with exit status %d"),
+					login, error);
+
+	g_string_append(message,
+		_(". I'll give you an xterm to try and fix it. ROX-Session "
+		  "itself is running fine though - run me a second time "
+		  "to logout."));
+
+	g_free(login);
+	report_error(PROJECT, message->str);
+	g_string_free(message, TRUE);
+
+	system("xterm&");
+}
+
+static void run_login_script(void)
+{
+	guchar	*login;
+	guchar	*error = NULL;
+
+	login = choices_find_path_load("Login", "ROX-Session");
+	if (!login)
+		login = g_strconcat(app_dir, "/Login", NULL);
+
+	login_child = fork();
+
+	switch (login_child)
 	{
 		case -1:
 			error = g_strdup(
@@ -351,35 +426,6 @@ static void run_login_script(void)
 			g_warning("exec(%s) failed: %s\n",
 					login, g_strerror(errno));
 			_exit(1);
-	}
-
-	if (waitpid(child, &status, 0) != child)
-	{
-		error = g_strdup_printf(_("waitpid(%ld) failed: %s"),
-					(long) child, g_strerror(errno));
-	}
-	else if ((!WIFEXITED(status)) || WEXITSTATUS(status) != 0)
-	{
-		error = g_strdup_printf(
-			_("Your Login script (%s) returned an error code (%d)"),
-			  login, WEXITSTATUS(status));
-	}
-
-	if (error)
-	{
-		guchar	*message;
-
-		message = g_strconcat(error,
-		_(". I'll give you an xterm to try and fix it. ROX-Session "
-		  "itself is running fine though - run me a second time "
-		  "to logout."), NULL);
-
-		report_error(PROJECT, message);
-
-		g_free(message);
-		g_free(error);
-
-		system("xterm&");
 	}
 
 	g_free(login);
