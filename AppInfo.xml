@@ -3,7 +3,7 @@
   <Summary>Sets up your desktop when you log in, and lets you log out again</Summary>
   <About>
     <Purpose>Session Manager</Purpose>
-    <Version>0.1.13 (30-Jan-2002)</Version>
+    <Version>0.1.14 PREVIEW</Version>
     <Author>Thomas Leonard</Author>
     <License>GNU General Public License</License>
     <Homepage>http://rox.sourceforge.net</Homepage>

@@ -45,6 +45,7 @@
 #include "gui_support.h"
 #include "choices.h"
 #include "wm.h"
+#include "xsettings-manager.h"
 
 #define COPYING								\
 	     N_("Copyright (C) 2000 Thomas Leonard.\n"			\
@@ -88,6 +89,9 @@ static struct option long_opts[] =
 };
 #endif
 
+/* See http://www.freedesktop.org/standards/xsettings/xsettings.html */
+XSettingsManager *manager = NULL;
+
 static GdkAtom rox_session_window;
 static GtkWidget *ipc_window;
 
@@ -109,6 +113,11 @@ static gboolean session_prop_touched(GtkWidget *window,
 				     gpointer data);
 static int become_default_session(void);
 static void run_login_script(void);
+
+static void terminate_xsettings(void *data)
+{
+	g_warning("ROX-Session is no longer the XSETTINGS manager!");
+}
 
 /* This is called as a signal handler */
 static void child_died(int signum)
@@ -258,6 +267,13 @@ int main(int argc, char **argv)
 	act.sa_flags = SA_NOCLDSTOP;
 	sigaction(SIGCHLD, &act, NULL);
 
+	if (xsettings_manager_check_running(gdk_display, DefaultScreen(gdk_display)))
+		report_error("ROX-Session", "An XSETTINGS manager is already running. "
+				"Not taking control of XSETTINGS...");
+	else
+		manager = xsettings_manager_new(gdk_display, DefaultScreen(gdk_display),
+					        terminate_xsettings, NULL);
+
 	log_init();		/* Capture standard error */
 
 	start_window_manager();
@@ -265,6 +281,9 @@ int main(int argc, char **argv)
 	run_login_script();
 
 	gtk_main();
+
+	if (manager)
+		xsettings_manager_destroy(manager);
 
 	return EXIT_SUCCESS;
 }
