@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+16-May-2001
+~~~~~~~~~~~
+Moved to new AppInfo.xml system.
+
 23-Mar-2001 (Release 0.1.12)
 ~~~~~~~~~~~
 When the window manager quits, the choice box defaults to the last used
