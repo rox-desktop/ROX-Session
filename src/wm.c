@@ -45,6 +45,8 @@ static GtkWidget	*choice_box = NULL;
 
 pid_t	wm_pid = -1;
 
+static guchar *wm_command = NULL;
+
 /* Static prototypes */
 static void load_wm_list(void);
 static void choose_wm(void);
@@ -139,7 +141,7 @@ static void choose_wm(void)
 	gtk_window_set_default(GTK_WINDOW(choice_box), button);
 	gtk_signal_connect(GTK_OBJECT(button), "clicked",
 			GTK_SIGNAL_FUNC(ok_clicked), GTK_COMBO(combo)->entry);
-	
+
 	button = gtk_button_new_with_label("Cancel");
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
@@ -148,6 +150,10 @@ static void choose_wm(void)
 			GTK_OBJECT(choice_box));
 
 	gtk_combo_set_popdown_strings(GTK_COMBO(combo), wms);
+
+	if (wm_command)
+		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(combo)->entry),
+				wm_command);
 	
 	gtk_widget_show_all(choice_box);
 }
@@ -223,6 +229,10 @@ static gint ok_clicked(GtkWidget *button, GtkEditable *entry)
 static void run_wm(guchar *command)
 {
 	g_return_if_fail(wm_pid == -1);
+
+	if (wm_command)
+		g_free(wm_command);
+	wm_command = g_strdup(command);
 
 	wm_pid = fork();
 	
