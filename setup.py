@@ -146,15 +146,13 @@ def setup_login():
 		desktop_path = os.path.join(session_dir, 'rox.desktop')
 		session_path = '/usr/local/sbin/rox-session'
 
-		proxy = su.create_su_proxy('I need permission to create these files:\n' +
+		root = su.create_su_proxy('I need permission to create these files:\n' +
 					   desktop_path + '\n' +
 					   session_path)
-		root = proxy.root
 		
 		q = root.open(desktop_path, 'w')
-		yield q.blocker
-
-		stream = q.dequeue_last()
+		yield q
+		stream = q.result
 		
 		q = root.write(stream, """[Desktop Entry]\n
 	Encoding=UTF-8
@@ -163,28 +161,23 @@ def setup_login():
 	Exec=/usr/local/sbin/rox-session
 	Type=Application
 	""")
-		yield q.blocker
-		q.dequeue_last()
+		yield q
 
 		q = root.close(stream)
-		yield q.blocker
-		q.dequeue_last()
+		yield q
 
 		q = root.open(session_path, 'w')
-		yield q.blocker
-		stream = q.dequeue_last()
+		yield q
+		stream = q.result
 
 		q = root.write(stream, get_session_script())
-		yield q.blocker
-		q.dequeue_last()
+		yield q
 
 		q = root.close(stream)
-		yield q.blocker
-		q.dequeue_last()
+		yield q
 
 		q = root.chmod(session_path, 0755)
-		yield q.blocker
-		q.dequeue_last()
+		yield q
 		
 		rox.info(_("OK, now logout by your usual method, and choose ROX from "
 			"the session menu on your login screen just after entering your "
