@@ -29,10 +29,10 @@ cat > .xsession << EOF
 
 # Remove the # from the start of the next 2 lines if you want anti-aliased
 # fonts (in applications which support them).
-#export GDK_USE_XFT=1
-#export QT_XFT=1
+#GDK_USE_XFT=1; export GDK_USE_XFT
+#QT_XFT=1; export QT_XFT
 
-if [ -d "~/bin" ]; then
+if [ -d "\${HOME}/bin" ]; then
 	PATH="\${HOME}/bin:\${PATH}"
 	export PATH
 fi
