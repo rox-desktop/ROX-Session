@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rox-session-ja\n"
-"POT-Creation-Date: 2002-12-14 14:42+0000\n"
-"PO-Revision-Date: 2003-05-03 20:13+0900\n"
+"POT-Creation-Date: 2003-04-17 12:19+0100\n"
+"PO-Revision-Date: 2003-05-22 20:13+0900\n"
 "Last-Translator: UTUMI Hirosi\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,65 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.1\n"
 
-msgid "(10x)"
-msgstr "(10倍速)"
-
-msgid "(saving disabled by CHOICESPATH)"
-msgstr "(saving disabled by CHOICESPATH)"
-
-msgid "(slow)"
-msgstr "(遅い)"
-
-msgid ""
-". I'll give you an xterm to try and fix it. ROX-Session itself is running "
-"fine though - run me a second time to logout."
-msgstr ""
-". I'll give you an xterm to try and fix it. ROX-Session itself is running "
-"fine though - run me a second time to logout."
-
-msgid "Acceleration (none)"
-msgstr "加速(なし)"
-
-msgid "Acceleration threshold"
-msgstr "加速を開始する速度"
-
-msgid ""
-"All programs have a 'standard error stream' which they can write text "
-"messages to. ROX-Session creates such a connection between itself and every "
-"program it starts. It displays all the messages it collects this way briefly "
-"on screen."
-msgstr ""
-"全てのプログラムには「標準エラー出力」があり、メッセージを出力しています。"
-"ROX-Sessionは個々のプログラムが起動するたびそのプログラムに接続し、"
-"それらのメッセージを画面に出力します。"
-
-msgid "Allow keybindings to be changed from menus"
-msgstr "メニューでキー割り当てを変更できるようにする"
-
-msgid "Attempting to enter suspend mode..."
-msgstr "サスペンドモードに入ります.."
-
-msgid "Attempting to halt the system..."
-msgstr "システムを停止します.."
-
-msgid "Attempting to restart the system..."
-msgstr "システムを再起動します.."
-
-msgid "Blinking cursor"
-msgstr "カーソルの点滅"
-
-msgid ""
-"Choices will be saved as:\n"
-"%s"
-msgstr ""
-"選択を以下に保存します:\n"
-"%s"
-
-msgid ""
-"Controls how fast you have to move the pointer before the acceleration "
-"(below) kicks in."
-msgstr "マウスの移動速度がこの速さを超えたら加速を開始する"
-
+#: main.c:57
 msgid ""
 "Copyright (C) 2002 Thomas Leonard.\n"
 "ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
@@ -91,117 +33,106 @@ msgstr ""
 "UTUMI Hirosi, 2003\n"
 "\n"
 
-msgid "Cursor"
-msgstr "カーソル"
+#: main.c:66
+msgid "Try `ROX-Session/AppRun --help' for more information.\n"
+msgstr "詳しくは`ROX-Session/AppRun --help'をご覧ください\n"
 
-msgid "Danish"
-msgstr "Danish"
+#: main.c:69
+msgid "Try `ROX-Session/AppRun -h' for more information.\n"
+msgstr "詳しくは`ROX-Session/AppRun -h'をご覧ください\n"
 
-msgid "Default window manager"
-msgstr "デフォルトのウィンドウマネージャ"
-
-msgid "Display"
-msgstr "表示"
-
-msgid "Double click!!"
-msgstr "ダブルクリック"
-
-msgid "Double-click here to test mouse"
-msgstr "ここをダブルクリックしてマウスをテスト"
-
-msgid "Double-click speed: (fast)"
-msgstr "ダブルクリックの速度: (速い)"
-
-msgid "Dutch"
-msgstr "Dutch"
-
-msgid "English (no translation)"
-msgstr "English (no translation)"
-
-msgid ""
-"Error loading window manager list '%s':\n"
-"%s"
-msgstr ""
-"Error loading window manager list '%s':\n"
-"%s"
-
-msgid "Error saving %s: %s"
-msgstr "Error saving %s: %s"
-
-msgid ""
-"Failed to run login script:\n"
-"%s"
-msgstr ""
-"Failed to run login script:\n"
-"%s"
-
-msgid ""
-"Failed to start window manager:\n"
-"%s\n"
-"Please choose a new window manager and try again."
-msgstr ""
-"Failed to start window manager:\n"
-"%s\n"
-"Please choose a new window manager and try again."
-
-msgid "German"
-msgstr "German"
-
-msgid "Halt command:"
-msgstr "停止するコマンド:"
-
-msgid ""
-"If your system uses APM for power management, try 'apm -s' or similar. ACPI "
-"users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
-"need a kernel with the correct system compiled in and enabled."
-msgstr ""
-"If your system uses APM for power management, try 'apm -s' or similar. ACPI "
-"users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
-"need a kernel with the correct system compiled in and enabled."
-
-msgid "Invalid .gmo translation file (GNU magic number not found): %s"
-msgstr "Invalid .gmo translation file (GNU magic number not found): %s"
-
-msgid "Invalid .gmo translation file (too short): %s"
-msgstr "Invalid .gmo translation file (too short): %s"
-
-msgid "Keyboard"
-msgstr "キーボード"
-
-msgid "Language"
-msgstr "言語"
-
-msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
-msgstr "Likely commands for halting are 'halt' and 'shutdown -t now'"
-
-msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
-msgstr "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
-
-msgid "Logout"
-msgstr "ログアウト"
-
-msgid "Messages"
-msgstr "メッセージ"
-
-msgid "Mouse"
-msgstr "マウス"
-
+#: main.c:71
 msgid ""
 "NOTE: Your system does not support long options - \n"
 "you must use the short versions instead.\n"
 "\n"
 msgstr ""
-"NOTE: Your system does not support long options - \n"
-"you must use the short versions instead.\n"
+"注意: お使いのシステムはロングオプションをサポートしていません - \n"
+"ショートオプションを使ってください\n"
 "\n"
 
+#: main.c:75
 msgid ""
-"No window manager is currently selected.\n"
-"Please choose a window manager now."
+"Usage: ROX-Session/AppRun [OPTION]...\n"
+"If ROX-Session is already managing your session then display\n"
+"the logout window. If not, offer to make ROX-Session your\n"
+"session manager for future sessions.\n"
+"\n"
+"  -h, --help\t\tdisplay this help and exit\n"
+"  -v, --version\t\tdisplay the version information and exit\n"
+"  -w, --wait\t\tsimply wait until run again (internal use)\n"
+"\n"
+"The latest version can be found at:\n"
+"\thttp://rox.sourceforge.net\n"
+"\n"
+"Report bugs to <tal197@users.sourceforge.net>.\n"
 msgstr ""
-"ウィンドウマネージャを選んでいません。\n"
-"まず選んでください。"
+"使いかた: ROX-Session/AppRun [OPTION]...\n"
+"If ROX-Session is already managing your session then display\n"
+"the logout window. If not, offer to make ROX-Session your\n"
+"session manager for future sessions.\n"
+"\n"
+"  -h, --help\t\tdisplay this help and exit\n"
+"  -v, --version\t\tdisplay the version information and exit\n"
+"  -w, --wait\t\tsimply wait until run again (internal use)\n"
+"\n"
+"The latest version can be found at:\n"
+"\thttp://rox.sourceforge.net\n"
+"\n"
+"Report bugs to <tal197@users.sourceforge.net>.\n"
 
+#: main.c:206
+msgid "ROX-Session is already managing your session - can't manage it twice!"
+msgstr "ROX-Sessionは既にセッションを管理しています - ２重管理はできません"
+
+#: main.c:333
+msgid "Would you like to make ROX-Session your session manager?"
+msgstr "ROX-Sessionをセッションマネージャにしますか？"
+
+#: main.c:352
+#, c-format
+msgid ""
+"Oh dear; it didn't work and I don't know why!\n"
+"Error was:\n"
+"%s\n"
+"Make sure your .xsession and .xinitrc files are OK, then report the problem "
+"to tal197@users.sourceforge.net - thanks"
+msgstr ""
+"Oh dear; it didn't work and I don't know why!\n"
+"Error was:\n"
+"%s\n"
+"Make sure your .xsession and .xinitrc files are OK, then report the problem "
+"to tal197@users.sourceforge.net - thanks"
+
+#: main.c:364
+msgid ""
+"OK, now logout by your usual method and when you log in again, I should be "
+"your session manager.\n"
+"You can edit your .xsession file to customise things..."
+msgstr ""
+"OK, now logout by your usual method and when you log in again, I should be "
+"your session manager.\n"
+"You can edit your .xsession file to customise things..."
+
+#: main.c:387
+#, c-format
+msgid "Your login script (%s) died"
+msgstr "Your login script (%s) died"
+
+#: main.c:390
+#, c-format
+msgid "Your login script (%s) exited with exit status %d"
+msgstr "Your login script (%s) exited with exit status %d"
+
+#: main.c:395
+msgid ""
+". I'll give you an xterm to try and fix it. ROX-Session itself is running "
+"fine though - run me a second time to logout."
+msgstr ""
+". I'll give you an xterm to try and fix it. ROX-Session itself is running "
+"fine though - run me a second time to logout."
+
+#: i18n.c:38
 msgid ""
 "Note that you must save your choices, logout and log back in again before "
 "the new settings will take full effect."
@@ -209,59 +140,96 @@ msgstr ""
 "新しい設定を有効にするには、設定を保存して再ログインしてください。\n"
 "日本語翻訳: UTUMI Hirosi, 2003"
 
-msgid "Number of seconds to display each message for"
-msgstr "メッセージを表示する秒数"
-
-msgid ""
-"OK, now logout by your usual method and when you log in again, I should be "
-"your session manager.\n"
-"You can edit your .xsession file to customise things..."
-msgstr ""
-"OK, now logout by your usual method and when you log in again, I should be "
-"your session manager.\n"
-"You can edit your .xsession file to customise things..."
-
-msgid ""
-"Oh dear; it didn't work and I don't know why!\n"
-"Error was:\n"
-"%s\n"
-"Make sure your .xsession and .xinitrc files are OK, then report the problem "
-"to tal197@users.sourceforge.net - thanks"
-msgstr ""
-"Oh dear; it didn't work and I don't know why!\n"
-"Error was:\n"
-"%s\n"
-"Make sure your .xsession and .xinitrc files are OK, then report the problem "
-"to tal197@users.sourceforge.net - thanks"
-
-msgid "On-screen message log"
-msgstr "出力されたメッセージのログ"
-
-msgid "Options"
-msgstr "オプション"
-
-msgid "Power"
-msgstr "電源"
-
-msgid "ROX-Session is already managing your session - can't manage it twice!"
-msgstr "ROX-Session is already managing your session - can't manage it twice!"
-
-msgid "ROX-Session message log"
-msgstr "ROX-Session message log"
-
-msgid ""
-"ROX-Session not managing XSettings, so changes will have no immediate "
-"effect..."
-msgstr ""
-"ROX-Session not managing XSettings, so changes will have no immediate "
-"effect..."
-
-msgid "ROX-Session: read(stderr) failed!\n"
-msgstr "ROX-Session: read(stderr) failed!\n"
-
+#: log.c:365
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: write to stderr failed!\n"
 
+#: log.c:389
+msgid "ROX-Session: read(stderr) failed!\n"
+msgstr "ROX-Session: read(stderr) failed!\n"
+
+#: log.c:413
+msgid "ROX-Session message log"
+msgstr "ROX-Sessionのメッセージログ"
+
+#: log.c:467
+msgid "Show message log"
+msgstr "メッセージのログを表示"
+
+#: options.c:464 options.c:1187
+msgid "(use default)"
+msgstr "(デフォルトを使う)"
+
+#: options.c:735
+#, c-format
+msgid "Internal error: %s unreadable"
+msgstr "内部エラー: %s unreadable"
+
+#: options.c:846
+msgid "Options"
+msgstr "オプション"
+
+#: options.c:891
+msgid "_Revert"
+msgstr "戻す(_R)"
+
+#: options.c:897
+msgid "Restore all choices to how they were when the Options box was opened."
+msgstr "Restore all choices to how they were when the Options box was opened."
+
+#: options.c:912
+#, c-format
+msgid ""
+"Choices will be saved as:\n"
+"%s"
+msgstr ""
+"選択を以下に保存します:\n"
+"%s"
+
+#: options.c:920
+msgid "(saving disabled by CHOICESPATH)"
+msgstr "(saving disabled by CHOICESPATH)"
+
+#: options.c:1093
+#, c-format
+msgid "Error saving %s: %s"
+msgstr "Error saving %s: %s"
+
+#: rox_gettext.c:93
+#, c-format
+msgid "Invalid .gmo translation file (too short): %s"
+msgstr "不正な.gmo翻訳ファイル(短すぎます): %s"
+
+#: rox_gettext.c:106
+#, c-format
+msgid "Invalid .gmo translation file (GNU magic number not found): %s"
+msgstr "不正な.gmo翻訳ファイル(GNU magic number not found): %s"
+
+#: session.c:276
+msgid "_Halt"
+msgstr "停止(_H)"
+
+#: session.c:277
+msgid "Attempting to halt the system..."
+msgstr "システムを停止します.."
+
+#: session.c:280
+msgid "_Reboot"
+msgstr "再起動(_R)"
+
+#: session.c:281
+msgid "Attempting to restart the system..."
+msgstr "システムを再起動します.."
+
+#: session.c:284
+msgid "_Sleep"
+msgstr "スリープ(_S)"
+
+#: session.c:285
+msgid "Attempting to enter suspend mode..."
+msgstr "サスペンドモードに入ります.."
+
+#: session.c:290
 msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
@@ -269,176 +237,461 @@ msgstr ""
 "ログアウトしますか？\n"
 "(保存していないデータは消失します)"
 
-msgid "Reboot command:"
-msgstr "再起動するコマンド:"
-
-msgid "Restore all choices to how they were when the Options box was opened."
-msgstr "Restore all choices to how they were when the Options box was opened."
-
+#: session.c:300
 msgid "Session Settings"
 msgstr "セッションの設定"
 
-msgid "Shortcuts"
-msgstr "ショートカット"
+#: session.c:307
+msgid "Logout"
+msgstr "ログアウト"
 
-msgid "Show message log"
-msgstr "メッセージのログを表示"
+#: session.c:360
+#, c-format
+msgid ""
+"Failed to run login script:\n"
+"%s"
+msgstr ""
+"ログインスクリプトの実行に失敗しました:\n"
+"%s"
 
-msgid "Show messages for:"
-msgstr "メッセージの表示時間:"
-
+#: session.c:421
 msgid "Single click!"
 msgstr "シングルクリック"
 
-msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
-msgstr "入力欄のカーソルが点滅する速度(点滅が有効な場合)"
+#: session.c:423
+msgid "Double click!!"
+msgstr "ダブルクリック"
 
-msgid "Speed: (fast)"
-msgstr "速度: (速い)"
+#: session.c:425
+msgid "Triple click!!!"
+msgstr "トリプルクリック"
 
-msgid "Start window manager"
-msgstr "ウィンドウマネージャを起動"
+#: session.c:434
+msgid "Double-click here to test mouse"
+msgstr "ここをダブルクリックしてマウスをテスト"
 
-msgid "Suspend command:"
-msgstr "サスペンドするコマンド:"
-
+#: session.c:587
 msgid ""
-"The window manager is a program which puts title bars and frames on windows. "
-"It allows you to move windows around, resize them, close them and so on."
+"ROX-Session not managing XSettings, so changes will have no immediate "
+"effect..."
 msgstr ""
-"ウィンドウマネージャはウィンドウの周りに枠とタイトルバーを表示します。"
-"アプリケーションをリサイズしたり閉じたりできるようになります。"
+"ROX-Session not managing XSettings, so changes will have no immediate "
+"effect..."
 
+#: session.c:674
+msgid "ROX-Filer has terminated (crashed?).You should probably try to restart it."
+msgstr "ROX-Filerが終了しました(クラッシュ？)。再起動してみてください"
+
+#: session.c:676
+msgid "Do nothing"
+msgstr "何もしない"
+
+#: session.c:677
+msgid "Run Xterm"
+msgstr "Xtermを実行"
+
+#: session.c:678
+msgid "_Restart"
+msgstr "再起動(_R)"
+
+#: session.c:703
+#, c-format
+msgid ""
+"Failed to run '%s':\n"
+"%s"
+msgstr ""
+"'%s'の実行に失敗しました:\n"
+"%s"
+
+#: wm.c:74
+msgid ""
+"Your window manager has crashed (or quit). Please restart it, or choose "
+"another window manager."
+msgstr ""
+"お使いのウィンドウマネージャがクラッシュ(もしくは終了)しました。再起動するか"
+"別のウィンドウマネージャを選んでください"
+
+#: wm.c:129
+#, c-format
+msgid ""
+"Error loading window manager list '%s':\n"
+"%s"
+msgstr ""
+"ウィンドウマネージャのリスト'%s'をロード中にエラー:\n"
+"%s"
+
+#: wm.c:150
 msgid ""
 "The window manager which ROX-Session started for you is still running. Quit "
 "it before starting a new one."
 msgstr ""
-"Der von ROX-Session gestartete Fenstermanager lÃ€uft noch. Beenden Sie Ihn "
-"bevor Sie einen neuen starten."
+"ROX-Sessionが起動しようとしたウィンドウマネージャは実行中です。終了したのち"
+"新たに起動してください"
 
+#: wm.c:158
+msgid ""
+"No window manager is currently selected.\n"
+"Please choose a window manager now."
+msgstr ""
+"ウィンドウマネージャを選んでいません。\n"
+"まず選んでください。"
+
+#: wm.c:175
+#, c-format
+msgid ""
+"Failed to start window manager:\n"
+"%s\n"
+"Please choose a new window manager and try again."
+msgstr ""
+"ウィンドウマネージャの起動に失敗しました:\n"
+"%s\n"
+"別のものを選んでやりなおしてください。"
+
+#: wm.c:252
+msgid "Start window manager"
+msgstr "ウィンドウマネージャを起動"
+
+#: tips:1 tips:3
+msgid "Window manager"
+msgstr "ウィンドウマネージャ"
+
+#: tips:2
+msgid ""
+"The window manager is a program which puts title bars and frames on windows. "
+"It allows you to move windows around, resize them, close them and so on."
+msgstr ""
+"ウィンドウマネージャはウィンドウの周りに枠とタイトルバーを表示します。アプリ"
+"ケーションをリサイズしたり閉じたりできるようになります。"
+
+#: tips:4
+msgid "Default window manager"
+msgstr "デフォルトのウィンドウマネージャ"
+
+#: tips:5
+msgid "Translation"
+msgstr "翻訳"
+
+#: tips:6
+msgid "Language"
+msgstr "言語"
+
+#: tips:7
+msgid "Danish"
+msgstr "Danish"
+
+#: tips:8
+msgid "Dutch"
+msgstr "Dutch"
+
+#: tips:9
+msgid "English (no translation)"
+msgstr "English (no translation)"
+
+#: tips:10
+msgid "German"
+msgstr "German"
+
+#: tips:11
+msgid "Russian"
+msgstr "Russian"
+
+#: tips:12
+msgid "Use the LANG environment variable"
+msgstr "LANG変数から読み取る"
+
+#: tips:13
+msgid "Display"
+msgstr "表示"
+
+#: tips:14
+msgid "Text"
+msgstr "テキスト"
+
+#: tips:15
+msgid "Default font"
+msgstr "デフォルトのフォント"
+
+#: tips:16 tips:17
+msgid "The font used by Gtk+-2.0 applications"
+msgstr "Gtk+-2.0のアプリケーションで使用するフォント"
+
+#: tips:18
+msgid "Desktop background"
+msgstr "デスクトップの背景"
+
+#: tips:19 tips:20
+msgid ""
+"Bring up the menu over the desktop background to set the backdrop image or "
+"change the pinboard options."
+msgstr "背景を変更するには、デスクトップで右クリックして'背景'を選んでください。"
+
+#: tips:21
+msgid "Theme"
+msgstr "テーマ"
+
+#: tips:22
+msgid "GTK theme"
+msgstr "GTKのテーマ"
+
+#: tips:23
+msgid "Mouse"
+msgstr "マウス"
+
+#: tips:24
+msgid "Motion"
+msgstr "移動"
+
+#: tips:25
+msgid "Acceleration threshold"
+msgstr "加速を開始する速度"
+
+#: tips:26
+msgid ""
+"Controls how fast you have to move the pointer before the acceleration "
+"(below) kicks in."
+msgstr "マウスの移動速度がこの速さを超えたら加速を開始する"
+
+#: tips:27
+msgid "Acceleration (none)"
+msgstr "加速(なし)"
+
+#: tips:28
+msgid "(10x)"
+msgstr "(10倍速)"
+
+#: tips:29
+msgid ""
+"When the pointer is moved quickly more than the threshold number of pixels, "
+"its speed is multiplied by this number."
+msgstr "通常速度の何倍速でマウスを移動するか"
+
+#: tips:30
+msgid "DnD Drag Threshold"
+msgstr "ドラッグを開始するまでの時間"
+
+#: tips:31 tips:32
+msgid ""
+"Controls how far you have to drag the mouse to start a drag-and-drop "
+"operation.\n"
+"Set this high if you find yourself dragging things unintentionally."
+msgstr ""
+"マウスをドラッグしてドラッグ＆ドロップの操作を開始するまでの待ち時間。\n"
+"間違ってドラッグしてしまうことがある場合は、この時間を長めに設定してください"
+
+#: tips:33
+msgid "Buttons"
+msgstr "ボタン"
+
+#: tips:34
+msgid "Double-click speed: (fast)"
+msgstr "ダブルクリックの速度: (速い)"
+
+#: tips:35 tips:41
+msgid "(slow)"
+msgstr "(遅い)"
+
+#: tips:36
+msgid ""
+"Time allowed between the two clicks that make up a double click. Make this "
+"bigger if you have trouble double-clicking fast enough; set it smaller if "
+"two single-clicks sometimes get treated as a double click."
+msgstr ""
+"２回クリックするまでの時間を設定します。ダブルクリックに必要な時間が短すぎると"
+"思う場合は長くしてください。"
+
+#: tips:37
+msgid "Keyboard"
+msgstr "キーボード"
+
+#: tips:38
+msgid "Cursor"
+msgstr "カーソル"
+
+#: tips:39
+msgid "Blinking cursor"
+msgstr "カーソルの点滅"
+
+#: tips:40
+msgid "Speed: (fast)"
+msgstr "速度: (速い)"
+
+#: tips:42 tips:43
+msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
+msgstr "入力欄のカーソルが点滅する速度(点滅が有効な場合)"
+
+#: tips:44
+msgid "Shortcuts"
+msgstr "ショートカット"
+
+#: tips:45
+msgid "Allow keybindings to be changed from menus"
+msgstr "メニューでキー割り当てを変更できるようにする"
+
+#: tips:46
+msgid ""
+"When this is on, you can set up a short-cut for a menu item by holding to "
+"pointer over the menu item and pressing the key. If off, short-cuts cannot "
+"be changed."
+msgstr ""
+"これをオンにすると、アイコンを右クリックしてメニューからショートカットを"
+"設定できるようになります"
+
+#: tips:47 tips:48 tips:49
+msgid ""
+"You can set global shortcuts (which work from any\n"
+"application) by assigning them to icons on a ROX-Filer pinboard or panel."
+msgstr ""
+"アプリケーションへのショートカットキーを設定できます。\n"
+"ROX-Filerのデスクトップやパネルにあるアイコンを右クリックして設定してくださ"
+"い。"
+
+#: tips:50
+msgid "Messages"
+msgstr "メッセージ"
+
+#: tips:51
+msgid ""
+"All programs have a 'standard error stream' which they can write text "
+"messages to. ROX-Session creates such a connection between itself and every "
+"program it starts. It displays all the messages it collects this way briefly "
+"on screen."
+msgstr ""
+"全てのプログラムには「標準エラー出力」があり、メッセージを出力しています。"
+"ROX-Sessionは個々のプログラムが起動するたびそのプログラムに接続し、それらの"
+"メッセージを画面に出力します。"
+
+#: tips:52
+msgid "On-screen message log"
+msgstr "出力されたメッセージのログ"
+
+#: tips:53
+msgid ""
+"You can click button-3 on an error message to switch to the log window "
+"display, or use this button:"
+msgstr ""
+"エラーメッセージの上で右ボタンをクリックするとログウィンドウに変わります。"
+"もしくはこのボタンをクリック:"
+
+#: tips:54
+msgid "Show messages for:"
+msgstr "メッセージの表示時間:"
+
+#: tips:55
+msgid "seconds"
+msgstr "秒"
+
+#: tips:56 tips:57 tips:58
+msgid "Number of seconds to display each message for"
+msgstr "メッセージを表示する秒数"
+
+#: tips:59 tips:60
+msgid "Power"
+msgstr "電源"
+
+#: tips:61
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
 "use xsu or sudo with the command if your system doesn't give normal users "
 "permission to shutdown the system."
 msgstr ""
-"これらのコマンドをログアウト時に使用します。システムによってコマンドの"
-"設定は様々です。一般ユーザにシャットダウンの権限がない場合は、xsuや"
-"sudoなどのコマンドが必要になるでしょう。"
+"これらのコマンドをログアウト時に使用します。システムによってコマンドの設定は"
+"様々です。一般ユーザにシャットダウンの権限がない場合は、xsuやsudoなどのコマン"
+"ドが必要になるでしょう。"
 
+#: tips:62
+msgid "Halt command:"
+msgstr "停止するコマンド:"
+
+#: tips:63
+msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
+msgstr "'halt'や'shutdown -t now'のようなコマンド"
+
+#: tips:64
+msgid "Reboot command:"
+msgstr "再起動するコマンド:"
+
+#: tips:65
+msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
+msgstr "'reboot'や'shutdown -t now -r'のようなコマンド"
+
+#: tips:66
+msgid "Suspend command:"
+msgstr "サスペンドするコマンド:"
+
+#: tips:67 tips:68 tips:69 tips:70
 msgid ""
-"Time allowed between the two clicks that make up a double click. Make this "
-"bigger if you have trouble double-clicking fast enough; set it smaller if "
-"two single-clicks sometimes get treated as a double click."
+"If your system uses APM for power management, try 'apm -s' or similar. ACPI "
+"users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
+"need a kernel with the correct system compiled in and enabled."
 msgstr ""
-"Time allowed between the two clicks that make up a double click. Make this "
-"bigger if you have trouble double-clicking fast enough; set it smaller if "
-"two single-clicks sometimes get treated as a double click."
-
-msgid "Translation"
-msgstr "翻訳"
-
-msgid "Triple click!!!"
-msgstr "トリプルクリック"
-
-msgid "Try `ROX-Session/AppRun --help' for more information.\n"
-msgstr "詳しくは`ROX-Session/AppRun --help'をご覧ください\n"
-
-msgid "Try `ROX-Session/AppRun -h' for more information.\n"
-msgstr "詳しくは`ROX-Session/AppRun -h'をご覧ください\n"
+"If your system uses APM for power management, try 'apm -s' or similar. ACPI "
+"users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
+"need a kernel with the correct system compiled in and enabled."
 
 msgid ""
-"Usage: ROX-Session/AppRun [OPTION]...\n"
-"If ROX-Session is already managing your session then display\n"
-"the logout window. If not, offer to make ROX-Session your\n"
-"session manager for future sessions.\n"
 "\n"
-"  -h, --help\t\tdisplay this help and exit\n"
-"  -v, --version\t\tdisplay the version information and exit\n"
-"  -w, --wait\t\tsimply wait until run again (internal use)\n"
-"\n"
-"The latest version can be found at:\n"
-"\thttp://rox.sourceforge.net\n"
-"\n"
-"Report bugs to <tal197@users.sourceforge.net>.\n"
+"Really logout?\n"
 msgstr ""
-"Usage: ROX-Session/AppRun [OPTION]...\n"
-"If ROX-Session is already managing your session then display\n"
-"the logout window. If not, offer to make ROX-Session your\n"
-"session manager for future sessions.\n"
 "\n"
-"  -h, --help\t\tdisplay this help and exit\n"
-"  -v, --version\t\tdisplay the version information and exit\n"
-"  -w, --wait\t\tsimply wait until run again (internal use)\n"
-"\n"
-"The latest version can be found at:\n"
-"\thttp://rox.sourceforge.net\n"
-"\n"
-"Report bugs to <tal197@users.sourceforge.net>.\n"
+"本当にログアウトしますか？\n"
 
-msgid "Use the LANG environment variable"
-msgstr "LANG変数から読み取る"
+msgid "XSettings"
+msgstr "Xの設定"
 
 msgid ""
-"When the pointer is moved quickly more than the threshold number of pixels, "
-"its speed is multiplied by this number."
-msgstr "通常速度の何倍速でマウスを移動するか"
-
-msgid ""
-"When this is on, you can set up a short-cut for a menu item by holding to "
-"pointer over the menu item and pressing the key. If off, short-cuts cannot "
-"be changed."
+"These settings affect all XSettings-aware programs immediately. Older "
+"programs will not be affected."
 msgstr ""
-"When this is on, you can set up a short-cut for a menu item by holding to "
-"pointer over the menu item and pressing the key. If off, short-cuts cannot "
-"be changed."
+"These settings affect all XSettings-aware programs immediately. Older "
+"programs will not be affected."
 
-msgid "Window manager"
-msgstr "ウィンドウマネージャ"
+msgid "_OK"
+msgstr "_OK"
 
-msgid "Would you like to make ROX-Session your session manager?"
-msgstr "ROX-Sessionをセッションマネージャにしますか？"
+msgid "Could not save options: %s"
+msgstr "オプションを保存できませんでした: %s"
 
-msgid ""
-"You can click button-3 on an error message to switch to the log window "
-"display, or use this button:"
-msgstr ""
-"エラーメッセージの上で第３ボタンをクリックするとログウィンドウに変わります。"
-"もしくはこのボタンをクリック:"
+msgid "Choices saving is disabled by CHOICESPATH variable"
+msgstr "Choices saving is disabled by CHOICESPATH variable"
 
-msgid ""
-"You can set global shortcuts (which work from any\n"
-"application) by assigning them to icons on a ROX-Filer pinboard or panel."
-msgstr ""
-"アプリケーションへのショートカットキーを設定できます。\n"
-"ROX-Filerのデスクトップやパネルにあるアイコンを左クリックして設定して"
-"ください。"
+msgid "help"
+msgstr "ヘルプ"
 
-msgid "Your login script (%s) died"
-msgstr "Your login script (%s) died"
+msgid "version"
+msgstr "バージョン"
 
-msgid "Your login script (%s) exited with exit status %d"
-msgstr "Your login script (%s) exited with exit status %d"
+msgid "wait"
+msgstr "wait"
 
 msgid ""
-"Your window manager has crashed (or quit). Please restart it, or choose "
-"another window manager."
+"APP_DIR environment variable was unset!\n"
+"Use the AppRun script to invoke ROX-Session...\n"
 msgstr ""
-"Your window manager has crashed (or quit). Please restart it, or choose "
-"another window manager."
+"APP_DIR environment variable was unset!\n"
+"Use the AppRun script to invoke ROX-Session...\n"
 
-msgid "_Halt"
-msgstr "停止(_H)"
+msgid "Cancel"
+msgstr "キャンセル"
 
-msgid "_Reboot"
-msgstr "再起動(_R)"
+msgid "Yes"
+msgstr "はい"
 
-msgid "_Revert"
-msgstr "戻す(_R)"
+msgid "No"
+msgstr "いいえ"
 
-msgid "_Sleep"
-msgstr "スリープ(_S)"
+msgid "fork() failed: giving up!"
+msgstr "fork() failed: giving up!"
 
-msgid "seconds"
-msgstr "秒"
+msgid "execl(%s) failed: %s\n"
+msgstr "execl(%s) failed: %s\n"
+
+msgid "waitpid(%ld) failed: %s\n"
+msgstr "waitpid(%ld) failed: %s\n"
+
+msgid "Login"
+msgstr "ログイン"
+
+msgid "exec(%s) failed: %s\n"
+msgstr "exec(%s) failed: %s\n"
 
