@@ -17,6 +17,7 @@
         <radio label='English (no translation)' value='None'/>
 	<radio label='German' value='de'/>
 	<radio label='Italian' value='it'/>
+	<radio label='Spanish' value='es'/>
 	<radio label='Japanese' value='ja'/>
         <radio label='Russian' value='ru'/>
         <radio label='Use the LANG environment variable' value='From LANG'/>
