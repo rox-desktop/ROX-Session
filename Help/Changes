@@ -4,6 +4,11 @@
 
 TODO: Never overwrite .xsession.old
 
+19-Mar-2004
+~~~~~~~~~~~
+Changed the icon to a language-neutral one, based on fire exit signs (Stephen
+Watson).
+
 11-Feb-2004
 ~~~~~~~~~~~
 Added a hint about where to install fonts.
