@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+08-Aug-2004
+~~~~~~~~~~~
+Added support for switching mouse button order for left-handed use (Guido
+Schimmels; code from GNOME).
+
 22-Jul-2004
 ~~~~~~~~~~~
 Compatability fixes: /bin/sh behaviour, DPMS, availability of long options

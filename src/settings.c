@@ -57,6 +57,7 @@ XSettingsManager *xsettings_manager = NULL;
 static xmlDoc *settings_doc = NULL;
 
 static int mouse_accel_factor = 20, mouse_accel_threshold = 10;
+static int mouse_left_handed = 0;
 static gboolean kbd_repeat = TRUE;
 static int kbd_delay = 500, kbd_interval = 30;
 static int dpms_standby_time = 15 * 60;
@@ -155,6 +156,8 @@ static void set_rox_setting(const char *name, const char *value)
 		mouse_accel_threshold = atoi(value);
 	else if (strcmp(name, "AccelFactor") == 0)
 		mouse_accel_factor = atoi(value);
+	else if (strcmp(name, "LeftHanded") == 0)
+		mouse_left_handed = atoi(value);
 	else if (strcmp(name, "WindowManager") == 0)
 		set_window_manager(value);
 	else if (strcmp(name, "KeyTable") == 0)
@@ -177,6 +180,42 @@ static void set_rox_setting(const char *name, const char *value)
 		g_warning("Unknown ROX setting 'ROX/%s'", name);
 }
 
+static void
+set_left_handed (void)
+		
+/* This function is taken from Gnome's control-center 2.6.0.3 (gnome-settings-mouse.c) */
+
+#define DEFAULT_PTR_MAP_SIZE 128	
+{
+  unsigned char *buttons;
+  gint n_buttons, i;
+  gint idx_1 = 0, idx_3 = 1;
+
+  buttons = g_alloca (DEFAULT_PTR_MAP_SIZE);
+  n_buttons = XGetPointerMapping (GDK_DISPLAY (), buttons, DEFAULT_PTR_MAP_SIZE);
+  if (n_buttons > DEFAULT_PTR_MAP_SIZE) {
+    buttons = g_alloca (n_buttons);
+    n_buttons = XGetPointerMapping (GDK_DISPLAY (), buttons, n_buttons);
+  }
+
+  for (i = 0; i < n_buttons; i++)
+    {
+      if (buttons[i] == 1)
+	idx_1 = i;
+      else if (buttons[i] == ((n_buttons < 3) ? 2 : 3))
+	idx_3 = i;
+    }
+
+  if ((mouse_left_handed && idx_1 < idx_3) ||
+      (!mouse_left_handed && idx_1 > idx_3))
+    {
+      buttons[idx_1] = ((n_buttons < 3) ? 2 : 3);
+      buttons[idx_3] = 1;
+    }
+
+  XSetPointerMapping (GDK_DISPLAY (), buttons, n_buttons);
+}
+
 static void activate_changes(void)
 {
 	g_return_if_fail(xsettings_manager != NULL);
@@ -185,6 +224,7 @@ static void activate_changes(void)
 	XChangePointerControl(GDK_DISPLAY(), True, True,
 				mouse_accel_factor, 10,
 				mouse_accel_threshold);
+	set_left_handed();
 	set_xkb_repeat(kbd_repeat, kbd_delay, kbd_interval);
 	dpms_set_times(GDK_DISPLAY(),
 			dpms_standby_time, dpms_suspend_time, dpms_off_time);
