@@ -26,7 +26,7 @@ case $1 in
 	--debug) shift ; DEBUGGER=gdb ;;
 	--valgrind) shift ; DEBUGGER=valgrind ;;
 	--setup) exec $APP_DIR/Setup ;;
-	--options) dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.ShowOptions > /dev/null; exit 0;;
+	--options) dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.Control.ShowOptions > /dev/null; exit 0;;
 	--compile)
 		shift
 		if [ ! -d "$APP_DIR/src" ] ; then

@@ -25,8 +25,10 @@
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
 
-#define ROX_SESSION_NS "net.sf.rox.Session"
-#define ROX_SESSION_DBUS_SERVICE "net.sf.rox.Session"
+#define ROX_CONTROL_NS "net.sf.rox.Session.Control"
+#define ROX_XSETTINGS_NS "net.sf.rox.Session.XSettings"
+
+#define ROX_SESSION_DBUS_SERVICE "net.sf.rox.SessionTest"
 #define ROX_SESSION_ERROR "net.sf.rox.Session.Error"
 
 #include <unistd.h>
@@ -99,75 +101,95 @@ static void lost_connection(void) {
 		"and this is the only way to restart it)."));
 }
 
-static DBusHandlerResult session_message_handler(DBusConnection *connection,
+/* If we didn't generate any reply (error or OK), try to guess what the problem
+ * was... (NULL => OOM)
+ */
+static DBusMessage *create_error_reply(DBusMessage *message)
+{
+	char *msg;
+	DBusMessage *reply;
+
+	if (dbus_message_get_type(message) != DBUS_MESSAGE_TYPE_METHOD_CALL)
+		return dbus_message_new_error(message,
+				ROX_SESSION_ERROR, "Message type is not message_call");
+
+	msg = g_strdup_printf("Unknown method name '%s' on interface '%s'",
+			dbus_message_get_member(message),
+			dbus_message_get_interface(message));
+	reply = dbus_message_new_error(message, ROX_SESSION_ERROR, msg);
+	g_free(msg);
+
+	return reply;
+}
+
+static DBusHandlerResult message_handler(DBusConnection *connection,
 					 DBusMessage *message, void *user_data)
 {
+	DBusMessage *(*handler)(DBusMessage *, DBusError *) = user_data;
 	DBusMessage *reply = NULL;
 	DBusError error;
 
+	g_return_val_if_fail(handler != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
+
 	dbus_error_init(&error);
 
-	if (strcmp(dbus_message_get_interface(message), ROX_SESSION_NS) != 0)
+	/* Invoke the object's handler */
+	reply = handler(message, &error);
+
+	/* If we got an error, turn it into an error message reply */
+	if (dbus_error_is_set(&error))
 	{
-		char *msg;
-		msg = g_strdup_printf(
-				"Bad interface (got '%s'; expected '%s')",
-				dbus_message_get_interface(message),
-				ROX_SESSION_NS);
-		reply = dbus_message_new_error(message,
-				ROX_SESSION_NS, msg);
-		g_free(message);
-	}
-	else if (dbus_message_get_type(message) !=
-			DBUS_MESSAGE_TYPE_METHOD_CALL) {
-		reply = dbus_message_new_error(message,
-				ROX_SESSION_NS,
-				"Message type is not message_call");
-	}
-	else if (dbus_message_is_method_call(message,
-					ROX_SESSION_NS, "ShowOptions")) {
-		show_session_options();
-		reply = dbus_message_new_method_return(message);
-	}
-	else
-	{
-		char *msg;
-		msg = g_strdup_printf(
-				"Unknown method name '%s'",
-				dbus_message_get_member(message));
-		reply = dbus_message_new_error(message,
-				ROX_SESSION_NS, msg);
-		g_free(message);
-	}
-
-	if (reply && !dbus_connection_send(connection, reply, NULL))
-		goto err;
-
-	goto out;
-err:
-	if (reply) {
-		dbus_message_unref(reply);
-		reply = NULL;
-	}
-
-	if (dbus_error_is_set(&error)) {
-		reply = dbus_message_new_error(message,
-				ROX_SESSION_ERROR, error.message);
+		if (reply)
+		{
+			dbus_message_unref(reply);
+			reply = dbus_message_new_error(message,
+					ROX_SESSION_ERROR,
+					"Internal error: got a reply and an error!");
+		}
+		else
+			reply = dbus_message_new_error(message,
+					ROX_SESSION_ERROR, error.message);
 		dbus_error_free(&error);
-		if (!reply)
-			goto oom;
-		if (!dbus_connection_send(connection, reply, NULL))
-			goto oom;
-		goto out;
 	}
-oom:
-	g_warning("Out of memory");
-out:
+	else if (!reply)
+		reply = create_error_reply(message);
+
+	if (!reply)
+		g_warning("Out of memory");
+	else if (!dbus_connection_send(connection, reply, NULL))
+		g_warning("Out of memory");
+
 	if (reply)
 		dbus_message_unref(reply);
+
 	return DBUS_HANDLER_RESULT_HANDLED;
 }
 
+static DBusMessage *session_handler(DBusMessage *message, DBusError *error)
+{
+	if (dbus_message_is_method_call(message, ROX_CONTROL_NS, "ShowOptions")) {
+		if (!dbus_message_get_args(message, error, DBUS_TYPE_INVALID))
+			return NULL;
+		show_session_options();
+		return dbus_message_new_method_return(message);
+	}
+
+	return NULL;
+}
+
+static DBusMessage *xsettings_handler(DBusMessage *message, DBusError *error)
+{
+	if (dbus_message_is_method_call(message, ROX_XSETTINGS_NS, "Set")) {
+		char *name = NULL;
+		if (!dbus_message_get_args(message, error,
+					DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID))
+			return NULL;
+		printf("[ Set '%s'= ]\n", name);
+		return dbus_message_new_method_return(message);
+	}
+
+	return NULL;
+}
 
 /* TRUE on success */
 static gboolean connect_to_bus(void)
@@ -177,9 +199,10 @@ static gboolean connect_to_bus(void)
 	DBusGProxy *local = NULL;
 	DBusObjectPathVTable vtable = {
 		NULL,
-		session_message_handler,
+		message_handler,
 	};
 	const char *session_path[] = {"Session", NULL};
+	const char *xsettings_path[] = {"XSettings", NULL};
 
 	dbus_error_init(&derror);
 
@@ -195,7 +218,11 @@ static gboolean connect_to_bus(void)
 		goto err;
 
 	if (!dbus_connection_register_object_path(dbus_connection,
-			session_path, &vtable, NULL))
+			session_path, &vtable, session_handler))
+		g_warning("Out of memory");
+
+	if (!dbus_connection_register_object_path(dbus_connection,
+			xsettings_path, &vtable, xsettings_handler))
 		g_warning("Out of memory");
 
 	/* Get notified when the bus dies */
