@@ -26,6 +26,9 @@
 #include <signal.h>
 #include <unistd.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
@@ -128,6 +131,20 @@ int main(int argc, char **argv)
 		unsetenv("APP_DIR");
 	}
 #endif
+
+	/* Close stdin. We don't need it, and it can cause problems if
+	 * a child process wants a password, etc...
+	 */
+	{
+		int fd;
+		fd = open("/dev/null", O_RDONLY);
+		if (fd > 0)
+		{
+			close(0);
+			dup2(fd, 0);
+			close(fd);
+		}
+	}
 
 	gtk_init(&argc, &argv);
 

@@ -72,7 +72,35 @@ static Setting settings[] = {
 static Option mouse_accel_threshold;
 static Option mouse_accel_factor;
 
+static Option halt_command, reboot_command, suspend_command;
+
 #define N_SETTINGS (sizeof(settings) / sizeof(*settings))
+
+static const char * bad_xpm[] = {
+"12 12 3 1",
+" 	c #000000000000",
+".	c #FFFF00000000",
+"x	c #FFFFFFFFFFFF",
+"            ",
+" ..xxxxxx.. ",
+" ...xxxx... ",
+" x...xx...x ",
+" xx......xx ",
+" xxx....xxx ",
+" xxx....xxx ",
+" xx......xx ",
+" x...xx...x ",
+" ...xxxx... ",
+" ..xxxxxx.. ",
+"            "};
+
+#define ROX_STOCK_HALT "rox-halt"
+#define ROX_STOCK_SUSPEND "rox-suspend"
+
+static const char *stocks[] = {
+	ROX_STOCK_HALT,
+	ROX_STOCK_SUSPEND,
+};
 
 /* Static prototypes */
 static GList *build_mouse_tester(Option *option, xmlNode *node, guchar *label);
@@ -80,6 +108,8 @@ static void child_died(int signum);
 static void terminate_xsettings(void *data);
 static void xsettings_changed(void);
 static void show_session_options(void);
+static GtkWidget *op_button(const char *text, const char *stock,
+			    Option *command, const char *message);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -87,6 +117,7 @@ static void show_session_options(void);
 
 void session_init(void)
 {
+	GtkIconFactory *factory;
 	struct sigaction	act;
 	int i;
 
@@ -117,11 +148,42 @@ void session_init(void)
 	option_add_int(&mouse_accel_threshold, "accel_threshold", 10);
 	option_add_int(&mouse_accel_factor, "accel_factor", 20);
 
+	option_add_string(&halt_command, "halt_command", "halt");
+	option_add_string(&reboot_command, "reboot_command", "reboot");
+	option_add_string(&suspend_command, "suspend_command",
+			  "xset dpms force off");
+
 	option_register_widget("mouse-tester", build_mouse_tester);
 
 	option_add_notify(xsettings_changed);
 
 	xsettings_changed();
+
+	factory = gtk_icon_factory_new();
+	for (i = 0; i < G_N_ELEMENTS(stocks); i++)
+	{
+		GdkPixbuf *pixbuf;
+		GError *error = NULL;
+		gchar *path;
+		GtkIconSet *iset;
+		const gchar *name = stocks[i];
+
+		path = g_strconcat(app_dir, "/images/", name, ".png", NULL);
+		pixbuf = gdk_pixbuf_new_from_file(path, &error);
+		if (!pixbuf)
+		{
+			g_warning("%s", error->message);
+			g_error_free(error);
+			pixbuf = gdk_pixbuf_new_from_xpm_data(bad_xpm);
+		}
+		g_free(path);
+
+		iset = gtk_icon_set_new_from_pixbuf(pixbuf);
+		g_object_unref(G_OBJECT(pixbuf));
+		gtk_icon_factory_add(factory, name, iset);
+		gtk_icon_set_unref(iset);
+	}
+	gtk_icon_factory_add_default(factory);
 }
 
 /* Called from the mainloop sometime after child_died executes */
@@ -160,7 +222,7 @@ void child_died_callback(void)
 void show_main_window(void)
 {
 	static GtkWidget *window = NULL;
-	GtkWidget *button;
+	GtkWidget *button, *hbox;
 
 	if (window)
 	{
@@ -170,21 +232,41 @@ void show_main_window(void)
 	
 	window = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
 			 GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
-			 _("\nReally logout?\n"));
+			 _("Really logout?\n(unsaved data will be lost)"));
+	gtk_dialog_set_has_separator(GTK_DIALOG(window), FALSE);
+
+	hbox = gtk_hbutton_box_new();
+	gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(window)->vbox),
+			   hbox, FALSE, TRUE, 0);
+	gtk_box_reorder_child(GTK_BOX(GTK_DIALOG(window)->vbox), hbox, 0);
+	
+	button = op_button(_("_Halt"), ROX_STOCK_HALT, &halt_command,
+			_("Attempting to halt the system..."));
+	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
+	button = op_button(_("_Reboot"), GTK_STOCK_REFRESH, &reboot_command,
+			_("Attempting to restart the system..."));
+	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
+	button = op_button(_("_Sleep"), ROX_STOCK_SUSPEND, &suspend_command,
+			_("Attempting to enter suspend mode..."));
+	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
+
+	gtk_widget_show_all(hbox);
 
 	gtk_window_set_title(GTK_WINDOW(window), PROJECT);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 
 	button = button_new_mixed(GTK_STOCK_PREFERENCES,
-				_("Session _Settings"));
+				_("Session Settings"));
 	gtk_widget_show(button);
 	gtk_dialog_add_action_widget(GTK_DIALOG(window), button, 1);
 
 	gtk_dialog_add_button(GTK_DIALOG(window),
 			GTK_STOCK_CANCEL, GTK_RESPONSE_DELETE_EVENT);
 
-	button = button_new_mixed(GTK_STOCK_QUIT, _("_Logout"));
+	button = button_new_mixed(GTK_STOCK_QUIT, _("Logout"));
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_widget_show(button);
 	gtk_dialog_add_action_widget(GTK_DIALOG(window),
@@ -335,3 +417,50 @@ static void show_session_options(void)
 	options_show();
 }
 
+static void op_clicked(GtkButton *button, Option *command)
+{
+	pid_t child;
+	const char *message;
+
+	message = g_object_get_data(G_OBJECT(button), "rox-message");
+
+	child = fork();
+	if (child == -1)
+	{
+		report_error("fork() failed: %s", g_strerror(errno));
+		return;
+	}
+	else if (child)
+		return;	/* Parent */
+
+	dup2(STDERR_FILENO, STDOUT_FILENO);
+	close(STDIN_FILENO);
+
+	g_print("ROX-Session: %s\n", message);
+	
+	_exit(system(command->value));
+}
+
+static GtkWidget *op_button(const char *text, const char *stock,
+			    Option *command, const char *message)
+{
+	GtkWidget *button, *image, *hbox, *label;
+
+	button = gtk_button_new();
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(button), hbox);
+
+	image = gtk_image_new_from_stock(stock, GTK_ICON_SIZE_BUTTON);
+	gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, TRUE, 4);
+
+	label = gtk_label_new_with_mnemonic(text);
+	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+	gtk_box_pack_start(GTK_BOX(hbox), label, TRUE, TRUE, 0);
+
+	g_object_set_data_full(G_OBJECT(button), "rox-message",
+			g_strdup(message), g_free);
+	g_signal_connect(button, "clicked", G_CALLBACK(op_clicked), command);
+
+	return button;
+}

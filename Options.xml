@@ -65,4 +65,14 @@ application) by assigning them to icons on a ROX-Filer pinboard or panel.</label
       <show-log/>
     </frame>
   </section>
+
+  <section title='Power'>
+    <frame label='Power'>
+      <label help='1'>These commands can be selected in the Logout box as alternatives to logging out. The correct settings vary between different systems. You may need to use xsu or sudo with the command if your system doesn't give normal users permission to shutdown the system.</label>
+      <spacer/>
+      <entry label='Halt command:' name='halt_command'>Likely commands for halting are 'halt' and 'shutdown -t now'</entry>
+      <entry label='Reboot command:' name='reboot_command'>Likely rebooting commands are 'reboot' and 'shutdown -t now -r'</entry>
+      <entry label='Suspend command:' name='suspend_command'>If your system uses APM for power management, try 'apm -s' or similar. ACPI users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll need a kernel with the correct system compiled in and enabled.</entry>
+    </frame>
+  </section>
 </options>
