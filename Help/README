@@ -7,8 +7,10 @@
 Brief
 ~~~~~
 ROX-Session is a simple and easy to use session manager. It is part of the
-ROX project, but can also be used on its own. ROX project home:
-	<http://www.ecs.soton.ac.uk/~tal197>
+ROX project, but can also be used on its own. ROX project home website:
+
+	http://rox.sourceforge.net
+
 
 Conditions
 ~~~~~~~~~~
@@ -26,7 +28,33 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-Please report any bugs to me, <tal197@ecs.soton.ac.uk>.
+Please report any bugs to me, <tal197@users.sourceforge.net>.
+
+
+Instructions
+~~~~~~~~~~~~
+First, compile ROX-Session, like this (from a directory containing ROX-Session):
+
+	$ ROX-Session/AppRun --compile
+
+Then, run it, like this:
+
+	$ ROX-Session/AppRun
+
+Note: You need to have 'bash' and 'ROX-Filer' installed before doing this!
+
+You will be asked if you want ROX-Session to be your session manager. Click on
+Yes. If it works, log out and try logging in again.
+
+You'll probably find you have an empty panel when you log in again.
+Right click for a menu and open your home directory. Drag stuff onto the panel
+(ROX-Session itself is a good thing to put there!).
+
+Note: If you installed the 'rox' script into your home directory then you'll
+need to edit the .xsession file BEFORE loggin out. Set the PATH variable
+to include the directory you put rox in. Or, replace 'rox' with the absolute
+path (eg '/home/fred/bin/rox').
+
 
 What's a session manager?
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,6 +95,7 @@ couple of drawbacks:
 2) Window managers are quite complex programs and can crash from time-to-time.
    If your session manager crashes then your X session is over!
 
+
 What does ROX-Session do?
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 Very little. When you run it from your '.xsession' file it just loads and
@@ -75,17 +104,6 @@ simply run it a second time. The new copy sees that the first one is running
 and sends it a message. The first copy displays a box confirming that you want
 to log out and, if you say yes, quits. This causes your X session to be
 terminated. Save your data before logging out!!
-
-Example .xsession file
-~~~~~~~~~~~~~~~~~~~~~~
-	enlightenment &
-	<path>/ROX-Filer/AppRun -b ~/Iconbar &
-	exec <path>/ROX-Session/AppRun
-
-Replace the <path>s with paths to ROX-Filer and ROX-Session. You will need
-to have enlightenment (http://www.enlightenment.org), ROX-Filer
-(http://www.ecs.soton.ac.uk/~tal197) and ROX-Session on your system for the
-above to work.
 
 
 !!!WARNING!!!

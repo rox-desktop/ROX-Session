@@ -1,14 +1,11 @@
 SHELL = @SHELL@
 srcdir = @srcdir@
 PLATFORM_DIR = @bindir@
-GTK_CFLAGS = @GTK_CFLAGS@
-GTK_CONFIG = @GTK_CONFIG@
-GTK_LIBS = @GTK_LIBS@
 .SUFFIXES:
 .SUFFIXES: .c .o
 
 CC = @CC@
-CFLAGS = @CFLAGS@ `gtk-config --cflags`
+CFLAGS = @CFLAGS@ `gtk-config --cflags` -I.
 LDFLAGS = @LDFLAGS@ `gtk-config --libs`
 EXEC = ${PLATFORM_DIR}/${PROG}
 
@@ -16,9 +13,9 @@ EXEC = ${PLATFORM_DIR}/${PROG}
 
 PROG = ROX-Session
 
-SRCS = main.c
+SRCS = main.c gui_support.c
 
-OBJECTS = main.o
+OBJECTS = main.o gui_support.o
 
 ############ Things to keep the same
 
@@ -33,3 +30,15 @@ clean:
 
 depend:
 	makedepend -- $(CFLAGS) -- $(SRCS)
+
+Makefile: Makefile.in config.status
+	./config.status
+
+config.h: config.h.in
+	./config.status
+
+config.status: configure
+	./configure --bindir=${PLATFORM_DIR}
+
+configure: configure.in
+	autoconf
