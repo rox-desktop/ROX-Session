@@ -146,9 +146,11 @@ def setup_login():
 		desktop_path = os.path.join(session_dir, 'rox.desktop')
 		session_path = '/usr/local/sbin/rox-session'
 
-		root = su.create_su_proxy('I need permission to create these files:\n' +
+		maker = su.SuProxyMaker('I need permission to create these files:\n' +
 					   desktop_path + '\n' +
 					   session_path)
+		yield maker.blocker
+		root = maker.get_root()
 		
 		q = root.open(desktop_path, 'w')
 		yield q
