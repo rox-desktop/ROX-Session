@@ -6,16 +6,18 @@ PLATFORM_DIR = @bindir@
 
 CC = @CC@
 CFLAGS = @CFLAGS@ `gtk-config --cflags` -I.
-LDFLAGS = @LDFLAGS@ `gtk-config --libs`
+LDFLAGS = @LDFLAGS@ `gtk-config --libs` -lSM -lICE
 EXEC = ${PLATFORM_DIR}/${PROG}
 
 ############ Things to change for different programs
 
 PROG = ROX-Session
 
-SRCS = main.c gui_support.c choices.c log.c wm.c
+SRCS = main.c gui_support.c choices.c gnome-ice.c ice.c \
+       log.c session.c wm.c
 
-OBJECTS = main.o gui_support.o choices.o log.o wm.o
+OBJECTS = main.o gui_support.o choices.o gnome-ice.o ice.o \
+	  log.o session.o wm.o
 
 ############ Things to keep the same
 

@@ -45,6 +45,8 @@
 #include "gui_support.h"
 #include "choices.h"
 #include "wm.h"
+#include "session.h"
+#include "ice.h"
 
 #define COPYING								\
 	     N_("Copyright (C) 2000 Thomas Leonard.\n"			\
@@ -174,8 +176,6 @@ int main(int argc, char **argv)
 	}
 #endif
 
-	gtk_init(&argc, &argv);
-
 	choices_init();
 
 	while (1)
@@ -211,11 +211,13 @@ int main(int argc, char **argv)
 		}
 	}
 
+	gtk_init(&argc, &argv);
+
 	rc_file = g_strconcat(app_dir, "/Styles", NULL);
 	gtk_rc_parse(rc_file);
 	g_free(rc_file);
 
-	rox_session_window = gdk_atom_intern("_ROX_SESSION_WINDOW2", FALSE);
+	rox_session_window = gdk_atom_intern("_ROX_SESSION_WINDOW3", FALSE);
 
 	existing_session_window = get_existing_session();
 	if (existing_session_window)
@@ -260,11 +262,18 @@ int main(int argc, char **argv)
 
 	log_init();		/* Capture standard error */
 
-	start_window_manager();
+	session_init();
 
+#if 1
+	start_window_manager();
 	run_login_script();
+#else
+	system("xterm &");
+#endif
 
 	gtk_main();
+
+	clean_ice();
 
 	return EXIT_SUCCESS;
 }

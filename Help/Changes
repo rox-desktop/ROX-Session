@@ -2,6 +2,16 @@
 			A very simple session manager
 			by Thomas Leonard
 
+TODO: Update configure as for ROX-Filer (changequote, etc)
+
+18-Oct-2001
+~~~~~~~~~~~
+Started adding session management support.
+
+04-Oct-2001
+~~~~~~~~~~~
+Added IceWM to the default list of window managers (Bernard Jungen).
+
 28-Jul-2001
 ~~~~~~~~~~~
 Added WindowMaker to the default list of window managers (Terol Jose).

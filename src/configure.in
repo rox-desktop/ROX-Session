@@ -21,6 +21,15 @@ AC_PATH_X
 AC_HEADER_STDC
 AC_CHECK_HEADERS(locale.h)
 
+dnl  --------------------------------------------------------
+dnl | Solaris does not have IceListenForWellKnownConnections |-
+dnl  --------------------------------------------------------
+oLIBS="$LIBS"
+LIBS="$GNOME_SESSION_LIBS"
+AC_CHECK_FUNCS(_IceTransNoListen)
+LIBS="$oLIBS"
+dnl -----------------------------------------------------------
+
 dnl Checks for typedefs, structures, and compiler characteristics.
 
 dnl Checks for library functions.
