@@ -27,18 +27,14 @@ cat > .xsession << EOF
 
 # Step 1: Set up any environment variables you want here.
 
-if [ -d ~/bin ]; then
-	PATH=\${HOME}/bin:\${PATH}
-	export PATH
-fi
+# Remove the # from the start of the next 2 lines if you want anti-aliased
+# fonts (in applications which support them).
+#export GDK_USE_XFT=1
+#export QT_XFT=1
 
-if [ -d ~/lib ]; then
-	if [ -n "\$LD_LIBRARY_PATH" ]; then
-		LD_LIBRARY_PATH=\${HOME}/lib:\${LD_LIBRARY_PATH}
-	else
-		LD_LIBRARY_PATH=\${HOME}/lib
-	fi
-	export LD_LIBRARY_PATH
+if [ -d "~/bin" ]; then
+	PATH="\${HOME}/bin:\${PATH}"
+	export PATH
 fi
 
 # Step 2: Try to run ROX-Session. If it works, stop right here.
@@ -52,16 +48,16 @@ fi
 
 # Load a window manager. Keep trying until we find one that works!
 
-wm=\`which sawfish\`
-if [ ! -x "\$wm" ]; then wm=\`which sawmill\`; fi
-if [ ! -x "\$wm" ]; then wm=\`which enlightenment\`; fi
-if [ ! -x "\$wm" ]; then wm=\`which kwm\`; fi
-if [ ! -x "\$wm" ]; then wm=\`which fvwm2\`; fi
-if [ ! -x "\$wm" ]; then wm=\`which fvwm\`; fi
-if [ ! -x "\$wm" ]; then wm=\`which 4Dwm\`; fi
-if [ ! -x "\$wm" ]; then wm=\`which twm\`; fi
+wm="\`which sawfish\`"
+if [ ! -x "\$wm" ]; then wm="\`which sawmill\`"; fi
+if [ ! -x "\$wm" ]; then wm="\`which enlightenment\`"; fi
+if [ ! -x "\$wm" ]; then wm="\`which kwm\`"; fi
+if [ ! -x "\$wm" ]; then wm="\`which fvwm2\`"; fi
+if [ ! -x "\$wm" ]; then wm="\`which fvwm\`"; fi
+if [ ! -x "\$wm" ]; then wm="\`which 4Dwm\`"; fi
+if [ ! -x "\$wm" ]; then wm="\`which twm\`"; fi
 if [ ! -x "\$wm" ]; then wm=twm; fi
-\$wm &
+"\$wm" &
 
 xmessage -file - << END
 .xsession: failed to run $1/AppRun - maybe you moved or deleted it?

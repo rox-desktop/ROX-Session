@@ -1,6 +1,10 @@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBS = @GTK_LIBS@
 SHELL = @SHELL@
 srcdir = @srcdir@
-PLATFORM_DIR = @bindir@
+PLATFORM = @with_platform@
+PLATFORM_DIR = ../${PLATFORM}
+LIBS = @LIBS@
 .SUFFIXES:
 .SUFFIXES: .c .o
 
@@ -38,7 +42,7 @@ config.h: config.h.in
 	./config.status
 
 config.status: configure
-	./configure --bindir=${PLATFORM_DIR}
+	./configure --with-platform="${PLATFORM}" --enable-rox
 
 configure: configure.in
 	autoconf
