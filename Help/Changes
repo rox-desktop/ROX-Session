@@ -2,6 +2,11 @@
 			A very simple session manager
 			by Thomas Leonard
 
+21-Apr-2004
+~~~~~~~~~~~
+Use a GtkScrolledWindow for the message log, so that the mouse wheel works
+(Tristan McLeay).
+
 20-Apr-2004
 ~~~~~~~~~~~
 Moved the Logout dialog box and the setup dialogs out of the main ROX-Session

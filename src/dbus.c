@@ -24,6 +24,7 @@
 #define ROX_CONTROL_NS "net.sf.rox.Session.Control"
 
 #define ROX_SESSION_DBUS_SERVICE "net.sf.rox.Session"
+#define ROX_SESSION_DBUS_SERVICE_TEST "net.sf.rox.SessionTest"
 
 #include <unistd.h>
 #include <string.h>
@@ -37,6 +38,7 @@
 #include "gui_support.h"
 #include "session.h"
 #include "log.h"
+#include "main.h"
 
 static gint dbus_pid = -1;
 static DBusConnection *dbus_connection = NULL;
@@ -216,7 +218,9 @@ static gboolean connect_to_bus(void)
 		goto err;
 	dbus_connection_set_exit_on_disconnect(dbus_connection, FALSE);
 
-	if (dbus_bus_service_exists(dbus_connection, ROX_SESSION_DBUS_SERVICE,
+	if (dbus_bus_service_exists(dbus_connection,
+				test_mode ? ROX_SESSION_DBUS_SERVICE_TEST
+					  : ROX_SESSION_DBUS_SERVICE,
 				&derror))
 	{
 		report_error(_("ROX-Session is already running. Can't manage "
