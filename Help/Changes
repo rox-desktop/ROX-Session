@@ -2,6 +2,11 @@
 			A very simple session manager
 			by Thomas Leonard
 
+13-Mar-2001
+~~~~~~~~~~~
+'which' doesn't work on some systems. Try using 'twm' even if we think we
+can't find it (Stephen Watson).
+
 10-Mar-2001 (Release 0.1.11)
 ~~~~~~~~~~~ 
 ROX-Session will now compile automatically the first time it is run.

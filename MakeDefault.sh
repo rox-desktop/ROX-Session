@@ -60,6 +60,7 @@ if [ ! -x "\$wm" ]; then wm=\`which fvwm2\`; fi
 if [ ! -x "\$wm" ]; then wm=\`which fvwm\`; fi
 if [ ! -x "\$wm" ]; then wm=\`which 4Dwm\`; fi
 if [ ! -x "\$wm" ]; then wm=\`which twm\`; fi
+if [ ! -x "\$wm" ]; then wm=twm; fi
 \$wm &
 
 xmessage -file - << END
