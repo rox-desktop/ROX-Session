@@ -1,0 +1,167 @@
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+    <title>La guida di ROX</title>
+    <link rel='stylesheet' type='text/css' href='style.css' media='all'>
+  </head>
+  <body>
+    <div>
+      <h1>La guida di ROX</h1>
+      <h2>La prima volta</h2>
+      <p>Benvenuto in ROX! La prima volta che si accede a ROX si vedrà
+un pannello in basso e uno sfondo grigio (la «bacheca»).</p>
+      <p>Sia la bacheca che il pannello sono usati per eseguire file e
+applicazioni. ROX-Session crea automaticamente un pannello la prima
+volta che si accede:</p>
+      <p align='center'>
+        <img src='panel1.png'></p>
+      <p>Da sinistra a destra, questo pannello predefinito dà l'accesso a:</p>
+      <ul>
+        <li>La propria directory home, dove si possono salvare i file creati.</li>
+        <li>La propria directory «Apps», dove si tengono le proprie applicazioni.</li>
+        <li>Ogni dispositivo removibile trovato da ROX-Session, come il cdrom e il
+floppy. Non importa se ne manca qualcuno!</li>
+        <li>Questa guida.</li>
+        <li>Lo stesso ROX-Session (all'estrema destra). Cliccare questo per uscire.</li>
+      </ul>
+      <p>La prima volta che si accede a ROX, saranno in esecuzione solo tre programmi:
+ROX-Session, che attiva le prime impostazioni;
+ROX-Filer, che mostra la bacheca e i pannelli e, infine, un window
+manager. Il window manager è un programma che disegna sulle finestre le barre dei 
+titoli e le cornici. Permette di muovere le finestre, di ridimensionarle, di 
+chiuderle e altro ancora.</p>
+      <h2>Esplorare il file system</h2>
+      <p>Cliccare sulla propria directory home per aprire una finestra del ROX-Filer.
+Questo è il luogo in cui salvare i propri documenti creati. Infatti, normalmente
+non è possibile salvare i file altrove, per evitare di perderli.</p>
+      <p>La barra del titolo della finestra mostra in quale directory ci si trova. 
+Attualmente mostra «~», che è l'abbreviazione della propria directory 
+home. Questa si trova dentro la directory «/home», che contiene anche le 
+directory home di tutti gli altri utenti del sistema.</p>
+      <p>Usare la freccia «Su» nella barra degli strumenti per spostarsi in «/home», 
+apparirà quindi la propria directory home insiema a quella di ogni altro utente.</p>
+      <p>Premendo ancora «Su», si raggiungerà la directory radice («/») che 
+contiene ogni cosa. Da qui, non è possibile andare più in su.</p>
+      <p>Cliccando sull'icona «home» si ritorna in «/home» e cliccando poi sulla 
+propria directory home si ritorna da dove si era partiti. Si ottiene lo stesso 
+risultato cliccando nella barra degli strumenti sull'icona raffigurante una casa.</p>
+      <h2>Creare file e directory</h2>
+      <p>Assicurarsi di essere nella propria directory home. Cliccare col tasto 
+destro del mouse sulla finestra del filer, scegliere dal menù «Nuovo» e poi 
+«Directory». Rimpiazzare il nome selezionato «NuovaDir» con uno più adatto, 
+come «Tutorial» e cliccare sul pulsante «Crea» per creare la directory:</p>
+      <p align='center'>
+        <img src='newdir.png'></p>
+      <p>La nuova directory apparirà dentro la propria directory home.
+Cliccare su di essa per entrarci dentro. Si usino le directory per 
+organizzare i propri file. Se si desidera, è possibile creare altre 
+directory dentro di questa e così via.</p>
+      <p>In questo tutorial, si userà questa directory diverse volte. 
+Per rendere più facili le cose, quindi, la si può mettere nel pannello. 
+Cliccare sul pulsante «Su» per tornare nella directory home e
+trascinare la directory «Tutorial» dentro l'area vuota al centro 
+del pannello. Quest'ultimo metterà in rilievo lo spazio vuoto quando
+la directory verrà trascinata sopra, mostrando il punto del pannello
+in cui verrà aggiunta.</p>
+      <p>Cliccare ora su «Tutorial» nel pannello per aprirla velocemente.
+Notare che «Tutorial» è ancora dentro la directory home, non è stata 
+spostata sul pannello: il pannello è solo un modo veloce di aprirla.</p>
+      <p>È anche possibile accedervi in un modo ancora più veloce. 
+Aprire il menù sull'icona di «Tutorial» del pannello e scegliere
+«Modifica oggetto». Nella sezione della scorciatoia di tastiera 
+c'è «(cliccare per impostare)». Cliccare sopra e premere Control+F1 
+(tenere premuto il tasto «Ctrl» e premere «F1», quindi rilasciare «Ctrl»).
+ La nuova scorciatoia apparirà sul pulsante:</p>
+      <p align='center'>
+        <img src='shortcut.png'></p>
+      <p>Dopo aver cliccato su «OK» per confermare i cambiamenti, si può
+aprire la directory «Tutorial» in qualsiasi momento premendo Control+F1.</p>
+      <p>È possibile trascinare sul pannello qualsiasi file, directory o 
+applicazione e usare questo metodo per impostare una scorciatoia.
+Per esempio, è possibile impostare scorciatoie per aprire la directory
+home o per vedere questa guida.</p>
+      <h2>Usare CD e floppy</h2>
+      <p>Per accedere a ogni dispositivo removibile è necessario "montarlo", 
+in modo da apparire nel file system. C'è un numero prefissato di punti 
+di mount (vedere il file /etc/fstab). ROX-Filer mostra queste directory
+con un piccolo cerchio su di esse.</p>
+      <p>Dopo aver inserito un disco nel drive, cliccare sul  
+punto di mount per montare il device. Il cerchio diventerà verde chiaro
+per indicare che lì qualcosa è montato:</p>
+      <p align='center'>
+        <img src='mount.png'></p>
+      <p>Assicurarsi di smontare il device prima di rimuovere il disco!
+ROX-Filer smonterà il device quando si chiude la finestra o quando si
+clicca «Smonta» dal menù.</p>
+      <p>È possibile copiare qualsiasi file trascinandolo in un'altra 
+directory. È anche possibile trascinarlo in una directory di un'altra
+finestra o in una directory del pannello o anche in un'applicazione. 
+Consultare il manuale di ROX-Filer per maggiori informazioni riguardo
+il trascinamento dei file.</p>
+      <h2>Eseguire programmi</h2>
+      <p>Se ci sono già installate alcune applicazioni ROX allora
+è possibile eseguirle cliccando su «Apps» per aprire la directory 
+che le contiene e poi su una di esse per eseguirla:</p>
+      <p align='center'>
+        <img src='apps.png'></p>
+      <p>Se non sono state ancora installate applicazioni, è 
+comunque possibile aprire un terminale. Cliccare col tasto destro 
+del mouse nell'area principale di qualunque finestra del filer e 
+scegliere «Xterm qui» dal sottomenù «Finestra».</p>
+      <p>È possibile digitare il nome di un programma per eseguirlo. 
+Per esempio, «gimp» (un programma grafico) o «epiphany» (un browser web).</p>
+      <p>Si possono ottenere altri programmi ROX dal sito web:</p>
+      <ul>
+        <li>
+          <a shape='rect' href='http://rox.sf.net/software.html'>Elenco
+programmi ROX</a>
+        </li>
+      </ul>
+      <h2>Trovare la documentazione</h2>
+      <p>Si possono vedere i file di aiuto di ogni applicazione ROX aprendo
+ il menù sopra la sua icona nel filer o nel pannello e scegliendo «Aiuto» 
+dal menù.</p>
+      <p>Provare adesso con ROX-Session (attivare il menù sull'icona
+ «EXIT» all'estrema destra del pannello: «Aiuto» è nel sottomenù 
+«App dir 'Session'»). Si aprirà una finestra del filer mostrando tutti 
+i file di aiuto:</p>
+      <p align='center'>
+        <img src='help.png'></p>
+      <p>Il file «Changes» permette di scoprire quali nuove funzionalità 
+sono state aggiunte in ciascuna nuova versione e «README» fornisce 
+informazioni su ROX-Session più dettagliate di questa guida.</p>
+      <p>Naturalmente questa guida è inclusa nei file di aiuto di 
+ROX-Session. Se per sbaglio viene rimossa dal pannello, si può sempre
+accedere ad essa da qui e poi trascinarla nuovamente sul pannello.</p>
+      <p>ROX-Filer ha un'abbondante documentazione: per vederla, cliccare 
+sull'icona «Aiuto» nella barra degli strumenti di ogni finestra del filer 
+o cercare in una finestra del filer l'applicazione ROX-Filer e attivare il 
+menù come sopra.</p>
+      <h2>Uscire</h2>
+      <p>Quando si ha finito di usare il computer, cliccare su 
+ROX-Session (l'icona «EXIT» all'estrema destra del pannello). La 
+finestra che appare permette di uscire (tornare al login), 
+di spegnere o riavviare il computer. Da qui è anche possibile attivare la 
+modalità di basso consumo («Sospendi»):</p>
+      <p align='center'>
+        <img src='logout.png'></p>
+      <p>ROX-Session è in esecuzione per tutto il tempo in cui si ha
+accesso al sistema, avvia automaticamente altri programmi 
+(per esempio ROX-Filer e il window manager) e può essere usato per configurare
+le impostazioni che riguardano il desktop, come la velocità del mouse o il tipo di 
+carattere predefinito.</p>
+      <p>Cliccare su «Impostazioni di sessione» per vedere tutte le opzioni.
+Notare che la bacheca e il pannello sono gestiti da ROX-Filer, bisogna quindi 
+usare le opzioni di ROX-Filer per modificarli.</p>
+      <h2>Fine della prima parte</h2>
+      <ul>
+        <li>
+          <a shape='rect' href='Tutorial2.html'>Vai alla seconda parte</a>
+        </li>
+        <li>
+          <a shape='rect' href='Guida.html'>Torna al sommario</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
