@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-20 16:45+0100\n"
+"POT-Creation-Date: 2004-10-23 10:58+0200\n"
 "PO-Revision-Date: 2002-12-28 09:12+0100\n"
 "Last-Translator: Jan Wagemakers <janw@easynet.be>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,11 +113,12 @@ msgstr "ROX-Session is reeds gestart. Kan een sessie niet tweemaal beheren!"
 
 #: dbus.c:362
 msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
-msgstr ""
+msgstr "Kan libdbus-1.so.0. niet openen. D-BUS ondersteuning is uitgeschakeld."
 
 #: dbus.c:369
 msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
 msgstr ""
+"Kan libdbus-glib-1.so.0 niet openen. D-BUS ondersteuning is uitgeschakeld."
 
 #: dbus.c:392
 #, c-format
@@ -134,31 +135,31 @@ msgstr ""
 
 #: dpms.c:35
 msgid "DPMS extension not supported"
-msgstr ""
+msgstr "DPMS extensie wordt niet ondersteund"
 
 #: dpms.c:40
 msgid "Display not capable of DPMS"
-msgstr ""
+msgstr "Beeldscherm bezit geen DPMS ondersteuning"
 
 #: dpms.c:55
 msgid "DPMS timeout under 10 seconds, rounding up"
-msgstr ""
+msgstr "DPMS timeout onder de 10 seconden, wordt afgerond"
 
 #: dpms.c:62
 msgid "Unable to read previous DPMS timeouts"
-msgstr ""
+msgstr "Onmogelijk om de vorige DPMS timeout te lezen"
 
 #: dpms.c:68
 msgid "Unable to set DPMS timeouts"
-msgstr ""
+msgstr "Onmogelijk om de DPMS timeout in te stellen"
 
 #: dpms.c:81
 msgid "Unable to get DPMS state"
-msgstr ""
+msgstr "Onmogelijk om de DPMS status te verkrijgen"
 
 #: dpms.c:87
 msgid "Unable to set DPMS state"
-msgstr ""
+msgstr "Onmogelijk om de DPMS status in te stellen"
 
 #: i18n.c:38
 msgid ""
@@ -220,7 +221,7 @@ msgstr ""
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(opslaan is uitgezet door de CHOICESPATH variabele)"
 
-#: options.c:1093 settings.c:279
+#: options.c:1093 settings.c:415
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Fout tijdens bewaren bestand %s: %s"
@@ -272,6 +273,17 @@ msgstr ""
 "Mislukt om '%s' te starten:\n"
 "%s"
 
+#: settings.c:312
+#, c-format
+msgid ""
+"Failed to change the cursor theme:\n"
+"%s\n"
+"You can use the Mouse configuration application to change the setting."
+msgstr ""
+"Mislukt om het cursor-thema te veranderen:\n"
+"%s\n"
+"Gebruik de Muis configuratie toepassing om de instellingen aan te passen."
+
 #: wm.c:79
 msgid ""
 "Your window manager has crashed (or quit). Please restart it, or choose "
@@ -287,6 +299,8 @@ msgid ""
 "Would you like to quit your current window manager and start the new one "
 "right now?"
 msgstr ""
+"De standaard window-manager is nu '%s'.\n"
+"De huidige window-manager nu stoppen en dan nieuwe starten?"
 
 #: wm.c:172
 msgid ""
@@ -314,10 +328,14 @@ msgid ""
 "%s\n"
 "You can use the Keyboard configuration application to change the setting."
 msgstr ""
+"Mislukt om de toestenbord map in te stellen:\n"
+"%s\n"
+"Gebruik de toestenbord configuratie toepassing om de instellingen aan te "
+"passen."
 
 #: xkb.c:113
 msgid "Failed to set auto repeat rate/interval"
-msgstr ""
+msgstr "Mislukt om de auto herhaal snelheid/interval in te stellen"
 
 #: tips:1
 msgid "Translation"
@@ -341,7 +359,7 @@ msgstr "Engels (geen vertaling)"
 
 #: tips:6
 msgid "French"
-msgstr ""
+msgstr "Frans"
 
 #: tips:7
 msgid "German"
@@ -493,6 +511,7 @@ msgstr ""
 #: AutoStart.py:13
 msgid "Symlink any applications you want run on login into this directory"
 msgstr ""
+"Symlink toepassingen die tijdens het inloggen moeten starten in deze map"
 
 #: logout.py:66
 msgid "_Halt"
@@ -538,15 +557,18 @@ msgstr "Sessie Instellingen"
 msgid "Logout"
 msgstr "Log Uit"
 
-#: setup.py:24
+#: setup.py:25
+#, fuzzy
 msgid ""
 "Tried to make a backup of your old '%s' file, but the backup file ('%s') "
-"already exists."
+"already exists.\n"
+"If you want to keep it, move it somewhere safe. Otherwise, delete it."
 msgstr ""
 "Poging gedaan om een backup van uw oude '%s' bestand te maken, maar het "
-"backup bestand ('%s') bestaat reeds."
+"backup bestand ('%s') bestaat reeds.\n"
+"Verplaats het bestand naar een veilige plaats om te bewaren, of wis het."
 
-#: setup.py:35
+#: setup.py:37
 msgid ""
 "Do you want to make ROX a choice on your login screen (affects all users and "
 "requires the root password), or do you just want to set the session for your "
@@ -559,18 +581,18 @@ msgstr ""
 "gebruikers en vereist het root paswoord), of gewoon de sessie instellen voor "
 "de huidige gebruiker?\n"
 "\n"
-"Als het root paswoord gekent is en een grafische display manager zoals gdm "
+"Als het root paswoord gekend is en een grafische display manager zoals gdm "
 "of kdm gebruikt wordt, dan is dit waarschijnlijk de aangewezen optie."
 
-#: setup.py:43
+#: setup.py:45
 msgid "Setup for user"
 msgstr "Instellen voor gebruiker"
 
-#: setup.py:44
+#: setup.py:46
 msgid "Add to login"
 msgstr "Toevoegen aan inlog-scherm"
 
-#: setup.py:115
+#: setup.py:122
 msgid ""
 "OK, now logout by your usual method and when you log in again, I should be "
 "your session manager.\n"
@@ -582,7 +604,7 @@ msgstr ""
 "Nota: het kan nodig zijn om 'Standaard' te selecteren als uw desktop type na "
 "het ingeven van de gebruiker op het inlog-scherm"
 
-#: setup.py:129
+#: setup.py:137
 msgid ""
 "I wanted to install a rox.desktop file in your session directory, but I "
 "couldn't find one! I tried these places (defaults for gdm2, at least):\n"
@@ -592,7 +614,7 @@ msgstr ""
 "geen vinden! I heb hier geprobeerd (standaard voor gdm2, ten minste):\n"
 "\n"
 
-#: setup.py:134
+#: setup.py:142
 msgid ""
 "/usr/local/sbin directory is missing! I want to install the rox-session "
 "script there... Please create it and try again."
@@ -600,7 +622,7 @@ msgstr ""
 "/usr/local/sbin map ontbreekt! I zou hier het rox-session script willen "
 "installeren... Maak deze map aan en probeer opnieuw."
 
-#: setup.py:152
+#: setup.py:184
 msgid ""
 "OK, now logout by your usual method, and choose ROX from the session menu on "
 "your login screen just after entering your user name (but before entering "
@@ -610,7 +632,7 @@ msgstr ""
 "menu op het inlog scherm juist na het ingeven van uw gebruikersnaam (maar "
 "voor het ingeven van uw paswoord)."
 
-#: setup.py:165
+#: setup.py:201
 msgid ""
 "OK, I don't know what the problem is. Please ask on the rox-users mailing "
 "list. When we know what the problem is, we can add an extra check here to "
@@ -627,7 +649,7 @@ msgstr ""
 "http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
 "(het is mogelijk om dit adres naar een webbrowser te knippen/plakken)"
 
-#: setup.py:176
+#: setup.py:212
 msgid ""
 "ROX-Session does not appear to be managing your session. Would you like to "
 "set it up now?\n"
@@ -639,60 +661,11 @@ msgstr ""
 "\n"
 "Klik op Help als het reeds zo ingesteld zou moeten zijn."
 
-#: setup.py:181
+#: setup.py:217
 msgid "Set up ROX"
 msgstr "ROX instellen"
 
-#: setup.py:184
+#: setup.py:220
 msgid "Set up ROX-Session"
 msgstr "ROX-Session installen"
 
-#: setup.py:196
-msgid ""
-"Please enter the root password when prompted. I will attempt to create the "
-"files '%s' and '%s'."
-msgstr ""
-"Geef het root paswoord als het gevraagd wordt. Er zal dan getracht worden de "
-"bestanden '%s' en '%s' aan te maken."
-
-#: setup.py:204
-msgid "Error trying to run xterm to ask for the root password."
-msgstr ""
-"Fout bij het starten van een xterm nodig om het root paswoord te vragen."
-
-#: setup.py:206 setup.py:208
-msgid "Failed to create '%s'"
-msgstr "Mislukt om '%s' aan te maken"
-
-#~ msgid ""
-#~ "Error loading window manager list '%s':\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Fout bij het laden window manager lijst '%s':\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "No window manager is currently selected.\n"
-#~ "Please choose a window manager now."
-#~ msgstr ""
-#~ "Momenteel is er geen window manager geselecteerd.\n"
-#~ "Kies nu een window manager."
-
-#~ msgid "Start window manager"
-#~ msgstr "Start window manager"
-
-#~ msgid "Window manager"
-#~ msgstr "Window manager"
-
-#~ msgid ""
-#~ "The window manager is a program which puts title bars and frames on "
-#~ "windows. It allows you to move windows around, resize them, close them "
-#~ "and so on."
-#~ msgstr ""
-#~ "De window manager (venster beheerder) is een programma dat de titelbalken "
-#~ "en kaders van de vensters (windows) maakt. Het stelt je tevens in de "
-#~ "mogelijkheid om vensters te verplaatsen, de afmetingen aan te passen, ze "
-#~ "te sluiten, enz."
-
-#~ msgid "Default window manager"
-#~ msgstr "Standaard window manager"

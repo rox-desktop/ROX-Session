@@ -2,6 +2,10 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+23-Oct-2004
+~~~~~~~~~~~
+Updated Dutch translation (Jan Wagemakers).
+
 15-Oct-2004
 ~~~~~~~~~~~
 Allow Xcursor code to compile under GLib 2.2 (Stephen Watson).
