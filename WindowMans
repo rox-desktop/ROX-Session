@@ -4,6 +4,7 @@
 # Copy this file as <Choices>/ROX-Session/WindowMans before editing it.
 
 sawfish
+xfwm4 --nodaemon
 kwin
 enlightenment
 wmaker
@@ -12,7 +13,6 @@ blackbox
 openbox
 fluxbox
 metacity
-xfwm4 --nodaemon
 xfwm
 sawmill
 kwm
