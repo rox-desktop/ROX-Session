@@ -3,6 +3,7 @@
   <Summary>Sets up your desktop when you log in, and lets you log out again</Summary>
   <Summary xml:lang="es">Configura tu escritorio cuando ingresas y te permite salir</Summary>
   <Summary xml:lang="fr">Montre l'utilisation de la mémoire et des disques avec des diagrammes à barres</Summary>
+  <Summary xml:lang="it">Configura il desktop dopo l'accesso al sistema e permette di terminare la sessione</Summary>
   <About>
     <Purpose>Session Manager</Purpose>
     <Version>0.1.20 PREVIEW</Version>
@@ -16,11 +17,19 @@
     <License label="Licence"/>
     <Homepage label="Page web"/>
   </About>
+  <About xml:lang="it">
+    <Purpose label="Scopo">gestione sessioni</Purpose>
+    <Version label="Versione"/>
+    <Author label="Autore"/>
+    <License label="Licenza"/>
+    <Homepage label="Sito web"/>
+  </About>
   <AppMenu>
     <!-- label attribute is for older filers -->
     <Item option='--setup' label='Auto Start...'>
       <Label>Auto Start...</Label>
       <Label xml:lang='es'>Iniciar Autom&#x00E1;ticamente...</Label>
+      <Label xml:lang='it'>Esecuzione automatica...</Label>
     </Item>
   </AppMenu>
 </AppInfo>
