@@ -38,6 +38,7 @@
 #include "global.h"
 
 #include "dbus.h"
+#include "dpms.h"
 #include "settings.h"
 #include "session.h"
 #include "choices.h"
@@ -56,6 +57,12 @@ XSettingsManager *xsettings_manager = NULL;
 static xmlDoc *settings_doc = NULL;
 
 static int mouse_accel_factor = 20, mouse_accel_threshold = 10;
+static gboolean kbd_repeat = TRUE;
+static int kbd_delay = 500, kbd_interval = 30;
+static int dpms_standby_time = 15 * 60;
+static int dpms_suspend_time = 20 * 60;
+static int dpms_off_time = 30 * 60;
+
 
 /* Static prototypes */
 static void terminate_xsettings(void *data);
@@ -152,6 +159,20 @@ static void set_rox_setting(const char *name, const char *value)
 		set_window_manager(value);
 	else if (strcmp(name, "KeyTable") == 0)
 		set_xkb_layout(value);
+	else if (strcmp(name, "KbdRepeat") == 0)
+		kbd_repeat = atoi(value);
+	else if (strcmp(name, "KbdDelay") == 0)
+		kbd_delay = atoi(value);
+	else if (strcmp(name, "KbdInterval") == 0)
+		kbd_interval = atoi(value);
+	else if (strcmp(name, "DPMSEnable") == 0)
+		dpms_set_enabled(GDK_DISPLAY(), atoi(value));
+	else if (strcmp(name, "DPMSStandby") == 0)
+		dpms_standby_time = 60 * atoi(value);
+	else if (strcmp(name, "DPMSSuspend") == 0)
+		dpms_suspend_time = 60 * atoi(value);
+	else if (strcmp(name, "DPMSOff") == 0)
+		dpms_off_time = 60 * atoi(value);
 	else
 		g_warning("Unknown ROX setting 'ROX/%s'", name);
 }
@@ -164,6 +185,9 @@ static void activate_changes(void)
 	XChangePointerControl(GDK_DISPLAY(), True, True,
 				mouse_accel_factor, 10,
 				mouse_accel_threshold);
+	set_xkb_repeat(kbd_repeat, kbd_delay, kbd_interval);
+	dpms_set_times(GDK_DISPLAY(),
+			dpms_standby_time, dpms_suspend_time, dpms_off_time);
 }
 
 /* Find the setting element in settings_doc, or create a new one. */

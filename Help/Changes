@@ -2,6 +2,16 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+01-Jul-2004
+~~~~~~~~~~~
+Message log sizing/positioning code takes Xinerama into account and window is
+now a top-level window instead of a dialogue (Tony Houghton).
+
+Provides options for DPMS and keyboard auto-repeat, which can be set via
+exteral applications (Tony Houghton).
+
+Added /etc/X11/dm/Sessions to the list of locations where rox.desktop can be
+installed (for Mandrake systems).
 
 11-Jun-2004
 ~~~~~~~~~~~

@@ -119,7 +119,7 @@ def setup_home():
 
 def setup_login():
 	session_dirs = ['/etc/X11/sessions', '/etc/dm/Sessions',
-			  '/usr/share/xsessions']
+			'/etc/X11/dm/Sessions', '/usr/share/xsessions']
 	for d in session_dirs:
 		if os.path.isdir(d):
 			session_dir = d

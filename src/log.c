@@ -177,24 +177,36 @@ void log_init(void)
  */
 static void show(void)
 {
-	static gboolean top;
-	int	h, y;
+	static gboolean top = FALSE;
+	int	y;
 	GString *text;
 	GList	*next;
 	int	last_non_space = -1;
+	GdkRectangle mon_geom;
 
-	if (message_window || !chunks)
+	if (message_window || !chunks || !o_time_shown.int_value)
 	{
 		gtk_widget_hide(log_window);
 		return;
 	}
 
-	h = gdk_screen_height();
+	/* Always use monitor 0, keeps it simpler */
+	if (gdk_screen_get_n_monitors(gdk_screen_get_default()) > 1)
+	{
+		gdk_screen_get_monitor_geometry(gdk_screen_get_default(), 0,
+				&mon_geom);
+	}
+	else
+	{
+		mon_geom.x = mon_geom.y = 0;
+		mon_geom.width = gdk_screen_width();
+		mon_geom.height = gdk_screen_height();
+	}
 	if (!GTK_WIDGET_VISIBLE(log_window))
 	{
 		gdk_window_get_pointer(GDK_ROOT_PARENT(), NULL, &y, NULL);
 
-		top = 2 * y > h;
+		top = 2 * y > mon_geom.height + mon_geom.y;
 	}
 
 	text = g_string_new(NULL);
@@ -237,7 +249,7 @@ static void show(void)
 		int	max_h;
 
 		gtk_widget_size_request(label, &req);
-		max_h = o_percent_switch.int_value * gdk_screen_height() / 100;
+		max_h = o_percent_switch.int_value * mon_geom.height / 100;
 
 		if (req.height > max_h)
 		{
@@ -246,13 +258,13 @@ static void show(void)
 		}
 
 		if (top)
-			y = MARGIN;
+			y = mon_geom.y + MARGIN;
 		else
-			y = h - MARGIN - req.height;
+			y = mon_geom.y + mon_geom.height - MARGIN - req.height;
 
-		req.width = gdk_screen_width() - 2 * MARGIN;
+		req.width = mon_geom.width - 2 * MARGIN;
 
-		gtk_widget_set_uposition(log_window, MARGIN, y);
+		gtk_widget_set_uposition(log_window, mon_geom.x + MARGIN, y);
 		gtk_widget_set_usize(log_window, req.width, req.height);
 		gtk_widget_show(log_window);
 		gdk_window_move(log_window->window, MARGIN, y);
@@ -403,7 +415,8 @@ static void got_log_data(gpointer data,
 
 void show_message_log(void)
 {
-	GtkWidget *view, *dialog, *sw;
+	GtkWidget *view, *dialog, *sw, *vbox, *hbox, *close_button;
+	GdkRectangle mon_geom;
 
 	if (message_window)
 	{
@@ -411,13 +424,36 @@ void show_message_log(void)
 		return;
 	}
 
-	dialog = gtk_dialog_new_with_buttons(_("ROX-Session message log"),
-					     NULL, GTK_DIALOG_NO_SEPARATOR,
-					     GTK_STOCK_CLOSE, GTK_RESPONSE_YES,
-					     NULL);
+	/* Can't guarantee to open on same monitor as pointer, but most people
+	 * will have monitors with matching resolutions */
+	if (gdk_screen_get_n_monitors(gdk_screen_get_default()) > 1)
+	{
+		int mx, my;
+
+		gdk_window_get_pointer(GDK_ROOT_PARENT(), &mx, &my, NULL);
+		gdk_screen_get_monitor_geometry(gdk_screen_get_default(),
+				gdk_screen_get_monitor_at_point(
+					gdk_screen_get_default(), mx, my),
+				&mon_geom);
+	}
+	else
+	{
+		mon_geom.x = mon_geom.y = 0;
+		mon_geom.width = gdk_screen_width();
+		mon_geom.height = gdk_screen_height();
+	}
+
+	dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	message_window = GTK_WINDOW(dialog);
-	g_signal_connect(dialog, "response",
-			G_CALLBACK(gtk_widget_destroy), NULL);
+	gtk_window_set_title(message_window, _("ROX-Session message log"));
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(dialog), vbox);
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 8);
+	close_button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+	gtk_box_pack_end(GTK_BOX(hbox), close_button, FALSE, FALSE, 18);
+	g_signal_connect_swapped(close_button, "clicked",
+			G_CALLBACK(gtk_widget_destroy), message_window);
 	g_signal_connect(message_window, "destroy",
 			G_CALLBACK(gtk_widget_destroyed), &message_window);
 
@@ -434,12 +470,13 @@ void show_message_log(void)
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(sw),
 					GTK_SHADOW_IN);
 	
-	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), sw);
+	gtk_box_pack_start(GTK_BOX(vbox), sw, TRUE, TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(sw), view);
 
 	gtk_window_set_default_size(message_window,
-				    gdk_screen_width() / 2,
-				    gdk_screen_height() / 6);
+				    mon_geom.width / 2, mon_geom.height / 4);
+	/* I thought 1/6 of screen height looked too small */
+
 	gtk_widget_show_all(GTK_WIDGET(message_window));
 
 	gtk_widget_hide(log_window);

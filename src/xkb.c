@@ -29,6 +29,9 @@
 #include <stdio.h>
 #include <glib.h>
 
+#include <gdk/gdkx.h>
+#include <X11/XKBlib.h>
+
 #include "global.h"
 
 #include "xkb.h"
@@ -96,4 +99,21 @@ void set_xkb_layout(const char *command)
 
 	g_ptr_array_free(argv, TRUE);
 	g_strfreev(xkb_layout);
+}
+
+void set_xkb_repeat(gboolean repeat, int delay, int interval)
+{
+	if (repeat)
+	{
+		XAutoRepeatOn(GDK_DISPLAY());
+		if (interval <= 0) interval = 1;
+		if (delay <= 0) delay = 1;
+		if (!XkbSetAutoRepeatRate(GDK_DISPLAY(), XkbUseCoreKbd,
+					delay, interval))
+			g_warning(_("Failed to set auto repeat rate/interval"));
+	}
+	else
+	{
+		XAutoRepeatOff(GDK_DISPLAY());
+	}
 }

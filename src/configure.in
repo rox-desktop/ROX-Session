@@ -54,6 +54,10 @@ dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_MAKE_SET
 
+# Compiler characteristics
+AC_C_CONST
+AC_C_INLINE
+
 dnl Use -Wall, etc if possible
 [
 if test "x$GCC" = "xyes"; then

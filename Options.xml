@@ -26,7 +26,7 @@
       <label help='1'>You can click button-3 on an error message to switch to the log window display, or use this button:</label>
       <show-log/>
       <spacer/>
-      <numentry label='Show messages for:' unit='seconds' min='1' max='30' name='log_time_shown'>Number of seconds to display each message for</numentry>
+      <numentry label='Show messages for:' unit='seconds' min='0' max='30' name='log_time_shown'>Number of seconds to display each message for</numentry>
       <numentry label='Max area for popup display:' unit='%' min='5' max='60' name='log_percent_switch'>Normally, messages are shown overlayed on the screen for a few seconds. If there are a large number of messages (more than this amount of the screen is covered) then the view switches to the window style.</numentry>
     </frame>
   </section>

@@ -16,11 +16,13 @@ EXEC = ${PLATFORM_DIR}/${PROG}
 
 PROG = ROX-Session
 
-SRCS = main.c choices.c dbus.c gui_support.c i18n.c log.c options.c \
-	rox_gettext.c session.c settings.c wm.c xsettings-common.c xsettings-manager.c xkb.c
+SRCS = main.c choices.c dbus.c dpms.c gui_support.c i18n.c log.c options.c \
+	rox_gettext.c session.c settings.c wm.c xsettings-common.c \
+	xsettings-manager.c xkb.c
 
-OBJECTS = main.o choices.o dbus.o gui_support.o i18n.o log.o options.o \
-	rox_gettext.o session.o settings.o wm.o xsettings-common.o xsettings-manager.o xkb.o
+OBJECTS = main.o choices.o dbus.o dpms.o gui_support.o i18n.o log.o options.o \
+	rox_gettext.o session.o settings.o wm.o xsettings-common.o \
+	xsettings-manager.o xkb.o
 
 ############ Things to keep the same
 
