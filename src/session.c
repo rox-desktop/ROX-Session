@@ -92,8 +92,6 @@ static const char *stocks[] = {
 };
 
 /* Static prototypes */
-static GList *build_mouse_tester(Option *option, xmlNode *node, guchar *label);
-/* static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label); */
 static void child_died(int signum);
 static GtkWidget *op_button(const char *text, const char *stock,
 			    Option *command, const char *message);
@@ -126,9 +124,6 @@ void session_init(void)
 	option_add_string(&reboot_command, "reboot_command", "reboot");
 	option_add_string(&suspend_command, "suspend_command",
 			  "xset dpms force off");
-
-	option_register_widget("mouse-tester", build_mouse_tester);
-	/* option_register_widget("gtk-theme", build_gtk_theme); */
 
 	factory = gtk_icon_factory_new();
 	for (i = 0; i < G_N_ELEMENTS(stocks); i++)
@@ -333,183 +328,6 @@ static void child_died(int signum)
 	write(STDERR_FILENO, "\n", 1);
 	call_child_died = TRUE;
 }
-
-static gboolean tester_clicked(GtkBin *button, GdkEventButton *event)
-{
-	GtkLabel *label = GTK_LABEL(button->child);
-
-	if (event->type == GDK_BUTTON_PRESS)
-		gtk_label_set_text(label, _("Single click!"));
-	else if (event->type == GDK_2BUTTON_PRESS)
-		gtk_label_set_text(label, _("Double click!!"));
-	else if (event->type == GDK_3BUTTON_PRESS)
-		gtk_label_set_text(label, _("Triple click!!!"));
-	
-	return 1;
-}
-
-static gboolean reset_tester(GtkBin *button)
-{
-	GtkLabel *label = GTK_LABEL(button->child);
-
-	gtk_label_set_text(label, _("Double-click here to test mouse"));
-	return 0;
-}
-
-static GList *build_mouse_tester(Option *option, xmlNode *node, guchar *label)
-{
-	GtkWidget *widget;
-
-	g_return_val_if_fail(option == NULL, NULL);
-	g_return_val_if_fail(label == NULL, NULL);
-
-	widget = gtk_button_new_with_label("");
-	g_signal_connect(widget, "button-press-event",
-			 G_CALLBACK(tester_clicked), NULL);
-	g_signal_connect(widget, "leave-notify-event",
-			 G_CALLBACK(reset_tester), NULL);
-	reset_tester(GTK_BIN(widget));
-
-	return g_list_prepend(NULL, widget);
-}
-
-#if 0
-static guchar *read_theme(Option *option)
-{
-	GtkOptionMenu *om = GTK_OPTION_MENU(option->widget);
-	GtkLabel *item;
-
-	item = GTK_LABEL(GTK_BIN(om)->child);
-
-	g_return_val_if_fail(item != NULL, g_strdup("Default"));
-
-	return g_strdup(gtk_label_get_text(item));
-}
-
-static void update_theme(Option *option)
-{
-	GtkOptionMenu *om = GTK_OPTION_MENU(option->widget);
-	GtkWidget *menu;
-	GList *kids, *next;
-	int i = 0;
-
-	menu = gtk_option_menu_get_menu(om);
-
-	kids = gtk_container_get_children(GTK_CONTAINER(menu));
-	for (next = kids; next; next = next->next, i++)
-	{
-		GtkLabel *item = GTK_LABEL(GTK_BIN(next->data)->child);
-		const gchar *label;
-
-		/* The label actually moves from the menu!! */
-		if (!item)
-			item = GTK_LABEL(GTK_BIN(om)->child);
-
-		label = gtk_label_get_text(item);
-
-		g_return_if_fail(label != NULL);
-
-		if (strcmp(label, option->value) == 0)
-			break;
-	}
-	g_list_free(kids);
-	
-	if (next)
-		gtk_option_menu_set_history(om, i);
-	else
-		g_warning("Theme '%s' not found", option->value);
-}
-
-static void add_themes(GHashTable *themes, const guchar *path)
-{
-	DIR *dir;
-	struct dirent *ent;
-
-	dir = opendir(path);
-	if (!dir)
-		return;
-
-	while ((ent = readdir(dir)))
-	{
-		char *gtk2;
-		if (ent->d_name[0] == '.')
-			continue;
-
-		gtk2 = g_build_filename(path, ent->d_name, "gtk-2.0", NULL);
-		if (access(gtk2, F_OK) == 0)
-			g_hash_table_insert(themes,
-					g_strdup(ent->d_name), NULL);
-		g_free(gtk2);
-	}
-	closedir(dir);
-}
-
-static void hash_to_array(gpointer key, gpointer value, gpointer array)
-{
-	g_ptr_array_add((GPtrArray *) array, key);
-}
-
-static gint sort_by_name(gconstpointer a, gconstpointer b)
-{
-	return strcmp(*(char **) a, *(char **) b);
-}
-
-static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label)
-{
-	GtkWidget *button, *menu, *hbox;
-	GHashTable *themes;
-	GPtrArray *names;
-	guchar *user_dir;
-	int i;
-
-	g_return_val_if_fail(option != NULL, NULL);
-	g_return_val_if_fail(label != NULL, NULL);
-
-	hbox = gtk_hbox_new(FALSE, 4);
-
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(label)),
-				FALSE, TRUE, 0);
-
-	button = gtk_option_menu_new();
-	gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-
-	menu = gtk_menu_new();
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(button), menu);
-
-	themes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
-	user_dir = g_build_filename(g_get_home_dir(), ".themes", NULL);
-	add_themes(themes, user_dir);
-	g_free(user_dir);
-	add_themes(themes, gtk_rc_get_theme_dir());
-
-	names = g_ptr_array_new();
-	g_hash_table_foreach(themes, hash_to_array, names);
-	g_ptr_array_sort(names, sort_by_name);
-
-	for (i = 0; i < names->len; i++)
-	{
-		GtkWidget *item;
-		const char *name = names->pdata[i];
-
-		item = gtk_menu_item_new_with_label(name);
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-		gtk_widget_show_all(item);
-	}
-
-	g_ptr_array_free(names, TRUE);
-	g_hash_table_destroy(themes);
-
-	option->update_widget = update_theme;
-	option->read_widget = read_theme;
-	option->widget = button;
-
-	gtk_signal_connect_object(GTK_OBJECT(button), "changed",
-			GTK_SIGNAL_FUNC(option_check_widget),
-			(GtkObject *) option);
-
-	return g_list_append(NULL, hbox);
-}
-#endif
 
 void show_session_options(void)
 {

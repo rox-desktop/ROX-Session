@@ -52,39 +52,9 @@
     	    min='10' max='100'>
 When the pointer is moved quickly more than the threshold number of pixels, its speed is multiplied by this number.
       </slider>
-      <spacer/>
-      <slider name='Net/DndDragThreshold' label='DnD Drag Threshold'
-    	    min='1' max='50'>
-Controls how far you have to drag the mouse to start a drag-and-drop operation.
-Set this high if you find yourself dragging things unintentionally.
-      </slider>
-    </frame>
-    <frame label='Buttons'>
-      <slider name='Net/DoubleClickTime' label='Double-click speed: (fast)' end='(slow)'
-	    min='100' max='2000'>Time allowed between the two clicks that make up a double click. Make this bigger if you have trouble double-clicking fast enough; set it smaller if two single-clicks sometimes get treated as a double click.
-      </slider>
-      <spacer/>
-      <mouse-tester/>
     </frame>
   </section>
   
-  <!--
-  <section title='Keyboard'>
-    <frame label='Cursor'>
-      <toggle label='Blinking cursor' name='Net/CursorBlink'/>
-      <slider label='Speed: (fast)' end='(slow)' name='Net/CursorBlinkTime' fixed='0' min='100' max='2000'>Speed at which the text entry cursor flashes (if flashing is enabled).</slider>
-    </frame>
-    
-    <frame label='Shortcuts'>
-      <toggle name='Gtk/CanChangeAccels'
-    	    label='Allow keybindings to be changed from menus'>When this is on, you can set up a short-cut for a menu item by holding to pointer over the menu item and pressing the key. If off, short-cuts cannot be changed.</toggle>
-      <spacer/>
-      <label help='1'>You can set global shortcuts (which work from any
-application) by assigning them to icons on a ROX-Filer pinboard or panel.</label>
-    </frame>
-  </section>
-  -->
-
   <section title='Messages'>
     <label help='1'>All programs have a 'standard error stream' which they can write text messages to. ROX-Session creates such a connection between itself and every program it starts. It displays all the messages it collects this way briefly on screen.</label>
     <frame label='On-screen message log'>
