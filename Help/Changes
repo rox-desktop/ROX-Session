@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+12-Apr-2003
+~~~~~~~~~~~
+GTK theme option is now a menu of possible choices.
+
 05-Mar-2003
 ~~~~~~~~~~~
 Added Framer to the default list of window managers.

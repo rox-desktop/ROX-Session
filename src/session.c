@@ -29,6 +29,8 @@
 #include <sys/param.h>
 #include <limits.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
@@ -124,6 +126,7 @@ static const char *stocks[] = {
 
 /* Static prototypes */
 static GList *build_mouse_tester(Option *option, xmlNode *node, guchar *label);
+static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label);
 static void child_died(int signum);
 static void terminate_xsettings(void *data);
 static void xsettings_changed(void);
@@ -177,6 +180,7 @@ void session_init(void)
 			  "xset dpms force off");
 
 	option_register_widget("mouse-tester", build_mouse_tester);
+	option_register_widget("gtk-theme", build_gtk_theme);
 
 	option_add_notify(xsettings_changed);
 
@@ -445,6 +449,129 @@ static GList *build_mouse_tester(Option *option, xmlNode *node, guchar *label)
 	reset_tester(GTK_BIN(widget));
 
 	return g_list_prepend(NULL, widget);
+}
+
+static guchar *read_theme(Option *option)
+{
+	GtkOptionMenu *om = GTK_OPTION_MENU(option->widget);
+	GtkLabel *item;
+
+	item = GTK_LABEL(GTK_BIN(om)->child);
+
+	g_return_val_if_fail(item != NULL, g_strdup("Default"));
+
+	return g_strdup(gtk_label_get_text(item));
+}
+
+static void update_theme(Option *option)
+{
+	GtkOptionMenu *om = GTK_OPTION_MENU(option->widget);
+	GtkWidget *menu;
+	GList *kids, *next;
+	int i = 0;
+
+	menu = gtk_option_menu_get_menu(om);
+
+	kids = gtk_container_get_children(GTK_CONTAINER(menu));
+	for (next = kids; next; next = next->next, i++)
+	{
+		GtkLabel *item = GTK_LABEL(GTK_BIN(next->data)->child);
+		const gchar *label;
+
+		label = gtk_label_get_text(item);
+
+		if (strcmp(label, option->value) == 0)
+			break;
+	}
+	g_list_free(kids);
+	
+	if (next)
+		gtk_option_menu_set_history(om, i);
+	else
+		g_warning("Theme '%s' not found", option->value);
+}
+
+static void add_themes(GHashTable *themes, const guchar *path)
+{
+	DIR *dir;
+	struct dirent *ent;
+
+	dir = opendir(path);
+	if (!dir)
+		return;
+
+	while ((ent = readdir(dir)))
+	{
+		if (ent->d_name[0] == '.')
+			continue;
+		g_hash_table_insert(themes, g_strdup(ent->d_name), NULL);
+	}
+	closedir(dir);
+}
+
+static void hash_to_array(gpointer key, gpointer value, gpointer array)
+{
+	g_ptr_array_add((GPtrArray *) array, key);
+}
+
+static gint sort_by_name(gconstpointer a, gconstpointer b)
+{
+	return strcmp(*(char **) a, *(char **) b);
+}
+
+static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label)
+{
+	GtkWidget *button, *menu, *hbox;
+	GHashTable *themes;
+	GPtrArray *names;
+	guchar *user_dir;
+	int i;
+
+	g_return_val_if_fail(option != NULL, NULL);
+	g_return_val_if_fail(label != NULL, NULL);
+
+	hbox = gtk_hbox_new(FALSE, 4);
+
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(label)),
+				FALSE, TRUE, 0);
+
+	button = gtk_option_menu_new();
+	gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+
+	menu = gtk_menu_new();
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(button), menu);
+
+	themes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+	user_dir = g_build_filename(g_get_home_dir(), ".themes", NULL);
+	add_themes(themes, user_dir);
+	g_free(user_dir);
+	add_themes(themes, gtk_rc_get_theme_dir());
+
+	names = g_ptr_array_new();
+	g_hash_table_foreach(themes, hash_to_array, names);
+	g_ptr_array_sort(names, sort_by_name);
+
+	for (i = 0; i < names->len; i++)
+	{
+		GtkWidget *item;
+		const char *name = names->pdata[i];
+
+		item = gtk_menu_item_new_with_label(name);
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+	}
+
+	g_ptr_array_free(names, TRUE);
+	g_hash_table_destroy(themes);
+
+	option->update_widget = update_theme;
+	option->read_widget = read_theme;
+	option->widget = button;
+
+	gtk_signal_connect_object(GTK_OBJECT(button), "changed",
+			GTK_SIGNAL_FUNC(option_check_widget),
+			(GtkObject *) option);
+
+	return g_list_append(NULL, hbox);
 }
 
 static void show_session_options(void)

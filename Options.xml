@@ -32,7 +32,7 @@
       <label help='1'>Bring up the menu over the desktop background to set the backdrop image or change the pinboard options.</label>
     </frame>
     <frame label='Theme'>
-      <entry name='Net/ThemeName' label='GTK theme'>The name of the theme to use.</entry>
+      <gtk-theme name='Net/ThemeName' label='GTK theme'/>
     </frame>
   </section>
 
