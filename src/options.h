@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * ROX-Filer, filer for the ROX desktop project
+ * ROX-Session, a very simple session manager
  * By Thomas Leonard, <tal197@users.sourceforge.net>.
  */
 

@@ -1386,6 +1386,7 @@ static GList *build_font(Option *option, xmlNode *node, guchar *label)
 	option->update_widget = update_font;
 	option->read_widget = read_font;
 	option->widget = GTK_BIN(button)->child;
+	may_add_tip(button, node);
 
 	gtk_signal_connect(GTK_OBJECT(button), "clicked",
 			GTK_SIGNAL_FUNC(open_fontsel), (GtkObject *) option);
