@@ -24,6 +24,7 @@
 #include <errno.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <ctype.h>
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
@@ -61,6 +62,7 @@ static Setting settings[] = {
 	{"Net/CursorBlinkTime", "1200"},
 
 	{"Gtk/CanChangeAccels", "1"},
+	{"Gtk/FontName", "Sans 10"},
 };
 
 #define N_SETTINGS (sizeof(settings) / sizeof(*settings))
@@ -73,9 +75,16 @@ static void xsettings_changed(void)
 		return;
 
 	for (i = 0; i < N_SETTINGS; i++)
-		xsettings_manager_set_int(manager,
-				settings[i].name,
-				settings[i].option.int_value);
+	{
+		if (isdigit(settings[i].default_value[0]))
+			xsettings_manager_set_int(manager,
+					settings[i].name,
+					settings[i].option.int_value);
+		else
+			xsettings_manager_set_string(manager,
+					settings[i].name,
+					settings[i].option.value);
+	}
 
 	xsettings_manager_notify(manager);
 }
@@ -141,8 +150,10 @@ void session_init(void)
 
 	if (xsettings_manager_check_running(gdk_display,
 					    DefaultScreen(gdk_display)))
+	{
 		g_warning("An XSETTINGS manager is already running. "
 				"Not taking control of XSETTINGS...");
+	}
 	else
 		manager = xsettings_manager_new(gdk_display,
 						DefaultScreen(gdk_display),
@@ -187,6 +198,7 @@ void show_main_window(void)
 			NULL);
 
 	button = button_new_mixed(GTK_STOCK_QUIT, "_Logout");
+	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_widget_show(button);
 
 	gtk_dialog_add_action_widget(GTK_DIALOG(window),

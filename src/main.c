@@ -79,6 +79,8 @@
 
 #define SHORT_OPS "htvw"
 
+gboolean test_mode = FALSE;
+
 #ifdef HAVE_GETOPT_LONG
 static struct option long_opts[] =
 {
@@ -109,7 +111,6 @@ int main(int argc, char **argv)
 	GdkWindow		*window;
 	GdkWindow		*existing_session_window;
 	gboolean		wait_mode = FALSE;
-	gboolean		test_mode = FALSE;
 	guchar			*rc_file;
 
 	app_dir = g_strdup(getenv("APP_DIR"));
@@ -212,10 +213,10 @@ int main(int argc, char **argv)
 	session_init();
 
 	log_init();		/* Capture standard error */
+	start_window_manager();
 
 	if (test_mode)
 	{
-		/* start_window_manager(); */
 		show_main_window();
 		/* system("rox -n&"); */
 	}

@@ -61,7 +61,8 @@ void start_window_manager(void)
 		
 	option_add_string(&o_default_wm, "DefaultWM", "");
 
-	run_wm();
+	if (!test_mode)
+		run_wm();
 }
 
 void wm_process_died(void)

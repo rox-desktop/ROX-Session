@@ -5,6 +5,10 @@
 TODO: Get sawfish's iconize animation to go into the middle of the screen
       so people stop blaming us for hiding the icons under the panel...
 
+06-Mar-2002
+~~~~~~~~~~~
+Added XSetting for default Gtk+ font.
+
 05-Mar-2002
 ~~~~~~~~~~~
 Added settings for cursor blinking.

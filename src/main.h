@@ -10,6 +10,7 @@
 
 extern int number_of_windows;
 extern guchar *app_dir;
+extern gboolean test_mode;
 
 /* Prototypes */
 int main(int argc, char **argv);

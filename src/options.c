@@ -128,6 +128,7 @@ static GList *build_entry(Option *option, xmlNode *node, guchar *label);
 static GList *build_radio_group(Option *option, xmlNode *node, guchar *label);
 static GList *build_colour(Option *option, xmlNode *node, guchar *label);
 static GList *build_menu(Option *option, xmlNode *node, guchar *label);
+static GList *build_font(Option *option, xmlNode *node, guchar *label);
 
 
 /****************************************************************
@@ -163,6 +164,7 @@ void options_init(void)
 	option_register_widget("radio-group", build_radio_group);
 	option_register_widget("colour", build_colour);
 	option_register_widget("menu", build_menu);
+	option_register_widget("font", build_font);
 }
 
 /* When parsing the XML file, process an element named 'name' by
@@ -347,6 +349,7 @@ static void option_add(Option *option, guchar *key)
 }
 
 static GtkColorSelectionDialog *current_csel_box = NULL;
+static GtkFontSelectionDialog *current_fontsel_box = NULL;
 
 static void get_new_colour(GtkWidget *ok, Option *option)
 {
@@ -407,6 +410,51 @@ static void open_coloursel(GtkWidget *button, Option *option)
 	gtk_color_selection_set_color(GTK_COLOR_SELECTION(csel->colorsel), c);
 
 	gtk_widget_show(dialog);
+}
+
+static void font_chosen(GtkWidget *dialog, gint response, Option *option)
+{
+	gchar *font;
+
+	if (response != GTK_RESPONSE_OK)
+		goto out;
+
+	font = gtk_font_selection_dialog_get_font_name(
+					GTK_FONT_SELECTION_DIALOG(dialog));
+
+	gtk_label_set_text(GTK_LABEL(option->widget), font);
+
+	g_free(font);
+
+	option_check_widget(option);
+
+out:
+	gtk_widget_destroy(dialog);
+
+}
+
+static void open_fontsel(GtkWidget *button, Option *option)
+{
+	if (current_fontsel_box)
+		gtk_widget_destroy(GTK_WIDGET(current_fontsel_box));
+
+	current_fontsel_box = GTK_FONT_SELECTION_DIALOG(
+				gtk_font_selection_dialog_new(PROJECT));
+
+	gtk_window_set_position(GTK_WINDOW(current_fontsel_box),
+				GTK_WIN_POS_MOUSE);
+
+	gtk_signal_connect_object(GTK_OBJECT(current_fontsel_box), "destroy",
+			GTK_SIGNAL_FUNC(set_to_null),
+			(GtkObject *) &current_fontsel_box);
+
+	gtk_font_selection_dialog_set_font_name(current_fontsel_box,
+						option->value);
+
+	gtk_signal_connect(GTK_OBJECT(current_fontsel_box), "response",
+			GTK_SIGNAL_FUNC(font_chosen), option);
+
+	gtk_widget_show(GTK_WIDGET(current_fontsel_box));
 }
 
 /* These are used during parsing... */
@@ -671,6 +719,8 @@ static void options_destroyed(GtkWidget *widget, gpointer data)
 {
 	if (current_csel_box)
 		gtk_widget_destroy(GTK_WIDGET(current_csel_box));
+	if (current_fontsel_box)
+		gtk_widget_destroy(GTK_WIDGET(current_fontsel_box));
 	
 	if (widget == window)
 	{
@@ -1009,6 +1059,11 @@ static void update_menu(Option *option)
 	option_menu_set(GTK_OPTION_MENU(option->widget), option->value);
 }
 
+static void update_font(Option *option)
+{
+	gtk_label_set_text(GTK_LABEL(option->widget), option->value);
+}
+
 static void update_colour(Option *option)
 {
 	GdkColor colour;
@@ -1047,6 +1102,11 @@ static guchar *read_radio_group(Option *option)
 static guchar *read_menu(Option *option)
 {
 	return g_strdup(option_menu_get(GTK_OPTION_MENU(option->widget)));
+}
+
+static guchar *read_font(Option *option)
+{
+	return g_strdup(gtk_label_get_text(GTK_LABEL(option->widget)));
 }
 
 static guchar *read_colour(Option *option)
@@ -1305,6 +1365,30 @@ static GList *build_menu(Option *option, xmlNode *node, guchar *label)
 	gtk_signal_connect_object_after(GTK_OBJECT(option_menu), "changed",
 			GTK_SIGNAL_FUNC(option_check_widget),
 			(GtkObject *) option);
+
+	return g_list_append(NULL, hbox);
+}
+
+static GList *build_font(Option *option, xmlNode *node, guchar *label)
+{
+	GtkWidget	*hbox, *button;
+
+	g_return_val_if_fail(option != NULL, NULL);
+
+	hbox = gtk_hbox_new(FALSE, 4);
+
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(label)),
+			FALSE, TRUE, 0);
+
+	button = gtk_button_new_with_label("");
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, TRUE, 0);
+
+	option->update_widget = update_font;
+	option->read_widget = read_font;
+	option->widget = GTK_BIN(button)->child;
+
+	gtk_signal_connect(GTK_OBJECT(button), "clicked",
+			GTK_SIGNAL_FUNC(open_fontsel), (GtkObject *) option);
 
 	return g_list_append(NULL, hbox);
 }

@@ -10,6 +10,8 @@
     <label>These settings affect all XSettings-aware programs immediately. Older programs will not be affected.</label>
     <spacer/>
   
+    <font name='Gtk/FontName' label='Default font'>The font used by Gtk+ applications</font>
+    <spacer/>
     <slider name='Net/DoubleClickTime' label='Double-click speed: (fast)' end='(slow)'
 	    min='100' max='2000'>Time allowed between the two clicks that make up a double click. Make this bigger if you have trouble double-clicking fast enough; set it smaller if two single-clicks sometimes get treated as a double click.</slider>
     <spacer/>
