@@ -27,6 +27,8 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <signal.h>
+#include <string.h>
 
 #include <gtk/gtk.h>
 
@@ -41,14 +43,15 @@
 
 pid_t	wm_pid = -1;
 
-static Option o_default_wm;
+static char *window_manager = NULL;	/* (use get/set_window_manager to access) */
+static gboolean auto_restart_wm = FALSE;	/* TRUE while waiting for requested quit */
 
 /* Static prototypes */
-static GList *load_wm_list(void);
 static void run_wm(void);
-static GList *start_wm_button(Option *option, xmlNode *node, guchar *label);
-static GList *wm_combo(Option *option, xmlNode *node, guchar *label);
-static void choose_wm(void);
+static void choose_wm(const char *message);
+void set_window_manager(const char *command);
+static const char *get_window_manager(void);
+static gboolean available_in_path(const char *file);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -56,20 +59,9 @@ static void choose_wm(void);
 
 #define BUFFER_SIZE 256
 
+/* Must have called settings_init first. */
 void start_window_manager(void)
 {
-	option_register_widget("start-wm", start_wm_button);
-	option_register_widget("wm-combo", wm_combo);
-
-	/* If we have Zero Install, then OroboROX is the default window
-	 * manager. Otherwise, ask the user to choose on first login.
-	 */
-	if (access("/uri/0install/rox.sourceforge.net", F_OK) == 0)
-		option_add_string(&o_default_wm, "DefaultWM",
-			"0run 'rox.sourceforge.net/apps/OroboROX 2004-04-23'");
-	else
-		option_add_string(&o_default_wm, "DefaultWM", "");
-
 	if (!test_mode)
 		run_wm();
 }
@@ -78,83 +70,91 @@ void wm_process_died(void)
 {
 	wm_pid = -1;
 
-	report_error(_("Your window manager has crashed (or quit). "
-		       "Please restart it, or choose another window manager."),
-			o_default_wm.value);
-	choose_wm();
+	if (auto_restart_wm)
+	{
+		auto_restart_wm = FALSE;
+		run_wm();
+	}
+	else
+		choose_wm(_("Your window manager has crashed (or quit). "
+				"Please restart it, or choose another window manager."));
+}
+
+/* Used by settings.c */
+void set_window_manager(const char *command)
+{
+	GtkWidget *box;
+
+	if (!*command)
+		command = NULL;
+	g_free(window_manager);
+	window_manager = g_strdup(command);
+
+	if (wm_pid == -1)
+		return;
+
+	box = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
+			GTK_BUTTONS_NONE,
+			_("Your default window manager is now '%s'.\n"
+			"Would you like to quit your current window manager and start the new "
+			"one right now?"), get_window_manager());
+	gtk_window_set_position(GTK_WINDOW(box), GTK_WIN_POS_CENTER);
+
+	gtk_dialog_add_button(GTK_DIALOG(box), GTK_STOCK_NO, GTK_RESPONSE_CANCEL);
+	gtk_dialog_add_button(GTK_DIALOG(box), GTK_STOCK_EXECUTE, GTK_RESPONSE_OK);
+	gtk_dialog_set_default_response(GTK_DIALOG(box), GTK_RESPONSE_OK);
+
+	auto_restart_wm = TRUE;
+
+	if (gtk_dialog_run(GTK_DIALOG(box)) == GTK_RESPONSE_OK)
+		kill(wm_pid, SIGTERM);
+
+	gtk_widget_destroy(box);
 }
 
 /****************************************************************
  *			INTERNAL FUNCTIONS			*
  ****************************************************************/
 
-static void choose_wm(void)
+/* Report 'message' to the user, and ask them to choose and restart a new window
+ * manager. Calls set_window_manager() and run_wm().
+ */
+static void choose_wm(const char *message)
 {
-	GtkWidget *window;
-	
-	window = options_show();
+	GtkWidget *box;
+	GtkWidget *vbox, *entry;
 
-	if (window)
-		gtk_signal_connect_object(GTK_OBJECT(window), "destroy",
-				GTK_SIGNAL_FUNC(run_login_script), NULL);
-}
+	box = gtk_dialog_new_with_buttons("Choose window manager",
+			NULL, GTK_DIALOG_MODAL | GTK_DIALOG_NO_SEPARATOR,
+			GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
+			GTK_STOCK_EXECUTE, GTK_RESPONSE_OK,
+			NULL);
+	gtk_window_set_position(GTK_WINDOW(box), GTK_WIN_POS_CENTER);
 
-static GList *load_wm_list(void)
-{
-	GList	*wms = NULL;
-	guchar 	*path;
-	GError  *error = NULL;
-	gchar	*data;
+	vbox = GTK_DIALOG(box)->vbox;
 
-	path = choices_find_path_load("WindowMans", "ROX-Session");
-	if (!path)
-		path = g_strconcat(app_dir, "/WindowMans", NULL);
+	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(message), TRUE, TRUE, 0);
 
-	g_file_get_contents(path, &data, NULL, &error);
+	gtk_dialog_set_default_response(GTK_DIALOG(box), GTK_RESPONSE_OK);
 
-	if (data)
+	entry = gtk_entry_new();
+	gtk_box_pack_start(GTK_BOX(vbox), entry, FALSE, TRUE, 0);
+	gtk_entry_set_text(GTK_ENTRY(entry), get_window_manager());
+
+	gtk_widget_show_all(vbox);
+
+	if (gtk_dialog_run(GTK_DIALOG(box)) == GTK_RESPONSE_OK)
 	{
-		gchar **lines;
-		int	i;
-
-		lines = g_strsplit(data, "\n", 0);
-
-		g_free(data);
-
-		for (i = 0; lines[i]; i++)
-		{
-			gchar *line = lines[i];
-			gchar *path;
-			gchar **argv = NULL;
-			
-			if (line[0] == '\0' || line[0] == '#')
-				continue;
-
-			if (!g_shell_parse_argv(line, NULL, &argv, NULL))
-				continue;
-
-			path = argv[0] ? g_find_program_in_path(argv[0]) : NULL;
-			g_strfreev(argv);
-
-			if (path)
-			{
-				g_free(path);
-				wms = g_list_prepend(wms, g_strdup(line));
-			}
-		}
-
-		g_strfreev(lines);
+		char *new;
+		new = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+		gtk_widget_destroy(box);
+		settings_set_string("ROX/WindowManager", new);
+		g_free(new);
+		run_wm();
 	}
 	else
-	{
-		report_error(_("Error loading window manager list '%s':\n%s"),
-				path, error->message);
-		g_error_free(error);
-	}
+		gtk_widget_destroy(box);
 
-	g_free(path);
-
-	return g_list_reverse(wms);
 }
 
 /* Run this default WM. When it dies, show the WM choices box again.
@@ -165,6 +165,7 @@ static void run_wm(void)
 	GError	*error = NULL;
 	gint	pid;
 	char	**argv = NULL;
+	const char *wm;
 
 	if (wm_pid != -1)
 	{
@@ -174,15 +175,9 @@ static void run_wm(void)
 		return;
 	}
 
-	if (!*o_default_wm.value)
-	{
-		report_error(_("No window manager is currently selected.\n"
-			       "Please choose a window manager now."));
-		choose_wm();
-		return;
-	}
+	wm = get_window_manager();
 
-	if (g_shell_parse_argv(o_default_wm.value, NULL, &argv, &error))
+	if (g_shell_parse_argv(wm, NULL, &argv, &error))
 		g_spawn_async(NULL, argv, NULL,
 			G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD |
 			G_SPAWN_STDOUT_TO_DEV_NULL,
@@ -192,15 +187,18 @@ static void run_wm(void)
 		
 	if (error)
 	{
+		char *message;
 		wm_pid = -1;
 
-		report_error(_("Failed to start window manager:\n%s\n"
+		message = g_strdup_printf(
+			_("Failed to start window manager:\n%s\n"
 			"Please choose a new window manager and try again."),
 				error->message);
 
 		g_error_free(error);
 
-		choose_wm();
+		choose_wm(message);
+		g_free(message);
 	}
 	else
 	{
@@ -210,71 +208,93 @@ static void run_wm(void)
 	}
 }
 
-static void update_combo(Option *option)
+/* Return the command to start the window manager.
+ * If no command is set, select a suitable one.
+ * NULL to prompt the user to choose.
+ */
+static const char *get_window_manager(void)
 {
-	gtk_entry_set_text(GTK_ENTRY(option->widget), option->value);
-}
+	const char *fallbacks[] = {"xfwm4", "sawfish", "sawmill", "enlightenment", "wmaker",
+			    "icewm", "blackbox", "fluxbox", "metacity", "kwin", "kwm",
+			    "fvwm2", "fvwm", "4Dwm", "twm"};
 
-static guchar *read_combo(Option *option)
-{
-	return gtk_editable_get_chars(GTK_EDITABLE(option->widget), 0, -1);
-}
+	if (window_manager && *window_manager)
+		return window_manager;
 
-static GList *wm_combo(Option *option, xmlNode *node, guchar *label)
-{
-	GtkWidget	*combo, *entry, *hbox;
-	GList		*wms;
-
-	g_return_val_if_fail(option != NULL, NULL);
-
-	hbox = gtk_hbox_new(FALSE, 4);
-
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(label)),
-				FALSE, TRUE, 0);
-
-	combo = gtk_combo_new();
-	gtk_box_pack_start(GTK_BOX(hbox), combo, TRUE, TRUE, 0);
-	entry = GTK_COMBO(combo)->entry;
-	gtk_combo_disable_activate(GTK_COMBO(combo));
-	GTK_WIDGET_SET_FLAGS(entry, GTK_CAN_FOCUS);
-
-	wms = load_wm_list();
-	if (wms)
+	/* If we have Zero Install, then OroboROX is the default window
+	 * manager. Otherwise, ask the user to choose on first login.
+	 */
+	if (access("/uri/0install/rox.sourceforge.net", F_OK) == 0)
+		return "0run 'rox.sourceforge.net/apps/OroboROX 2004-04-23'";
+	else
 	{
-		GList *next;
-		
-		gtk_combo_set_popdown_strings(GTK_COMBO(combo), wms);
+		int i;
 
-		for (next = wms; next; next = next->next)
-			g_free(next->data);
-		g_list_free(wms);
+		for (i = 0; i < G_N_ELEMENTS(fallbacks); i++)
+		{
+			if (available_in_path(fallbacks[i]))
+				return fallbacks[i];
+		}
+
+		return "twm";
 	}
-
-	gtk_entry_set_text(GTK_ENTRY(entry), option->value);
-	gtk_widget_grab_focus(entry);
-
-	option->update_widget = update_combo;
-	option->read_widget = read_combo;
-	option->widget = entry;
-
-	gtk_signal_connect_object_after(GTK_OBJECT(entry), "changed",
-			GTK_SIGNAL_FUNC(option_check_widget),
-			(GtkObject *) option);
-
-	return g_list_append(NULL, hbox);
 }
 
-static GList *start_wm_button(Option *option, xmlNode *node, guchar *label)
+/* From glib. */
+static gchar *my_strchrnul(const gchar *str, gchar c)
 {
-	GtkWidget *button, *align;
+	gchar *p = (gchar*) str;
+	while (*p && (*p != c))
+		++p;
 
-	g_return_val_if_fail(option == NULL, NULL);
-	
-	align = gtk_alignment_new(0.5, 0.5, 0, 0);
-	button = button_new_mixed(GTK_STOCK_YES, _("Start window manager"));
-	gtk_container_add(GTK_CONTAINER(align), button);
-	gtk_signal_connect(GTK_OBJECT(button), "clicked",
-			GTK_SIGNAL_FUNC(run_wm), NULL);
+	return p;
+}
 
-	return g_list_append(NULL, align);
+/* Based on code from glib. */
+static gboolean available_in_path(const char *file)
+{
+	const gchar *path, *p;
+	gchar *name, *freeme;
+	size_t len;
+	size_t pathlen;
+	gboolean found = FALSE;
+
+	path = g_getenv("PATH");
+	if (path == NULL)
+		path = "/bin:/usr/bin:.";
+
+	len = strlen(file) + 1;
+	pathlen = strlen(path);
+	freeme = name = g_malloc(pathlen + len + 1);
+
+	/* Copy the file name at the top, including '\0'  */
+	memcpy(name + pathlen + 1, file, len);
+	name = name + pathlen;
+	/* And add the slash before the filename  */
+	*name = '/';
+
+	p = path;
+	do
+	{
+		char *startp;
+
+		path = p;
+		p = my_strchrnul(path, ':');
+
+		if (p == path)
+			/* Two adjacent colons, or a colon at the beginning or the end
+			 * of `PATH' means to search the current directory.
+			 */
+			startp = name + 1;
+		else
+			startp = memcpy (name - (p - path), path, p - path);
+
+		/* Try to execute this name.  If it works, execv will not return.  */
+		if (access(startp, X_OK) == 0)
+			found = TRUE;
+	} while (!found && *p++ != '\0');
+
+	g_free(freeme);
+
+	return found;
 }

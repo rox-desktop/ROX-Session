@@ -18,5 +18,6 @@ void session_init(void);
 void run_login_script(void);
 void child_died_callback(void);
 void show_session_options(void);
+void settings_set_string(const char *name, char *value);
 
 #endif /* _SESSION_H */

@@ -16,5 +16,6 @@ extern pid_t wm_pid;
 
 void start_window_manager(void);
 void wm_process_died(void);
+void set_window_manager(const char *command);
 
 #endif /* _WM_H */

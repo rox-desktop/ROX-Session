@@ -42,6 +42,7 @@
 #include "session.h"
 #include "choices.h"
 #include "gui_support.h"
+#include "wm.h"
 
 #define ROX_XSETTINGS_NS "net.sf.rox.Session.Settings"
 
@@ -60,6 +61,8 @@ static void terminate_xsettings(void *data);
 static void set_from_xml(xmlNode *setting);
 static DBusMessage *xsettings_handler(DBusMessage *message, DBusError *error);
 static void activate_changes(void);
+static xmlNode *get_node(const char *name, gboolean create_if_missing);
+static void save_settings(void);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -120,16 +123,32 @@ void settings_init(void)
 	activate_changes();
 }
 
+void settings_set_string(const char *name, char *value)
+{
+	xmlNode *node;
+
+	node = get_node(name, TRUE);
+	xmlSetProp(node, "value", value);
+	xmlSetProp(node, "type", "string");
+
+	set_from_xml(node);
+	activate_changes();
+
+	save_settings();
+}
+
 /****************************************************************
  *			INTERNAL FUNCTIONS			*
  ****************************************************************/
 
-static void set_rox_setting(const char *name, int value)
+static void set_rox_setting(const char *name, const char *value)
 {
 	if (strcmp(name, "AccelThreshold") == 0)
-		mouse_accel_threshold = value;
+		mouse_accel_threshold = atoi(value);
 	else if (strcmp(name, "AccelFactor") == 0)
-		mouse_accel_factor = value;
+		mouse_accel_factor = atoi(value);
+	else if (strcmp(name, "WindowManager") == 0)
+		set_window_manager(value);
 	else
 		g_warning("Unknown ROX setting 'ROX/%s'", name);
 }
@@ -216,20 +235,6 @@ static void set_int(const char *name, int value)
 	save_settings();
 }
 
-static void set_string(const char *name, char *value)
-{
-	xmlNode *node;
-
-	node = get_node(name, TRUE);
-	xmlSetProp(node, "value", value);
-	xmlSetProp(node, "type", "string");
-
-	set_from_xml(node);
-	activate_changes();
-
-	save_settings();
-}
-
 static DBusMessage *xsettings_handler(DBusMessage *message, DBusError *error)
 {
 	if (xsettings_manager == NULL)
@@ -264,7 +269,7 @@ static DBusMessage *xsettings_handler(DBusMessage *message, DBusError *error)
 					DBUS_TYPE_INVALID))
 			return NULL;
 
-		set_string(name, value);
+		settings_set_string(name, value);
 
 		return dbus_message_new_method_return(message);
 	}
@@ -335,7 +340,7 @@ static void set_from_xml(xmlNode *setting)
 	 */
 	if (strncmp(name, "ROX/", 4) == 0)
 	{
-		set_rox_setting(name + 4, atoi(value));
+		set_rox_setting(name + 4, value);
 		return;
 	}
 
