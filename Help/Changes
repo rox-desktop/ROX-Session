@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+15-May-2003
+~~~~~~~~~~~
+Added Japanese translation (UTUMI Hirosi).
+
 25-Apr-2003
 ~~~~~~~~~~~
 Close stdout when running child processes for users running startx from the
