@@ -101,6 +101,28 @@ ROX-Session has a number of safety measures:
   logout, as usual (quitting the xterm won't do it in this case).
 
 
+Message display
+~~~~~~~~~~~~~~~
+Every process has an error stream that it can write to. All processes run by
+the Login script have their standard error output connected to ROX-Session's
+logging system.
+
+These messages are displayed in a popup window for five seconds.
+
+As well as using this for displaying error messages you can write other things
+to it too, eg...
+
+Add this:
+	tail -n 0 -f /var/log/messages >&2 &
+to your Login script to have any new entries in your system message log
+displayed on screen (you may also have to change the permissions on the file
+for this to work...).
+
+Put:
+	echo Loading Netscape... >&2
+in Netscape's AppRun file to get a message letting you know it's loading, etc.
+
+
 What's a session manager?
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 	The following is some background information about
@@ -133,7 +155,7 @@ simple example script (remember to make it executable!):
 	xclock &
 	exec xterm
 
-This runs the (horrible) twm window manager and xclock in the background. It
+This runs the (ugly!) twm window manager and xclock in the background. It
 then replaces itself with the xterm process. You can now kill twm and xclock
 as you please, but when xterm quits your session is over. In this example,
 xterm is your session manager. Using xterm as a session manager isn't very
@@ -147,15 +169,14 @@ couple of drawbacks:
 
 
 What does ROX-Session do?
-~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Very little. When you run it from your '.xsession' file it just loads, runs
-the Login script (as described above) and waits. It doesn't draw
-anything on the screen. When you want to log out you simply run
-it a second time. The new copy sees that the first one is
-running and sends it a message. The first copy displays a box
-confirming that you want to log out and, if you say yes, quits.
-This causes your X session to be terminated. Save your data
-before logging out!!
+the Login script (as described above) and waits.
+
+When you want to log out you simply run it a second time. The new copy sees
+that the first one is running and sends it a message. The first copy displays a
+box confirming that you want to log out and, if you say yes, quits.  This
+causes your X session to be terminated. Save your data before logging out!!
 
 
 !!!WARNING!!!

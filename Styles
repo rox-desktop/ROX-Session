@@ -6,4 +6,4 @@ style "log_text"
   #font = "linux8x16"
 }
 
-class "GtkDrawingArea" style "log_text"
+widget_class "GtkWindow.GtkDrawingArea" style "log_text"

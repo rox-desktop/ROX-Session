@@ -43,6 +43,7 @@
 static GtkWidget *log_window = NULL;
 static GtkWidget *da = NULL;
 static gint	 input_tag;
+static gint	 line_width;	/* Chars per line */
 
 /* Static prototypes */
 static void got_log_data(gpointer data,
@@ -99,6 +100,8 @@ void log_init(void)
 	gtk_widget_show(da);
 
 	font = da->style->font;
+	line_width = (gdk_screen_width() - 2 * MARGIN) /
+			gdk_string_width(font, "m");	/* Fixed font */
 
 	input_tag = gdk_input_add(fds[0], GDK_INPUT_READ, got_log_data, NULL);
 }
@@ -231,9 +234,11 @@ static void log_msg(guchar *text, gint len)
 		g_free(tmp);
 	}
 
-	while ((nl = strchr(buffer->str, '\n')))
+	while ((nl = strchr(buffer->str, '\n')) || buffer->len >= line_width)
 	{
-		int	len = nl - buffer->str;
+		/* Are we breaking on a \n or on line_width? */
+		gboolean got_nl = nl && nl - buffer->str <= line_width;
+		int	len = got_nl ? nl - buffer->str : line_width;
 
 		if (len > 0)
 		{
@@ -245,7 +250,7 @@ static void log_msg(guchar *text, gint len)
 			nlines++;
 		}
 
-		g_string_erase(buffer, 0, len + 1);
+		g_string_erase(buffer, 0, got_nl ? len + 1 : len);
 	}
 
 	if (added)
