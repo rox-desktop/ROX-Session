@@ -46,7 +46,7 @@ static Option o_translation;
 static GtkWidget *i18n_message = NULL;
 
 /* Static Prototypes */
-static void set_trans(guchar *lang);
+static void set_trans(const guchar *lang);
 static void trans_changed(void);
 static GList *build_i18n_message(Option *option, xmlNode *node, guchar *label);
 
@@ -88,7 +88,7 @@ static void trans_changed(void)
 /* Load the 'Messages/<name>.gmo' translation.
  * Special values 'None' and 'From LANG' are also allowed.
  */
-static void set_trans(guchar *lang)
+static void set_trans(const guchar *lang)
 {
 	struct stat info;
 	guchar	*path;
