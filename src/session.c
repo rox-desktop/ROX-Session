@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <string.h>
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
@@ -502,9 +503,15 @@ static void add_themes(GHashTable *themes, const guchar *path)
 
 	while ((ent = readdir(dir)))
 	{
+		char *gtk2;
 		if (ent->d_name[0] == '.')
 			continue;
-		g_hash_table_insert(themes, g_strdup(ent->d_name), NULL);
+
+		gtk2 = g_build_filename(path, ent->d_name, "gtk-2.0", NULL);
+		if (access(gtk2, F_OK) == 0)
+			g_hash_table_insert(themes,
+					g_strdup(ent->d_name), NULL);
+		g_free(gtk2);
 	}
 	closedir(dir);
 }

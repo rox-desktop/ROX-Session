@@ -120,6 +120,10 @@ void log_init(void)
 	 */
 	g_log_set_handler("", G_LOG_LEVEL_WARNING | G_LOG_FLAG_FATAL
                      | G_LOG_FLAG_RECURSION, log_own_errors, NULL);
+	g_log_set_handler("Gdk", G_LOG_LEVEL_WARNING | G_LOG_FLAG_FATAL
+                     | G_LOG_FLAG_RECURSION, log_own_errors, NULL);
+	g_log_set_handler("Gtk", G_LOG_LEVEL_WARNING | G_LOG_FLAG_FATAL
+                     | G_LOG_FLAG_RECURSION, log_own_errors, NULL);
 
 	/* Grab a copy of stderr before we replace it.
 	 * We'll duplicate output here if it exists...
