@@ -19,7 +19,7 @@ IFS=":"
 # Load ROX-Filer with a panel and a pinboard set up.
 MYCHOICES="(none)"
 for DIR in $CHOICESPATH; do
-  if [ "$MYCHOICES" == "(none)" ]; then
+  if [ "$MYCHOICES" = "(none)" ]; then
     MYCHOICES="$DIR"
   fi
   PANEL="$DIR/ROX-Filer/pan_Default"
