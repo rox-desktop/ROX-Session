@@ -1,13 +1,16 @@
 <?xml version='1.0'?>
 <options>
-  <section name='XSettings' title='Mouse'>
+  <section name='XSettings' title='XSettings'>
+    <label>These settings affect all XSettings-aware programs immediately.
+Older programs will not be affected.</label>
+    <spacer/>
   
     <label>Double-click timeout (in milliseconds)</label>
     <slider name='Net/DoubleClickTime'
 	    min='100' max='2000' showvalue='1'>Time allowed between the two clicks that make up a double click. Make this bigger if you have trouble double-clicking fast enough; set it smaller if two single-clicks sometimes get treated as a double click.
     </slider>
     <toggle name='Gtk/CanChangeAccels'
-    	    label='Allow keybindinds to be changed from menus'>When this is on,
+    	    label='Allow keybindings to be changed from menus'>When this is on,
 you can set up a short-cut for a menu item by holding to pointer over the menu item and pressing the key. If off, short-cuts cannot be changed.</toggle>
   </section>
 </options>
