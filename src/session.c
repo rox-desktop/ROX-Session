@@ -21,8 +21,16 @@
 
 /* session.c - implements the X Session Management Protocol */
 
+/* Lots of bits from GNOME's session manager */
+
 #include "config.h"
 
+#include <stdlib.h>
+#include <time.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#include "gui_support.h"
 #include "ice.h"
 #include "session.h"
 
@@ -132,6 +140,10 @@ Status new_client(SmsConn connection, SmPointer data, unsigned long *maskp,
   return 1;
 }
 
+/* previous_id is NULL if this is a new client. For returning clients,
+ * this is the previous ID. We really don't care, because we don't store
+ * anything between sessions anyway.
+ */
 static Status register_client(SmsConn connection,
 			      SmPointer data, char *previous_id)
 {
@@ -142,7 +154,32 @@ static Status register_client(SmsConn connection,
 	if (previous_id)
 		id = previous_id;
 	else
+	{
 		id = SmsGenerateClientID(connection);
+
+		if (!id)
+		{
+			static long int sequence = 0;
+			static char* address = NULL;
+
+			if (!address)
+			{
+				g_warning("Host name lookup failure "
+					  "on localhost.");
+
+				srand(time(NULL) + (getpid() << 16));
+				address = g_strdup_printf("0%.8x", rand());
+			};
+
+			/* The typecast there is for 64-bit machines */
+			id = g_strdup_printf("1%s%.13ld%.10ld%.4ld", address,
+					(long) time(NULL),
+					(long) getpid(), sequence);
+			sequence++;
+
+			sequence %= 10000;
+		}
+	}
 
 	SmsRegisterClientReply(connection, id);
 
@@ -187,7 +224,31 @@ static void save_yourself_done(SmsConn connection,
 static void close_connection(SmsConn connection, SmPointer data, int count,
 			     char **reasons)
 {
+	IceConn ice_conn = SmsGetIceConnection (connection);
+
 	g_print("[ close_connection ]\n");
+
+	if (count > 0)
+	{
+		GString	*msg;
+		int	n;
+
+		msg = g_string_new("Client closed connection to session "
+				"manager, saying:\n");
+		for (n = 0; n < count; n++)
+		{
+			g_string_append(msg, reasons[n]);
+			g_string_append_c(msg, '\n');
+		}
+		
+		delayed_error(PROJECT, msg->str);
+
+		g_string_free(msg, TRUE);
+	}
+
+	SmFreeReasons(count, reasons);
+	IceSetShutdownNegotiation(ice_conn, FALSE); /* XXX: What's this? */
+	IceCloseConnection(ice_conn);
 }
 
 /* This extends the standard SmsSetPropertiesProc by interpreting attempts
