@@ -230,7 +230,7 @@ void show_main_window(void)
 		return;
 	}
 	
-	window = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
+	window = gtk_message_dialog_new(NULL, 0,
 			 GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
 			 _("Really logout?\n(unsaved data will be lost)"));
 	gtk_dialog_set_has_separator(GTK_DIALOG(window), FALSE);
@@ -264,7 +264,7 @@ void show_main_window(void)
 	gtk_dialog_add_action_widget(GTK_DIALOG(window), button, 1);
 
 	gtk_dialog_add_button(GTK_DIALOG(window),
-			GTK_STOCK_CANCEL, GTK_RESPONSE_DELETE_EVENT);
+			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
 
 	button = button_new_mixed(GTK_STOCK_QUIT, _("Logout"));
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
@@ -421,6 +421,10 @@ static void op_clicked(GtkButton *button, Option *command)
 {
 	pid_t child;
 	const char *message;
+	GtkWidget *dialog;
+
+	dialog = gtk_widget_get_toplevel(GTK_WIDGET(button));
+	gtk_dialog_response(GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
 
 	message = g_object_get_data(G_OBJECT(button), "rox-message");
 
