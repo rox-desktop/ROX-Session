@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-04-08 16:50+0100\n"
+"POT-Creation-Date: 2002-04-09 11:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Christian Storgaard <cybolic@goth.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,12 +179,12 @@ msgstr ""
 msgid "Error saving %s: %s"
 msgstr ""
 
-#: rox_gettext.c:95
+#: rox_gettext.c:93
 #, c-format
 msgid "Invalid .gmo translation file (too short): %s"
 msgstr ""
 
-#: rox_gettext.c:108
+#: rox_gettext.c:106
 #, c-format
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr ""
@@ -302,45 +302,61 @@ msgid ""
 msgstr ""
 
 #: tips:13
-msgid "Default font"
+msgid "Display"
 msgstr ""
 
 #: tips:14
-msgid "The font used by Gtk+ applications"
+msgid "Default font"
 msgstr ""
 
 #: tips:15
-msgid "Double-click speed: (fast)"
+msgid "The font used by Gtk+ applications"
 msgstr ""
 
 #: tips:16
+msgid "Blinking cursor"
+msgstr ""
+
+#: tips:17
+msgid "Speed: (fast)"
+msgstr ""
+
+#: tips:18 tips:23
+msgid "(slow)"
+msgstr ""
+
+#: tips:19 tips:20
+msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
+msgstr ""
+
+#: tips:21
+msgid "Mouse"
+msgstr ""
+
+#: tips:22
+msgid "Double-click speed: (fast)"
+msgstr ""
+
+#: tips:24 tips:25
 msgid ""
 "Time allowed between the two clicks that make up a double click. Make this "
 "bigger if you have trouble double-clicking fast enough; set it smaller if "
 "two single-clicks sometimes get treated as a double click."
 msgstr ""
 
-#: tips:17
+#: tips:26
+msgid "Keyboard"
+msgstr ""
+
+#: tips:27
 msgid "Allow keybindings to be changed from menus"
 msgstr ""
 
-#: tips:18
+#: tips:28 tips:29 tips:30 tips:31
 msgid ""
 "When this is on, you can set up a short-cut for a menu item by holding to "
 "pointer over the menu item and pressing the key. If off, short-cuts cannot "
 "be changed."
-msgstr ""
-
-#: tips:19
-msgid "Blinking cursor"
-msgstr ""
-
-#: tips:20
-msgid "Speed: (fast)"
-msgstr ""
-
-#: tips:21 tips:22 tips:23
-msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
 msgstr ""
 
 #~ msgid "help"
