@@ -1,3 +1,6 @@
+# To change this, copy this file to ~/Choices/ROX-Session/Styles
+# and edit it there.
+
 style "log_text"
 {
   fg[NORMAL] = { 0.3, 0.8, 0.3 }

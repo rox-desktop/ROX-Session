@@ -195,7 +195,9 @@ int main(int argc, char **argv)
 		}
 	}
 
-	rc_file = g_strconcat(app_dir, "/Styles", NULL);
+	rc_file = choices_find_path_load("Styles", "ROX-Session");
+	if(!rc_file)
+		rc_file = g_strconcat(app_dir, "/Styles", NULL);
 	gtk_rc_parse(rc_file);
 	g_free(rc_file);
 
