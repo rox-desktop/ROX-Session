@@ -59,7 +59,7 @@ manually:
 
 ROX-Session will offer to manage your session in future. If you accept, it
 will create suitable .xsession and .xinitrc files for you and ask you to
-log out. When you log in again, ROX-Session will be running (you may need
+log out. When you log in again, ROX-Session will be running. You may need
 to choose 'Default' or 'Xsession' from your login screen's list of desktops.
 See below for instructions on adding ROX directly to this list.
 
@@ -70,13 +70,46 @@ The first time you log in, ROX-Session asks you to choose a window manager.
 Select one from the list provided and click on 'Start window manager'.
 If the window mananger crashes, or you quit it, ROX-Session will ask you to
 choose again. If your preferred window manager isn't on the list then you
-can enter its name manually. Click on 'Save' to make the chosen window
+can enter its name manually. Click on 'OK' to make the chosen window
 manager the default for future sessions. You can also adjust various other
 settings from this window.
 
 When you want to logout, simply run ROX-Session a second time to display the
 logout box. This box also contains a 'Session Settings' button which takes you
-back to the options box.
+back to the options box, and the power management buttons (see below).
+
+
+Halt/Reboot/Sleep
+~~~~~~~~~~~~~~~~~
+As well as logging out (which normally returns you to the login screen), you
+can get ROX-Session to perform other functions. These generally need to be
+configured before use, although the defaults may work for you.
+
+Clicking on one of the buttons simple executes the corresponding command
+set in the Power section of the Options (Session Settings) box.
+
+Halt
+	This should be a command which turns off the computer. On many systems
+	this can be simply 'halt', or 'shutdown -t now'. If normal users don't
+	have permission to run halt you can use sudo or xsu:
+
+	sudo halt
+	xsu -c '/sbin/halt' -u root
+
+	When using sudo, ensure that sudo allows the user to execute the
+	command without entering a password, since ROX-Session does not
+	provide a prompt.
+
+Reboot
+	A command to reboot the computer. This can be simple 'reboot' or
+	'shutdown -t now -r'. sudo and xsu may need to be used, as above.
+
+Suspend
+	A command to put the computer into power saving mode. The default
+	command 'xset dpms force off' simply turns the screen off.
+
+	APM users could try 'apm -s' to suspend, while users of the newer
+	ACPI could try 'echo 1 > /proc/acpi/sleep'.
 
 
 Customising
@@ -100,8 +133,7 @@ programs in:
 If you want certain programs to be started automatically when you log in:
 
 - Menu click on ROX-Session in a filer window and choose 'Auto Start...'
-  from the menu. If you have an old version of the filer then you can do this
-  manually by creating the directory '~/Choices/ROX-Session/AutoStart'.
+  from the menu.
 
 - Symlink each application that you want to start into this directory (drag
   applications in with Control and Shift held down).
@@ -110,6 +142,11 @@ If you want certain programs to be started automatically when you log in:
 
 If you need even more control, copy the Login file from inside ROX-Session's
 application directory into Choices/ROX-Session and edit it there.
+
+The SetupPanel script is used to create a default panel if none is set up. You
+shouldn't need to edit this, since for a single user it's easier to modify the
+panel directly, and for an admin or distribution you can put a suitable
+default in /usr/[local]/share/Choices/ROX-Filer/pan_Default.
 
 
 Listing ROX in the login box
