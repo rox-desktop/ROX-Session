@@ -47,6 +47,8 @@ fi
 
 ROX_REQUIRE(gtk+-2.0, 2.0.1)
 ROX_REQUIRE(libxml-2.0, 2.0.0)
+ROX_REQUIRE(dbus-1, 0.20)
+ROX_REQUIRE(dbus-glib-1, 0.20)
 
 dnl Checks for programs.
 AC_PROG_CC

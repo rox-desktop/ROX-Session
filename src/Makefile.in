@@ -8,8 +8,8 @@ PLATFORM_DIR = ../${PLATFORM}
 CC = @CC@
 LIBS = @LIBS@
 
-CFLAGS = @CFLAGS@ `pkg-config --cflags gtk+-2.0 libxml-2.0` -I.
-LDFLAGS = @LDFLAGS@ ${LIBS} `pkg-config --libs gtk+-2.0 libxml-2.0` -I.
+CFLAGS = @CFLAGS@ `pkg-config --cflags gtk+-2.0 libxml-2.0 dbus-1 dbus-glib-1` -I.
+LDFLAGS = @LDFLAGS@ ${LIBS} `pkg-config --libs gtk+-2.0 libxml-2.0 dbus-1 dbus-glib-1` -I.
 EXEC = ${PLATFORM_DIR}/${PROG}
 
 ############ Things to change for different programs

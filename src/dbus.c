@@ -21,6 +21,12 @@
 
 #include "config.h"
 
+#define DBUS_API_SUBJECT_TO_CHANGE
+#include <dbus/dbus.h>
+#include <dbus/dbus-glib.h>
+
+#define ROX_SESSION_DBUS_SERVICE "net.sf.rox.ROX-Session"
+
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
@@ -33,6 +39,7 @@
 #include "gui_support.h"
 
 static gint dbus_pid = -1;
+static DBusConnection *dbus_connection = NULL;
 
 /* Read one line from fd and store in DBUS_SESSION_BUS_ADDRESS. */
 static void read_address(gint fd)
@@ -79,6 +86,41 @@ static void kill_dbus(void)
 	dbus_pid = -1;
 }
 
+/* TRUE on success */
+static gboolean connect_to_bus(void)
+{
+	GError *error = NULL;
+	DBusError derror;
+
+	dbus_error_init(&derror);
+
+	dbus_connection = dbus_bus_get_with_g_main(DBUS_BUS_SESSION, &error);
+	if (error)
+		goto err;
+	dbus_bus_acquire_service(dbus_connection,
+			ROX_SESSION_DBUS_SERVICE,
+			0,
+			&derror);
+	if (dbus_error_is_set(&derror))
+		goto err;
+	return TRUE;
+err:
+	report_error("Error connecting to D-BUS session bus:\n%s\n",
+			error ? error->message : derror.message);
+	if (error)
+		g_error_free(error);
+	else if (dbus_error_is_set(&derror))
+		dbus_error_free(&derror);
+
+	if (dbus_connection)
+	{
+		dbus_connection_disconnect(dbus_connection);
+		dbus_connection_unref(dbus_connection);
+		dbus_connection = NULL;
+	}
+	return FALSE;
+}
+
 /* Returns once the D-BUS session daemon is running and we have a connection
  * to it. Sets the environment variable.
  */
@@ -89,7 +131,13 @@ void dbus_init(void)
 	gchar *argv[] = {"dbus-daemon-1", "--session", "--print-address", NULL};
 
 	if (getenv("DBUS_SESSION_BUS_ADDRESS") != NULL)
-		return;
+	{
+		if (connect_to_bus())
+			return;
+		/* It's actually fatal, since D-BUS seems to cache the
+		 * bus address. Try again anyway in case it gets fixed...
+		 */
+	}
 
 	g_spawn_async_with_pipes(NULL, argv, NULL,
 			G_SPAWN_SEARCH_PATH,
@@ -117,4 +165,6 @@ void dbus_init(void)
 	read_address(stdout_pipe);
 
 	close(stdout_pipe);
+
+	connect_to_bus();
 }

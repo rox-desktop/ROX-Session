@@ -254,7 +254,7 @@ int main(int argc, char **argv)
 	if (test_mode)
 	{
 		/* show_main_window(); */
-		system("env&");
+		system("echo OK");
 	}
 
 	gtk_main();
