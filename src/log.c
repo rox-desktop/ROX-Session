@@ -83,6 +83,10 @@ void log_init(void)
 	if (fcntl(STDERR_FILENO, F_SETFD, FALSE))
 		g_warning("fcntl(): %s\n", g_strerror(errno));
 
+	/* But, do close the other end */
+	if (fcntl(fds[0], F_SETFD, TRUE))
+		g_warning("fcntl(): %s\n", g_strerror(errno));
+
 	log_window = gtk_window_new(GTK_WINDOW_POPUP);
 	gtk_widget_realize(log_window);
 	gdk_window_set_override_redirect(log_window->window, TRUE);
