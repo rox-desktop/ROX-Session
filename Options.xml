@@ -2,9 +2,11 @@
 <options>
   <section title='Window manager'>
     <label help='1'>The window manager is a program which puts title bars and frames on windows. It allows you to move windows around, resize them, close them and so on.</label>
-    <wm-combo name='DefaultWM' label='Default window manager'/>
-    <spacer/>
-    <start-wm/>
+    <frame label='Window manager'>
+      <wm-combo name='DefaultWM' label='Default window manager'/>
+      <spacer/>
+      <start-wm/>
+    </frame>
   </section>
 
   <section title='Translation'>
@@ -16,31 +18,36 @@
 	<radio label='German' value='de'/>
         <radio label='Use the LANG environment variable' value='From LANG'/>
       </radio-group>
+      <spacer/>
+      <i18n-message/>
     </frame>
-    <i18n-message/>
   </section>
 
   <section title='Display'>
-    <frame label='Fonts'>
-      <label help='1'>This setting affects all Gtk+-2 applications, but most other applications will ignore it.</label>
-      <font name='Gtk/FontName' label='Default Gtk font'>The font used by Gtk+ applications</font>
+    <frame label='Text'>
+      <font name='Gtk/FontName' label='Default font'>The font used by Gtk+-2.0 applications</font>
+    </frame>
+    <frame label='Desktop background'>
+      <label help='1'>Bring up the menu over the desktop background to set the backdrop image or change the pinboard options.</label>
     </frame>
   </section>
 
   <section title='Mouse'>
-    <frame label='Mouse'>
-      <slider name='Net/DoubleClickTime' label='Double-click speed: (fast)' end='(slow)'
-	    min='100' max='2000'>Time allowed between the two clicks that make up a double click. Make this bigger if you have trouble double-clicking fast enough; set it smaller if two single-clicks sometimes get treated as a double click.
-      </slider>
-      <spacer/>
+    <frame label='Motion'>
       <slider name='accel_threshold' label='Acceleration threshold' min='0' max='20'>Controls how fast you have to move the pointer before the acceleration (below) kicks in.</slider>
+      <spacer/>
       <slider name='accel_factor' label='Acceleration (none)' end='(10x)'
     	    min='10' max='100'>
 When the pointer is moved quickly more than the threshold number of pixels, its speed is multiplied by this number.
       </slider>
     </frame>
-    <spacer/>
-    <mouse-tester/>
+    <frame label='Buttons'>
+      <slider name='Net/DoubleClickTime' label='Double-click speed: (fast)' end='(slow)'
+	    min='100' max='2000'>Time allowed between the two clicks that make up a double click. Make this bigger if you have trouble double-clicking fast enough; set it smaller if two single-clicks sometimes get treated as a double click.
+      </slider>
+      <spacer/>
+      <mouse-tester/>
+    </frame>
   </section>
   
   <section title='Keyboard'>
@@ -61,9 +68,10 @@ application) by assigning them to icons on a ROX-Filer pinboard or panel.</label
   <section title='Messages'>
     <label help='1'>All programs have a 'standard error stream' which they can write text messages to. ROX-Session creates such a connection between itself and every program it starts. It displays all the messages it collects this way briefly on screen.</label>
     <frame label='On-screen message log'>
-      <numentry label='Show messages for:' unit='seconds' min='1' max='30' name='log_time_shown'>Number of seconds to display each message for</numentry>
       <label help='1'>You can click button-3 on an error message to switch to the log window display, or use this button:</label>
       <show-log/>
+      <spacer/>
+      <numentry label='Show messages for:' unit='seconds' min='1' max='30' name='log_time_shown'>Number of seconds to display each message for</numentry>
     </frame>
   </section>
 
