@@ -25,11 +25,11 @@
     <Homepage label="Sito web"/>
   </About>
   <About xml:lang="es">
-    <Purpose label="Propósito">Administrador de sesión</Purpose>
-    <Version label="Versión">0.1.20 (19-Jun-2003)</Version>
-    <Author label="Autor">Thomas Leonard</Author>
-    <License label="Licencia">Licencia Pública General GNU</License>
-    <Homepage label="Sitio web">http://rox.sourceforge.net</Homepage>
+    <Purpose label="PropÃ³sito">Administrador de sesiÃ³n</Purpose>
+    <Version label="VersiÃ³n"/>
+    <Author label="Autor"/>
+    <License label="Licencia">Licencia PÃºblica General GNU</License>
+    <Homepage label="Sitio web"/>
   </About>
   <AppMenu>
     <Item option='--setup'>
