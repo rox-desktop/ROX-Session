@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+01-Nov-2003
+~~~~~~~~~~~
+Updated Dutch translation. (Jan Wagemakers)
+
 26-Oct-2003
 ~~~~~~~~~~~
 Use apsymbols.h (from autopackage.org) if possible for binary compatibility

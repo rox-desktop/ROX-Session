@@ -25,7 +25,7 @@ msgstr ""
 "Copyright (C) 2002 Thomas Leonard.\n"
 "ROX-Filer komt ABSOLUUT ZONDER GARANTIE,\n"
 "voor zover wettelijk toegestaan.\n"
-"Kopien van ROX-Filer mogen verspreid worden onder de\n"
+"Kopieën van ROX-Filer mogen verspreid worden onder de\n"
 "voorwaarden van de GNU General Public Licence.\n"
 "Voor meer informatie zie het bestand COPYING.\n"
 
@@ -234,7 +234,7 @@ msgid ""
 "(unsaved data will be lost)"
 msgstr ""
 "Echt uitloggen?\n"
-"(niet bewaarde gegevens zullen verloren gaan)"
+"(niet opgeslagen gegevens zullen verloren gaan)"
 
 #: session.c:300
 msgid "Session Settings"
@@ -400,9 +400,8 @@ msgid "Italian"
 msgstr "Italiaans"
 
 #: tips:12
-#, fuzzy
 msgid "Spanish"
-msgstr "Deens"
+msgstr "Spaans"
 
 #: tips:13
 msgid "Japanese"
@@ -613,7 +612,7 @@ msgstr "Aantal seconden dat elk bericht getoond wordt"
 
 #: tips:60
 msgid "Max area for popup display:"
-msgstr ""
+msgstr "Max afmeting van het popup bericht:"
 
 #: tips:61
 msgid "%"
@@ -625,6 +624,9 @@ msgid ""
 "there are a large number of messages (more than this amount of the screen is "
 "covered) then the view switches to the window style."
 msgstr ""
+"Normaal zullen berichten voor een paar seconden over het huidige beeld verschijnen. "
+"Als er een groot aantal berichten zijn (het beeld is voor meer dan dit getal bedekt) "
+"dan zullen de berichten in een gewoon venster worden getoond."
 
 #: tips:65 tips:66
 msgid "Power"
