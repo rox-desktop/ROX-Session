@@ -41,6 +41,7 @@
 
 #include "main.h"
 #include "gui_support.h"
+#include "choices.h"
 
 #define COPYING								\
 	     N_("Copyright (C) 2000 Thomas Leonard.\n"			\
@@ -97,6 +98,7 @@ static gboolean session_prop_touched(GtkWidget *window,
 				     GdkEventProperty *event,
 				     gpointer data);
 static int become_default_session(void);
+static void run_login_script(void);
 
 int main(int argc, char **argv)
 {
@@ -108,11 +110,8 @@ int main(int argc, char **argv)
 	app_dir = g_strdup(getenv("APP_DIR"));
 
 	if (!app_dir)
-	{
-		g_warning("APP_DIR environment variable was unset!\n"
+		g_error("APP_DIR environment variable was unset!\n"
 			"Use the AppRun script to invoke ROX-Session...\n");
-		app_dir = g_get_current_dir();
-	}
 #ifdef HAVE_UNSETENV 
 	else
 	{
@@ -122,6 +121,8 @@ int main(int argc, char **argv)
 #endif
 
 	gtk_init(&argc, &argv);
+
+	choices_init();
 
 	while (1)
 	{
@@ -199,6 +200,8 @@ int main(int argc, char **argv)
 			XA_WINDOW, 32, GDK_PROP_MODE_REPLACE,
 			(guchar *) &window->xwindow, 1);
 
+	run_login_script();
+	
 	gtk_main();
 
 	return EXIT_SUCCESS;
@@ -332,4 +335,52 @@ static int become_default_session(void)
 	}
 
 	return EXIT_SUCCESS;
+}
+
+static void run_login_script(void)
+{
+	pid_t	child;
+	guchar	*login, *error;
+	int	status;
+
+	login = choices_find_path_load("Login", "ROX-Session");
+	if (!login)
+		login = g_strconcat(app_dir, "/Login", NULL);
+
+	child = fork();
+
+	switch (child)
+	{
+		case -1:
+			report_error(PROJECT,
+				_("fork() failed - can't run Login script!"));
+			break;
+		case 0:
+			execl(login, login, NULL);
+			g_warning("exec(%s) failed: %s\n",
+					login, g_strerror(errno));
+			_exit(1);
+	}
+
+
+	if (waitpid(child, &status, 0) != child)
+	{
+		g_error("waitpid(%d) failed: %s\n",
+				child, g_strerror(errno));
+	}
+
+	if ((!WIFEXITED(status)) || WEXITSTATUS(status) != 0)
+	{
+		error = g_strdup_printf(
+		_("Your Login script (%s) returned an error code (%d). "
+		  "I'll give you an xterm to try and fix it. ROX-Session "
+		  "itself is running fine though - run me a second time "
+		  "to logout"), login, WEXITSTATUS(status));
+
+		report_error(PROJECT, error);
+
+		system("xterm&");
+	}
+
+	g_free(login);
 }

@@ -13,9 +13,9 @@ EXEC = ${PLATFORM_DIR}/${PROG}
 
 PROG = ROX-Session
 
-SRCS = main.c gui_support.c
+SRCS = main.c gui_support.c choices.c
 
-OBJECTS = main.o gui_support.o
+OBJECTS = main.o gui_support.o choices.o
 
 ############ Things to keep the same
 
