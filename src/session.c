@@ -192,6 +192,8 @@ void show_main_window(void)
 	gtk_dialog_add_action_widget(GTK_DIALOG(window),
 			button, GTK_RESPONSE_YES);
 
+	gtk_dialog_set_default_response(GTK_DIALOG(window), GTK_RESPONSE_YES);
+
 	switch (gtk_dialog_run(GTK_DIALOG(window)))
 	{
 		case GTK_RESPONSE_YES:
