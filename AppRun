@@ -1,5 +1,12 @@
 #!/bin/sh
 
+
+# Put a # at the start of the next 2 lines if you want anti-aliased
+# fonts turned off.
+GDK_USE_XFT=1; export GDK_USE_XFT
+QT_XFT=1; export QT_XFT
+
+
 PROG=ROX-Session
 
 APP_DIR=`dirname $0`

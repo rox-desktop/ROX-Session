@@ -18,14 +18,19 @@
     <label help='1'>Note that you must save your choices, logout and log back in again before the new settings will take full effect.</label>
   </section>
 
-  <section title='XSettings'>
-    <label help='1'>These settings affect all XSettings-aware programs immediately. Older programs will not be affected.</label>
-  
-    <frame label='Display'>
+  <section title='Text and Fonts'>
+    <frame label='Fonts'>
       <font name='Gtk/FontName' label='Default font'>The font used by Gtk+ applications</font>
+    </frame>
+    <frame label='Text cursor'>
       <toggle label='Blinking cursor' name='Net/CursorBlink'/>
       <slider label='Speed: (fast)' end='(slow)' name='Net/CursorBlinkTime' fixed='0' min='100' max='2000'>Speed at which the text entry cursor flashes (if flashing is enabled).</slider>
     </frame>
+  </section>
+
+  <section title='Mouse and Keyboard'>
+    <label help='1'>These settings affect all XSettings-aware programs immediately. Older programs will not be affected.</label>
+  
     <frame label='Mouse'>
       <slider name='Net/DoubleClickTime' label='Double-click speed: (fast)' end='(slow)'
 	    min='100' max='2000'>Time allowed between the two clicks that make up a double click. Make this bigger if you have trouble double-clicking fast enough; set it smaller if two single-clicks sometimes get treated as a double click.</slider>

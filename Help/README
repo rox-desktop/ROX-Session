@@ -63,6 +63,9 @@ log out. When you log in again, ROX-Session will be running (you may need
 to choose 'Default' or 'Xsession' from your login screen's list of desktops.
 See below for instructions on adding ROX directly to this list.
 
+	** If ROX-Session fails to run (possibly with font errors), **
+	** try editing ROX-Session/AppRun and turn off XFT support. **
+
 The first time you log in, ROX-Session asks you to choose a window manager.
 Select one from the list provided and click on 'Start window manager'.
 If the window mananger crashes, or you quit it, ROX-Session will ask you to

@@ -5,6 +5,11 @@
 TODO: Get sawfish's iconize animation to go into the middle of the screen
       so people stop blaming us for hiding the icons under the panel...
 
+15-May-2002
+~~~~~~~~~~~
+Using the new XFT font system is now the default (edit ROX-Session/AppRun
+if you want it off).
+
 30-Apr-2002
 ~~~~~~~~~~~
 Added Metacity and kwin to window manager list, and updated list of failsafe
