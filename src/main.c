@@ -276,7 +276,7 @@ int main(int argc, char **argv)
 	if (test_mode)
 	{
 		show_main_window();
-		system("rox -n&");
+		/* system("rox -n&"); */
 	}
 	else
 	{

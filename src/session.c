@@ -33,13 +33,6 @@
 /* See http://www.freedesktop.org/standards/xsettings/xsettings.html */
 XSettingsManager *manager = NULL;
 
-static GtkWidget *window = NULL;
-
-static void window_destroyed(GtkWidget *widget, GtkWidget **pointer_address)
-{
-	*pointer_address = NULL;
-}
-
 static GList *int_settings = NULL;
 
 static void xsettings_changed(guchar *unused)
@@ -96,67 +89,51 @@ void session_init(void)
 
 void show_main_window(void)
 {
-	GtkWidget *vbox, *action_area, *button, *label, *hbox;
+	GtkWidget *window, *align, *button, *label, *hbox, *image;
 	
-	if (window)
-		gtk_widget_destroy(window);
+	window = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
+			 GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
+			 "\nReally logout?\n");
 
-	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(window), PROJECT);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy",
-			GTK_SIGNAL_FUNC(window_destroyed), &window);
-	gtk_container_set_border_width(GTK_CONTAINER(window), 4);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 
-	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(window), vbox);
+	gtk_dialog_add_buttons(GTK_DIALOG(window),
+			GTK_STOCK_PREFERENCES, 1,
+			GTK_STOCK_CANCEL, GTK_RESPONSE_DELETE_EVENT,
+			NULL);
 
-	label = gtk_label_new("Really logout?");
-	gtk_misc_set_padding(GTK_MISC(label), 10, 40);
-	gtk_box_pack_start(GTK_BOX(vbox), label, TRUE, TRUE, 0);
+	button = gtk_button_new();
+	label = gtk_label_new_with_mnemonic("_Logout");
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), button);
 
-	gtk_box_pack_start(GTK_BOX(vbox),
-			gtk_hseparator_new(), FALSE, TRUE, 4);
+	image = gtk_image_new_from_stock(GTK_STOCK_QUIT, GTK_ICON_SIZE_BUTTON);
+	hbox = gtk_hbox_new(FALSE, 2);
 
-	hbox = gtk_hbox_new(FALSE, 40);
-	gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
-	
-	
-	action_area = gtk_hbutton_box_new();
-	gtk_button_box_set_layout(GTK_BUTTON_BOX(action_area),
-					GTK_BUTTONBOX_START);
-	gtk_box_pack_start(GTK_BOX(hbox), action_area, FALSE, TRUE, 0);
+	align = gtk_alignment_new(0.5, 0.5, 0.0, 0.0);
 
-	button = gtk_button_new_with_label("Settings...");
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	gtk_box_pack_start(GTK_BOX(action_area), button, FALSE, TRUE, 0);
-	gtk_signal_connect(GTK_OBJECT(button), "clicked",
-				GTK_SIGNAL_FUNC(options_show), NULL);
-	gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-				GTK_SIGNAL_FUNC(gtk_widget_destroy),
-				GTK_OBJECT(window));
+	gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
-	
-	action_area = gtk_hbutton_box_new();
-	gtk_button_box_set_layout(GTK_BUTTON_BOX(action_area),
-					GTK_BUTTONBOX_END);
-	gtk_hbutton_box_set_spacing_default(4);
-	gtk_box_pack_end(GTK_BOX(hbox), action_area, FALSE, TRUE, 0);
+	gtk_container_add(GTK_CONTAINER(button), align);
+	gtk_container_add(GTK_CONTAINER(align), hbox);
+	gtk_widget_show_all(button);
 
-	button = gtk_button_new_with_label("Cancel");
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	gtk_box_pack_end(GTK_BOX(action_area), button, FALSE, TRUE, 0);
-	gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-				GTK_SIGNAL_FUNC(gtk_widget_destroy),
-				GTK_OBJECT(window));
+	gtk_dialog_add_action_widget(GTK_DIALOG(window),
+			button, GTK_RESPONSE_YES);
 
-	button = gtk_button_new_with_label("Logout");
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	gtk_box_pack_end(GTK_BOX(action_area), button, FALSE, TRUE, 0);
-	gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-					gtk_main_quit, NULL);
-	gtk_widget_grab_default(button);
+	switch (gtk_dialog_run(GTK_DIALOG(window)))
+	{
+		case GTK_RESPONSE_YES:
+			gtk_main_quit();
+			break;
+		case 1:
+			options_show();
+			break;
+		default:
+			break;
+	}
 
-	gtk_widget_show_all(window);
+	gtk_widget_destroy(window);
 }
