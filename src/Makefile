@@ -1,16 +1,32 @@
-CC = gcc
-CFLAGS = -Wall -g `gtk-config --cflags`
-LDFLAGS = -L/usr/X11/lib -lX11 `gtk-config --libs`
+############ Things to change for different platforms
 
-PLATFORM_DIR = ../$(PLATFORM)
-EXEC = $(PLATFORM_DIR)/ROX-Session
+# Users without gcc:
+# Change 'gcc' to 'cc' and delete the '-Wall -g' below:
+
+CC = gcc
+CFLAGS = -Wall -g -O2 `gtk-config --cflags`
+
+############ Things to change for different programs
+
+PROG = ROX-Session
+
 SRCS = main.c
+
 OBJECTS = main.o
+
+############ Things to keep the same
+
+LDFLAGS = `gtk-config --libs`
+PLATFORM_DIR = ../$(PLATFORM)
+EXEC = $(PLATFORM_DIR)/$(PROG)
 
 unknown:
 	PLATFORM=`(unset HOSTTYPE; unset OSTYPE; bash -c 'echo $$OSTYPE-$$HOSTTYPE')` ; export PLATFORM; make known
 
 known: $(EXEC)
+
+clean:
+	rm -f $(OBJECTS) Makefile.bak tags
 
 depend:
 	makedepend -- $(CFLAGS) -- $(SRCS)
@@ -22,15 +38,26 @@ $(EXEC): $(PLATFORM_DIR) $(OBJECTS)
 	$(CC) -o $(EXEC) $(OBJECTS) $(LDFLAGS)
 # DO NOT DELETE
 
+main.o: /usr/include/stdlib.h /usr/include/features.h
+main.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+main.o: /usr/lib/gcc-lib/i386-redhat-linux/egcs-2.91.66/include/stddef.h
+main.o: /usr/include/sys/types.h /usr/include/bits/types.h
+main.o: /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h
+main.o: /usr/include/sys/select.h /usr/include/bits/select.h
+main.o: /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h
+main.o: /usr/include/alloca.h /usr/include/stdio.h
+main.o: /usr/lib/gcc-lib/i386-redhat-linux/egcs-2.91.66/include/stdarg.h
+main.o: /usr/include/libio.h /usr/include/_G_config.h
+main.o: /usr/include/bits/stdio_lim.h /usr/include/signal.h
+main.o: /usr/include/bits/signum.h /usr/include/bits/siginfo.h
+main.o: /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h
+main.o: /usr/include/asm/sigcontext.h /usr/include/bits/sigstack.h
 main.o: /usr/include/gtk/gtk.h /usr/include/gdk/gdk.h
 main.o: /usr/include/gdk/gdktypes.h /usr/include/glib.h
 main.o: /usr/lib/glib/include/glibconfig.h /usr/include/limits.h
-main.o: /usr/include/features.h /usr/include/sys/cdefs.h
-main.o: /usr/include/gnu/stubs.h /usr/include/bits/posix1_lim.h
-main.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
-main.o: /usr/include/bits/posix2_lim.h
+main.o: /usr/include/bits/posix1_lim.h /usr/include/bits/local_lim.h
+main.o: /usr/include/linux/limits.h /usr/include/bits/posix2_lim.h
 main.o: /usr/lib/gcc-lib/i386-redhat-linux/egcs-2.91.66/include/float.h
-main.o: /usr/lib/gcc-lib/i386-redhat-linux/egcs-2.91.66/include/stdarg.h
 main.o: /usr/include/gdk/gdkcursors.h /usr/include/gdk/gdkrgb.h
 main.o: /usr/include/gtk/gtkaccelgroup.h /usr/include/gtk/gtkobject.h
 main.o: /usr/include/gtk/gtkarg.h /usr/include/gtk/gtktypeutils.h
@@ -87,3 +114,7 @@ main.o: /usr/include/gtk/gtktooltips.h /usr/include/gtk/gtktree.h
 main.o: /usr/include/gtk/gtktreeitem.h /usr/include/gtk/gtkvbbox.h
 main.o: /usr/include/gtk/gtkvpaned.h /usr/include/gtk/gtkvruler.h
 main.o: /usr/include/gtk/gtkvscale.h /usr/include/gtk/gtkvseparator.h
+main.o: /usr/include/gdk/gdkx.h /usr/include/gdk/gdkprivate.h
+main.o: /usr/X11R6/include/X11/Xlib.h /usr/X11R6/include/X11/X.h
+main.o: /usr/X11R6/include/X11/Xfuncproto.h /usr/X11R6/include/X11/Xosdefs.h
+main.o: /usr/X11R6/include/X11/Xutil.h /usr/X11R6/include/X11/Xatom.h

@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 {
 	GdkWindowPrivate	*window;
 	GdkWindow		*existing_session_window;
-	struct sigaction	act = {};
+	struct sigaction	act;
 
 	gtk_init(&argc, &argv);
 
