@@ -33,35 +33,34 @@
 /* See http://www.freedesktop.org/standards/xsettings/xsettings.html */
 XSettingsManager *manager = NULL;
 
-static GList *int_settings = NULL;
+typedef struct _Setting Setting;
 
-static void xsettings_changed(guchar *unused)
+struct _Setting {
+	gchar *name;
+	gchar *default_value;
+	Option option;
+};
+
+static Setting settings[] = {
+	{"Net/DoubleClickTime", "250"},
+	{"Gtk/CanChangeAccels", "1"},
+};
+
+#define N_SETTINGS (sizeof(settings) / sizeof(*settings))
+
+static void xsettings_changed(void)
 {
-	GList	*next;
+	int i;
 
 	if (!manager)
-	{
-		g_warning("ROX-Session not managing XSettings, so not "
-			  "affecting anything...");
 		return;
-	}
 
-	for (next = int_settings; next; next = next->next)
-	{
-		gchar *name = (guchar *) next->data;
-		int value;
-
-		value = option_get_int(name);
-		xsettings_manager_set_int(manager, name, value);
-	}
+	for (i = 0; i < N_SETTINGS; i++)
+		xsettings_manager_set_int(manager,
+				settings[i].name,
+				settings[i].option.int_value);
 
 	xsettings_manager_notify(manager);
-}
-
-static void register_xsetting_int(char *name, int value)
-{
-	int_settings = g_list_append(int_settings, name);
-	option_add_int(name, value, xsettings_changed);
 }
 
 static void terminate_xsettings(void *data)
@@ -71,6 +70,8 @@ static void terminate_xsettings(void *data)
 
 void session_init(void)
 {
+	int i;
+
 	if (xsettings_manager_check_running(gdk_display,
 					    DefaultScreen(gdk_display)))
 		g_warning("An XSETTINGS manager is already running. "
@@ -80,13 +81,26 @@ void session_init(void)
 						DefaultScreen(gdk_display),
 					        terminate_xsettings, NULL);
 
-	register_xsetting_int("Net/DoubleClickTime", 250);
-	register_xsetting_int("Gtk/CanChangeAccels", 1);
+	for (i = 0; i < N_SETTINGS; i++)
+	{
+		option_add_string(&settings[i].option,
+				  settings[i].name,
+				  settings[i].default_value);
+	}
+
+	option_add_notify(xsettings_changed);
 
 	if (manager)
-		xsettings_changed(NULL);
+		xsettings_changed();
 }
 
+static void show_session_options(void)
+{
+	if (!manager)
+		report_error("ROX-Session not managing XSettings, so changes "
+				"will have no immediate effect...");
+	options_show();
+}
 void show_main_window(void)
 {
 	GtkWidget *window, *align, *button, *label, *hbox, *image;
@@ -129,7 +143,7 @@ void show_main_window(void)
 			gtk_main_quit();
 			break;
 		case 1:
-			options_show();
+			show_session_options();
 			break;
 		default:
 			break;

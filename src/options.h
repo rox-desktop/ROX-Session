@@ -8,30 +8,35 @@
 #ifndef _OPTIONS_H
 #define _OPTIONS_H
 
+typedef struct _Option Option;
+
 #include <gtk/gtk.h>
 #include <libxml/parser.h>
 
-typedef void OptionChanged(guchar *new_value); /* (also connect_object cb) */
 typedef void OptionNotify(void);
-typedef struct _OptionUI OptionUI;
-typedef GList * (*OptionBuildFn)(OptionUI *ui, xmlNode *node, guchar *label);
+typedef GList * (*OptionBuildFn)(Option *option, xmlNode *node, guchar *label);
 
-struct _OptionUI {
-	GtkWidget	*widget;
-	void		(*update_widget)(OptionUI *ui, guchar *value);
-	guchar *	(*read_widget)(OptionUI *ui);
+struct _Option {
+	guchar		*value;
+	long		int_value;
+	gboolean	has_changed;
+
+	guchar		*backup;	/* Copy of value to Revert to */
+
+	GtkWidget	*widget;		/* NULL => No UI yet */
+	void		(*update_widget)(Option *option, guchar *value);
+	guchar *	(*read_widget)(Option *option);
 };
 
 /* Prototypes */
 
 void options_init(void);
+
 void option_register_widget(char *name, OptionBuildFn builder);
+void option_check_widget(Option *option);
 
-void option_add_int(guchar *key, int value, OptionChanged *changed);
-int option_get_int(guchar *key);
-
-void option_add_string(guchar *key, guchar *value, OptionChanged *changed);
-guchar *option_get_static_string(guchar *key);
+void option_add_int(Option *option, guchar *key, int value);
+void option_add_string(Option *option, guchar *key, guchar *value);
 
 void options_notify(void);
 void option_add_notify(OptionNotify *callback);
