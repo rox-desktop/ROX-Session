@@ -1,8 +1,12 @@
 body {
         background: #fff;
         color: #000;
-        margin: 10pt;
+	margin: 0;
 	text-align: justify;
+}
+
+p {
+	margin: 1em;
 }
 
 p.author {
@@ -12,10 +16,14 @@ p.author {
 
 h1 {
         text-align: center;
+	background: #beb;
+	border-top: 2px solid #cfc;
+	border-bottom: 2px solid #8c8;
 }
 
-div {
-        max-width: 65em;
-        background: #eee;
-        padding: 0.1cm 1cm 0.2cm 1cm;
+h2 {
+	padding-left: 1em;
+	background: #beb;
+	border-top: 2px solid #cfc;
+	border-bottom: 2px solid #8c8;
 }
