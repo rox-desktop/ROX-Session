@@ -188,13 +188,7 @@ static void run_wm(void)
 
 static void update_combo(Option *option)
 {
-	if (*option->value)
-		gtk_entry_set_text(GTK_ENTRY(option->widget), option->value);
-	else
-	{
-		gtk_entry_set_text(GTK_ENTRY(option->widget), DEFAULT_WM);
-		option_check_widget(option);
-	}
+	gtk_entry_set_text(GTK_ENTRY(option->widget), option->value);
 }
 
 static guchar *read_combo(Option *option)

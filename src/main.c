@@ -294,11 +294,16 @@ static int become_default_session(void)
 	char	*argv[3];
 	int	status;
 	GError	*error = NULL;
+	GtkWidget *dialog;
 
-	if (get_choice(PROJECT,
-		_("Would you like to make ROX-Session your session "
-		  "manager?"), 2, _("No"), _("Yes")) != 1)
+	dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
+		GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
+		_("Would you like to make ROX-Session your session manager?"));
+	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+	gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_YES);
+	if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_YES)
 		return EXIT_SUCCESS;
+	gtk_widget_destroy(dialog);
 
 	argv[0] = g_strconcat(app_dir, "/", "MakeDefault.sh", NULL);
 	argv[1] = app_dir;
@@ -322,10 +327,15 @@ static int become_default_session(void)
 		return EXIT_SUCCESS;
 	}
 
-	report_error(_("OK, now logout by your usual method and when "
-		"you log in again, I should be your session manager.\n"
-		"You can edit your .xsession file to customise "
-		"things..."));
+	dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
+			GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+			_("OK, now logout by your usual method and when "
+			"you log in again, I should be your session manager.\n"
+			"You can edit your .xsession file to customise "
+			"things..."));
+	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+	gtk_dialog_run(GTK_DIALOG(dialog));
+	gtk_widget_destroy(dialog);
 
 	return EXIT_SUCCESS;
 }

@@ -25,67 +25,9 @@
 
 #include <gtk/gtk.h>
 
-#include "main.h"
 #include "gui_support.h"
 
-/* The dialog box that is currently open */
-GtkWidget	*current_dialog = NULL;
-
-/* Open a modal dialog box showing a message.
- * The user can choose from a selection of buttons at the bottom.
- * Returns -1 if the window is destroyed, or the number of the button
- * if one is clicked (starting from zero).
- *
- * If a dialog is already open, returns -1 without waiting AND
- * brings the current dialog to the front.
- */
-int get_choice(char *title,
-	       char *message,
-	       int number_of_buttons, ...)
-{
-	GtkWidget	*dialog;
-	GtkWidget	*button = NULL;
-	int		i, retval;
-	va_list	ap;
-
-	if (current_dialog)
-	{
-		gtk_widget_hide(current_dialog);
-		gtk_widget_show(current_dialog);
-		return -1;
-	}
-
-	current_dialog = dialog = gtk_message_dialog_new(NULL,
-					GTK_DIALOG_MODAL,
-					GTK_MESSAGE_QUESTION,
-					GTK_BUTTONS_NONE,
-					"%s", message);
-	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
-
-	va_start(ap, number_of_buttons);
-
-	for (i = 0; i < number_of_buttons; i++)
-		button = gtk_dialog_add_button(GTK_DIALOG(current_dialog),
-				va_arg(ap, char *), i);
-
-	gtk_window_set_title(GTK_WINDOW(dialog), title);
-	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
-
-	gtk_dialog_set_default_response(GTK_DIALOG(dialog), i - 1);
-
-	va_end(ap);
-
-	retval = gtk_dialog_run(GTK_DIALOG(dialog));
-	if (retval == GTK_RESPONSE_NONE)
-		retval = -1;
-	gtk_widget_destroy(dialog);
-
-	current_dialog = NULL;
-
-	return retval;
-}
-
-/* Display a message in a window with PROJECT as title */
+/* Display a message in a window */
 void report_error(char *message, ...)
 {
 	GtkWidget *dialog;
