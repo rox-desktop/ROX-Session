@@ -1,0 +1,42 @@
+SHELL = @SHELL@
+srcdir = @srcdir@
+PLATFORM_DIR = @bindir@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_CONFIG = @GTK_CONFIG@
+GTK_LIBS = @GTK_LIBS@
+.SUFFIXES:
+.SUFFIXES: .c .o
+
+CC = @CC@
+CFLAGS = @CFLAGS@ `gtk-config --cflags`
+LDFLAGS = @LDFLAGS@ `gtk-config --libs`
+EXEC = ${PLATFORM_DIR}/${PROG}
+
+############ Things to change for different programs
+
+PROG = ROX-Session
+
+SRCS = main.c
+
+OBJECTS = main.o
+
+############ Things to keep the same
+
+${EXEC}: ${OBJECTS}
+	${CC} -o ${EXEC} ${OBJECTS} ${LDFLAGS}
+
+clean:
+	rm -f *.o
+
+#$(EXEC): $(PLATFORM_DIR) $(OBJECTS)
+#	$(CC) -o $(EXEC) $(OBJECTS) $(LDFLAGS)
+
+#clean:
+#	rm -f $(OBJECTS) Makefile.bak tags
+
+#depend:
+#	makedepend -- $(CFLAGS) -- $(SRCS)
+
+#$(PLATFORM_DIR):
+#	mkdir $(PLATFORM_DIR)
+
