@@ -4,6 +4,7 @@ GUIDE=Guide.html
 
 case $LANG in
 	de*) GUIDE=de/Anleitung.html ;;
+	it*) GUIDE=it/Guida.html ;;
 esac
 
 exec rox "`dirname $0`/$GUIDE"
