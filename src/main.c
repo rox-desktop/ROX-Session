@@ -337,6 +337,7 @@ static void touch(GdkWindow *window)
 	gdk_property_change(window, rox_session_window,
 			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
 			GDK_PROP_MODE_APPEND, "", 0);
+	gdk_flush();
 }
 
 static gboolean session_prop_touched(GtkWidget *window,
