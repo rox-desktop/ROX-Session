@@ -20,7 +20,7 @@ print "Version $a.$b.$c --- OK?\n";
 <STDIN> =~ /^[yY]/ or die "OK, fix the version number!\n";
 
 system "cvs tag -F Release-$a-$b-$c";
-# system "cd src/po; ./update-po; ./dist";
+system "cd src/po; ./update-po; ./dist";
 
 chdir;
 
@@ -30,6 +30,7 @@ chdir "ROX-Session-$a.$b.$c";
 system "cvs -d:pserver:anonymous\@cvs.rox.sourceforge.net:/cvsroot/rox export -r Release-$a-$b-$c ROX-Session";
 
 system "cd ROX-Session/src; autoconf";
+system "cp -r ~/Projects/ROX-Session/Messages/*.gmo ROX-Session/Messages";
 
 system "mv ROX-Session/* .";
 rmdir "ROX-Session";
