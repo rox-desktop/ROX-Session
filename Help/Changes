@@ -2,10 +2,11 @@
 			A very simple session manager
 			by Thomas Leonard
 
-TODO: Never overwrite .xsession.old
-
-- Set up system wide
-- Move remaining options to Python
+20-Apr-2004
+~~~~~~~~~~~
+Moved the Logout dialog box and the setup dialogs out of the main ROX-Session
+program and into Python scripts. Made the setup dialogs a bit more friendly,
+and allow installing ROX on the session manager list.
 
 13-Apr-2004
 ~~~~~~~~~~~
