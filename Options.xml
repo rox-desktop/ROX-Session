@@ -1,5 +1,12 @@
 <?xml version='1.0'?>
 <options>
+  <section title='Window manager'>
+    <label help='1'>The window manager is a program which puts title bars and frames on windows. It allows you to move windows around, resize them, close them and so on.</label>
+    <wm-combo name='DefaultWM' label='Default window manager'/>
+    <spacer/>
+    <start-wm/>
+  </section>
+
   <section title='Translation'>
     <frame label='Language'>
       <radio-group name='i18n_translation'>
@@ -11,12 +18,6 @@
     <label help='1'>Note that you must save your choices, logout and log back in again before the new settings will take full effect.</label>
   </section>
 
-  <section title='Window manager'>
-    <label help='1'>The window manager is a program which puts title bars and frames on windows. It allows you to move windows around, resize them, close them and so on.</label>
-    <wm-combo name='DefaultWM' label='Default window manager'/>
-    <spacer/>
-    <start-wm/>
-  </section>
   <section title='XSettings'>
     <label help='1'>These settings affect all XSettings-aware programs immediately. Older programs will not be affected.</label>
   
@@ -35,7 +36,7 @@
     </frame>
   </section>
   <section title='Messages'>
-    <label help='1'>All programs have a 'standard error' stream which they can write text messages to. ROX-Session creates such a connection between itself and every program it starts. It displays all the messages it collects this way briefly on screen.</label>
+    <label help='1'>All programs have a 'standard error stream' which they can write text messages to. ROX-Session creates such a connection between itself and every program it starts. It displays all the messages it collects this way briefly on screen.</label>
     <frame label='On-screen message log'>
       <numentry label='Show messages for:' unit='seconds' min='1' max='30' name='log_time_shown'>Number of seconds to display each message for</numentry>
     </frame>

@@ -5,6 +5,11 @@
 TODO: Get sawfish's iconize animation to go into the middle of the screen
       so people stop blaming us for hiding the icons under the panel...
 
+30-Apr-2002
+~~~~~~~~~~~
+Added Metacity to window manager list, and updated list of failsafe window
+managers (suggested by Michel Alexandre Salim).
+
 23-Apr-2002
 ~~~~~~~~~~~
 Add BlackBox and FluxBox to the window manager list, and added option to

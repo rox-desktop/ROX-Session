@@ -48,15 +48,11 @@ fi
 
 # Load a window manager. Keep trying until we find one that works!
 
-wm="\`which sawfish\`"
-if [ ! -x "\$wm" ]; then wm="\`which sawmill\`"; fi
-if [ ! -x "\$wm" ]; then wm="\`which enlightenment\`"; fi
-if [ ! -x "\$wm" ]; then wm="\`which kwm\`"; fi
-if [ ! -x "\$wm" ]; then wm="\`which fvwm2\`"; fi
-if [ ! -x "\$wm" ]; then wm="\`which fvwm\`"; fi
-if [ ! -x "\$wm" ]; then wm="\`which 4Dwm\`"; fi
-if [ ! -x "\$wm" ]; then wm="\`which twm\`"; fi
-if [ ! -x "\$wm" ]; then wm=twm; fi
+for wm in sawfish sawmill enlightenment wmaker icewm blackbox fluxbox metacity \
+	  kwm fvwm2 fvwm 4Dwm twm; do
+  if [ -x "\`which \$wm\`" ]; then break; fi;
+done
+
 "\$wm" &
 
 xmessage -file - << END
