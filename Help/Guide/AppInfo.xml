@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <AppInfo>
-  <Summary>The ROX Guidebook</Summary>
+  <Summary xml:lang="en">The ROX Guidebook</Summary>
   <Summary xml:lang="it">La guida di ROX</Summary>
-
-  <About>
+  <About xml:lang="en">
     <Purpose>ROX Guidebook</Purpose>
     <Author>Thomas Leonard</Author>
     <License>GNU General Public License</License>
@@ -17,5 +16,4 @@
     <Homepage label="Sito web"/>
     <Note label="Nota">fa parte di ROX-Session</Note>
   </About>
-
 </AppInfo>
