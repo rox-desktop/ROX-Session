@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <AppInfo>
   <Summary>The ROX Guidebook</Summary>
+  <Summary xml:lang="it">La guida di ROX</Summary>
 
   <About>
     <Purpose>ROX Guidebook</Purpose>
@@ -9,4 +10,12 @@
     <Homepage>http://rox.sourceforge.net</Homepage>
     <Note>Part of ROX-Session</Note>
   </About>
+    <About xml:lang="it">
+    <Purpose label="Scopo">la guida di ROX</Purpose>
+    <Author label="Autore"/>
+    <License label="Licenza"/>
+    <Homepage label="Sito web"/>
+    <Note label="Nota">fa parte di ROX-Session</Note>
+  </About>
+
 </AppInfo>
