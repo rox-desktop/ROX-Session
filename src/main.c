@@ -204,12 +204,12 @@ int main(int argc, char **argv)
 			
 	window = ipc_window->window;
 	xwindow = GDK_WINDOW_XWINDOW(window);
+	gtk_signal_connect(GTK_OBJECT(ipc_window), "property-notify-event",
+			GTK_SIGNAL_FUNC(session_prop_touched), NULL);
+	gtk_widget_add_events(ipc_window, GDK_PROPERTY_CHANGE_MASK);
 	gdk_property_change(ipc_window->window, rox_session_window,
 			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
 			GDK_PROP_MODE_REPLACE, (guchar *) &xwindow, 1);
-	gtk_widget_add_events(ipc_window, GDK_PROPERTY_CHANGE_MASK);
-	gtk_signal_connect(GTK_OBJECT(ipc_window), "property-notify-event",
-			GTK_SIGNAL_FUNC(session_prop_touched), NULL);
 	gdk_property_change(GDK_ROOT_PARENT(), rox_session_window,
 			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
 			GDK_PROP_MODE_REPLACE, (guchar *) &xwindow, 1);
@@ -284,8 +284,20 @@ static gboolean session_prop_touched(GtkWidget *window,
 				     GdkEventProperty *event,
 				     gpointer data)
 {
+	static gboolean first_time = TRUE;
+
 	if (event->atom != rox_session_window)
 		return FALSE;
+
+	if (first_time)
+	{
+		/* Simply selecting for property events AFTER setting it
+		 * the first time doesn't work, because Gtk might have
+		 * selected them itself by then.
+		 */
+		first_time = FALSE;
+		return FALSE;
+	}
 
 	show_main_window();
 		

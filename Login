@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 # This gets run after ROX-Session is loaded and running as your session
 # manager. ROX-Session will first try to load <Choices>/ROX-Session/Login,
 # and only uses this if that is missing.
