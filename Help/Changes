@@ -2,7 +2,13 @@
 			A very simple session manager
 			by Thomas Leonard
 
-12-Oct-2003
+26-Oct-2003
+~~~~~~~~~~~
+Use apsymbols.h (from autopackage.org) if possible for binary compatibility
+with older glibc versions. Use g_ascii_* functions instead of the ctypes ones
+for the same reason.
+
+12-Oct-2003 (Release 0.1.21)
 ~~~~~~~~~~~
 Run ROX-Filer via Zero Install, if possible. Also, try to get the MIME database
 that way.

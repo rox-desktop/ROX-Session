@@ -385,7 +385,7 @@ static void xsettings_changed(void)
 
 	for (i = 0; i < N_SETTINGS; i++)
 	{
-		if (isdigit(settings[i].default_value[0]))
+		if (g_ascii_isdigit(settings[i].default_value[0]))
 			xsettings_manager_set_int(manager,
 					settings[i].name,
 					settings[i].option.int_value);

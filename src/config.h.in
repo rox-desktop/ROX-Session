@@ -7,6 +7,11 @@
 #undef HAVE_GETOPT_LONG
 #undef HAVE_UNSETENV
 #undef HAVE_LOCALE_H
+#undef HAVE_APSYMBOLS_H
+
+#ifdef HAVE_APSYMBOLS_H
+# include <apsymbols.h>
+#endif
 
 #include "rox_gettext.h"
 
