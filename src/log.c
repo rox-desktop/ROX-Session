@@ -63,6 +63,7 @@ static GList	*chunks = NULL;
 /* This holds history of recent log messages, which can be displayed
  * in a normal window.
  */
+#define MAX_BUFFER_SIZE 10000			/* In characters */
 static GtkTextBuffer *buffer = NULL;
 static GtkWindow *message_window = NULL;	/* The non-popup window */
 
@@ -263,6 +264,7 @@ static gboolean prune(gpointer data)
 static void log_msg(const gchar *text, gint len)
 {
 	Chunk   *new;
+	int	chars;
 	GtkTextIter end;
 
 	if (len < 0)
@@ -271,6 +273,20 @@ static void log_msg(const gchar *text, gint len)
 	/* Add to the long history buffer... */
 	gtk_text_buffer_get_end_iter(buffer, &end);
 	gtk_text_buffer_insert(buffer, &end, text, len);
+
+	/* Remove stuff from the beginning if it gets too long... */
+	chars = gtk_text_buffer_get_char_count(buffer);
+	if (chars > MAX_BUFFER_SIZE)
+	{
+		GtkTextIter start;
+
+		gtk_text_buffer_get_start_iter(buffer, &start);
+		end = start;
+		gtk_text_iter_forward_chars(&end, chars - MAX_BUFFER_SIZE);
+		gtk_text_iter_forward_line(&end);
+		gtk_text_buffer_delete(buffer, &start, &end);
+	}
+
 
 	/* And to the popup message area... */
 	new = g_new(Chunk, 1);
@@ -366,6 +382,7 @@ static void show_message_log(void)
 	view = gtk_text_view_new_with_buffer(buffer);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(view), FALSE);
 	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(view), FALSE);
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(view), GTK_WRAP_WORD);
 	gtk_widget_set_size_request(view, 400, 100);
 	gtk_container_add(GTK_CONTAINER(frame), view);
 
