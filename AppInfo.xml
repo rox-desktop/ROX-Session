@@ -32,6 +32,9 @@
     <Homepage label="Sitio web"/>
   </About>
   <AppMenu>
+    <Item option='--options'>
+      <Label xml:lang="en">Session Settings...</Label>
+    </Item>
     <Item option='--setup'>
       <Label xml:lang="en">Auto Start...</Label>
       <Label xml:lang='es'>Iniciar Autom&#x00E1;ticamente...</Label>

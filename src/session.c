@@ -135,7 +135,6 @@ static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label);
 static void child_died(int signum);
 static void terminate_xsettings(void *data);
 static void xsettings_changed(void);
-static void show_session_options(void);
 static GtkWidget *op_button(const char *text, const char *stock,
 			    Option *command, const char *message);
 static char *pathdup(const char *path);
@@ -599,7 +598,7 @@ static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label)
 	return g_list_append(NULL, hbox);
 }
 
-static void show_session_options(void)
+void show_session_options(void)
 {
 	if (!manager)
 		report_error(_("ROX-Session not managing XSettings, so changes "

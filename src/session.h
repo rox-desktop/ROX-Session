@@ -21,5 +21,6 @@ void session_init(void);
 void show_main_window(void);
 void run_login_script(void);
 void child_died_callback(void);
+void show_session_options(void);
 
 #endif /* _SESSION_H */

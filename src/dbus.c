@@ -25,7 +25,9 @@
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
 
-#define ROX_SESSION_DBUS_SERVICE "net.sf.rox.ROX-Session"
+#define ROX_SESSION_NS "net.sf.rox.Session"
+#define ROX_SESSION_DBUS_SERVICE "net.sf.rox.Session"
+#define ROX_SESSION_ERROR "net.sf.rox.Session.Error"
 
 #include <unistd.h>
 #include <string.h>
@@ -37,6 +39,7 @@
 
 #include "dbus.h"
 #include "gui_support.h"
+#include "session.h"
 
 static gint dbus_pid = -1;
 static DBusConnection *dbus_connection = NULL;
@@ -86,23 +89,123 @@ static void kill_dbus(void)
 	dbus_pid = -1;
 }
 
+static void lost_connection(void) {
+	dbus_connection_unref(dbus_connection);
+	dbus_connection = NULL;
+	report_error(
+		_("ROX-Session lost its connection to the D-BUS session bus.\n"
+		"You should save your work and logout as soon as "
+		"possible (many things won't work correctly without the bus, "
+		"and this is the only way to restart it)."));
+}
+
+static DBusHandlerResult session_message_handler(DBusConnection *connection,
+					 DBusMessage *message, void *user_data)
+{
+	DBusMessage *reply = NULL;
+	DBusError error;
+
+	dbus_error_init(&error);
+
+	if (strcmp(dbus_message_get_interface(message), ROX_SESSION_NS) != 0)
+	{
+		char *msg;
+		msg = g_strdup_printf(
+				"Bad interface (got '%s'; expected '%s')",
+				dbus_message_get_interface(message),
+				ROX_SESSION_NS);
+		reply = dbus_message_new_error(message,
+				ROX_SESSION_NS, msg);
+		g_free(message);
+	}
+	else if (dbus_message_get_type(message) !=
+			DBUS_MESSAGE_TYPE_METHOD_CALL) {
+		reply = dbus_message_new_error(message,
+				ROX_SESSION_NS,
+				"Message type is not message_call");
+	}
+	else if (dbus_message_is_method_call(message,
+					ROX_SESSION_NS, "ShowOptions")) {
+		show_session_options();
+		reply = dbus_message_new_method_return(message);
+	}
+	else
+	{
+		char *msg;
+		msg = g_strdup_printf(
+				"Unknown method name '%s'",
+				dbus_message_get_member(message));
+		reply = dbus_message_new_error(message,
+				ROX_SESSION_NS, msg);
+		g_free(message);
+	}
+
+	if (reply && !dbus_connection_send(connection, reply, NULL))
+		goto err;
+
+	goto out;
+err:
+	if (reply) {
+		dbus_message_unref(reply);
+		reply = NULL;
+	}
+
+	if (dbus_error_is_set(&error)) {
+		reply = dbus_message_new_error(message,
+				ROX_SESSION_ERROR, error.message);
+		dbus_error_free(&error);
+		if (!reply)
+			goto oom;
+		if (!dbus_connection_send(connection, reply, NULL))
+			goto oom;
+		goto out;
+	}
+oom:
+	g_warning("Out of memory");
+out:
+	if (reply)
+		dbus_message_unref(reply);
+	return DBUS_HANDLER_RESULT_HANDLED;
+}
+
+
 /* TRUE on success */
 static gboolean connect_to_bus(void)
 {
 	GError *error = NULL;
 	DBusError derror;
+	DBusGProxy *local = NULL;
+	DBusObjectPathVTable vtable = {
+		NULL,
+		session_message_handler,
+	};
+	const char *session_path[] = {"Session", NULL};
 
 	dbus_error_init(&derror);
 
 	dbus_connection = dbus_bus_get_with_g_main(DBUS_BUS_SESSION, &error);
 	if (error)
 		goto err;
+	dbus_connection_set_exit_on_disconnect(dbus_connection, FALSE);
 	dbus_bus_acquire_service(dbus_connection,
 			ROX_SESSION_DBUS_SERVICE,
 			0,
 			&derror);
 	if (dbus_error_is_set(&derror))
 		goto err;
+
+	if (!dbus_connection_register_object_path(dbus_connection,
+			session_path, &vtable, NULL))
+		g_warning("Out of memory");
+
+	/* Get notified when the bus dies */
+	local = dbus_gproxy_new_for_peer(dbus_connection,
+			DBUS_PATH_ORG_FREEDESKTOP_LOCAL,
+			DBUS_INTERFACE_ORG_FREEDESKTOP_LOCAL);
+	g_return_val_if_fail(local != NULL, FALSE);
+	g_signal_connect(G_OBJECT(local), "destroy",
+			G_CALLBACK(lost_connection), NULL);
+
 	return TRUE;
 err:
 	report_error("Error connecting to D-BUS session bus:\n%s\n",

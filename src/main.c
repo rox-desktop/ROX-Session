@@ -254,7 +254,7 @@ int main(int argc, char **argv)
 	if (test_mode)
 	{
 		/* show_main_window(); */
-		system("echo OK");
+		system("echo $DBUS_SESSION_BUS_ADDRESS");
 	}
 
 	gtk_main();
