@@ -395,6 +395,12 @@ static void xsettings_changed(void)
 					settings[i].option.value);
 	}
 
+	/* This one is hard-coded. Despite the name, it actually enables
+	 * the standard Unix keybinding of Ctrl-U. It only adds shortcuts,
+	 * without changing any existing ones, so we always want this.
+	 */
+	xsettings_manager_set_string(manager, "Gtk/KeyThemeName", "Emacs");
+
 	xsettings_manager_notify(manager);
 }
 

@@ -153,7 +153,6 @@ void log_init(void)
 	gtk_window_set_resizable(GTK_WINDOW(log_window), FALSE);
 	gtk_widget_set_name(log_window, "log_window");
 	gtk_widget_realize(log_window);
-	gdk_window_set_override_redirect(log_window->window, TRUE);
 	gtk_widget_add_events(log_window, GDK_BUTTON_PRESS_MASK);
 	gtk_signal_connect(GTK_OBJECT(log_window), "button_press_event",
 			GTK_SIGNAL_FUNC(log_clicked), NULL);

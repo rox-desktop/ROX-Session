@@ -22,6 +22,7 @@ DEBUGGER=""
 
 case $1 in
 	--debug) shift ; DEBUGGER=gdb ;;
+	--valgrind) shift ; DEBUGGER=valgrind ;;
 	--setup) exec $APP_DIR/Setup ;;
 	--compile)
 		shift

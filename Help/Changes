@@ -2,11 +2,17 @@
 			A very simple session manager
 			by Thomas Leonard
 
+19-Jun-2003
+~~~~~~~~~~~
+Make Ctrl-U work again (GTK+-2 broke it).
+
 18-Jun-2003
-Added italian translation: Help/Guide/AppInfo.xml
+~~~~~~~~~~~
+Added italian translation: Help/Guide/AppInfo.xml.
 
 14-Jun-2003
-Added italian translations: src/po/it.po, AppInfo.xml
+~~~~~~~~~~~
+Added italian translations: src/po/it.po, AppInfo.xml.
 
 07-Jun-2003
 ~~~~~~~~~~~
