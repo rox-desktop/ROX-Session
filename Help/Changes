@@ -4,6 +4,11 @@
 
 TODO: Never overwrite .xsession.old
 
+13-Apr-2004
+~~~~~~~~~~~
+Guide will get ROX-Filer through Zero Install if there's no local copy
+(reported Taco Buitenhuis).
+
 11-Apr-2004
 ~~~~~~~~~~~
 Removed XSettings from GUI. Instead, a new D-BUS interface can be used to

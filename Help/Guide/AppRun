@@ -7,4 +7,9 @@ case $LANG in
 	it*) GUIDE=it/Guida.html ;;
 esac
 
-exec rox "`dirname $0`/$GUIDE"
+if [ -x `which rox` ]; then
+	exec rox "`dirname $0`/$GUIDE"
+fi
+
+# Get it through Zero Install instead
+exec 0run "rox.sourceforge.net/rox 2003-10-07" "`dirname $0`/$GUIDE"
