@@ -1,13 +1,10 @@
-# vi: set sts=8: */
-
-PLATFORM_DIR = ../$(PLATFORM)
-EXEC = $(PLATFORM_DIR)/runimage
 CC = gcc
 CFLAGS = -Wall -g `gtk-config --cflags`
 LDFLAGS = -L/usr/X11/lib -lX11 `gtk-config --libs`
 
+PLATFORM_DIR = ../$(PLATFORM)
+EXEC = $(PLATFORM_DIR)/ROX-Session
 SRCS = main.c
-
 OBJECTS = main.o
 
 unknown:
@@ -22,7 +19,7 @@ $(PLATFORM_DIR):
 	mkdir $(PLATFORM_DIR)
 
 $(EXEC): $(PLATFORM_DIR) $(OBJECTS)
-	gcc -o $(EXEC) $(OBJECTS) $(LDFLAGS)
+	$(CC) -o $(EXEC) $(OBJECTS) $(LDFLAGS)
 # DO NOT DELETE
 
 main.o: /usr/include/gtk/gtk.h /usr/include/gdk/gdk.h
