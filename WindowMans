@@ -4,7 +4,7 @@
 # Copy this file as <Choices>/ROX-Session/WindowMans before editing it.
 
 sawfish
-xfwm4 --nodaemon
+xfwm4
 kwin
 enlightenment
 wmaker
