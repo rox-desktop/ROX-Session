@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 0.1.20\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-26 12:35+0000\n"
+"POT-Creation-Date: 2003-11-23 17:05+0100\n"
 "PO-Revision-Date: 2003-08-30 16:40+0200\n"
 "Last-Translator: Yuri Bongiorno http://yuri.webhop.org\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: main.c:57
+#: main.c:58
 msgid ""
 "Copyright (C) 2002 Thomas Leonard.\n"
 "ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
@@ -29,15 +29,15 @@ msgstr ""
 "secondo i termini della GNU General Public License.\n"
 "Per ulteriori informazioni, vedere il file «COPYING».\n"
 
-#: main.c:66
+#: main.c:67
 msgid "Try `ROX-Session/AppRun --help' for more information.\n"
 msgstr "Usare «ROX-Session/AppRun --help» per ulteriori informazioni.\n"
 
-#: main.c:69
+#: main.c:70
 msgid "Try `ROX-Session/AppRun -h' for more information.\n"
 msgstr "Usare «ROX-Session/AppRun -h» per ulteriori informazioni.\n"
 
-#: main.c:71
+#: main.c:72
 msgid ""
 "NOTE: Your system does not support long options - \n"
 "you must use the short versions instead.\n"
@@ -46,7 +46,7 @@ msgstr ""
 "Nota: questo sistema non supporta le opzioni lunghe,\n"
 "è necessario usare quelle corte.\n"
 
-#: main.c:75
+#: main.c:76
 msgid ""
 "Usage: ROX-Session/AppRun [OPTION]...\n"
 "If ROX-Session is already managing your session then display\n"
@@ -76,15 +76,15 @@ msgstr ""
 "\n"
 "Segnalare i bug a <tal197@users.sourceforge.net>.\n"
 
-#: main.c:206
+#: main.c:215
 msgid "ROX-Session is already managing your session - can't manage it twice!"
 msgstr "ROX-Session sta già gestendo la sessione: non può farlo due volte."
 
-#: main.c:333
+#: main.c:348
 msgid "Would you like to make ROX-Session your session manager?"
 msgstr "Rendere ROX-Session il gestore di sessione predefinito?"
 
-#: main.c:352
+#: main.c:367
 #, c-format
 msgid ""
 "Oh dear; it didn't work and I don't know why!\n"
@@ -99,7 +99,7 @@ msgstr ""
 "Assicurarsi che i file .xsession e .xinitrc siano corretti, poi segnalare il "
 "problema a tal197@users.sourceforge.net."
 
-#: main.c:364
+#: main.c:379
 msgid ""
 "OK, now logout by your usual method and when you log in again, I should be "
 "your session manager.\n"
@@ -109,18 +109,18 @@ msgstr ""
 "Session dovrebbe essere il gestore di sessione predefinito. È possibile "
 "modificare .xsession per personalizzare il tutto..."
 
-#: main.c:387
+#: main.c:402
 #, c-format
 msgid "Your login script (%s) died"
 msgstr "Lo script di accesso al sistema (%s) è terminato"
 
-#: main.c:390
+#: main.c:405
 #, c-format
 msgid "Your login script (%s) exited with exit status %d"
 msgstr ""
 "Lo script di accesso al sistema (%s) è terminato con lo stato di uscita %d"
 
-#: main.c:395
+#: main.c:410
 msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
@@ -397,9 +397,8 @@ msgid "Italian"
 msgstr "Italiano"
 
 #: tips:12
-#, fuzzy
 msgid "Spanish"
-msgstr "Danese"
+msgstr "Spagnolo"
 
 #: tips:13
 msgid "Japanese"
