@@ -39,6 +39,8 @@
     <label help='1'>All programs have a 'standard error stream' which they can write text messages to. ROX-Session creates such a connection between itself and every program it starts. It displays all the messages it collects this way briefly on screen.</label>
     <frame label='On-screen message log'>
       <numentry label='Show messages for:' unit='seconds' min='1' max='30' name='log_time_shown'>Number of seconds to display each message for</numentry>
+      <spacer/>
+      <show-log/>
     </frame>
   </section>
 </options>

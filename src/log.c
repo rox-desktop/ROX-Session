@@ -40,12 +40,13 @@
 #include "main.h"
 #include "log.h"
 #include "options.h"
+#include "gui_support.h"
 
-#define MARGIN 10
+#define MARGIN 4
 
 static Option o_time_shown;
 
-static GtkWidget *log_window = NULL;
+static GtkWidget *log_window = NULL;	/* The popup message window */
 static GtkWidget *label = NULL;	/* Contains the log messages */
 static gint	 input_tag;
 
@@ -59,12 +60,19 @@ struct _Chunk {
 };
 static GList	*chunks = NULL;
 
+/* This holds history of recent log messages, which can be displayed
+ * in a normal window.
+ */
+static GtkTextBuffer *buffer = NULL;
+static GtkWindow *message_window = NULL;	/* The non-popup window */
+
 /* Static prototypes */
 static void got_log_data(gpointer data,
 			 gint source,
 			 GdkInputCondition condition);
 static gint log_clicked(GtkWidget *text, GdkEventButton *bev, gpointer data);
 static void log_msg(const gchar *text, gint len);
+static GList *show_log(Option *option, xmlNode *node, guchar *label);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -75,7 +83,11 @@ void log_init(void)
 
 	int fds[2];
 
+	buffer = gtk_text_buffer_new(NULL);
+
 	option_add_int(&o_time_shown, "log_time_shown", 5);
+
+	option_register_widget("show-log", show_log);
 
 	if (pipe(fds))
 	{
@@ -138,7 +150,7 @@ static void show(void)
 	GList	*next;
 	int	last_non_space = -1;
 
-	if (!chunks)
+	if (message_window || !chunks)
 	{
 		gtk_widget_hide(log_window);
 		return;
@@ -251,10 +263,16 @@ static gboolean prune(gpointer data)
 static void log_msg(const gchar *text, gint len)
 {
 	Chunk   *new;
+	GtkTextIter end;
 
 	if (len < 0)
 		len = strlen(text);
 
+	/* Add to the long history buffer... */
+	gtk_text_buffer_get_end_iter(buffer, &end);
+	gtk_text_buffer_insert(buffer, &end, text, len);
+
+	/* And to the popup message area... */
 	new = g_new(Chunk, 1);
 
 	time(&new->time);
@@ -318,9 +336,73 @@ static void got_log_data(gpointer data,
 		wm_process_died();
 }
 
+static void show_message_log(void)
+{
+	GtkWidget *view, *hbox, *bar, *dialog, *frame;
+
+	if (message_window)
+	{
+		gtk_window_present(message_window);
+		return;
+	}
+
+	dialog = gtk_dialog_new_with_buttons(_("ROX-Session message log"),
+					     NULL, GTK_DIALOG_NO_SEPARATOR,
+					     GTK_STOCK_CLOSE, GTK_RESPONSE_YES,
+					     NULL);
+	message_window = GTK_WINDOW(dialog);
+	g_signal_connect(dialog, "response",
+			G_CALLBACK(gtk_widget_destroy), NULL);
+	g_signal_connect(message_window, "destroy",
+			G_CALLBACK(gtk_widget_destroyed), &message_window);
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), hbox);
+
+	frame = gtk_frame_new(NULL);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+	gtk_box_pack_start(GTK_BOX(hbox), frame, TRUE, TRUE, 0);
+
+	view = gtk_text_view_new_with_buffer(buffer);
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(view), FALSE);
+	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(view), FALSE);
+	gtk_widget_set_size_request(view, 400, 100);
+	gtk_container_add(GTK_CONTAINER(frame), view);
+
+	bar = gtk_vscrollbar_new(NULL);
+	gtk_widget_set_scroll_adjustments(view, NULL,
+			gtk_range_get_adjustment(GTK_RANGE(bar)));
+	gtk_box_pack_start(GTK_BOX(hbox), bar, FALSE, TRUE, 0);
+	
+	gtk_window_set_default_size(message_window,
+				    gdk_screen_width() / 2,
+				    gdk_screen_height() / 6);
+	gtk_widget_show_all(GTK_WIDGET(message_window));
+
+	gtk_widget_hide(log_window);
+}
+
 static gint log_clicked(GtkWidget *text, GdkEventButton *bev, gpointer data)
 {
-	gtk_widget_hide(log_window);
+	if (bev->button == 1)
+		gtk_widget_hide(log_window);
+	else
+		show_message_log();
 
 	return 1;
+}
+
+static GList *show_log(Option *option, xmlNode *node, guchar *label)
+{
+	GtkWidget *button, *align;
+
+	g_return_val_if_fail(option == NULL, NULL);
+	
+	align = gtk_alignment_new(0.5, 0.5, 0, 0);
+	button = button_new_mixed(GTK_STOCK_YES, _("Show message log"));
+	gtk_container_add(GTK_CONTAINER(align), button);
+	gtk_signal_connect(GTK_OBJECT(button), "clicked",
+			GTK_SIGNAL_FUNC(show_message_log), NULL);
+
+	return g_list_append(NULL, align);
 }
