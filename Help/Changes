@@ -3,6 +3,13 @@
 			by Thomas Leonard
 
 TODO: Update configure as for ROX-Filer (changequote, etc)
+      Get sawfish's iconize animation to go into the middle of the screen
+      so people stop blaming us for hiding the icons under the panel...
+
+29-Jan-2001
+~~~~~~~~~~~
+Removed session support, after realising that, despite its insane levels of
+complexity, it doesn't actually support what I want (confirmation of logout)!
 
 18-Oct-2001
 ~~~~~~~~~~~

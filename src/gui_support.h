@@ -11,7 +11,6 @@
 #include <gtk/gtk.h>
 
 void report_error(char *title, char *message);
-void delayed_error(char *title, char *error);
 int get_choice(char *title,
 	       char *message,
 	       int number_of_buttons, ...);

@@ -21,9 +21,6 @@ AC_PATH_X
 AC_HEADER_STDC
 AC_CHECK_HEADERS(locale.h)
 
-LIBS="`gtk-config --libs` -lICE"
-AC_CHECK_FUNCS(_IceTransNoListen)
-
 dnl Checks for typedefs, structures, and compiler characteristics.
 
 dnl Checks for library functions.

@@ -148,37 +148,3 @@ void report_error(char *title, char *message)
 
 	get_choice(title, message, 1, "OK");
 }
-
-static gboolean error_idle_cb(gpointer data)
-{
-	char	**error = (char **) data;
-	
-	report_error(error[0], error[1]);
-	g_free(error[0]);
-	g_free(error[1]);
-	error[0] = error[1] = NULL;
-
-	return FALSE;
-}
-
-/* Display an error next time we are idle */
-void delayed_error(char *title, char *error)
-{
-	static char *delayed_error_data[2] = {NULL, NULL};
-	gboolean already_open;
-	
-	g_return_if_fail(error != NULL);
-
-	already_open = delayed_error_data[1] != NULL;
-
-	g_free(delayed_error_data[0]);
-	g_free(delayed_error_data[1]);
-
-	delayed_error_data[0] = g_strdup(title);
-	delayed_error_data[1] = g_strdup(error);
-	
-	if (already_open)
-		return;
-
-	gtk_idle_add(error_idle_cb, delayed_error_data);
-}
