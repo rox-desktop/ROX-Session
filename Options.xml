@@ -1,5 +1,16 @@
 <?xml version='1.0'?>
 <options>
+  <section title='Translation'>
+    <frame label='Language'>
+      <radio-group name='i18n_translation'>
+        <radio label='Danish' value='da'/>
+        <radio label='English (no translation)' value='None'/>
+        <radio label='Use the LANG environment variable' value='From LANG'/>
+      </radio-group>
+    </frame>
+    <label help='1'>Note that you must save your choices, logout and log back in again before the new settings will take full effect.</label>
+  </section>
+
   <section title='Window manager'>
     <label>The window manager is a program which puts title bars and frames on windows. It allows you to move windows around, resize them, close them and so on.</label>
     <wm-combo name='DefaultWM' label='Default window manager'/>

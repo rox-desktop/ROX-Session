@@ -5,6 +5,11 @@
 TODO: Get sawfish's iconize animation to go into the middle of the screen
       so people stop blaming us for hiding the icons under the panel...
 
+08-Apr-2002
+~~~~~~~~~~~
+Added support for translations.
+Added Danish translation (Christian Storgaard).
+
 25-Mar-2002
 ~~~~~~~~~~~
 Added missing linker flags (reported by Stephen Watson).
