@@ -8,7 +8,8 @@ TODO: Get sawfish's iconize animation to go into the middle of the screen
 23-Apr-2002
 ~~~~~~~~~~~
 Add BlackBox and FluxBox to the window manager list, and added option to
-set how long log messages are displayed for (Michel Alexandre Salim).
+set how long log messages are displayed for (requested by Michel Alexandre
+Salim).
 Upgraded to new options code.
 
 08-Apr-2002
