@@ -16,10 +16,13 @@ if len(sys.argv) == 2 and sys.argv[1] == '--install':
 try:
 	import dbus
 except ImportError:
-	rox.croak("Failed to import dbus module. You probably need "
-		"to install a package with a name like 'python2.3-dbus'.\n"
+	rox.alert("Failed to import dbus module. You probably need "
+		"to install a package with a name like 'python2.3-dbus'.\n\n"
 		"D-BUS can also be downloaded from http://freedesktop.org\n"
-		"(be sure to compile the python bindings)")
+		"(be sure to compile the python and glib bindings)\n\n"
+		"If the bindings are installed in /usr/local/lib/python...,"
+		"try moving them to /usr/lib/python... (without the 'local')")
+	raise
 
 try:
 	bus = dbus.Bus(dbus.Bus.TYPE_SESSION)

@@ -61,6 +61,14 @@ if [ -z "$XDG_DATA_DIRS" -a -d /uri/0install/zero-install.sourceforge.net ]; the
   export XDG_DATA_DIRS
 fi
 
+if [ -z "$CHOICESPATH" ]; then
+  CHOICESPATH="${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices"
+fi
+if [ -d /uri/0install/rox.sourceforge.net ]; then
+  CHOICESPATH="$CHOICESPATH":/uri/0install/rox.sourceforge.net/lib/DefaultChoices
+fi
+export CHOICESPATH
+
 BIN="$APP_DIR/$PLATFORM/$PROG"
 
 if [ -x "$BIN" ]; then
