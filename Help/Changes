@@ -5,7 +5,11 @@
 TODO: Get sawfish's iconize animation to go into the middle of the screen
       so people stop blaming us for hiding the icons under the panel...
 
-06-Mar-2002
+25-Mar-2002
+~~~~~~~~~~~
+Added missing linker flags (reported by Stephen Watson).
+
+06-Mar-2002 (Release 0.1.14)
 ~~~~~~~~~~~
 Added XSetting for default Gtk+ font.
 

@@ -62,6 +62,14 @@ if test "x$GCC" = "xyes"; then
 fi
 ]
 
+dnl Find the X libraries
+AC_PATH_XTRA
+if test x$no_x = xyes ; then
+  AC_MSG_ERROR([X development libraries not found])
+fi
+LIBS="$LIBS $X_LIBS -lX11 $X_EXTRA_LIBS"
+CFLAGS="$CFLAGS $X_CFLAGS"
+
 dnl Extract version info from AppInfo.xml
 AC_MSG_CHECKING(extracting version information)
 [
