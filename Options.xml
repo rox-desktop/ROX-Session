@@ -30,6 +30,7 @@
 
   <section title='Display'>
     <frame label='Text'>
+      <label help='1'>On newer systems, you can install fonts by dragging them into your ~/.fonts directory.</label>
       <font name='Gtk/FontName' label='Default font'>The font used by Gtk+-2.0 applications</font>
       <!--
       <toggle name='Xft/Antialias' label='Antialias text'>Removed the jagged look of fonts by using shades of grey to represent half-filled pixels.</toggle>

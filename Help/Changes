@@ -4,6 +4,14 @@
 
 TODO: Never overwrite .xsession.old
 
+11-Feb-2004
+~~~~~~~~~~~
+Added a hint about where to install fonts.
+
+19-Dec-2003
+~~~~~~~~~~~
+Added note about selecting 'Default' on the login screen.
+
 24-Nov-2003
 ~~~~~~~~~~~
 Updated Russian translation (Vladimir Popov).
