@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# This gets run after ROX-Session is loaded and running as your session
+# manager, before Login is run.
+#
+# It is used to run ROX-Filer. If this process terminates, ROX-Session will
+# offer to rerun it.
+#
+# $1 is the ROX-Session application directory.
+
+if [ ! -n "$CHOICESPATH" ]; then
+	CHOICESPATH=${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices
+fi
+IFS=":"
+
+# Load ROX-Filer with a panel and a pinboard set up.
+MYCHOICES="(none)"
+for DIR in $CHOICESPATH; do
+  if [ "$MYCHOICES" = "(none)" ]; then
+    MYCHOICES="$DIR"
+  fi
+  PANEL="$DIR/ROX-Filer/pan_Default"
+  if [ -f "$PANEL" ]; then
+    break;
+  fi;
+  PANEL="";
+done
+
+if [ -z "$PANEL" -a -n "$MYCHOICES" ]; then
+  "$1/SetupPanel" "$1" "$MYCHOICES"
+fi
+
+exec rox -n -p Default -b Default
