@@ -9,6 +9,13 @@ ROX project, but can also be used on its own. ROX project home website:
 
 	http://rox.sourceforge.net
 
+ROX-Session sets up your desktop when you log in, and starts any
+applications you ask it to. It allows you to set various settings, such as
+the default font, cursor blinking and mouse behaviour.
+
+It also allows you to choose a window manager, and change between window
+managers without logging out.
+
 
 Conditions
 ~~~~~~~~~~
@@ -45,26 +52,28 @@ The conditions for this code are:
 
 Instructions
 ~~~~~~~~~~~~
-First, compile ROX-Session, like this (from a directory containing
-ROX-Session):
-
-	$ ROX-Session/AppRun --compile
-
-Then, run it, like this (or click on it in a filer window):
+Click on ROX-Session in a ROX-Filer window, or run the AppRun script
+manually:
 
 	$ ROX-Session/AppRun
 
 ROX-Session will offer to manage your session in future. If you accept, it
 will create suitable .xsession and .xinitrc files for you and ask you to
-log out.  When you log in again, ROX-Session will be running.
+log out. When you log in again, ROX-Session will be running (you may need
+to choose 'Default' or 'Xsession' from your login screen's list of desktops.
+See below for instructions on adding ROX directly to this list.
 
-The first thing it will do is ask you to choose a window manager. Select
-one from the list provided and click on OK. If the window mananger
-crashes, or you quit it, ROX-Session will ask you to choose again. If your
-preferred window manager isn't on the list then you can enter its name
-manually.
+The first time you log in, ROX-Session asks you to choose a window manager.
+Select one from the list provided and click on 'Start window manager'.
+If the window mananger crashes, or you quit it, ROX-Session will ask you to
+choose again. If your preferred window manager isn't on the list then you
+can enter its name manually. Click on 'Save' to make the chosen window
+manager the default for future sessions. You can also adjust various other
+settings from this window.
 
-When you want to logout, simply run ROX-Session a second time.
+When you want to logout, simply run ROX-Session a second time to display the
+logout box. This box also contains a 'Preferences' button which takes you
+back to the options box.
 
 
 Customising
@@ -81,7 +90,7 @@ environment variable.
 
 If no script is found then it runs the Login script inside the ROX-Session
 application directory instead. This default script will try to load
-ROX-Filer with a panel and a pinboard setup. It will then run all the
+ROX-Filer with a panel and a pinboard set up. It will then run all the
 programs in:
 	<Choices>/ROX-Session/AutoStart
 
@@ -115,14 +124,18 @@ list of sessions like this:
 - Go to Expert -> Login sessions and check that 'ROX' is listed.
   Add it if not.
 
-kdm users can use kcontrol to set things up in a similar way.
+kdm users can use kcontrol to set things up in a similar way (but put the
+'ROX' script in /usr/local/bin or similar).
 
 
 Environment
 ~~~~~~~~~~~
-
 In the .xsession script, before ROX-Session is started, ~/bin is added to
 the front of your PATH (if the ~/bin directory exists).
+
+There are also a couple of lines to turn on anti-aliased font support. You
+need to uncomment these lines to turn support on (as it doesn't work on some
+systems).
 
 
 Errors
@@ -152,7 +165,7 @@ These messages are displayed in a popup window for five seconds, as well
 as being copied to ROX-Session's own standard error (where it often ends
 up in the file ~/.xsession-errors).
 
-As well as using this for displaying error messages you can write other
+As well as using this for displaying error messages, you can write other
 things to it too, eg...
 
 Put:
@@ -185,7 +198,7 @@ How does xdm know when you've finished?
 
 Well, after xdm has verified your user name and password it runs a system-wide
 Xsession script as you. Try 'locate xdm/Xsession' to find the file on your
-system. When this script exits xdm resets the X server and restarts the login
+system. When this script exits, xdm resets the X server and restarts the login
 process.
 
 What does the Xsession script do?
