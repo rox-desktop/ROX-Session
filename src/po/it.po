@@ -1,15 +1,16 @@
 # ROX-Session Italian Translation.
-# Copyright (C) 2000 - 2003 Free Software Foundation, Inc.
+# Copyright @ 2000 - 2003 Free Software Foundation, Inc.
 # Current translator:
 # Yuri Bongiorno <yuri.bongiorno AT libero.it>, 2003.
 # Traduttori Italiani GNU:   http://www.linux.it/tp
 msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 0.1.20\n"
-"POT-Creation-Date: 2003-06-09 11:49+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-07-04 15:26+0200\n"
 "PO-Revision-Date: 2003-06-10 16:20+0200\n"
 "Last-Translator: Yuri Bongiorno <yuri.bongiorno AT libero.it>\n"
-"Language-Team: Italian <tp AT lists.linux.it>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,8 +24,8 @@ msgid ""
 "under the terms of the GNU General Public License.\n"
 "For more information about these matters, see the file named COPYING.\n"
 msgstr ""
-"Copyright (C) 2002 Thomas Leonard.\n"
-"ROX-Session non ha ALCUNA GARANZIA,\n"
+"Copyright @ 2002 Thomas Leonard.\n"
+"ROX-Session non fornisce ALCUNA GARANZIA,\n"
 "nei limiti permessi dalla legge.\n"
 "È possibile ridistribuire copie di ROX-Session\n"
 "secondo i termini della GNU General Public License.\n"
@@ -32,11 +33,11 @@ msgstr ""
 
 #: main.c:66
 msgid "Try `ROX-Session/AppRun --help' for more information.\n"
-msgstr "Usare \"ROX-Session/AppRun --help\" per ulteriori informazioni.\n"
+msgstr "Usare «ROX-Session/AppRun --help» per ulteriori informazioni.\n"
 
 #: main.c:69
 msgid "Try `ROX-Session/AppRun -h' for more information.\n"
-msgstr "Usare \"ROX-Session/AppRun -h\" per ulteriori informazioni.\n"
+msgstr "Usare «ROX-Session/AppRun -h» per ulteriori informazioni.\n"
 
 #: main.c:71
 msgid ""
@@ -45,7 +46,7 @@ msgid ""
 "\n"
 msgstr ""
 "NOTA: questo sistema non supporta le opzioni lunghe,\n"
-"si devono usare quelle corte.\n"
+"è necessario usare quelle corte.\n"
 
 #: main.c:75
 msgid ""
@@ -106,9 +107,9 @@ msgid ""
 "your session manager.\n"
 "You can edit your .xsession file to customise things..."
 msgstr ""
-"Termina adesso la sessione con la solita procedura e dal prossimo "
-"accesso al sistema, ROX-Session sarà il gestore di sessione "
-"predefinito. Modifica .xsession per personalizzare il tutto..."
+"Termina adesso la sessione con la solita procedura e dal prossimo accesso al "
+"sistema, ROX-Session sarà il gestore di sessione predefinito. È possibile "
+"modificare .xsession per personalizzare il tutto..."
 
 #: main.c:387
 #, c-format
@@ -126,31 +127,31 @@ msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
 msgstr ""
-". Verrà eseguito un xterm per cercare di risolvere il problema. Sebbene "
-"ROX-Session sia in esecuzione correttamente, eseguitelo di nuovo per "
+". Verrà eseguito un xterm per cercare di risolvere il problema. Sebbene ROX-"
+"Session sia in esecuzione correttamente, lo si esegua nuovamente per "
 "terminare la sessione."
 
 #: i18n.c:38
 msgid ""
-"Note that you must save your choices, logout and log back in again before the "
-"new settings will take full effect."
+"Note that you must save your choices, logout and log back in again before "
+"the new settings will take full effect."
 msgstr ""
 "Affinché le nuove impostazioni abbiano effetto, bisogna salvare le "
 "preferenze, terminare la sessione e accedere di nuovo al sistema."
 
-#: log.c:365
+#: log.c:364
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: scrittura su stderr fallita!\n"
 
-#: log.c:389
+#: log.c:388
 msgid "ROX-Session: read(stderr) failed!\n"
-msgstr "ROX-Session: lettura(stderr) fallita!\n"
+msgstr "ROX-Session: read(stderr) fallita!\n"
 
-#: log.c:413
+#: log.c:412
 msgid "ROX-Session message log"
 msgstr "Messaggio di log di ROX-Session"
 
-#: log.c:467
+#: log.c:466
 msgid "Show message log"
 msgstr "Mostra il messaggio di log"
 
@@ -175,7 +176,7 @@ msgstr "_Ripristina"
 msgid "Restore all choices to how they were when the Options box was opened."
 msgstr ""
 "Rimette le preferenze come erano prima dell'apertura della finestra "
-"\"Opzioni\"."
+"«Opzioni»."
 
 #: options.c:912
 #, c-format
@@ -223,7 +224,7 @@ msgstr "Riavvio del computer in corso..."
 
 #: session.c:284
 msgid "_Sleep"
-msgstr "_Sospende"
+msgstr "_Sospendi"
 
 #: session.c:285
 msgid "Attempting to enter suspend mode..."
@@ -234,7 +235,7 @@ msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
 msgstr ""
-"Terminare veramente la sessione?\n"
+"Terminare la sessione?\n"
 "(i dati non salvati andranno persi)"
 
 #: session.c:300
@@ -254,54 +255,54 @@ msgstr ""
 "Fallita l'esecuzione dello script di accesso al sistema:\n"
 "%s"
 
-#: session.c:422
+#: session.c:428
 msgid "Single click!"
 msgstr "Singolo clic!"
 
-#: session.c:424
+#: session.c:430
 msgid "Double click!!"
 msgstr "Doppio clic!!"
 
-#: session.c:426
+#: session.c:432
 msgid "Triple click!!!"
 msgstr "Triplo clic!!!"
 
-#: session.c:435
+#: session.c:441
 msgid "Double-click here to test mouse"
 msgstr "Fare doppio clic qui per eseguire il test del mouse"
 
-#: session.c:588
+#: session.c:594
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
 msgstr ""
-"ROX-Session non gestisce XSettings e i cambiamenti non avranno effetto "
+"ROX-Session non gestisce XSettings perciò i cambiamenti non avranno effetto "
 "immediato..."
 
-#: session.c:675
+#: session.c:681
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
 msgstr "ROX-Filer è terminato (crash?). Provare a riavviarlo."
 
-#: session.c:677
+#: session.c:683
 msgid "Do nothing"
 msgstr "Non fare niente"
 
-#: session.c:678
+#: session.c:684
 msgid "Run Xterm"
 msgstr "Esegui Xterm"
 
-#: session.c:679
+#: session.c:685
 msgid "_Restart"
 msgstr "_Riavvia"
 
-#: session.c:705
+#: session.c:711
 #, c-format
 msgid ""
 "Failed to run '%s':\n"
 "%s"
 msgstr ""
-"Fallita l'esecuzione di \"%s\":\n"
+"Fallita l'esecuzione di «%s»:\n"
 "%s"
 
 #: wm.c:74
@@ -318,7 +319,7 @@ msgid ""
 "Error loading window manager list '%s':\n"
 "%s"
 msgstr ""
-"Errore di caricamento dell'elenco \"%s\" dei window manager:\n"
+"Errore di caricamento dell'elenco «%s» dei window manager:\n"
 "%s"
 
 #: wm.c:164
@@ -326,8 +327,8 @@ msgid ""
 "The window manager which ROX-Session started for you is still running. Quit "
 "it before starting a new one."
 msgstr ""
-"Il window manager con cui ROX-Session è stato avviato è ancora in esecuzione. "
-"Bisogna uscire prima di avviarne un'altro."
+"Il window manager con cui ROX-Session è stato avviato è ancora in "
+"esecuzione. È necessario chiuderlo prima di avviarne un'altro."
 
 #: wm.c:172
 msgid ""
@@ -344,7 +345,7 @@ msgid ""
 "%s\n"
 "Please choose a new window manager and try again."
 msgstr ""
-"Avviamento del window manager fallito:\n"
+"Avvio del window manager fallito:\n"
 "%s\n"
 "Scegliere un nuovo window manager e riprovare."
 
@@ -394,66 +395,70 @@ msgid "German"
 msgstr "Tedesco"
 
 #: tips:11
+msgid "Italian"
+msgstr "Italiano"
+
+#: tips:12
 msgid "Japanese"
 msgstr "Giapponese"
 
-#: tips:12
+#: tips:13
 msgid "Russian"
 msgstr "Russo"
 
-#: tips:13
+#: tips:14
 msgid "Use the LANG environment variable"
 msgstr "Usa la variabile d'ambiente LANG"
 
-#: tips:14
+#: tips:15
 msgid "Display"
 msgstr "Visualizza"
 
-#: tips:15
+#: tips:16
 msgid "Text"
 msgstr "Testo"
 
-#: tips:16
+#: tips:17
 msgid "Default font"
 msgstr "Carattere predefinito"
 
-#: tips:17 tips:18
+#: tips:18 tips:19
 msgid "The font used by Gtk+-2.0 applications"
 msgstr "Il carattere usato dalle applicazioni Gtk+-2.0"
 
-#: tips:19
+#: tips:20
 msgid "Desktop background"
 msgstr "Sfondo del desktop"
 
-#: tips:20 tips:21
+#: tips:21 tips:22
 msgid ""
 "Bring up the menu over the desktop background to set the backdrop image or "
 "change the pinboard options."
 msgstr ""
-"Clicca sullo sfondo del desktop per impostare l'immagine di sfondo o per "
+"Cliccare sullo sfondo del desktop per impostare l'immagine di sfondo o per "
 "cambiare le opzioni della bacheca."
 
-#: tips:22
+#: tips:23
 msgid "Theme"
 msgstr "Tema"
 
-#: tips:23
+#: tips:24
 msgid "GTK theme"
 msgstr "Tema GTK"
 
-#: tips:24
+#: tips:25
 msgid "Mouse"
 msgstr "Mouse"
 
-#: tips:25
+#: tips:26
 msgid "Motion"
 msgstr "Moto"
 
-#: tips:26
+#: tips:27
 msgid "Acceleration threshold"
 msgstr "Soglia di accelerazione"
 
-#: tips:27
+#: tips:28
 msgid ""
 "Controls how fast you have to move the pointer before the acceleration "
 "(below) kicks in."
@@ -461,15 +466,15 @@ msgstr ""
 "Controlla quanto veloce si deve muovere il puntatore prima che "
 "l'accelerazione (sotto) cominci"
 
-#: tips:28
+#: tips:29
 msgid "Acceleration (none)"
 msgstr "Accelerazione (nessuna)"
 
-#: tips:29
+#: tips:30
 msgid "(10x)"
 msgstr "(10x)"
 
-#: tips:30
+#: tips:31
 msgid ""
 "When the pointer is moved quickly more than the threshold number of pixels, "
 "its speed is multiplied by this number."
@@ -477,137 +482,137 @@ msgstr ""
 "Quando il puntatore viene mosso più rapidamente del numero di pixel della "
 "soglia, la sua velocità viene moltiplicata per questo numero."
 
-#: tips:31
+#: tips:32
 msgid "DnD Drag Threshold"
 msgstr "Soglia di trascinamento DnD"
 
-#: tips:32 tips:33
+#: tips:33 tips:34
 msgid ""
 "Controls how far you have to drag the mouse to start a drag-and-drop "
 "operation.\n"
 "Set this high if you find yourself dragging things unintentionally."
 msgstr ""
-"Controlla quanto si deve trascinare il mouse per iniziare l'operazione di "
-"drag&drop.\n"
+"Controlla quanto si deve muovere il mouse per iniziare l'operazione di "
+"trascinamento.\n"
 "Impostarla alta se vengono trascinati oggetti involontariamente."
 
-#: tips:34
+#: tips:35
 msgid "Buttons"
 msgstr "Pulsanti"
 
-#: tips:35
+#: tips:36
 msgid "Double-click speed: (fast)"
 msgstr "Velocità del doppio clic: (alta)"
 
-#: tips:36 tips:42
+#: tips:37 tips:43
 msgid "(slow)"
 msgstr "(bassa)"
 
-#: tips:37
+#: tips:38
 msgid ""
 "Time allowed between the two clicks that make up a double click. Make this "
-"bigger if you have trouble double-clicking fast enough; set it smaller if two "
-"single-clicks sometimes get treated as a double click."
+"bigger if you have trouble double-clicking fast enough; set it smaller if "
+"two single-clicks sometimes get treated as a double click."
 msgstr ""
-"Il tempo trascorso tra due clic per fare un doppio clic. Aumentarlo se ci "
-"sono problemi nel fare il doppio clic, diminuirlo se a volte due singoli clic "
-"si comportano come uno doppio."
+"Il tempo massimo trascorso tra due clic per fare un doppio clic. Aumentarlo "
+"se ci sono problemi nel fare il doppio clic, diminuirlo se a volte due "
+"singoli clic si comportano come uno doppio."
 
-#: tips:38
+#: tips:39
 msgid "Keyboard"
 msgstr "Tastiera"
 
-#: tips:39
+#: tips:40
 msgid "Cursor"
 msgstr "Cursore"
 
-#: tips:40
+#: tips:41
 msgid "Blinking cursor"
 msgstr "Cursore lampeggiante"
 
-#: tips:41
+#: tips:42
 msgid "Speed: (fast)"
 msgstr "Velocità: (alta)"
 
-#: tips:43 tips:44
+#: tips:44 tips:45
 msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
 msgstr "La velocità con la quale il cursore lampeggia (se abilitato)."
 
-#: tips:45
+#: tips:46
 msgid "Shortcuts"
 msgstr "Scorciatoie"
 
-#: tips:46
+#: tips:47
 msgid "Allow keybindings to be changed from menus"
 msgstr "Permette di cambiare le associazioni di tasti dai menù"
 
-#: tips:47
+#: tips:48
 msgid ""
 "When this is on, you can set up a short-cut for a menu item by holding to "
-"pointer over the menu item and pressing the key. If off, short-cuts cannot be "
-"changed."
+"pointer over the menu item and pressing the key. If off, short-cuts cannot "
+"be changed."
 msgstr ""
 "Se attivato, permette di impostare una scorciatoria per un menù tenendo il "
 "puntatore sul menù e premendo il tasto. Se disattivato, le scorciatoie non "
 "possono essere cambiate."
 
-#: tips:48 tips:49 tips:50
+#: tips:49 tips:50 tips:51
 msgid ""
 "You can set global shortcuts (which work from any\n"
 "application) by assigning them to icons on a ROX-Filer pinboard or panel."
 msgstr ""
 "È possibile impostare scorciatorie globali (che funzionano da qualsiasi "
-"applicazione) associandole alle icone sul pannello o sulla bacheca del "
-"ROX-Filer."
+"applicazione) associandole alle icone sul pannello o sulla bacheca del ROX-"
+"Filer."
 
-#: tips:51
+#: tips:52
 msgid "Messages"
 msgstr "Messaggi"
 
-#: tips:52
+#: tips:53
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
 "program it starts. It displays all the messages it collects this way briefly "
 "on screen."
 msgstr ""
-"Tutti i programmi hanno uno \"standard error\" sul quale scrivono messaggi di "
+"Tutti i programmi hanno uno «standard error» sul quale scrivono messaggi di "
 "testo. ROX-Session crea una connessione tra sè e ogni programma che avvia e "
 "visualizza brevemente sullo schermo tutti questi messaggi."
 
-#: tips:53
+#: tips:54
 msgid "On-screen message log"
 msgstr "Messaggio di log sullo schermo"
 
-#: tips:54
+#: tips:55
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
 msgstr ""
-"Si deve cliccare con il tasto 3 del mouse sul messaggio di errore per passare "
-"alla finestra di visualizzazione dei log, o premere questo pulsante:"
+"Si deve cliccare con il tasto 3 del mouse sul messaggio di errore per "
+"passare alla finestra di visualizzazione dei log, o premere questo pulsante:"
 
-#: tips:55
+#: tips:56
 msgid "Show messages for:"
 msgstr "Mostra i messaggi per:"
 
-#: tips:56
+#: tips:57
 msgid "seconds"
 msgstr "secondi"
 
-#: tips:57 tips:58 tips:59
+#: tips:58 tips:59 tips:60
 msgid "Number of seconds to display each message for"
 msgstr "Numero di secondi durante i quali visualizzare ogni messaggio"
 
-#: tips:60 tips:61
+#: tips:61 tips:62
 msgid "Power"
 msgstr "Fine sessione"
 
-#: tips:62
+#: tips:63
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
-"out. The correct settings vary between different systems. You may need to use "
-"xsu or sudo with the command if your system doesn't give normal users "
+"out. The correct settings vary between different systems. You may need to "
+"use xsu or sudo with the command if your system doesn't give normal users "
 "permission to shutdown the system."
 msgstr ""
 "Questi comandi possono essere selezionati nella finestra di fine sessione "
@@ -615,33 +620,32 @@ msgstr ""
 "seconda dei sistemi. Può essere necessario l'uso di xsu o di sudo se gli "
 "utenti normali non hanno i permessi di arrestare o riavviare il computer."
 
-#: tips:63
+#: tips:64
 msgid "Halt command:"
 msgstr "Comando per spegnere:"
 
-#: tips:64
-msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
-msgstr "Alcuni comandi per spegnere sono \"halt\" e \"shutdown -t now\""
-
 #: tips:65
+msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
+msgstr "Alcuni comandi per spegnere sono «halt» e «shutdown -t now»"
+
+#: tips:66
 msgid "Reboot command:"
 msgstr "Comando per riavviare:"
 
-#: tips:66
-msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
-msgstr "Alcuni comandi per riavviare sono \"reboot\" e \"shutdown -t now -r\""
-
 #: tips:67
+msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
+msgstr "Alcuni comandi per riavviare sono «reboot» e «shutdown -t now -r»"
+
+#: tips:68
 msgid "Suspend command:"
 msgstr "Comando di sospensione:"
 
-#: tips:68 tips:69 tips:70 tips:71
+#: tips:69 tips:70 tips:71 tips:72
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
-"users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll need "
-"a kernel with the correct system compiled in and enabled."
+"users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
+"need a kernel with the correct system compiled in and enabled."
 msgstr ""
-"Se il sistema usa APM per la gestione dell'energia, provare \"apm -s\" o "
-"simili. Gli utenti con ACPI possono provare \"xset dpms force off; echo 1 > "
-"/proc/acpi/sleep\". È necessario un kernel opportunamente compilato."
-
+"Se il sistema usa APM per la gestione dell'energia, provare «apm -s» o "
+"simili. Gli utenti con ACPI possono provare «xset dpms force off; echo 1 > /"
+"proc/acpi/sleep». È necessario un kernel opportunamente compilato."
