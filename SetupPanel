@@ -25,6 +25,14 @@ for DRIVE in /floppy /cdrom /zip /mnt/*; do
   [ -d "$DRIVE" ] && DRIVES="$DRIVES<icon label='$LEAF'>$DRIVE</icon>"
 done
 
+if [ -d /uri/0install/rox.sourceforge.net ]; then
+  EDIT_PATH=/uri/0install/rox.sourceforge.net/apps/Edit
+  0refresh rox.sourceforge.net/apps/Edit 2004-03-01
+  EDIT="<icon label='Edit'>$EDIT_PATH</icon>"
+else
+  EDIT=""
+fi
+
 cat > "$PANEL" << EOF
 <?xml version="1.0"?>
 <panel>
@@ -36,6 +44,7 @@ $DRIVES
 <end>
 <icon label="Session" shortcut="Control+Shift+F12">$1</icon>
 <icon label="Guide">$1/Help/Guide</icon>
+$EDIT
 </end>
 </panel>
 EOF
