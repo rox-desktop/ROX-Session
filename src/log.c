@@ -63,7 +63,7 @@ static GList	*chunks = NULL;
 /* This holds history of recent log messages, which can be displayed
  * in a normal window.
  */
-#define MAX_BUFFER_SIZE 10000			/* In characters */
+#define MAX_BUFFER_SIZE 100000			/* In characters */
 static time_t last_log_time;			/* Time of timestamp */
 static GtkTextBuffer *buffer = NULL;
 static GtkWindow *message_window = NULL;	/* The non-popup window */
@@ -75,6 +75,7 @@ static void got_log_data(gpointer data,
 static gint log_clicked(GtkWidget *text, GdkEventButton *bev, gpointer data);
 static void log_msg(const gchar *text, gint len);
 static GList *show_log(Option *option, xmlNode *node, guchar *label);
+static void show_message_log(void);
 static void log_own_errors(const gchar *log_domain,
 			   GLogLevelFlags log_level,
 			   const gchar *message,
@@ -166,7 +167,9 @@ void log_init(void)
  *			INTERNAL FUNCTIONS			*
  ****************************************************************/
 
-/* Chunks has changed. Update the label (or hide if nothing to show). */
+/* Chunks has changed. Update the label (or hide if nothing to show).
+ * If there's too much stuff, open the log window.
+ */
 static void show(void)
 {
 	static gboolean top;
@@ -230,7 +233,12 @@ static void show(void)
 
 		gtk_widget_size_request(label, &req);
 		max_h = gdk_screen_height() / 3;
-		req.height = MIN(req.height, max_h);
+
+		if (req.height > max_h)
+		{
+			show_message_log();
+			return;
+		}
 
 		if (top)
 			y = MARGIN;
