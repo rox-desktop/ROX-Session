@@ -1098,6 +1098,7 @@ static GList *build_slider(Option *option, xmlNode *node, guchar *label)
 	int	min, max;
 	int	fixed;
 	int	showvalue;
+	guchar	*end;
 
 	g_return_val_if_fail(option != NULL, NULL);
 
@@ -1113,6 +1114,14 @@ static GList *build_slider(Option *option, xmlNode *node, guchar *label)
 	gtk_box_pack_start(GTK_BOX(hbox),
 			gtk_label_new(_(label)),
 			FALSE, TRUE, 0);
+
+	end = xmlGetProp(node, "end");
+	if (end)
+	{
+		gtk_box_pack_end(GTK_BOX(hbox), gtk_label_new(_(end)),
+				 FALSE, TRUE, 0);
+		g_free(end);
+	}
 
 	slide = gtk_hscale_new(adj);
 

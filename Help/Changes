@@ -5,6 +5,10 @@
 TODO: Get sawfish's iconize animation to go into the middle of the screen
       so people stop blaming us for hiding the icons under the panel...
 
+05-Mar-2002
+~~~~~~~~~~~
+Added settings for cursor blinking.
+
 03-Mar-2002
 ~~~~~~~~~~~
 Put choice of window manager in the options box, instead of having its own

@@ -215,8 +215,8 @@ int main(int argc, char **argv)
 
 	if (test_mode)
 	{
-		start_window_manager();
-		/* show_main_window(); */
+		/* start_window_manager(); */
+		show_main_window();
 		/* system("rox -n&"); */
 	}
 	else

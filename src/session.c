@@ -57,6 +57,9 @@ struct _Setting {
 
 static Setting settings[] = {
 	{"Net/DoubleClickTime", "250"},
+	{"Net/CursorBlink", "1"},
+	{"Net/CursorBlinkTime", "1200"},
+
 	{"Gtk/CanChangeAccels", "1"},
 };
 
