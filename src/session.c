@@ -293,9 +293,11 @@ static gboolean tester_clicked(GtkBin *button, GdkEventButton *event)
 	GtkLabel *label = GTK_LABEL(button->child);
 
 	if (event->type == GDK_BUTTON_PRESS)
-		gtk_label_set_text(label, _("Single click"));
+		gtk_label_set_text(label, _("Single click!"));
 	else if (event->type == GDK_2BUTTON_PRESS)
-		gtk_label_set_text(label, _("Double click!"));
+		gtk_label_set_text(label, _("Double click!!"));
+	else if (event->type == GDK_3BUTTON_PRESS)
+		gtk_label_set_text(label, _("Triple click!!!"));
 	
 	return 1;
 }
