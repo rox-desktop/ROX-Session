@@ -220,8 +220,6 @@ int main(int argc, char **argv)
 		show_main_window();
 		/* system("rox -n&"); */
 	}
-	else
-		start_window_manager();
 
 	gtk_main();
 
