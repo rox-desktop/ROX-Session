@@ -5,171 +5,169 @@
     <link rel='stylesheet' type='text/css' href='style.css' media='all'>
   </head>
   <body>
-    <div>
-      <h1>The ROX Guidebook</h1>
-      <h2>First login</h2>
-      <p>Welcome to ROX! If you've just logged in for the first time, you
+    <h1>The ROX Guidebook</h1>
+    <h2>First login</h2>
+    <p>Welcome to ROX! If you've just logged in for the first time, you
 should see a panel along the bottom of the screen and a plain grey
 background (the 'pinboard').</p>
-      <p>Both the pinboard and the panel are used to load files and
+    <p>Both the pinboard and the panel are used to load files and
 applications. ROX-Session creates a panel for you the first time
 you log in:</p>
-      <p align='center'>
-        <img src='panel1.png'></p>
-      <p>From left to right, this default panel provides access to:</p>
-      <ul>
-        <li>Your home directory, where you save any files you create.</li>
-        <li>Your 'Apps' directory, where your programs are kept.</li>
-        <li>Any removable drives, such as CDROMs and floppy drives that
+    <p align='center'>
+      <img src='panel1.png'></p>
+    <p>From left to right, this default panel provides access to:</p>
+    <ul>
+      <li>Your home directory, where you save any files you create.</li>
+      <li>Your 'Apps' directory, where your programs are kept.</li>
+      <li>Any removable drives, such as CDROMs and floppy drives that
 ROX-Session happened to notice. Don't worry if it missed some!</li>
-        <li>This guide.</li>
-        <li>ROX-Session itself (on the far right). Use this to logout.</li>
-      </ul>
-      <p>When you have logged in for the first time, only three programs
+      <li>This guide.</li>
+      <li>ROX-Session itself (on the far right). Use this to logout.</li>
+    </ul>
+    <p>When you have logged in for the first time, only three programs
 will be running: ROX-Session, which sets things up for you;
 ROX-Filer, which displays the pinboard and panels; and a window
 manager. The window manager draws the titlebar and other
 decorations around windows, allowing you to move and resize
 them.</p>
-      <h2>Exploring the filesystem</h2>
-      <p>Click on your home directory to open a ROX-Filer window. This is
+    <h2>Exploring the filesystem</h2>
+    <p>Click on your home directory to open a ROX-Filer window. This is
 the place to save any documents you create. In fact, it's normally
 impossible to save files anywhere else, so you can't easily lose
 stuff.</p>
-      <p>The titlebar of the window shows which directory you're looking
+    <p>The titlebar of the window shows which directory you're looking
 at. It currently shows '~', which is a short-hand for your home
 directory. Your personal home directory is inside the main '/home'
 directory, which contains home directories for all users of the
 computer.</p>
-      <p>Use the Up arrow on the toolbar to move into '/home', and you'll
+    <p>Use the Up arrow on the toolbar to move into '/home', and you'll
 see your personal directory listed alongside those of the other
 users.</p>
-      <p>If you go Up again you'll reach the root directory ('/'), which
+    <p>If you go Up again you'll reach the root directory ('/'), which
 contains everything in your system. You can't go up any further
 from here.</p>
-      <p>Click on the the 'home' icon to return to /home and then click
+    <p>Click on the the 'home' icon to return to /home and then click
 on your home directory to get back to where you started from. You
 can also get back here by clicking on the picture of a house in the
 toolbar.</p>
-      <h2>Creating files and directories</h2>
-      <p>Make sure you're in your home directory. Click Menu (the right
+    <h2>Creating files and directories</h2>
+    <p>Make sure you're in your home directory. Click Menu (the right
 mouse button) over the filer window and choose New Directory from
 the menu. Replace the selected sample name 'NewDir' with a suitable
 name, such as 'Tutorial' and click on the Create button to create
 the directory:</p>
-      <p align='center'>
-        <img src='newdir.png'></p>
-      <p>The new directory will appear inside your home directory. Click
+    <p align='center'>
+      <img src='newdir.png'></p>
+    <p>The new directory will appear inside your home directory. Click
 on it to see inside. Use directories to organise your files. You
 can create more directories inside this one if you want, as many
 levels deep as seems useful.</p>
-      <p>We'll be using this directory several times in this tutorial. To
+    <p>We'll be using this directory several times in this tutorial. To
 make it easier to get to we can put it on the panel. Click on the
 Up button to return to your home directory and drag the Tutorial
 directory onto the blank area in the middle of the panel. The panel
 will highlight the empty space as you drag over it, showing you
 whether the directory will be added to the left or right side of
 the panel.</p>
-      <p>You can now click on Tutorial on the panel to open it quickly.
+    <p>You can now click on Tutorial on the panel to open it quickly.
 Note that the directory is still inside your home directory. It has
 not moved to the panel; the panel is merely a quick way to get to
 it.</p>
-      <p>In fact, we can make it even quicker to access than that. Click
+    <p>In fact, we can make it even quicker to access than that. Click
 Menu over the Tutorial icon on the panel and choose 'Edit Item'.
 There is an area marked '(click to set)' in the keyboard shortcut
 section of the box. Click on it and press Control+F1 (hold down the
 Control key and tap F1, then release Control). The new shortcut
 appears in the button:</p>
-      <p align='center'>
-        <img src='shortcut.png'></p>
-      <p>After clicking on OK to accept the change, you can open the
+    <p align='center'>
+      <img src='shortcut.png'></p>
+    <p>After clicking on OK to accept the change, you can open the
 tutorial directory at any time by pressing Control+F1.</p>
-      <p>You can drag any file, directory or application onto the panel,
+    <p>You can drag any file, directory or application onto the panel,
 and you can use this method to set a shortcut to load or open each
 one. For example, you can now set shortcuts to open your home
 directory or see this guide.</p>
-      <h2>Using CDs and floppy disks</h2>
-      <p>To access any kind of removable media you need to 'mount' it, so
+    <h2>Using CDs and floppy disks</h2>
+    <p>To access any kind of removable media you need to 'mount' it, so
 that it appears in the filesystem. There are a number of preset
 mount points (set in the file /etc/fstab). ROX-Filer shows these
 directories with a small circle on them.</p>
-      <p>After inserting a disk in the drive, click on the mount point
+    <p>After inserting a disk in the drive, click on the mount point
 directory to mount the device. The circle will go bright green to
 indicate that something is mounted there:</p>
-      <p align='center'>
-        <img src='mount.png'></p>
-      <p>Be sure to unmount the device before removing the disk!
+    <p align='center'>
+      <img src='mount.png'></p>
+    <p>Be sure to unmount the device before removing the disk!
 ROX-Filer will offer to unmount the device when you close the
 window, or you can choose Unmount from the menu.</p>
-      <p>You can drag any files into another directory to copy them. You
+    <p>You can drag any files into another directory to copy them. You
 may drag to directory windows, or into directories on the panel or
 onto applications. See the ROX-Filer manual for more information
 about handling files.</p>
-      <h2>Running programs</h2>
-      <p>If you've got some ROX applications already installed then you
+    <h2>Running programs</h2>
+    <p>If you've got some ROX applications already installed then you
 can run them by clicking on 'Apps' to open the directory containing
 them and then clicking on them to run them:</p>
-      <p align='center'>
-        <img src='apps.png'></p>
-      <p>If you're still in the middle of installing things, you can open
+    <p align='center'>
+      <img src='apps.png'></p>
+    <p>If you're still in the middle of installing things, you can open
 a terminal instead. Click the right mouse button over the main area
 in any filer window and choose 'Xterm here' from the 'Window'
 submenu.</p>
-      <p>You can now type the name of a program to run it. For example,
+    <p>You can now type the name of a program to run it. For example,
 'gimp' (a graphics package) or 'galeon' (a web browser).</p>
-      <p>You can get more ROX software from the ROX website:</p>
-      <ul>
-        <li>
-          <a shape='rect' href='http://rox.sf.net/software.html'>ROX
+    <p>You can get more ROX software from the ROX website:</p>
+    <ul>
+      <li>
+        <a shape='rect' href='http://rox.sf.net/software.html'>ROX
 software list</a>
-        </li>
-      </ul>
-      <h2>Finding documentation</h2>
-      <p>You can see the help files provided by any ROX application by
+      </li>
+    </ul>
+    <h2>Finding documentation</h2>
+    <p>You can see the help files provided by any ROX application by
 bringing up a menu over its icon in a filer window (or panel) and
 choosing Help from the menu.</p>
-      <p>Try it now with ROX-Session (Menu click on the EXIT icon on the
+    <p>Try it now with ROX-Session (Menu click on the EXIT icon on the
 far right of the panel; Help is on the 'Session' submenu). A filer
 window opens providing access to all the help files:</p>
-      <p align='center'>
-        <img src='help.png'></p>
-      <p>The Changes file lets you find out what features have been added
+    <p align='center'>
+      <img src='help.png'></p>
+    <p>The Changes file lets you find out what features have been added
 in each new version, and the README provides more detailed
 information about ROX-Session than this guide.</p>
-      <p>And, of course, this guide is itself included in ROX-Session's
+    <p>And, of course, this guide is itself included in ROX-Session's
 help files. If you remove the guide from the panel, you can still
 access it from here instead, or drag it back to the panel.</p>
-      <p>ROX-Filer also has a large amount of documentation. Click on the
+    <p>ROX-Filer also has a large amount of documentation. Click on the
 Help icon in the toolbar of any filer window to see it, or locate
 the ROX-Filer application in a filer window and use the menu as
 above.</p>
-      <h2>Logging out</h2>
-      <p>When you've finished using the computer for a while, click on
+    <h2>Logging out</h2>
+    <p>When you've finished using the computer for a while, click on
 ROX-Session (the EXIT logo at the far right of the panel). The
 dialog that appears allows you to return to the login screen or
 shutdown the computer. You can also put the computer into a
 low-power mode from here:</p>
-      <p align='center'>
-        <img src='logout.png'></p>
-      <p>ROX-Session is running the whole time you are logged in. As well
+    <p align='center'>
+      <img src='logout.png'></p>
+    <p>ROX-Session is running the whole time you are logged in. As well
 as automatically running other programs (such as ROX-Filer and the
 window manager), ROX-Session can be used to configure settings that
 affect the whole desktop, such as the mouse speed or the default
 font.</p>
-      <p>Click on the Session Settings button to see all your options.
+    <p>Click on the Session Settings button to see all your options.
 Note that the pinboard and panel are managed by ROX-Filer, so you
 must use ROX-Filer's options to control them.</p>
-      <h2>End of Part I</h2>
-      <ul>
-        <li>
-          <a shape='rect' href='Tutorial2.html'>Continue to Part
+    <h2>End of Part I</h2>
+    <ul>
+      <li>
+        <a shape='rect' href='Tutorial2.html'>Continue to Part
 II</a>
-        </li>
-        <li>
-          <a shape='rect' href='Guide.html'>Back to the contents
+      </li>
+      <li>
+        <a shape='rect' href='Guide.html'>Back to the contents
 page</a>
-        </li>
-      </ul>
-    </div>
+      </li>
+    </ul>
   </body>
 </html>
