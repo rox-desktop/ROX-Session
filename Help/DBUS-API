@@ -1,0 +1,40 @@
+			ROX-Session
+			D-BUS API
+
+This document is for programmers wishing to write programs that communicate
+with ROX-Session.
+
+ROX-Session contains the following objects, available at the
+"net.sf.rox.Session" D-BUS service.
+
+/Session
+	This can be used to control the session manager.
+
+	Methods:
+
+	net.sf.rox.Session.Control.ShowOptions()
+
+/Settings
+	Use to change XSettings. Changes to these settings are stored in the
+	<Choices>/Settings.xml file. The current values are also stored in a
+	property on the root window, where other programs can access them.
+
+	Methods:
+
+	net.sf.rox.Session.Settings.SetString(name, value)
+	net.sf.rox.Session.Settings.SetInt(name, value)
+	type, value = net.sf.rox.Session.Settings.GetSetting(name)
+
+You can test these methods using the dbus-send program. Eg:
+
+$ dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session \
+	/Session net.sf.rox.Session.Control.ShowOptions
+
+$ dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session \
+	/Settings net.sf.rox.Session.Settings.GetSetting string:Gtk/FontName
+string:string
+string:Sans 10
+
+$ dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session \
+	/Settings net.sf.rox.Session.Settings.SetString \
+	string:Gtk/FontName string:"Sans 15"
