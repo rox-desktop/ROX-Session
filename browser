@@ -1,0 +1,36 @@
+#!/bin/sh
+
+if [ ! -n "$XDG_CONFIG_DIRS" ]; then
+	XDG_CONFIG_DIRS=/etc/xdg
+fi
+
+if [ ! -n "$XDG_CONFIG_HOME" ]; then
+	XDG_CONFIG_HOME="$HOME/.config"
+fi
+
+#echo Dirs: $XDG_CONFIG_DIRS
+#echo Home: $XDG_CONFIG_HOME
+
+search="$XDG_CONFIG_HOME:$XDG_CONFIG_DIRS"
+
+IFS=":"
+
+for x in $search; do
+  browser=$x/rox.sourceforge.net/handlers/BROWSER
+  #echo Looking for $browser
+  if [ -x "$browser" ]; then
+    exec "$browser" "$@"
+  fi
+done
+
+for app in firefox mozilla-firefox firebird mozilla-firebird x-www-browser galeon mozilla netscape skipstone dillo konqueror amaya; do
+  if [ -x "`which $app`" ]; then exec "$app" "$@"; fi
+done
+
+for app in w3m www-browser lynx links vim vi; do
+  if [ -x "`which $app`" ]; then exec xterm -e "$app" "$@"; fi
+done
+
+echo "Can't find any web browser installed... last try..." >&2
+
+exec netscape "$@"

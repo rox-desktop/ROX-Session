@@ -2,6 +2,12 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+04-Mar-2005
+~~~~~~~~~~~
+Set $BROWSER to ROX-Session/browser on login. This is a script that runs your
+configured web-browser ($XDG_CONFIG_DIRS/rox.sourceforge.net/handlers/BROWSER),
+or picks a suitable default if none is set (Thomas Leonard).
+
 22-Jan-2005
 ~~~~~~~~~~~
 Allow setting keyboard LEDs (Caps lock, Num lock, Scroll lock) on login (Guido

@@ -70,6 +70,9 @@ if [ -d /uri/0install/rox.sourceforge.net ]; then
 fi
 export CHOICESPATH
 
+BROWSER="$APP_DIR/browser"
+export BROWSER
+
 BIN="$APP_DIR/$PLATFORM/$PROG"
 
 if [ -x "$BIN" ]; then
