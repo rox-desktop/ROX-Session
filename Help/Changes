@@ -2,7 +2,12 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
-19-May-2004 (Release 0.1.23)
+
+05-Jun-2004
+~~~~~~~~~~~
+Added setting to control keymap (Guido Schimmels).
+
+19-May-2004
 ~~~~~~~~~~~
 Bugfix: AutoStart didn't get ROX-Filer from Zero Install (reported by Stuart
 	Langridge).

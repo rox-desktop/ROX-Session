@@ -43,6 +43,7 @@
 #include "choices.h"
 #include "gui_support.h"
 #include "wm.h"
+#include "xkb.h"
 
 #define ROX_XSETTINGS_NS "net.sf.rox.Session.Settings"
 
@@ -149,6 +150,8 @@ static void set_rox_setting(const char *name, const char *value)
 		mouse_accel_factor = atoi(value);
 	else if (strcmp(name, "WindowManager") == 0)
 		set_window_manager(value);
+	else if (strcmp(name, "KeyTable") == 0)
+		set_xkb_layout(value);
 	else
 		g_warning("Unknown ROX setting 'ROX/%s'", name);
 }
