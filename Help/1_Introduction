@@ -1,0 +1,88 @@
+			ROX-Session
+			A very simple session manager
+			by Thomas Leonard
+
+			Introduction
+
+Brief
+~~~~~
+ROX-Session is a simple and easy to use session manager. It is part of the
+ROX project, but can also be used on its own. ROX project home:
+	<http://www.ecs.soton.ac.uk/~tal197>
+
+Conditions
+~~~~~~~~~~
+This is an ALPHA release. It is NOT for redistribution.
+Since this program is not finished or well tested, it should
+be used with caution, and not where it can cause damage.
+
+There is no warranty, but please report any bugs to me:
+	<tal197@ecs.soton.ac.uk>
+
+What's a session manager?
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Most people use a program such as xdm (X Display Manager) to control their
+X server. xdm displays a graphical login prompt, logs you in, starts your
+X session and then, afterwards, resets the X server and does it again.
+
+How does xdm know when you've finished?
+
+Well, after xdm has verified your user name and password it runs a system-wide
+Xsession script as you. Try 'locate xdm/Xsession' to find the file on your
+system.  When this script exits xdm resets the X server and restarts the login
+process.
+
+What does the Xsession script do?
+
+It depends on your system, but usually it looks for an executable file called
+'.xsession' in your home directory (note - as the name starts with a dot it is
+hidden by default). If it finds one it runs it, otherwise it does some default
+stuff. Your '.xsession' script runs all the programs you want running on
+startup (such as a window manager, filer, xterm, etc). It runs all of these
+programs in the background except the last one, which it execs. Here's a
+simple example script (remember to make it executable!):
+
+	twm &
+	xclock &
+	exec xterm
+
+This runs the (horrible) twm window manager and xclock in the background. It
+then replaces itself with the xterm process. You can now kill twm and xclock
+as you please, but when xterm quits your session is over. In this example,
+xterm is your session manager. Using xterm as a session manager isn't very
+smart...
+
+Many people use a window manager as a session manager. However, this has a
+couple of drawbacks:
+1) You can't change your window manager without restarting your X session.
+2) Window managers are quite complex programs and can crash from time-to-time.
+   If your session manager crashes then your X session is over!
+
+What does ROX-Session do?
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Very little. When you run it from your '.xsession' file it just loads and
+waits. It doesn't draw anything on the screen. When you want to log out you
+simply run it a second time. The new copy sees that the first one is running
+and sends it a message. The first copy displays a box confirming that you want
+to log out and, if you say yes, quits. This causes your X session to be
+terminated. Save your data before logging out!!
+
+Example .xsession file
+~~~~~~~~~~~~~~~~~~~~~~
+	enlightenment &
+	<path>/ROX-Filer/AppRun -b ~/Iconbar &
+	exec <path>/ROX-Session/AppRun
+
+Replace the <path>s with paths to ROX-Filer and ROX-Session. You will need
+to have enlightenment (http://www.enlightenment.org), ROX-Filer
+(http://www.ecs.soton.ac.uk/~tal197) and ROX-Session on your system for the
+above to work.
+
+
+!!!WARNING!!!
+
+	An incorrect .xsession file can prevent you from logging in!
+	Make sure you test it first, or are able to get a textual login
+	if needed (Ctrl-Alt-F1 on Linux, or try pressing F1 instead of
+	Return at the xdm prompt for a 'failsafe' xsession script).
+

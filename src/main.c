@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <signal.h>
 
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
@@ -30,7 +31,8 @@ int main(int argc, char **argv)
 {
 	GdkWindowPrivate	*window;
 	GdkWindow		*existing_session_window;
-	
+	struct sigaction	act = {};
+
 	gtk_init(&argc, &argv);
 
 	rox_session_window = gdk_atom_intern("_ROX_SESSION_WINDOW", FALSE);
@@ -45,6 +47,12 @@ int main(int argc, char **argv)
 		return EXIT_SUCCESS;
 	}
 
+	/* Ignore dying children */
+	act.sa_handler = SIG_IGN;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_NOCLDSTOP;
+	sigaction(SIGCHLD, &act, NULL);
+	
 	logout_window = create_logout_window();
 			
 	window = (GdkWindowPrivate *) logout_window->window;
@@ -85,6 +93,7 @@ static GtkWidget *create_logout_window()
 	GtkWidget	*window, *button, *actions, *vbox, *label, *sep;
 
 	window = gtk_window_new(GTK_WINDOW_DIALOG);
+	gtk_window_set_title(GTK_WINDOW(window), "ROX-Session");
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_container_set_border_width(GTK_CONTAINER(window), 8);
 	gtk_signal_connect(GTK_OBJECT(window), "delete_event",
@@ -165,6 +174,8 @@ static gboolean session_prop_touched(GtkWidget *window,
 {
 	if (event->atom == rox_session_window)
 	{
+		if (GTK_WIDGET_MAPPED(logout_window))
+			gtk_widget_hide(logout_window);
 		gtk_widget_show_all(logout_window);
 		return TRUE;
 	}
