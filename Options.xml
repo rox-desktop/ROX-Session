@@ -30,6 +30,9 @@
     <frame label='Desktop background'>
       <label help='1'>Bring up the menu over the desktop background to set the backdrop image or change the pinboard options.</label>
     </frame>
+    <frame label='Theme'>
+      <entry name='Net/ThemeName' label='GTK theme'>The name of the theme to use.</entry>
+    </frame>
   </section>
 
   <section title='Mouse'>
@@ -39,6 +42,12 @@
       <slider name='accel_factor' label='Acceleration (none)' end='(10x)'
     	    min='10' max='100'>
 When the pointer is moved quickly more than the threshold number of pixels, its speed is multiplied by this number.
+      </slider>
+      <spacer/>
+      <slider name='Net/DndDragThreshold' label='DnD Drag Threshold'
+    	    min='1' max='50'>
+Controls how far you have to drag the mouse to start a drag-and-drop operation.
+Set this high if you find yourself dragging things unintentionally.
       </slider>
     </frame>
     <frame label='Buttons'>

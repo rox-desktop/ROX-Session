@@ -70,6 +70,18 @@ struct _Setting {
 
 static Setting settings[] = {
 	{"Net/DoubleClickTime", "250"},
+	{"Net/DndDragThreshold", "8"},
+#if 0
+	{ "Gtk/ColorPalette", "gtk-color-palette" }, */
+	{ "Gtk/IconSizes", "gtk-icon-sizes" }
+	{ "Gtk/KeyThemeName", NULL },
+	{ "Gtk/ToolbarStyle", "gtk-toolbar-style" },
+	{ "Gtk/ToolbarIconSize", "gtk-toolbar-icon-size" },
+	{ "Gtk/IMPreeditStyle", "gtk-im-preedit-style" },
+	{ "Gtk/IMStatusStyle", "gtk-im-status-style" },
+#endif
+	{"Net/ThemeName", "Default"},
+
 	{"Net/CursorBlink", "1"},
 	{"Net/CursorBlinkTime", "1200"},
 

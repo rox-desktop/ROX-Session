@@ -1,8 +1,7 @@
 /*
  * $Id$
  *
- * ROX-Filer, filer for the ROX desktop project
- * Copyright (C) 2002, Thomas Leonard, <tal197@users.sourceforge.net>.
+ * Copyright (C) 2003, Thomas Leonard, <tal197@users.sourceforge.net>.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -25,8 +24,8 @@
  *
  * On startup:
  *
- * - The <Choices>/PROJECT/Options file is read in. Each line
- *   is a name/value pair, and these are stored in the 'loading' hash table.
+ * - The <Choices>/PROJECT/Options file is read in, which contains a list of
+ *   name/value pairs, and these are stored in the 'loading' hash table.
  *
  * - Each part of the filer then calls option_add_int(), or a related function,
  *   supplying the name for each option and a default value. Once an option is
@@ -75,7 +74,6 @@
 #include <errno.h>
 #include <ctype.h>
 #include <gtk/gtk.h>
-#include <libxml/parser.h>
 
 #include "global.h"
 
@@ -279,7 +277,7 @@ GtkWidget *options_show(void)
 
 	if (g_hash_table_size(loading) != 0)
 	{
-		g_printerr(PROJECT ": Some options loaded but not used:\n");
+		g_print(PROJECT ": Some options loaded but not used:\n");
 		g_hash_table_foreach(loading, (GHFunc) puts, NULL);
 	}
 
@@ -447,6 +445,26 @@ static void font_chosen(GtkWidget *dialog, gint response, Option *option)
 out:
 	gtk_widget_destroy(dialog);
 
+}
+
+static void toggle_active_font(GtkToggleButton *toggle, Option *option)
+{
+	if (current_fontsel_box)
+		gtk_widget_destroy(GTK_WIDGET(current_fontsel_box));
+
+	if (gtk_toggle_button_get_active(toggle))
+	{
+		gtk_widget_set_sensitive(option->widget->parent, TRUE);
+		gtk_label_set_text(GTK_LABEL(option->widget), "Sans 12");
+	}
+	else
+	{
+		gtk_widget_set_sensitive(option->widget->parent, FALSE);
+		gtk_label_set_text(GTK_LABEL(option->widget),
+				   _("(use default)"));
+	}
+
+	option_check_widget(option);
 }
 
 static void open_fontsel(GtkWidget *button, Option *option)
@@ -714,7 +732,7 @@ static void build_options_window(void)
 
 	if (!options_doc)
 	{
-		report_error("Internal error: %s unreadable", path);
+		report_error(_("Internal error: %s unreadable"), path);
 		g_free(path);
 		return;
 	}
@@ -802,8 +820,11 @@ static void tree_cursor_changed(GtkTreeView *tv, gpointer data)
 	gtk_tree_model_get(model, &iter, 1, &page, -1);
 
 	if (page)
+	{
 		gtk_notebook_set_current_page(nbook,
 				gtk_notebook_page_num(nbook, page));
+		g_object_unref(page);
+	}
 }
 
 /* Creates the window and adds the various buttons to it.
@@ -814,8 +835,8 @@ static void tree_cursor_changed(GtkTreeView *tv, gpointer data)
 static GtkWidget *build_window_frame(GtkTreeView **tree_view)
 {
 	GtkWidget	*notebook;
-	GtkWidget	*tl_vbox, *hbox, *sw, *tv;
-	GtkWidget	*actions, *button, *frame;
+	GtkWidget	*tl_vbox, *hbox, *frame, *tv;
+	GtkWidget	*actions, *button;
 	GtkTreeStore	*model;
 	char		*string, *save_path;
 
@@ -842,13 +863,9 @@ static GtkWidget *build_window_frame(GtkTreeView **tree_view)
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(notebook), FALSE);
 	gtk_container_add(GTK_CONTAINER(frame), notebook);
 
-	/* scrolled window for the tree view */
-	sw = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(sw),
-			GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw),
-			GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-	gtk_box_pack_start(GTK_BOX(hbox), sw, FALSE, TRUE, 0);
+	frame = gtk_frame_new(NULL);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+	gtk_box_pack_start(GTK_BOX(hbox), frame, FALSE, TRUE, 0);
 
 	/* tree view */
 	model = gtk_tree_store_new(2, G_TYPE_STRING, GTK_TYPE_WIDGET);
@@ -860,7 +877,7 @@ static GtkWidget *build_window_frame(GtkTreeView **tree_view)
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(tv), FALSE);
 	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv), -1,
 			NULL, gtk_cell_renderer_text_new(), "text", 0, NULL);
-	gtk_container_add(GTK_CONTAINER(sw), tv);
+	gtk_container_add(GTK_CONTAINER(frame), tv);
 	g_signal_connect(tv, "cursor_changed",
 			G_CALLBACK(tree_cursor_changed), notebook);
 
@@ -1054,28 +1071,6 @@ static void write_option(gpointer key, gpointer value, gpointer data)
 	xmlSetProp(tree, "name", (gchar *) key);
 }
 
-/* Save doc as XML as filename, 0 on success or -1 on failure */
-static int save_xml_file(xmlDocPtr doc, gchar *filename)
-{
-#if LIBXML_VERSION > 20400
-	if (xmlSaveFormatFileEnc(filename, doc, NULL, 1) < 0)
-		return 1;
-#else
-	FILE *out;
-	
-	out = fopen(filename, "w");
-	if (!out)
-		return 1;
-
-	xmlDocDump(out, doc);  /* Some versions return void */
-
-	if (fclose(out))
-		return 1;
-#endif
-
-	return 0;
-}
-
 static void save_options(void)
 {
 	xmlDoc	*doc;
@@ -1176,7 +1171,20 @@ static void update_menu(Option *option)
 
 static void update_font(Option *option)
 {
-	gtk_label_set_text(GTK_LABEL(option->widget), option->value);
+	GtkToggleButton *active;
+	gboolean have_font = option->value[0] != '\0';
+
+	active = g_object_get_data(G_OBJECT(option->widget), "rox_override");
+
+	if (active)
+	{
+		gtk_toggle_button_set_active(active, have_font);
+		gtk_widget_set_sensitive(option->widget->parent, have_font);
+	}
+	
+	gtk_label_set_text(GTK_LABEL(option->widget),
+			   have_font ? option->value
+				     : (guchar *) _("(use default)"));
 }
 
 static void update_colour(Option *option)
@@ -1227,6 +1235,12 @@ static guchar *read_menu(Option *option)
 
 static guchar *read_font(Option *option)
 {
+	GtkToggleButton *active;
+
+	active = g_object_get_data(G_OBJECT(option->widget), "rox_override");
+	if (active && !gtk_toggle_button_get_active(active))
+		return g_strdup("");
+	
 	return g_strdup(gtk_label_get_text(GTK_LABEL(option->widget)));
 }
 
@@ -1638,13 +1652,28 @@ static GList *build_menu(Option *option, xmlNode *node, guchar *label)
 static GList *build_font(Option *option, xmlNode *node, guchar *label)
 {
 	GtkWidget	*hbox, *button;
+	GtkWidget	*active = NULL;
+	int		override;
 
 	g_return_val_if_fail(option != NULL, NULL);
 
+	override = get_int(node, "override");
+
 	hbox = gtk_hbox_new(FALSE, 4);
 
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(label)),
-			FALSE, TRUE, 0);
+	if (override)
+	{
+		/* Add a check button to enable the font chooser. If off,
+		 * the option's value is "".
+		 */
+		active = gtk_check_button_new_with_label(_(label));
+		gtk_box_pack_start(GTK_BOX(hbox), active, FALSE, TRUE, 0);
+		g_signal_connect(active, "toggled",
+				 G_CALLBACK(toggle_active_font), option);
+	}
+	else
+		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(label)),
+				FALSE, TRUE, 0);
 
 	button = gtk_button_new_with_label("");
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, TRUE, 0);
@@ -1653,6 +1682,8 @@ static GList *build_font(Option *option, xmlNode *node, guchar *label)
 	option->read_widget = read_font;
 	option->widget = GTK_BIN(button)->child;
 	may_add_tip(button, node);
+
+	g_object_set_data(G_OBJECT(option->widget), "rox_override", active);
 
 	g_signal_connect(button, "clicked", G_CALLBACK(open_fontsel), option);
 
