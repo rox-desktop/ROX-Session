@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-12-29 15:27+0000\n"
+"POT-Creation-Date: 2003-04-14 15:27+0200\n"
 "PO-Revision-Date: 2002-12-28 09:12+0100\n"
 "Last-Translator: Jan Wagemakers <janw@easynet.be>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,21 +152,30 @@ msgstr "ROX-Session berichten log"
 msgid "Show message log"
 msgstr "Toon berichten log"
 
-#: options.c:825
+#: options.c:464 options.c:1187
+msgid "(use default)"
+msgstr "(gebruik standaard)"
+
+#: options.c:735
+#, c-format
+msgid "Internal error: %s unreadable"
+msgstr "Interne fout: %s onleesbaar"
+
+#: options.c:846
 msgid "Options"
 msgstr "Opties"
 
-#: options.c:874
+#: options.c:891
 msgid "_Revert"
 msgstr "O_ngedaan maken"
 
-#: options.c:880
+#: options.c:897
 msgid "Restore all choices to how they were when the Options box was opened."
 msgstr ""
 "Zet alle instellingen terug naar de toestand toen het Opties venster werd "
 "geopend."
 
-#: options.c:895
+#: options.c:912
 #, c-format
 msgid ""
 "Choices will be saved as:\n"
@@ -175,11 +184,11 @@ msgstr ""
 "Instellingen zullen opgeslagen worden als:\n"
 "%s"
 
-#: options.c:903
+#: options.c:920
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(opslaan is uitgezet door de CHOICESPATH variabele)"
 
-#: options.c:1098
+#: options.c:1093
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Fout tijdens bewaren bestand %s: %s"
@@ -194,31 +203,31 @@ msgstr "Ongeldig .gmo vertalingsbestand (te kort): %s"
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr "Ongeldig .gmo vertalingsbestand (GNU magisch nummer niet gevonden): %s"
 
-#: session.c:259
+#: session.c:275
 msgid "_Halt"
 msgstr "Sto_p"
 
-#: session.c:260
+#: session.c:276
 msgid "Attempting to halt the system..."
 msgstr "Bezig met het systeem te stoppen..."
 
-#: session.c:262
+#: session.c:279
 msgid "_Reboot"
 msgstr "_Herstart"
 
-#: session.c:263
+#: session.c:280
 msgid "Attempting to restart the system..."
 msgstr "Bezig met het systeem te herstarten..."
 
-#: session.c:265
+#: session.c:283
 msgid "_Sleep"
 msgstr "_Slaap"
 
-#: session.c:266
+#: session.c:284
 msgid "Attempting to enter suspend mode..."
 msgstr "Bezig met het systeem in slaap mode te brengen..."
 
-#: session.c:270
+#: session.c:289
 msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
@@ -226,15 +235,15 @@ msgstr ""
 "Echt uitloggen?\n"
 "(niet bewaarde gegevens zullen verloren gaan)"
 
-#: session.c:280
+#: session.c:299
 msgid "Session Settings"
 msgstr "Sessie Instellingen"
 
-#: session.c:287
+#: session.c:306
 msgid "Logout"
 msgstr "Log Uit"
 
-#: session.c:340
+#: session.c:359
 #, c-format
 msgid ""
 "Failed to run login script:\n"
@@ -243,23 +252,23 @@ msgstr ""
 "Mislukt om inlog script te starten:\n"
 "%s"
 
-#: session.c:401
+#: session.c:420
 msgid "Single click!"
 msgstr "Enkele klik!"
 
-#: session.c:403
+#: session.c:422
 msgid "Double click!!"
 msgstr "Dubbele klik!!"
 
-#: session.c:405
+#: session.c:424
 msgid "Triple click!!!"
 msgstr "Driedubbele klik!!!"
 
-#: session.c:414
+#: session.c:433
 msgid "Double-click here to test mouse"
 msgstr "Hier dubbel klikken om de muis te testen"
 
-#: session.c:438
+#: session.c:580
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
@@ -267,31 +276,29 @@ msgstr ""
 "ROX-Session beheert XSettings niet, hierdoor zullen aanpassingen geen "
 "onmiddelijk effekt hebben..."
 
-#: session.c:514
+#: session.c:667
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
-msgstr ""
+msgstr "ROX-Filer is afgesloten (ge-crashed?). Het is waarschijnlijk het beste om ROX-Filer te herstarten."
 
-#: session.c:516
+#: session.c:669
 msgid "Do nothing"
-msgstr ""
+msgstr "Doe niets"
 
-#: session.c:517
+#: session.c:670
 msgid "Run Xterm"
-msgstr ""
+msgstr "Start Xterm"
 
-#: session.c:518
-#, fuzzy
+#: session.c:671
 msgid "_Restart"
-msgstr "O_ngedaan maken"
+msgstr "_Herstarten"
 
-#: session.c:543
-#, fuzzy, c-format
+#: session.c:696
 msgid ""
 "Failed to run '%s':\n"
 "%s"
 msgstr ""
-"Mislukt om inlog script te starten:\n"
+"Mislukt om '%s' te starten:\n"
 "%s"
 
 #: wm.c:74
@@ -385,30 +392,34 @@ msgid "German"
 msgstr "Duits"
 
 #: tips:11
+msgid "Russian"
+msgstr "Russisch"
+
+#: tips:12
 msgid "Use the LANG environment variable"
 msgstr "Gebruik de LANG variabele"
 
-#: tips:12
+#: tips:13
 msgid "Display"
 msgstr "Beeld"
 
-#: tips:13
+#: tips:14
 msgid "Text"
 msgstr "Tekst"
 
-#: tips:14
+#: tips:15
 msgid "Default font"
 msgstr "Standaard lettertype"
 
-#: tips:15 tips:16
+#: tips:16 tips:17
 msgid "The font used by Gtk+-2.0 applications"
 msgstr "Het lettertype dat door Gtk+-2.0 programma's gebruikt wordt"
 
-#: tips:17
+#: tips:18
 msgid "Desktop background"
 msgstr "Desktop achtergrond"
 
-#: tips:18 tips:19 tips:20
+#: tips:19 tips:20
 msgid ""
 "Bring up the menu over the desktop background to set the backdrop image or "
 "change the pinboard options."
@@ -417,18 +428,26 @@ msgstr ""
 "of de prikbord opties te veranderen."
 
 #: tips:21
+msgid "Theme"
+msgstr "Thema"
+
+#: tips:22
+msgid "GTK theme"
+msgstr "GTK thema"
+
+#: tips:23
 msgid "Mouse"
 msgstr "Muis"
 
-#: tips:22
+#: tips:24
 msgid "Motion"
 msgstr "Tempo"
 
-#: tips:23
+#: tips:25
 msgid "Acceleration threshold"
 msgstr "Versnellings drempel"
 
-#: tips:24
+#: tips:26
 msgid ""
 "Controls how fast you have to move the pointer before the acceleration "
 "(below) kicks in."
@@ -436,15 +455,15 @@ msgstr ""
 "Bepaalt de snelheid waarmee de muis bewogen moet worden alvorens de "
 "versnelling (zie beneden) intreedt."
 
-#: tips:25
+#: tips:27
 msgid "Acceleration (none)"
 msgstr "Versnelling (geen)"
 
-#: tips:26
+#: tips:28
 msgid "(10x)"
 msgstr "(10x)"
 
-#: tips:27 tips:28
+#: tips:29
 msgid ""
 "When the pointer is moved quickly more than the threshold number of pixels, "
 "its speed is multiplied by this number."
@@ -452,19 +471,33 @@ msgstr ""
 "Wanneer de muis snel bewogen wordt met een waarde hoger dan de drempel "
 "instelling, dan wordt de snelheid vermenigvuldigd met dit getal."
 
-#: tips:29
+#: tips:30
+msgid "DnD Drag Threshold"
+msgstr "DnD Sleep Drempel"
+
+#: tips:31 tips:32
+msgid ""
+"Controls how far you have to drag the mouse to start a drag-and-drop "
+"operation.\n"
+"Set this high if you find yourself dragging things unintentionally."
+msgstr ""
+"Bepaalt hoe ver de muis gesleept dient te worden alvorens een "
+"sleep-en-drop operatie gestart wordt.\n"
+"Zet dit hoger indien het slepen per ongeluk gestart wordt."
+
+#: tips:33
 msgid "Buttons"
 msgstr "Knoppen"
 
-#: tips:30
+#: tips:34
 msgid "Double-click speed: (fast)"
 msgstr "Dubbele-klik snelheid: (snel)"
 
-#: tips:31 tips:37
+#: tips:35 tips:41
 msgid "(slow)"
 msgstr "(traag)"
 
-#: tips:32
+#: tips:36
 msgid ""
 "Time allowed between the two clicks that make up a double click. Make this "
 "bigger if you have trouble double-clicking fast enough; set it smaller if "
@@ -474,36 +507,36 @@ msgstr ""
 "groter als je moeilijkheden ondervind om snel genoeg te dubbel-klikken; "
 "kleiner als twee enkele-klikken soms als een dubbele klik behandeld worden."
 
-#: tips:33
+#: tips:37
 msgid "Keyboard"
 msgstr "Toetsenbord"
 
-#: tips:34
+#: tips:38
 msgid "Cursor"
 msgstr "Cursor"
 
-#: tips:35
+#: tips:39
 msgid "Blinking cursor"
 msgstr "Knipperende cursor"
 
-#: tips:36
+#: tips:40
 msgid "Speed: (fast)"
 msgstr "Snelheid: (snel)"
 
-#: tips:38 tips:39
+#: tips:42 tips:43
 msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
 msgstr "Snelheid waarmee de tekst cursor knippert (als knipperen aan staat)."
 
-#: tips:40
+#: tips:44
 msgid "Shortcuts"
 msgstr "Afkortingen"
 
-#: tips:41
+#: tips:45
 msgid "Allow keybindings to be changed from menus"
 msgstr ""
 "Sta toe dat toestenbord-bindingen vanuit de menus aangepast kunnen worden"
 
-#: tips:42
+#: tips:46
 msgid ""
 "When this is on, you can set up a short-cut for a menu item by holding to "
 "pointer over the menu item and pressing the key. If off, short-cuts cannot "
@@ -513,7 +546,7 @@ msgstr ""
 "het menu item te gaan staan en de gewenste toets in te drukken. Als dit uit "
 "staat, kunnen afkortingen niet aangepast worden."
 
-#: tips:43 tips:44 tips:45
+#: tips:47 tips:48 tips:49
 msgid ""
 "You can set global shortcuts (which work from any\n"
 "application) by assigning them to icons on a ROX-Filer pinboard or panel."
@@ -521,11 +554,11 @@ msgstr ""
 "Je kan globale afkortingen zetten (die werken vanuit elke toepassing)\n"
 "door ze toe te kennen aan de ikonen op een ROX-Filer prikbord of paneel."
 
-#: tips:46
+#: tips:50
 msgid "Messages"
 msgstr "Berichten"
 
-#: tips:47
+#: tips:51
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
@@ -537,11 +570,11 @@ msgstr ""
 "en elk programma dat het start. Het toont alle berichten die het op deze "
 "manier verzamelt kort op het scherm."
 
-#: tips:48
+#: tips:52
 msgid "On-screen message log"
 msgstr "'Op het scherm' berichten log"
 
-#: tips:49
+#: tips:53
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
@@ -549,23 +582,23 @@ msgstr ""
 "Je kan via muisknop 3 klikken op een foutmelding om over te gaan naar het "
 "log venster, of onderstaande knop gebruiken:"
 
-#: tips:50
+#: tips:54
 msgid "Show messages for:"
 msgstr "Toon berichten gedurende:"
 
-#: tips:51
+#: tips:55
 msgid "seconds"
 msgstr "seconden"
 
-#: tips:52 tips:53 tips:54
+#: tips:56 tips:57 tips:58
 msgid "Number of seconds to display each message for"
 msgstr "Aantal seconden dat elk bericht getoond wordt"
 
-#: tips:55 tips:56
+#: tips:59 tips:60
 msgid "Power"
 msgstr "Stroom"
 
-#: tips:57
+#: tips:61
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -578,27 +611,27 @@ msgstr ""
 "commando kan nodig zijn als uw systeem normale gebruikers geen toestemming "
 "geeft om het systeem af te sluiten."
 
-#: tips:58
+#: tips:62
 msgid "Halt command:"
 msgstr "Stop commando:"
 
-#: tips:59
+#: tips:63
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr "Mogelijke stop commando's zijn 'halt' en 'shutdown -t now'"
 
-#: tips:60
+#: tips:64
 msgid "Reboot command:"
 msgstr "Herstart commando:"
 
-#: tips:61
+#: tips:65
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "Mogelijke herstart commando's zijn 'reboot' and 'shutdown -t now -r'"
 
-#: tips:62
+#: tips:66
 msgid "Suspend command:"
 msgstr "Slaap commando:"
 
-#: tips:63 tips:64 tips:65 tips:66
+#: tips:67 tips:68 tips:69 tips:70
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
