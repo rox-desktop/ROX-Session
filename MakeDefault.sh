@@ -7,7 +7,10 @@
 
 cd
 
-if [ -e .xsession ]; then
+if [ -L .xsession ]; then
+	rm .xsession || exit 1
+	echo "Removed symbolic link .xsession"
+elif [ -e .xsession ]; then
 	mv .xsession xsession.old || exit 1
 	echo "Made a backup of .xsession in xsession.old"
 fi
@@ -15,9 +18,7 @@ fi
 if [ -L .xinitrc ]; then
 	rm .xinitrc || exit 1
 	echo "Removed symbolic link .xinitrc"
-fi
-
-if [ -e .xinitrc ]; then
+elif [ -e .xinitrc ]; then
 	mv .xinitrc xinitrc.old || exit 1
 	echo "Made a backup of .xinitrc in xinitrc.old"
 fi
@@ -27,11 +28,31 @@ cat > .xsession << EOF
 # This file was created by ROX-Session.
 
 # Step 1: Set up any environment variables you want here.
-# Eg 'PATH=\${HOME}/bin:\${PATH}'.
 
-# Step 2: Load a window manager. Keep trying until we find one that works!
-# You can choose yourself by changing the first line to your preferred
-# window manager.
+if [ -d ~/bin ]; then
+	PATH=\${HOME}/bin:\${PATH}
+	export PATH
+fi
+
+if [ -d ~/lib ]; then
+	if [ -n "\$LD_LIBRARY_PATH" ]; then
+		LD_LIBRARY_PATH=\${HOME}/lib:\${LD_LIBRARY_PATH}
+	else
+		LD_LIBRARY_PATH=\${HOME}/lib
+	fi
+	export LD_LIBRARY_PATH
+fi
+
+# Step 2: Try to run ROX-Session. If it works, stop right here.
+
+if [ -x "$1/AppRun" ]; then
+	exec "$1/AppRun" -w
+fi
+
+# Step 3: It didn't work. Try to provide a failsafe login so the user
+# can fix things.
+
+# Load a window manager. Keep trying until we find one that works!
 
 wm=\`which sawfish\`
 if [ -z "\$wm" ]; then wm=\`which sawmill\`; fi
@@ -42,27 +63,21 @@ if [ -z "\$wm" ]; then wm=\`which 4Dwm\`; fi
 if [ -z "\$wm" ]; then wm=\`which twm\`; fi
 \$wm &
 
-# Step 3: Load any other programs you want at start-up time.
-# Put an & at the end of each command. Eg 'xclock &'.
+xmessage -file - << END
+.xsession: failed to run $1/AppRun - maybe you moved or deleted it?
 
-# If the panel and pinboard icons aren't handled correctly, try changing
-# -b to -ob.
-rox -b MyPanel -p MyPinboard &
+I'll try to give you an xterm and a filer window instead - try to find
+and run ROX-Session to fix the problem. Close the xterm to logout.
 
-# Step 4: Load ROX-Session. When it quits the session is over.
-# If that doesn't work, try to find something that will at least
-# allow the user to fix their session!
+If all else fails, delete your .xsession and .xinitrc files to get the
+system defaults.
 
-no_exit_on_failed_exec=1
-exec "$1/AppRun" -w
+Report any problems to <tal197@users.sourceforge.net>.
 
-twm &
-
-xmessage "ROX-Session ($1/AppRun) didn't run!"
-
+Good luck!
+END
+rox &
 exec xterm
-exec gnome-terminal
-exec konsole
 EOF
 
 chmod a+x .xsession

@@ -1,13 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 PROG=ROX-Session
 
-set -P
-APP_DIR=${0%/*}
-if [ "$APP_DIR" = "$0" ] ; then APP_DIR=. ; fi
+APP_DIR=`dirname $0`
 APP_DIR=`cd $APP_DIR;pwd`; export APP_DIR
 
-PLATFORM=`unset HOSTTYPE; unset OSTYPE; bash -c 'echo $OSTYPE-$HOSTTYPE'`
+PLATFORM=`uname -s`-`uname -m`
 
 DEBUGGER=""
 case $1 in
@@ -29,9 +27,10 @@ esac
 BIN=$APP_DIR/$PLATFORM/$PROG
 
 if [ -x $BIN ] ; then
-  exec $DEBUGGER $BIN $*
+  exec $DEBUGGER $BIN "$@"
 else
   echo "ERROR from $0:" >&2
   echo "I cannot find an executable file for your host type ($PLATFORM)." >&2
   echo "Try using the --compile option." >&2
+  exec xterm
 fi

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# This gets run after ROX-Session is loaded and running as your session
+# manager. ROX-Session will first try to load <Choices>/ROX-Session/Login,
+# and only uses this if that is missing.
+#
+# This script should run any programs you want loaded when you log in and
+# then exit. If you want to customise it, first copy it to
+# ~/Choices/ROX-Session/Login and then edit that.
+
+# Load a window manager. Keep trying until we find one that works!
+
+wm=`which sawfish`
+if [ -z "$wm" ]; then wm=`which sawmill`; fi
+if [ -z "$wm" ]; then wm=`which enlightenment`; fi
+if [ -z "$wm" ]; then wm=`which fvwm2`; fi
+if [ -z "$wm" ]; then wm=`which fvwm`; fi
+if [ -z "$wm" ]; then wm=`which 4Dwm`; fi
+if [ -z "$wm" ]; then wm=`which twm`; fi
+$wm &
+
+# Load ROX-Filer with a panel and a pinboard set up.
+
+rox -p Default -b Default &

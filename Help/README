@@ -41,23 +41,76 @@ Then, run it, like this:
 
 	$ ROX-Session/AppRun
 
-Note: You need to have 'bash' and 'ROX-Filer' installed before doing this!
+ROX-Session will offer to manage your session in future. If you accept, it will
+create suitable .xsession and .xinitrc files for you and ask you to log out.
+When you log in again, ROX-Session will be running.
 
-You will be asked if you want ROX-Session to be your session manager. Click on
-Yes. If it works, log out and try logging in again.
+To decide what programs to run when you login, ROX-Session tries to run the
+script <Choices>/ROX-Session/Login, where <Choices> is tried as:
+
+	~/Choices
+	/usr/local/share/Choices
+	/usr/share/Choices
+
+until it finds the script. You can override this by setting the CHOICESPATH
+environment variable.
+
+If no script is found then it runs the Login script inside the ROX-Session
+application directory instead. This default script will try to find a
+window manager for you and will then try to load ROX-Filer with a panel
+and a pinboard setup.
 
 You'll probably find you have an empty panel when you log in again.
 Right click for a menu and open your home directory. Drag stuff onto the panel
 (ROX-Session itself is a good thing to put there!).
 
-Note: If you installed the 'rox' script into your home directory then you'll
-need to edit the .xsession file BEFORE loggin out. Set the PATH variable
-to include the directory you put rox in. Or, replace 'rox' with the absolute
-path (eg '/home/fred/bin/rox').
+
+Customising
+~~~~~~~~~~~
+If you want to cusomise your login sequence, simply create a directory
+called `~/Choices/ROX-Session' and copy the Login script from inside
+ROX-Session into this directory. Then, edit the copy.
+
+
+Environment
+~~~~~~~~~~~
+
+ROX-Session does two extra things before running the Login script:
+
+- If you have a 'bin' directory inside your home directory then it adds that
+  to the front of your PATH environment variable.
+- If you have a 'lib' directory, then it adds that to LD_LIBRARY_PATH.
+
+These are done in the .xsession script because they may be needed to run
+ROX-Session itself, or the failsafe session if ROX-Session can't be found.
+
+
+Errors
+~~~~~~
+Because an error in the session system can stop you from logging in,
+ROX-Session has a number of safety measures:
+
+- If the .xsession script can't find ROX-Session then it will look for a
+  window manager on its own, and will also try to give you an xterm.
+  It will also use xmessage to explain what has happened.
+
+- If ROX-Session hasn't been compiled when you try to run it, it will
+  write an explanation to standard error (which might get logged rather
+  than displayed) and then run an xterm instead. Use the xterm to compile
+  ROX-Session as explained above and the logout (type 'exit' in the
+  xterm).
+
+- If the Login script returns an error code then ROX-Session will run an
+  xterm and display a suitable message. Run ROX-Session a second time to
+  logout, as usual (quitting the xterm won't do it in this case).
 
 
 What's a session manager?
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+	The following is some background information about
+	session managers in general. This is provided for
+	interest only...
+
 Most people use a program such as xdm (X Display Manager) to control their
 X server. xdm displays a graphical login prompt, logs you in, starts your
 X session and then, afterwards, resets the X server and does it again.
@@ -66,7 +119,7 @@ How does xdm know when you've finished?
 
 Well, after xdm has verified your user name and password it runs a system-wide
 Xsession script as you. Try 'locate xdm/Xsession' to find the file on your
-system.  When this script exits xdm resets the X server and restarts the login
+system. When this script exits xdm resets the X server and restarts the login
 process.
 
 What does the Xsession script do?
@@ -79,6 +132,7 @@ startup (such as a window manager, filer, xterm, etc). It runs all of these
 programs in the background except the last one, which it execs. Here's a
 simple example script (remember to make it executable!):
 
+	#!/bin/sh
 	twm &
 	xclock &
 	exec xterm
@@ -98,12 +152,14 @@ couple of drawbacks:
 
 What does ROX-Session do?
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-Very little. When you run it from your '.xsession' file it just loads and
-waits. It doesn't draw anything on the screen. When you want to log out you
-simply run it a second time. The new copy sees that the first one is running
-and sends it a message. The first copy displays a box confirming that you want
-to log out and, if you say yes, quits. This causes your X session to be
-terminated. Save your data before logging out!!
+Very little. When you run it from your '.xsession' file it just loads, runs
+the Login script (as described above) and waits. It doesn't draw
+anything on the screen. When you want to log out you simply run
+it a second time. The new copy sees that the first one is
+running and sends it a message. The first copy displays a box
+confirming that you want to log out and, if you say yes, quits.
+This causes your X session to be terminated. Save your data
+before logging out!!
 
 
 !!!WARNING!!!
