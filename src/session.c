@@ -1,4 +1,4 @@
-/* vi: set cindent:
+/*
  * $Id$
  *
  * ROX-Session, a very simple session manager
