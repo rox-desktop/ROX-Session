@@ -216,8 +216,8 @@ gboolean register_object_path(const char *path, MessageHandler handler)
 	if (dbus_version == 20)
 	{
 		const char *pathv[] = {NULL, NULL};
-		gboolean (*dbus_register)(DBusConnection *, const char **,
-					  DBusObjectPathVTable *, MessageHandler);
+		dbus_bool_t (*dbus_register)(DBusConnection *, const char **,
+					  DBusObjectPathVTable *, void *);
 
 		dbus_register = reg;
 
@@ -227,8 +227,8 @@ gboolean register_object_path(const char *path, MessageHandler handler)
 	}
 	else
 	{
-		gboolean (*dbus_register)(DBusConnection *, const char *,
-					  DBusObjectPathVTable *, MessageHandler);
+		dbus_bool_t (*dbus_register)(DBusConnection *, const char *,
+					  DBusObjectPathVTable *, void *);
 
 		dbus_register = reg;
 

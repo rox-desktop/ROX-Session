@@ -3,6 +3,8 @@
   <section title='Translation'>
     <frame label='Language'>
       <radio-group name='i18n_translation'>
+        <radio label='Chinese(Simplified)' value='zh_CN'/>
+        <radio label='Chinese(Traditional)' value='zh_TW'/>
         <radio label='Danish' value='da'/>
         <radio label='Dutch' value='nl'/>
         <radio label='English (no translation)' value='None'/>
