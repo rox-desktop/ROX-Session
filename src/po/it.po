@@ -1,17 +1,19 @@
 # ROX-Session Italian Translation.
 # Copyright @ 2003 Free Software Foundation, Inc.
 # Current translator: Yuri Bongiorno http://yuri.webhop.org, 2003.
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: ROX-Session 0.1.20\n"
+"Project-Id-Version: ROX-Session 0.1.21\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-23 17:05+0100\n"
-"PO-Revision-Date: 2003-08-30 16:40+0200\n"
+"POT-Creation-Date: 2004-01-07 18:30+0100\n"
+"PO-Revision-Date: 2004-01-07 18:35+0100\n"
 "Last-Translator: Yuri Bongiorno http://yuri.webhop.org\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: main.c:58
 msgid ""
@@ -103,24 +105,26 @@ msgstr ""
 msgid ""
 "OK, now logout by your usual method and when you log in again, I should be "
 "your session manager.\n"
-"You can edit your .xsession file to customise things..."
+"Note: you may need to select 'Default' as your desktop type after entering "
+"your user name on the login screen."
 msgstr ""
 "Uscire adesso con la solita procedura e al prossimo accesso al sistema, ROX-"
-"Session dovrebbe essere il gestore di sessione predefinito. È possibile "
-"modificare .xsession per personalizzare il tutto..."
+"Session dovrebbe essere il gestore di sessione predefinito.\n"
+"Nota: potrebbe essere necessario selezionare «Default» alla schermata di "
+"login come tipo di desktop."
 
-#: main.c:402
+#: main.c:403
 #, c-format
 msgid "Your login script (%s) died"
 msgstr "Lo script di accesso al sistema (%s) è terminato"
 
-#: main.c:405
+#: main.c:406
 #, c-format
 msgid "Your login script (%s) exited with exit status %d"
 msgstr ""
 "Lo script di accesso al sistema (%s) è terminato con lo stato di uscita %d"
 
-#: main.c:410
+#: main.c:411
 msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
@@ -204,31 +208,31 @@ msgstr "File di traduzione .gmo non valido (troppo corto): %s"
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr "File di traduzione .gmo non valido (numero magico GNU non trovato): %s"
 
-#: session.c:276
+#: session.c:280
 msgid "_Halt"
 msgstr "_Arresta il sistema"
 
-#: session.c:277
+#: session.c:281
 msgid "Attempting to halt the system..."
 msgstr "Arresto del sistema in corso..."
 
-#: session.c:280
+#: session.c:284
 msgid "_Reboot"
 msgstr "_Riavvia il computer"
 
-#: session.c:281
+#: session.c:285
 msgid "Attempting to restart the system..."
 msgstr "Riavvio del computer in corso..."
 
-#: session.c:284
+#: session.c:288
 msgid "_Sleep"
 msgstr "_Sospendi"
 
-#: session.c:285
+#: session.c:289
 msgid "Attempting to enter suspend mode..."
 msgstr "Sospensione del computer in corso..."
 
-#: session.c:290
+#: session.c:294
 msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
@@ -236,15 +240,15 @@ msgstr ""
 "Uscire veramente?\n"
 "(si perdono i dati non salvati)"
 
-#: session.c:300
+#: session.c:304
 msgid "Session Settings"
 msgstr "Impostazioni di sessione"
 
-#: session.c:307
+#: session.c:311
 msgid "Logout"
 msgstr "Esci"
 
-#: session.c:361
+#: session.c:365
 #, c-format
 msgid ""
 "Failed to run login script:\n"
@@ -253,23 +257,23 @@ msgstr ""
 "Fallita l'esecuzione dello script di accesso al sistema:\n"
 "%s"
 
-#: session.c:428
+#: session.c:432
 msgid "Single click!"
 msgstr "Singolo clic"
 
-#: session.c:430
+#: session.c:434
 msgid "Double click!!"
 msgstr "Doppio clic"
 
-#: session.c:432
+#: session.c:436
 msgid "Triple click!!!"
 msgstr "Triplo clic"
 
-#: session.c:441
+#: session.c:445
 msgid "Double-click here to test mouse"
 msgstr "Fare doppio clic qui per eseguire il test del mouse"
 
-#: session.c:601
+#: session.c:605
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
@@ -277,24 +281,24 @@ msgstr ""
 "ROX-Session non gestisce XSettings perciò i cambiamenti non avranno effetto "
 "immediato..."
 
-#: session.c:688
+#: session.c:692
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
 msgstr "ROX-Filer è terminato (crash?). Provare a riavviarlo."
 
-#: session.c:690
+#: session.c:694
 msgid "Do nothing"
 msgstr "Non fare niente"
 
-#: session.c:691
+#: session.c:695
 msgid "Run Xterm"
 msgstr "Esegui Xterm"
 
-#: session.c:692
+#: session.c:696
 msgid "_Restart"
 msgstr "_Riavvia"
 
-#: session.c:718
+#: session.c:722
 #, c-format
 msgid ""
 "Failed to run '%s':\n"
@@ -397,42 +401,46 @@ msgid "Italian"
 msgstr "Italiano"
 
 #: tips:12
+msgid "Lithuanian"
+msgstr "Lituano"
+
+#: tips:13
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: tips:13
+#: tips:14
 msgid "Japanese"
 msgstr "Giapponese"
 
-#: tips:14
+#: tips:15
 msgid "Russian"
 msgstr "Russo"
 
-#: tips:15
+#: tips:16
 msgid "Use the LANG environment variable"
 msgstr "Usa la variabile d'ambiente LANG"
 
-#: tips:16
+#: tips:17
 msgid "Display"
 msgstr "Visualizza"
 
-#: tips:17
+#: tips:18
 msgid "Text"
 msgstr "Testo"
 
-#: tips:18
+#: tips:19
 msgid "Default font"
 msgstr "Carattere predefinito"
 
-#: tips:19 tips:20
+#: tips:20 tips:21
 msgid "The font used by Gtk+-2.0 applications"
 msgstr "Il carattere usato dalle applicazioni Gtk+-2.0"
 
-#: tips:21
+#: tips:22
 msgid "Desktop background"
 msgstr "Sfondo del desktop"
 
-#: tips:22 tips:23
+#: tips:23 tips:24
 msgid ""
 "Bring up the menu over the desktop background to set the backdrop image or "
 "change the pinboard options."
@@ -440,27 +448,27 @@ msgstr ""
 "Cliccare sullo sfondo del desktop per impostare l'immagine di sfondo o per "
 "cambiare le opzioni della bacheca."
 
-#: tips:24
+#: tips:25
 msgid "Theme"
 msgstr "Tema"
 
-#: tips:25
+#: tips:26
 msgid "GTK theme"
 msgstr "Tema GTK"
 
-#: tips:26
+#: tips:27
 msgid "Mouse"
 msgstr "Mouse"
 
-#: tips:27
+#: tips:28
 msgid "Motion"
 msgstr "Moto"
 
-#: tips:28
+#: tips:29
 msgid "Acceleration threshold"
 msgstr "Soglia di accelerazione"
 
-#: tips:29
+#: tips:30
 msgid ""
 "Controls how fast you have to move the pointer before the acceleration "
 "(below) kicks in."
@@ -468,15 +476,15 @@ msgstr ""
 "Controlla quanto veloce si deve muovere il puntatore prima che "
 "l'accelerazione (sotto) cominci"
 
-#: tips:30
+#: tips:31
 msgid "Acceleration (none)"
 msgstr "Accelerazione (nessuna)"
 
-#: tips:31
+#: tips:32
 msgid "(10x)"
 msgstr "(10x)"
 
-#: tips:32
+#: tips:33
 msgid ""
 "When the pointer is moved quickly more than the threshold number of pixels, "
 "its speed is multiplied by this number."
@@ -484,11 +492,11 @@ msgstr ""
 "Quando il puntatore viene mosso più rapidamente del numero di pixel della "
 "soglia, la sua velocità viene moltiplicata per questo numero."
 
-#: tips:33
+#: tips:34
 msgid "DnD Drag Threshold"
 msgstr "Soglia di trascinamento DnD"
 
-#: tips:34 tips:35
+#: tips:35 tips:36
 msgid ""
 "Controls how far you have to drag the mouse to start a drag-and-drop "
 "operation.\n"
@@ -498,19 +506,19 @@ msgstr ""
 "trascinamento.\n"
 "Impostarla alta se vengono trascinati oggetti involontariamente."
 
-#: tips:36
+#: tips:37
 msgid "Buttons"
 msgstr "Pulsanti"
 
-#: tips:37
+#: tips:38
 msgid "Double-click speed: (fast)"
 msgstr "Velocità del doppio clic: (alta)"
 
-#: tips:38 tips:44
+#: tips:39 tips:45
 msgid "(slow)"
 msgstr "(bassa)"
 
-#: tips:39
+#: tips:40
 msgid ""
 "Time allowed between the two clicks that make up a double click. Make this "
 "bigger if you have trouble double-clicking fast enough; set it smaller if "
@@ -520,35 +528,35 @@ msgstr ""
 "se ci sono problemi nel fare il doppio clic, diminuirlo se a volte due "
 "singoli clic si comportano come uno doppio."
 
-#: tips:40
+#: tips:41
 msgid "Keyboard"
 msgstr "Tastiera"
 
-#: tips:41
+#: tips:42
 msgid "Cursor"
 msgstr "Cursore"
 
-#: tips:42
+#: tips:43
 msgid "Blinking cursor"
 msgstr "Cursore lampeggiante"
 
-#: tips:43
+#: tips:44
 msgid "Speed: (fast)"
 msgstr "Velocità: (alta)"
 
-#: tips:45 tips:46
+#: tips:46 tips:47
 msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
 msgstr "La velocità con la quale il cursore lampeggia (se abilitato)."
 
-#: tips:47
+#: tips:48
 msgid "Shortcuts"
 msgstr "Scorciatoie"
 
-#: tips:48
+#: tips:49
 msgid "Allow keybindings to be changed from menus"
 msgstr "Permette di cambiare le associazioni di tasti dai menù"
 
-#: tips:49
+#: tips:50
 msgid ""
 "When this is on, you can set up a short-cut for a menu item by holding to "
 "pointer over the menu item and pressing the key. If off, short-cuts cannot "
@@ -558,7 +566,7 @@ msgstr ""
 "puntatore sul menù e premendo il tasto. Se disattivato, le scorciatoie non "
 "possono essere cambiate."
 
-#: tips:50 tips:51 tips:52
+#: tips:51 tips:52 tips:53
 msgid ""
 "You can set global shortcuts (which work from any\n"
 "application) by assigning them to icons on a ROX-Filer pinboard or panel."
@@ -567,11 +575,11 @@ msgstr ""
 "applicazione) associandole alle icone sul pannello o sulla bacheca del ROX-"
 "Filer."
 
-#: tips:53
+#: tips:54
 msgid "Messages"
 msgstr "Messaggi"
 
-#: tips:54
+#: tips:55
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
@@ -582,11 +590,11 @@ msgstr ""
 "testo. ROX-Session crea una connessione tra sè e ogni programma che avvia e "
 "visualizza brevemente sullo schermo tutti questi messaggi."
 
-#: tips:55
+#: tips:56
 msgid "On-screen message log"
 msgstr "Messaggio di log sullo schermo"
 
-#: tips:56
+#: tips:57
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
@@ -594,27 +602,27 @@ msgstr ""
 "Si deve cliccare con il tasto 3 del mouse sul messaggio di errore per "
 "passare alla finestra di visualizzazione dei log o premere questo pulsante:"
 
-#: tips:57
+#: tips:58
 msgid "Show messages for:"
 msgstr "Mostra i messaggi per:"
 
-#: tips:58
+#: tips:59
 msgid "seconds"
 msgstr "secondi"
 
-#: tips:59
+#: tips:60
 msgid "Number of seconds to display each message for"
 msgstr "Numero di secondi durante i quali visualizzare ogni messaggio"
 
-#: tips:60
+#: tips:61
 msgid "Max area for popup display:"
 msgstr "Area massima per i popup:"
 
-#: tips:61
+#: tips:62
 msgid "%"
 msgstr "%"
 
-#: tips:62 tips:63 tips:64
+#: tips:63 tips:64 tips:65
 msgid ""
 "Normally, messages are shown overlayed on the screen for a few seconds. If "
 "there are a large number of messages (more than this amount of the screen is "
@@ -624,11 +632,11 @@ msgstr ""
 "però ce ne sono molti (se coprono un'area dello schermo superiore a questa "
 "percentuale), allora vengono mostrati dentro una finestra."
 
-#: tips:65 tips:66
+#: tips:66 tips:67
 msgid "Power"
 msgstr "Fine sessione"
 
-#: tips:67
+#: tips:68
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -640,27 +648,27 @@ msgstr ""
 "seconda dei sistemi. Può essere necessario l'uso di xsu o di sudo se gli "
 "utenti normali non hanno i permessi di arrestare o riavviare il computer."
 
-#: tips:68
+#: tips:69
 msgid "Halt command:"
 msgstr "Comando per spegnere:"
 
-#: tips:69
+#: tips:70
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr "Alcuni comandi per spegnere sono «halt» e «shutdown -t now»"
 
-#: tips:70
+#: tips:71
 msgid "Reboot command:"
 msgstr "Comando per riavviare:"
 
-#: tips:71
+#: tips:72
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "Alcuni comandi per riavviare sono «reboot» e «shutdown -t now -r»"
 
-#: tips:72
+#: tips:73
 msgid "Suspend command:"
 msgstr "Comando di sospensione:"
 
-#: tips:73 tips:74 tips:75 tips:76
+#: tips:74 tips:75 tips:76 tips:77
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
@@ -669,3 +677,4 @@ msgstr ""
 "Se il sistema usa APM per la gestione dell'energia, provare «apm -s» o "
 "simili. Gli utenti con ACPI possono provare «xset dpms force off; echo 1 > /"
 "proc/acpi/sleep». È necessario un kernel opportunamente compilato."
+
