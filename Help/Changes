@@ -2,11 +2,6 @@
 			A very simple session manager
 			by Thomas Leonard
 
-TODO: Get sawfish's iconize animation to go into the middle of the screen
-      so people stop blaming us for hiding the icons under the panel...
-
-      makedist to put in subdir...
-
 11-Sep-2002
 ~~~~~~~~~~~
 Add timestamps to log messages in history window (suggested by krjw).
