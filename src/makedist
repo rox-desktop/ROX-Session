@@ -33,9 +33,6 @@ system "cd ROX-Session/src; autoconf";
 mkdir "ROX-Session/Messages";
 system "cp -r ~/Projects/ROX-Session/Messages/*.gmo ROX-Session/Messages";
 
-system "mv ROX-Session/* .";
-rmdir "ROX-Session";
-
 chdir "..";
 system "tar czf ROX-Session-$a.$b.$c.tgz ROX-Session-$a.$b.$c";
 system "rm -r ROX-Session-$a.$b.$c";

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-21 14:47+0100\n"
+"POT-Creation-Date: 2002-09-14 14:22+0100\n"
 "PO-Revision-Date: 2002-04-10 17:59+0100\n"
 "Last-Translator: Christian Storgaard <cybolic@goth.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,20 +129,20 @@ msgstr ""
 ". Jeg giver dig en xterm så du kan forsøge at løse problemet. Selve ROX-"
 "Session kører dog fint - kør mig en til gang for at logge ud"
 
-#: log.c:311
+#: log.c:361
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: skrivning til stderr mislykkedes!\n"
 
-#: log.c:338
+#: log.c:385
 msgid "ROX-Session: read(stderr) failed!\n"
 msgstr "ROX-Session: read(stderr) mislykkedes!\n"
 
-#: log.c:365
+#: log.c:409
 #, fuzzy
 msgid "ROX-Session message log"
 msgstr "ROX-Session"
 
-#: log.c:419
+#: log.c:463
 msgid "Show message log"
 msgstr ""
 
@@ -188,7 +188,7 @@ msgstr "Ugyldig .gmo oversættelses-fil (for kort): %s"
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr "Ugyldig .gmo oversættelses-fil (GNU magic number ikke fundet): %s"
 
-#: session.c:181
+#: session.c:183
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
@@ -196,7 +196,7 @@ msgstr ""
 "ROX-Session kontrollerer ikke XSettings, så ændringer vil ikke have nogen "
 "åjeblikkelig effekt..."
 
-#: session.c:192
+#: session.c:194
 msgid ""
 "\n"
 "Really logout?\n"
@@ -204,11 +204,16 @@ msgstr ""
 "\n"
 "Vil du virkelig logge ud?\n"
 
-#: session.c:203
+#: session.c:201
+#, fuzzy
+msgid "Session _Settings"
+msgstr "XSettings"
+
+#: session.c:208
 msgid "_Logout"
 msgstr "_Log ud"
 
-#: session.c:251
+#: session.c:255
 #, c-format
 msgid ""
 "Failed to run login script:\n"
@@ -250,7 +255,7 @@ msgstr ""
 "Der er i øjeblikket ikke valgt nogen window manager.\n"
 "Vælg venligst en window manager nu."
 
-#: wm.c:174
+#: wm.c:175
 #, c-format
 msgid ""
 "Failed to start window manager:\n"
@@ -261,7 +266,7 @@ msgstr ""
 "%s\n"
 "Vælg venligst en ny window manager og prøv igen."
 
-#: wm.c:251
+#: wm.c:252
 msgid "Start window manager"
 msgstr "Start window manager"
 
