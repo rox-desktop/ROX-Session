@@ -48,4 +48,7 @@
       <entry label='Suspend command:' name='suspend_command'>If your system uses APM for power management, try 'apm -s' or similar. ACPI users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll need a kernel with the correct system compiled in and enabled.</entry>
     </frame>
   </section>
+  <section title='Look and Feel'>
+    <label help='1'>The mouse, keyboard and display options have moved to the new LookAndFeel application, available from http://rox.sf.net.</label>
+  </section>
 </options>
