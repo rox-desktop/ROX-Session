@@ -8,8 +8,6 @@
 #ifndef _LOG_H
 #define _LOG_H
 
-int	login_error;	/* Non-zero => error (-1 or exit status) */
-
 /* Prototypes */
 
 void log_init(void);

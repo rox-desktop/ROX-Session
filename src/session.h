@@ -14,10 +14,12 @@
 #include <unistd.h>
 
 extern XSettingsManager *manager;
+extern gboolean call_child_died;
 
 /* Prototypes */
 void session_init(void);
 void show_main_window(void);
 void run_login_script(void);
+void child_died_callback(void);
 
 #endif /* _SESSION_H */

@@ -44,9 +44,10 @@
  * exits with a non-zero exit status then we assume the session went
  * wrong and try to fix it.
  */
-pid_t		login_child = -1;
-int		login_error = 0;	/* Non-zero => error */
+static pid_t	login_child = -1;
 
+/* If log.c gets any data and this is TRUE, it calls child_died_callback() */
+gboolean call_child_died = FALSE;
 
 /* See http://www.freedesktop.org/standards/xsettings/xsettings.html */
 XSettingsManager *manager = NULL;
@@ -97,12 +98,24 @@ static void terminate_xsettings(void *data)
 	g_warning("ROX-Session is no longer the XSETTINGS manager!");
 }
 
-/* This is called as a signal handler */
+/* This is called as a signal handler.
+ * Don't do the waitpid here, because this might get called before
+ * the assignment in child = fork() completes!
+ */
 static void child_died(int signum)
 {
-	gboolean notify = FALSE;
+	fcntl(STDERR_FILENO, O_NONBLOCK, TRUE);
+	write(STDERR_FILENO, "\n", 1);
+	call_child_died = TRUE;
+}
+
+/* Called from the mainloop sometime after child_died executes */
+void child_died_callback(void)
+{
 	pid_t	child;
 	int	status;
+
+	call_child_died = FALSE;
 
 	/* Find out which children exited and allow them to die */
 	while (1)
@@ -114,29 +127,18 @@ static void child_died(int signum)
 
 		if (child == wm_pid)
 		{
-			wm_pid = -2;
-			notify = TRUE;
+			wm_pid = -1;
+			wm_process_died();
 		}
 
 		if (child == login_child &&
 			(WIFEXITED(status) == 0 || WEXITSTATUS(status) != 0))
 		{
-			/* Wake up! Use non-blocking I/O in case the pipe is
-			 * already full (if so, we'll catch the flag later).
-			 */
 			login_child = -1;
-			login_error = WIFEXITED(status) == 0
+			login_failure(WIFEXITED(status) == 0
 					? -1	/* Signal death */
-					: WEXITSTATUS(status);
-
-			notify = TRUE;
+					: WEXITSTATUS(status));
 		}
-	}
-
-	if (notify)
-	{
-		fcntl(STDERR_FILENO, O_NONBLOCK, TRUE);
-		write(STDERR_FILENO, "\n", 1);
 	}
 }
 
@@ -233,7 +235,7 @@ void run_login_script(void)
 	gchar	*argv[2];
 	gint	pid;
 
-	if (logged_in)
+	if (logged_in || test_mode)
 		return;
 	logged_in = TRUE;
 

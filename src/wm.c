@@ -143,7 +143,7 @@ static void run_wm(void)
 {
 	GError	*error = NULL;
 	gint	pid;
-	char	*argv[2];
+	char	**argv = NULL;
 
 	if (wm_pid != -1)
 	{
@@ -161,11 +161,12 @@ static void run_wm(void)
 		return;
 	}
 
-	argv[0] = o_default_wm.value;
-	argv[1] = NULL;
-	g_spawn_async(NULL, argv, NULL,
+	if (g_shell_parse_argv(o_default_wm.value, NULL, &argv, &error))
+		g_spawn_async(NULL, argv, NULL,
 			G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
 			NULL, NULL, &pid, &error);
+	g_strfreev(argv);
+	argv = NULL;
 		
 	if (error)
 	{

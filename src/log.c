@@ -36,8 +36,8 @@
 
 #include "global.h"
 
-#include "wm.h"
 #include "main.h"
+#include "session.h"
 #include "log.h"
 #include "options.h"
 #include "gui_support.h"
@@ -348,9 +348,6 @@ static void got_log_data(gpointer data,
 {
 	guchar	buffer[BUFFER_SIZE];
 	int	got;
-	int 	error = login_error;
-
-	login_error = 0;
 
 	got = read(source, buffer, BUFFER_SIZE);
 
@@ -367,11 +364,8 @@ static void got_log_data(gpointer data,
 			write_stderr(buffer, got);
 	}
 
-	if (error)
-		login_failure(error);
-
-	if (wm_pid == -2)
-		wm_process_died();
+	if (call_child_died)
+		child_died_callback();
 }
 
 static void show_message_log(void)

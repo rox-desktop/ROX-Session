@@ -7,9 +7,14 @@ TODO: Get sawfish's iconize animation to go into the middle of the screen
 
       makedist to put in subdir...
 
-      WM should be a command, not a program name (krjw).
-
       Time-stamp log messages
+
+02-Aug-2002
+~~~~~~~~~~~
+Allow a full command for the window manager, not just a program name
+(requested by krjw).
+Bugfix: If the window manager ran, but quit really quickly, ROX-Session didn't
+	notice!
 
 22-Jul-2002
 ~~~~~~~~~~~
