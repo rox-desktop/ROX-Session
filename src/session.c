@@ -25,6 +25,7 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <ctype.h>
+#include <signal.h>
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
