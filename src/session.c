@@ -258,12 +258,15 @@ void show_main_window(void)
 
 	button = op_button(_("_Halt"), ROX_STOCK_HALT, &halt_command,
 			_("Attempting to halt the system..."));
+	GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
 	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
 	button = op_button(_("_Reboot"), GTK_STOCK_REFRESH, &reboot_command,
 			_("Attempting to restart the system..."));
+	GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
 	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
 	button = op_button(_("_Sleep"), ROX_STOCK_SUSPEND, &suspend_command,
 			_("Attempting to enter suspend mode..."));
+	GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
 	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
 
 	gtk_box_pack_start(GTK_BOX(vbox),
