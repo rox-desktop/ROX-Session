@@ -6,7 +6,7 @@
   <Summary xml:lang="it">Configura il desktop dopo l'accesso al sistema e permette di terminare la sessione</Summary>
   <About xml:lang="en">
     <Purpose>Session Manager</Purpose>
-    <Version>0.1.23 (04-Jun-2004)</Version>
+    <Version>0.1.23 (07-Jun-2004)</Version>
     <Author>Thomas Leonard</Author>
     <License>GNU General Public License</License>
     <Homepage>http://rox.sourceforge.net</Homepage>

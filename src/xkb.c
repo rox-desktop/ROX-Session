@@ -74,11 +74,6 @@ void set_xkb_layout(const char *command)
 				g_ptr_array_add(argv, "-option");
 				g_ptr_array_add(argv, xkb_layout[4]);
 			}
-			if (xkb_layout[5] && xkb_layout[5][0])
-			{
-				g_ptr_array_add(argv, "-rules");
-				g_ptr_array_add(argv, xkb_layout[5]);
-			}
 		}
 	}
 
