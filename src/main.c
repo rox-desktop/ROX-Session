@@ -180,12 +180,6 @@ int main(int argc, char **argv)
 	if (!wait_mode)
 		return become_default_session();
 
-	/* Ignore dying children */
-	act.sa_handler = SIG_IGN;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_NOCLDSTOP;
-	sigaction(SIGCHLD, &act, NULL);
-	
 	ipc_window = gtk_invisible_new();
 	gtk_widget_realize(ipc_window);
 			
@@ -201,6 +195,12 @@ int main(int argc, char **argv)
 			(guchar *) &window->xwindow, 1);
 
 	run_login_script();
+	
+	/* Ignore dying children */
+	act.sa_handler = SIG_IGN;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_NOCLDSTOP;
+	sigaction(SIGCHLD, &act, NULL);
 	
 	gtk_main();
 
@@ -330,7 +330,8 @@ static int become_default_session(void)
 static void run_login_script(void)
 {
 	pid_t	child;
-	guchar	*login, *error;
+	guchar	*login;
+	guchar	*error = NULL;
 	int	status;
 
 	login = choices_find_path_load("Login", "ROX-Session");
@@ -342,7 +343,7 @@ static void run_login_script(void)
 	switch (child)
 	{
 		case -1:
-			report_error(PROJECT,
+			error = g_strdup(
 				_("fork() failed - can't run Login script!"));
 			break;
 		case 0:
@@ -352,22 +353,31 @@ static void run_login_script(void)
 			_exit(1);
 	}
 
-
 	if (waitpid(child, &status, 0) != child)
 	{
-		g_error("waitpid(%d) failed: %s\n",
-				child, g_strerror(errno));
+		error = g_strdup_printf(_("waitpid(%d) failed: %s"),
+					child, g_strerror(errno));
 	}
-
-	if ((!WIFEXITED(status)) || WEXITSTATUS(status) != 0)
+	else if ((!WIFEXITED(status)) || WEXITSTATUS(status) != 0)
 	{
 		error = g_strdup_printf(
-		_("Your Login script (%s) returned an error code (%d). "
-		  "I'll give you an xterm to try and fix it. ROX-Session "
-		  "itself is running fine though - run me a second time "
-		  "to logout"), login, WEXITSTATUS(status));
+			_("Your Login script (%s) returned an error code (%d)"),
+			  login, WEXITSTATUS(status));
+	}
 
-		report_error(PROJECT, error);
+	if (error)
+	{
+		guchar	*message;
+
+		message = g_strconcat(error,
+		_(". I'll give you an xterm to try and fix it. ROX-Session "
+		  "itself is running fine though - run me a second time "
+		  "to logout."), NULL);
+
+		report_error(PROJECT, message);
+
+		g_free(message);
+		g_free(error);
 
 		system("xterm&");
 	}

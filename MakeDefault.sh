@@ -55,6 +55,7 @@ fi
 wm=\`which sawfish\`
 if [ ! -x "\$wm" ]; then wm=\`which sawmill\`; fi
 if [ ! -x "\$wm" ]; then wm=\`which enlightenment\`; fi
+if [ ! -x "\$wm" ]; then wm=\`which kwm\`; fi
 if [ ! -x "\$wm" ]; then wm=\`which fvwm2\`; fi
 if [ ! -x "\$wm" ]; then wm=\`which fvwm\`; fi
 if [ ! -x "\$wm" ]; then wm=\`which 4Dwm\`; fi

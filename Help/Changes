@@ -2,6 +2,11 @@
 			A very simple session manager
 			by Thomas Leonard
 
+10-Nov-2000
+~~~~~~~~~~~
+Fixed a bug which prevented ROX-Session from working under most systems:
+waitpid() was called even though ROX-Session was ignoring child processes
+(spotted by Stephen Watson).
 
 07-Sep-2000
 ~~~~~~~~~~~
