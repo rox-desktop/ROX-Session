@@ -4,6 +4,10 @@
 
 TODO: Never overwrite .xsession.old
 
+05-Apr-2004
+~~~~~~~~~~~
+Updated Spanish translation (Marcelo Ramos).
+
 03-Apr-2004
 ~~~~~~~~~~~
 Allow Styles to be read from ~/Choices so the user can customize it
