@@ -9,6 +9,10 @@ TODO: Get sawfish's iconize animation to go into the middle of the screen
 
       Time-stamp log messages
 
+05-Aug-2002
+~~~~~~~~~~~
+Translated AppInfo menu entries into Spanish (Marcelo Ramos).
+
 02-Aug-2002
 ~~~~~~~~~~~
 Allow a full command for the window manager, not just a program name

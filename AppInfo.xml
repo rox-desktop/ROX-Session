@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <AppInfo>
   <Summary>Sets up your desktop when you log in, and lets you log out again</Summary>
+  <Summary xml:lang="sp">Configura tu escritorio cuando ingresas y te permite salir</Summary>
+
   <About>
     <Purpose>Session Manager</Purpose>
     <Version>0.1.17 PREVIEW</Version>
@@ -12,6 +14,7 @@
     <!-- label attribute is for older filers -->
     <Item option='--setup' label='Auto Start...'>
       <Label>Auto Start...</Label>
+      <Label xml:lang='sp'>Iniciar Autom&#x00E1;ticamente...</Label>
     </Item>
   </AppMenu>
 </AppInfo>
