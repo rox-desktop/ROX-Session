@@ -1,6 +1,15 @@
 import rox
 from rox import g
-import os
+from rox.options import Option
+import os, sys
+
+rox.setup_app_options('ROX-Session', 'Options')
+
+halt_command = Option('halt_command', 'halt')
+reboot_command = Option('reboot_command', 'reboot')
+suspend_command = Option('suspend_command', 'xset dpms force off')
+
+rox.app_options.notify()
 
 # Load icons
 factory = g.IconFactory()
@@ -32,8 +41,8 @@ def op_button(text, stock, command, message):
 	tmp = command.strip()
 	if tmp:
 		def invoke(button):
-			rox.info(message)
-			#os.system(command)
+			print >>sys.stderr, message
+			os.system(command)
 		button.connect('clicked', invoke)
 	else:
 		button.set_sensitive(False)
@@ -54,22 +63,18 @@ class LogoutBox(rox.Dialog):
 		hbox.set_layout(g.BUTTONBOX_END)
 		vbox.pack_start(hbox, False, True, 0)
 
-		reboot_command = ""
-		halt_command = ""
-		suspend_command = ""
-
 		button = op_button(_('_Halt'), 'rox-halt',
-			halt_command,
+			halt_command.value,
 			_('Attempting to halt the system...'))
 		hbox.pack_end(button, False, True, 0)
 
 		button = op_button(_('_Reboot'), g.STOCK_REFRESH,
-			reboot_command,
+			reboot_command.value,
 			_('Attempting to restart the system...'))
 		hbox.pack_end(button, False, True, 0)
 		
 		button = op_button(_('_Sleep'), 'rox-suspend',
-			suspend_command,
+			suspend_command.value,
 			_('Attempting to enter suspend mode...'))
 		hbox.pack_end(button, False, True, 0)
 

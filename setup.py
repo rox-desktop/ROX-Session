@@ -63,6 +63,10 @@ def setup_home():
 	file(xsession, 'w').write("""#!/bin/sh
 # This file was created by ROX-Session.
 
+if [ -d ~/bin ]; then
+	PATH=${HOME}/bin:${PATH}
+fi
+
 # Step 1: Try to run ROX-Session. If it works, stop right here.
 
 if [ -x "%s/AppRun" ]; then

@@ -4,7 +4,6 @@
 
 TODO: Never overwrite .xsession.old
 
-- Halt, Reboot, Suspend need to be reimplemented
 - Set up system wide
 - Move remaining options to Python
 
