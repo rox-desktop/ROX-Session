@@ -7,6 +7,10 @@
 # offer to rerun it.
 #
 # $1 is the ROX-Session application directory.
+#
+# If you want to modify this file, you should first copy it as
+# <Choices>/ROX-Session/RunROX so that upgrading ROX-Session will not overwrite
+# your changes. This also allows per-user modifications.
 
 if [ ! -n "$CHOICESPATH" ]; then
 	CHOICESPATH=${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices
