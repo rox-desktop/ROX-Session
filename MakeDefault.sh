@@ -7,21 +7,19 @@
 
 cd
 
-if [ -L .xsession ]; then
-	rm .xsession || exit 1
-	echo "Removed symbolic link .xsession"
-elif [ -e .xsession ]; then
+if [ -f .xsession ]; then
 	mv .xsession xsession.old || exit 1
-	echo "Made a backup of .xsession in xsession.old"
+	echo "Made a backup of .xsession as xsession.old"
 fi
 
-if [ -L .xinitrc ]; then
-	rm .xinitrc || exit 1
-	echo "Removed symbolic link .xinitrc"
-elif [ -e .xinitrc ]; then
+if [ -f .xinitrc ]; then
 	mv .xinitrc xinitrc.old || exit 1
-	echo "Made a backup of .xinitrc in xinitrc.old"
+	echo "Made a backup of .xinitrc as xinitrc.old"
 fi
+
+# They might be broken symlinks...
+rm -f .xsession
+rm -f .xinitrc
 
 cat > .xsession << EOF
 #!/bin/sh
@@ -55,12 +53,12 @@ fi
 # Load a window manager. Keep trying until we find one that works!
 
 wm=\`which sawfish\`
-if [ -z "\$wm" ]; then wm=\`which sawmill\`; fi
-if [ -z "\$wm" ]; then wm=\`which enlightenment\`; fi
-if [ -z "\$wm" ]; then wm=\`which fvwm2\`; fi
-if [ -z "\$wm" ]; then wm=\`which fvwm\`; fi
-if [ -z "\$wm" ]; then wm=\`which 4Dwm\`; fi
-if [ -z "\$wm" ]; then wm=\`which twm\`; fi
+if [ ! -x "\$wm" ]; then wm=\`which sawmill\`; fi
+if [ ! -x "\$wm" ]; then wm=\`which enlightenment\`; fi
+if [ ! -x "\$wm" ]; then wm=\`which fvwm2\`; fi
+if [ ! -x "\$wm" ]; then wm=\`which fvwm\`; fi
+if [ ! -x "\$wm" ]; then wm=\`which 4Dwm\`; fi
+if [ ! -x "\$wm" ]; then wm=\`which twm\`; fi
 \$wm &
 
 xmessage -file - << END

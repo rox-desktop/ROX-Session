@@ -1,0 +1,8 @@
+			ROX-Session
+			A very simple session manager
+			by Thomas Leonard
+
+
+07-Sep-2000
+~~~~~~~~~~~
+Fixed some bash-only problems (Bernard Jungen).

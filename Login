@@ -11,12 +11,12 @@
 # Load a window manager. Keep trying until we find one that works!
 
 wm=`which sawfish`
-if [ -z "$wm" ]; then wm=`which sawmill`; fi
-if [ -z "$wm" ]; then wm=`which enlightenment`; fi
-if [ -z "$wm" ]; then wm=`which fvwm2`; fi
-if [ -z "$wm" ]; then wm=`which fvwm`; fi
-if [ -z "$wm" ]; then wm=`which 4Dwm`; fi
-if [ -z "$wm" ]; then wm=`which twm`; fi
+if [ ! -x "$wm" ]; then wm=`which sawmill`; fi
+if [ ! -x "$wm" ]; then wm=`which enlightenment`; fi
+if [ ! -x "$wm" ]; then wm=`which fvwm2`; fi
+if [ ! -x "$wm" ]; then wm=`which fvwm`; fi
+if [ ! -x "$wm" ]; then wm=`which 4Dwm`; fi
+if [ ! -x "$wm" ]; then wm=`which twm`; fi
 $wm &
 
 # Load ROX-Filer with a panel and a pinboard set up.
