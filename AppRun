@@ -19,7 +19,7 @@ case $1 in
 			exit 1
 		fi
 		echo "Compiling $APP_DIR... please wait..." >&2
-		rm $APP_DIR/src/config.cache
+		rm -f $APP_DIR/src/config.cache
 		cd $APP_DIR/src && ./configure --bindir=$APP_DIR/$PLATFORM \
 			&& make clean && make && echo Done >&2 && exit 0
 		echo Compile failed >&2
