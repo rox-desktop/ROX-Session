@@ -378,8 +378,9 @@ static int become_default_session(void)
 			GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
 			_("OK, now logout by your usual method and when "
 			"you log in again, I should be your session manager.\n"
-			"You can edit your .xsession file to customise "
-			"things..."));
+			"Note: you may need to select 'Default' as your "
+			"desktop type after entering your user name on the "
+			"login screen."));
 	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
 	gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy(dialog);
