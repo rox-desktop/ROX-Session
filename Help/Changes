@@ -2,7 +2,7 @@
 			A very simple session manager
 			by Thomas Leonard
 
-23-Mar-2001
+23-Mar-2001 (Release 0.1.12)
 ~~~~~~~~~~~
 When the window manager quits, the choice box defaults to the last used
 command (so it's easy to restart the same program).
