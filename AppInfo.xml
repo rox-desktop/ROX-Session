@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <AppInfo>
   <Summary>Sets up your desktop when you log in, and lets you log out again</Summary>
-  <Summary xml:lang="sp">Configura tu escritorio cuando ingresas y te permite salir</Summary>
+  <Summary xml:lang="es">Configura tu escritorio cuando ingresas y te permite salir</Summary>
 
   <About>
     <Purpose>Session Manager</Purpose>
-    <Version>0.1.18 PREVIEW</Version>
+    <Version>0.1.18 (14-Dec-2002)</Version>
     <Author>Thomas Leonard</Author>
     <License>GNU General Public License</License>
     <Homepage>http://rox.sourceforge.net</Homepage>
@@ -14,7 +14,7 @@
     <!-- label attribute is for older filers -->
     <Item option='--setup' label='Auto Start...'>
       <Label>Auto Start...</Label>
-      <Label xml:lang='sp'>Iniciar Autom&#x00E1;ticamente...</Label>
+      <Label xml:lang='es'>Iniciar Autom&#x00E1;ticamente...</Label>
     </Item>
   </AppMenu>
 </AppInfo>
