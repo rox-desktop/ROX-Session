@@ -175,8 +175,8 @@ int main(int argc, char **argv)
 		switch (c)
 		{
 			case 'v':
-				fprintf(stderr, "ROX-Session %s\n", VERSION);
-				fputs(_(COPYING), stderr);
+				printf("ROX-Session %s\n", VERSION);
+				fputs(_(COPYING), stdout);
 				return EXIT_SUCCESS;
 			case 'h':
 				fputs(_(HELP), stderr);
