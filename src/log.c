@@ -64,6 +64,7 @@ static GList	*chunks = NULL;
  * in a normal window.
  */
 #define MAX_BUFFER_SIZE 10000			/* In characters */
+static time_t last_log_time;			/* Time of timestamp */
 static GtkTextBuffer *buffer = NULL;
 static GtkWindow *message_window = NULL;	/* The non-popup window */
 
@@ -85,10 +86,19 @@ static void log_own_errors(const gchar *log_domain,
 
 void log_init(void)
 {
-
+	GtkTextIter end;
 	int fds[2];
 
 	buffer = gtk_text_buffer_new(NULL);
+	gtk_text_buffer_create_tag(buffer,
+				"time", "foreground", "blue",
+				NULL);
+	time(&last_log_time);
+	gtk_text_buffer_get_end_iter(buffer, &end);
+	gtk_text_buffer_insert(buffer, &end, "ROX-Session started: ", -1);
+	gtk_text_buffer_insert_with_tags_by_name(buffer, &end,
+				ctime(&last_log_time), -1,
+				"time", NULL);
 
 	option_add_int(&o_time_shown, "log_time_shown", 5);
 
@@ -280,12 +290,22 @@ static void log_msg(const gchar *text, gint len)
 	Chunk   *new;
 	int	chars;
 	GtkTextIter end;
+	time_t  now;
 
 	if (len < 0)
 		len = strlen(text);
 
+	time(&now);
+
 	/* Add to the long history buffer... */
 	gtk_text_buffer_get_end_iter(buffer, &end);
+	if (now - last_log_time > 60)
+	{
+		gtk_text_buffer_insert_with_tags_by_name(buffer,
+						 &end, ctime(&now), -1,
+						 "time", NULL);
+		last_log_time = now;
+	}
 	gtk_text_buffer_insert(buffer, &end, text, len);
 
 	/* Remove stuff from the beginning if it gets too long... */

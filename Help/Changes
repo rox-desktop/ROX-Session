@@ -7,7 +7,9 @@ TODO: Get sawfish's iconize animation to go into the middle of the screen
 
       makedist to put in subdir...
 
-      Time-stamp log messages
+11-Sep-2002
+~~~~~~~~~~~
+Add timestamps to log messages in history window (suggested by krjw).
 
 05-Aug-2002
 ~~~~~~~~~~~

@@ -221,8 +221,8 @@ int main(int argc, char **argv)
 
 	if (test_mode)
 	{
-		show_main_window();
-		/* system("rox -n&"); */
+		/* show_main_window(); */
+		system("rox -n &");
 	}
 
 	gtk_main();
