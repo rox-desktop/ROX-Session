@@ -26,17 +26,7 @@ ${EXEC}: ${OBJECTS}
 	${CC} -o ${EXEC} ${OBJECTS} ${LDFLAGS}
 
 clean:
-	rm -f *.o
+	rm -f *.o Makefile.bak
 
-#$(EXEC): $(PLATFORM_DIR) $(OBJECTS)
-#	$(CC) -o $(EXEC) $(OBJECTS) $(LDFLAGS)
-
-#clean:
-#	rm -f $(OBJECTS) Makefile.bak tags
-
-#depend:
-#	makedepend -- $(CFLAGS) -- $(SRCS)
-
-#$(PLATFORM_DIR):
-#	mkdir $(PLATFORM_DIR)
-
+depend:
+	makedepend -- $(CFLAGS) -- $(SRCS)
