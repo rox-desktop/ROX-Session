@@ -1,9 +1,10 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 0.1.22\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-17 15:14+0200\n"
-"PO-Revision-Date: 2004-05-17 20:41+0200\n"
+"POT-Creation-Date: 2004-05-17 15:45+0100\n"
+"PO-Revision-Date: 2004-05-18 16:29+0200\n"
 "Last-Translator: seb <personseb@yahoo.fr>\n"
 "Language-Team: French <ROX Mailing List <rox-devel@lists.sourceforge.net>>\n"
 "MIME-Version: 1.0\n"
@@ -89,8 +90,9 @@ msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
 msgstr ""
-". Je vais vous fournir un xterm pour essayer de le réparer. ROX-Session tourne "
-"cependant correctement - lancez moi une seconde fois pour vous déconnecter."
+". Je vais vous fournir un xterm pour essayer de le réparer. ROX-Session "
+"tourne cependant correctement - lancez moi une seconde fois pour vous "
+"déconnecter."
 
 #: dbus.c:95
 msgid ""
@@ -100,12 +102,14 @@ msgid ""
 msgstr ""
 "ROX-Session a perdu sa connexion au bus de session D-BUS.\n"
 "Vous devriez sauver votre travail et vous déconnecter aussitôt que possible "
-"(beaucoup de composants ne fonctionnent pas correctement sans ce bus, et c'est le seul"
-"moyen de le redémarrer)."
+"(beaucoup de composants ne fonctionnent pas correctement sans ce bus, et "
+"c'est le seulmoyen de le redémarrer)."
 
 #: dbus.c:226
 msgid "ROX-Session is already running. Can't manage your session twice!"
-msgstr "ROX-Session est déjà exécuté. Il n'est pas possible de gérer votre session deux fois!"
+msgstr ""
+"ROX-Session est déjà exécuté. Il n'est pas possible de gérer votre session "
+"deux fois!"
 
 #: dbus.c:298
 #, c-format
@@ -180,7 +184,7 @@ msgstr ""
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(sauvegarde désactivée par CHOICESPATH)"
 
-#: options.c:1093 settings.c:194
+#: options.c:1093 settings.c:213
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Erreur lors de la sauvegarde de %s: %s"
@@ -209,7 +213,8 @@ msgstr ""
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
 msgstr ""
-"ROX-Filer s'est arrêté (planté?). Vous devez surement essayer de le redémarrer."
+"ROX-Filer s'est arrêté (planté?). Vous devez surement essayer de le "
+"redémarrer."
 
 #: session.c:265
 msgid "Do nothing"
@@ -224,6 +229,7 @@ msgid "_Restart"
 msgstr "_Redémarrer"
 
 #: session.c:293
+#, c-format
 msgid ""
 "Failed to run '%s':\n"
 "%s"
@@ -231,7 +237,7 @@ msgstr ""
 "Impossible d'exécuter '%s' :\n"
 "%s"
 
-#: wm.c:81
+#: wm.c:79
 msgid ""
 "Your window manager has crashed (or quit). Please restart it, or choose "
 "another window manager."
@@ -239,15 +245,17 @@ msgstr ""
 "Votre gestionnaire de fenêtre a planté (ou quitté). Veuillez le redémarrer, "
 "ou choisir un autre gestionnaire de fenêtre."
 
-#: wm.c:150
+#: wm.c:98
+#, c-format
 msgid ""
-"Error loading window manager list '%s':\n"
-"%s"
-msgstr ""
-"Erreur lors du chargement de la liste des gestionnaires de fenêtres '%s':\n"
-"%s"
+"Your default window manager is now '%s'.\n"
+"Would you like to quit your current window manager and start the new one "
+"right now?"
+msgstr "Votre gestionnaire de fenêtre par défaut est maintenant '%s'.\n"
+"Voulez vous quitter le gestionnaire de fenêtre courant et démarrer le nouveau"
+"maintenant ?"
 
-#: wm.c:171
+#: wm.c:172
 msgid ""
 "The window manager which ROX-Session started for you is still running. Quit "
 "it before starting a new one."
@@ -255,15 +263,7 @@ msgstr ""
 "Le gestionnaire de fenêtres que ROX-Session a démarré pour vous s'exécute "
 "toujours. Veuillez le quitter avant d'en démarrer un nouveau."
 
-#: wm.c:179
-msgid ""
-"No window manager is currently selected.\n"
-"Please choose a window manager now."
-msgstr ""
-"Aucun gestionnaire de fentêre n'est actuellement selectionné.\n"
-"Veuillez en choisir maintenant."
-
-#: wm.c:197
+#: wm.c:194
 #, c-format
 msgid ""
 "Failed to start window manager:\n"
@@ -274,80 +274,59 @@ msgstr ""
 "%s\n"
 "Veuiller choisir un nouveau gestionnaire de fenêtres et ré-essayer."
 
-#: wm.c:274
-msgid "Start window manager"
-msgstr "Démarrer le gestionnaire de fenêtres"
-
-#: tips:1 tips:3
-msgid "Window manager"
-msgstr "Gestionnaire de fenêtres"
-
-#: tips:2
-msgid ""
-"The window manager is a program which puts title bars and frames on windows. "
-"It allows you to move windows around, resize them, close them and so on."
-msgstr ""
-"Le gestionnaire de fenêtres est un programme qui ajoute des barres de titres et des "
-"décorations aux fenêtres. Il vous permet de déplacer la fenêtre, la redimensionner, "
-"la fermer et bien plus encore."
-
-#: tips:4
-msgid "Default window manager"
-msgstr "Gestionnaire de fenêtre par défaut"
-
-#: tips:5
+#: tips:1
 msgid "Translation"
 msgstr "Traduction"
 
-#: tips:6
+#: tips:2
 msgid "Language"
 msgstr "Langue"
 
-#: tips:7
+#: tips:3
 msgid "Danish"
 msgstr "Danois"
 
-#: tips:8
+#: tips:4
 msgid "Dutch"
 msgstr "Neérlandais"
 
-#: tips:9
+#: tips:5
 msgid "English (no translation)"
 msgstr "Anglais (pas de traduction)"
 
-#: tips:10
+#: tips:6
 msgid "German"
 msgstr "Allemand"
 
-#: tips:11
+#: tips:7
 msgid "Italian"
 msgstr "Italien"
 
-#: tips:12
+#: tips:8
 msgid "Lithuanian"
 msgstr "Lithuanien"
 
-#: tips:13
+#: tips:9
 msgid "Spanish"
 msgstr "Espagnol"
 
-#: tips:14
+#: tips:10
 msgid "Japanese"
 msgstr "Japonais"
 
-#: tips:15
+#: tips:11
 msgid "Russian"
 msgstr "Russe"
 
-#: tips:16
+#: tips:12
 msgid "Use the LANG environment variable"
 msgstr "Utiliser la variable d'environnement LANG"
 
-#: tips:17
+#: tips:13
 msgid "Messages"
 msgstr "Messages"
 
-#: tips:18
+#: tips:14
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
@@ -356,14 +335,14 @@ msgid ""
 msgstr ""
 "Tous les programmes possèdent un 'flux d'erreur standard' dans lequel ils "
 "peuvent écrire des messages textuels. ROX-Session cré une telle connection "
-"entre lui même et chaque programme qu'il démarre. Il affiche brièvement "
-"tous les messages qu'il reçoit de cette manière à l'écran."
+"entre lui même et chaque programme qu'il démarre. Il affiche brièvement tous "
+"les messages qu'il reçoit de cette manière à l'écran."
 
-#: tips:19
+#: tips:15
 msgid "On-screen message log"
 msgstr "log de message affiché à l'écran"
 
-#: tips:20
+#: tips:16
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
@@ -371,41 +350,41 @@ msgstr ""
 "Vous pouvez utiliser le bouton 3 lors d'un message d'erreur pour basculer "
 "sur la fenêtre de log affichée, ou utiliser ce bouton:"
 
-#: tips:21
+#: tips:17
 msgid "Show messages for:"
 msgstr "Montrer les messages pour:"
 
-#: tips:22
+#: tips:18
 msgid "seconds"
 msgstr "secondes"
 
-#: tips:23
+#: tips:19
 msgid "Number of seconds to display each message for"
 msgstr "Nombres de secondes où le message doit rester affiché"
 
-#: tips:24
+#: tips:20
 msgid "Max area for popup display:"
 msgstr "Aire maximale pour les affichage de type popup:"
 
-#: tips:25
+#: tips:21
 msgid "%"
 msgstr "%"
 
-#: tips:26 tips:27 tips:28
+#: tips:22 tips:23 tips:24
 msgid ""
 "Normally, messages are shown overlayed on the screen for a few seconds. If "
 "there are a large number of messages (more than this amount of the screen is "
 "covered) then the view switches to the window style."
 msgstr ""
-"Normallement, les messages sont affichés au dessus de l'écran pendant quelques "
-"secondes. Si il y a un nombre important de messages (plus qu'il n'en faut pour couvrir "
-"l'écran) la vue bascule en mode fenêtre."
+"Normallement, les messages sont affichés au dessus de l'écran pendant "
+"quelques secondes. Si il y a un nombre important de messages (plus qu'il "
+"n'en faut pour couvrir l'écran) la vue bascule en mode fenêtre."
 
-#: tips:29 tips:30
+#: tips:25 tips:26
 msgid "Power"
 msgstr "Alimentation"
 
-#: tips:31
+#: tips:27
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -413,52 +392,247 @@ msgid ""
 "permission to shutdown the system."
 msgstr ""
 "Ces commandes peuvent être sélectionnées dans la boîte de déconnexion comme "
-"alternatives de déconnexion. Le réglage correct varie d'un système à l'autre. "
-"Vous pouvez avoir recours  xsu ou sudo pour les commandes si votre système "
-"n'authorise pas les utilisateurs normaux à éteindre le système."
+"alternatives de déconnexion. Le réglage correct varie d'un système à "
+"l'autre. Vous pouvez avoir recours  xsu ou sudo pour les commandes si votre "
+"système n'authorise pas les utilisateurs normaux à éteindre le système."
 
-#: tips:32
+#: tips:28
 msgid "Halt command:"
 msgstr "Commande d'arrêt:"
 
-#: tips:33
+#: tips:29
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr "En général les commandes pour arrêter sont 'halt' et 'shutdown -t now'"
 
-#: tips:34
+#: tips:30
 msgid "Reboot command:"
 msgstr "Commande de redémarrage:"
 
-#: tips:35
+#: tips:31
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
-msgstr "En général les commandes de redémarrage sont 'reboot' et 'shutdown -t now -r'"
+msgstr ""
+"En général les commandes de redémarrage sont 'reboot' et 'shutdown -t now -r'"
 
-#: tips:36
+#: tips:32
 msgid "Suspend command:"
 msgstr "Commande de suspension:"
 
-#: tips:37 tips:38 tips:39
+#: tips:33 tips:34 tips:35
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
 "need a kernel with the correct system compiled in and enabled."
 msgstr ""
-"Si votre système utilise APM pour la gestion de l'énergie, essayer 'apm -s' ou "
-"tout autre commande similaire. Les utilisateurs d'ACPI peuvent essayer 'xset dmps "
-"force off; echo 1 > /proc/acpi/sleep'. Vous devez avoir un noyau avec les options "
-"nécessaires correctement compilées et activées."
+"Si votre système utilise APM pour la gestion de l'énergie, essayer 'apm -s' "
+"ou tout autre commande similaire. Les utilisateurs d'ACPI peuvent essayer "
+"'xset dmps force off; echo 1 > /proc/acpi/sleep'. Vous devez avoir un noyau "
+"avec les options nécessaires correctement compilées et activées."
 
-#: tips:40
+#: tips:36
 msgid "Look and Feel"
 msgstr "Apparence et utilisation"
 
-#: tips:41 tips:42 tips:43
+#: tips:37 tips:38 tips:39
 msgid ""
 "The mouse, keyboard and display options have moved to the new LookAndFeel "
 "application, available from http://rox.sf.net."
 msgstr ""
 "La souris, le clavier et les options d'affichage ont été déplacés dans la "
 "nouvelle application LookAndFeel, disponible ici http://rox.sf.net."
+
+#: logout.py:66
+msgid "_Halt"
+msgstr "_Arrêt"
+
+#: logout.py:68
+msgid "Attempting to halt the system..."
+msgstr "Tentative d'arrêt du système..."
+
+#: logout.py:71
+msgid "_Reboot"
+msgstr "_Redémarrage"
+
+#: logout.py:73
+msgid "Attempting to restart the system..."
+msgstr "Tentative de redémarrage du système..."
+
+#: logout.py:76
+msgid "_Sleep"
+msgstr "_Veille"
+
+#: logout.py:78
+msgid "Attempting to enter suspend mode..."
+msgstr "Tentative d'activation du mode veille..."
+
+#: logout.py:82
+msgid ""
+"Really logout?\n"
+"(unsaved data will be lost)"
+msgstr "Voulez vous vraiment vous déconnecter?\n"
+"(les données non sauvegardées seront perdues)"
+
+#: logout.py:87
+msgid "ROX-Session"
+msgstr "ROX-Session"
+
+#: logout.py:92
+msgid "Session Settings"
+msgstr "Options de la session"
+
+#: logout.py:98
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: setup.py:24
+msgid ""
+"Tried to make a backup of your old '%s' file, but the backup file ('%s') "
+"already exists."
+msgstr "Tentative de sauvegarde de votre ancien fichier '%s', mais le fichier de sauvegarde ('%s') "
+"existe déjà."
+
+#: setup.py:35
+msgid ""
+"Do you want to make ROX a choice on your login screen (affects all users and "
+"requires the root password), or do you just want to set the session for your "
+"current user?\n"
+"\n"
+"If you know the root password and use a graphical display manager such as "
+"gdm or kdm, you should probably choose that option."
+msgstr "Voulez vous faire de ROX un choix sur l'écran de connexion (tous les utlisateurs sont "
+"concernés et cela nécessite le mot de passe root), ou voulez vous simplement le "
+"configurer pour votre utilisateur courant ?\n"
+"\n"
+"Si vous connaissez le mot de passe root et que vous utilisez un gestionnaire "
+"de connexion graphique tel que gdm ou kdm, vous choissirez surement cette option."
+
+#: setup.py:43
+msgid "Setup for user"
+msgstr "Configuration utilisateur"
+
+#: setup.py:44
+msgid "Add to login"
+msgstr "Ajouter à la connexion"
+
+#: setup.py:114
+msgid ""
+"OK, now logout by your usual method and when you log in again, I should be "
+"your session manager.\n"
+"Note: you may need to select 'Default' as your desktop type after entering "
+"your user name on the login screen."
+msgstr "OK, vous pouvez maintenant vous déconnecter de manière habituelle et "
+"lors de votre reconnexion, je serais votre gestionnaire de session.\n"
+"A noter: vous devez choisir type de bureau par 'Défaut' après avoir tapé "
+"votre nom d'utilisateur sur l'écran de connexion."
+
+#: setup.py:128
+msgid ""
+"I wanted to install a rox.desktop file in your session directory, but I "
+"couldn't find one! I tried these places (defaults for gdm2, at least):\n"
+"\n"
+msgstr "J'ai tenté d'installer un fichier de bureau rox dans votre répertoire de "
+"session, mais je n'ai pas pu en trouver! J'ai essayé ces emplacements (par "
+"défaut pour gdm2,au moins) :\n"
+"\n"
+
+#: setup.py:133
+msgid ""
+"/usr/local/sbin directory is missing! I want to install the rox-session "
+"script there... Please create it and try again."
+msgstr "le répertoire /usr/local/sbin est manquant! Je veux y installer le script "
+"rox-session... Veuillez créer ce répertoire et réessayer."
+
+#: setup.py:151
+msgid ""
+"OK, now logout by your usual method, and choose ROX from the session menu on "
+"your login screen just after entering your user name (but before entering "
+"your password)."
+msgstr "OK, vous pouvez maintenant vous déconnecter de façon habituelle, et choisir ROX "
+"depuis le menu session de votre écran de connexion juste après avoir saisie votre "
+"nom d'utilisateur (mais avant d'entrer votre mot de passe)."
+
+#: setup.py:164
+msgid ""
+"OK, I don't know what the problem is. Please ask on the rox-users mailing "
+"list. When we know what the problem is, we can add an extra check here to "
+"help out others in future.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(you can copy and paste that address into your browser)"
+msgstr "OK, je ne sais pas quel est le problème. Veuillez demander auprès de la "
+"liste de diffusion rox-users. Quand nous déterminerons le problème, "
+"nous pourrons ajouter une vérification supplémentaires ici pour aider les "
+"futurs utilisateurs.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(vous pouvez copier/coller cette adresse dans votre navigateur)"
+
+#: setup.py:175
+msgid ""
+"ROX-Session does not appear to be managing your session. Would you like to "
+"set it up now?\n"
+"\n"
+"If you think it should already be set up, click on Help."
+msgstr "ROX-Session ne semble pas gérer votre session. Voulez vous le configurer maintenant ?\n"
+"\n"
+"Si vous pensez que cela a déjà été fait, cliquez sur l'Aide."
+
+#: setup.py:180
+msgid "Set up ROX"
+msgstr "Configuration de ROX"
+
+#: setup.py:183
+msgid "Set up ROX-Session"
+msgstr "Configuration de ROX-Session"
+
+#: setup.py:195
+msgid ""
+"Please enter the root password when prompted. I will attempt to create the "
+"files '%s' and '%s'."
+msgstr "" 
+"Une fois solicité, veuillez entrer le mot de passe root. Je vais ensuite tenter de créer les fichiers '%s' and '%s'"
+
+#: setup.py:203
+msgid "Error trying to run xterm to ask for the root password."
+msgstr "Une erreur est survenue lors du lancement de xterm pour la saisie "
+"du mot de passe root."
+
+#: setup.py:205 setup.py:207
+msgid "Failed to create '%s'"
+msgstr ""
+"Impossible de créer '%s'"
+
+#~ msgid ""
+#~ "Error loading window manager list '%s':\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Erreur lors du chargement de la liste des gestionnaires de fenêtres '%"
+#~ "s':\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "No window manager is currently selected.\n"
+#~ "Please choose a window manager now."
+#~ msgstr ""
+#~ "Aucun gestionnaire de fentêre n'est actuellement selectionné.\n"
+#~ "Veuillez en choisir maintenant."
+
+#~ msgid "Start window manager"
+#~ msgstr "Démarrer le gestionnaire de fenêtres"
+
+#~ msgid "Window manager"
+#~ msgstr "Gestionnaire de fenêtres"
+
+#~ msgid ""
+#~ "The window manager is a program which puts title bars and frames on "
+#~ "windows. It allows you to move windows around, resize them, close them "
+#~ "and so on."
+#~ msgstr ""
+#~ "Le gestionnaire de fenêtres est un programme qui ajoute des barres de "
+#~ "titres et des décorations aux fenêtres. Il vous permet de déplacer la "
+#~ "fenêtre, la redimensionner, la fermer et bien plus encore."
+
+#~ msgid "Default window manager"
+#~ msgstr "Gestionnaire de fenêtre par défaut"
 
 #~ msgid "<dir>"
 #~ msgstr "<rp>"
@@ -533,8 +707,7 @@ msgstr ""
 #~ "<b>'*.htm', '*.html'</b> (trouve les fichiers HTML)\n"
 #~ "<b>IsDir 'lib'</b> (trouve les rpertoires nomms 'lib')\n"
 #~ "<b>IsReg 'core'</b> (trouve un fichier ordinaire nomm 'core')\n"
-#~ "<b>! (IsDir, IsReg)</b> (n'est ni un rpertoire, ni un fichier "
-#~ "ordinaire)\n"
+#~ "<b>! (IsDir, IsReg)</b> (n'est ni un rpertoire, ni un fichier ordinaire)\n"
 #~ "<b>mtime after 1 day ago and size > 1Mb</b> (gros, et rcemment modifi)\n"
 #~ "<b>'CVS' prune, isreg</b> (un fichier ordinaire pas dans CVS)\n"
 #~ "<b>IsReg system(grep -q fred \\\"%\\\")</b> (contient le mot 'fred')\n"
@@ -561,8 +734,7 @@ msgstr ""
 #~ "(valeurs)\n"
 #~ "\n"
 #~ "<u>Fonctions spciales</u>\n"
-#~ "<b>system(commande)</b> (vrai si 'commande' se termine avec un code "
-#~ "nul;\n"
+#~ "<b>system(commande)</b> (vrai si 'commande' se termine avec un code nul;\n"
 #~ "un % dans 'commande' est remplac par le chemin du fichier courant)\n"
 #~ "<b>prune</b> (faux, et empche de chercher dans un rpertoire)."
 
@@ -598,8 +770,7 @@ msgstr ""
 #~ msgstr ""
 #~ "Normalement, il suffit de slectionner une commande  partir du menu "
 #~ "(cliquer\n"
-#~ "sur la flche  ct de la bote de commande). Parfois, il vous faut "
-#~ "plus...\n"
+#~ "sur la flche  ct de la bote de commande). Parfois, il vous faut plus...\n"
 #~ "\n"
 #~ "Le format d'une commande est: <b>CHANGEMENT, CHANGEMENT, ...</b>\n"
 #~ "Chaque <b>CHANGEMENT</b> a la forme: <b>QUI COMMENT PERMISSIONS</b>\n"
@@ -785,8 +956,7 @@ msgstr ""
 #~ msgstr "'Copie de %s vers %s\n"
 
 #~ msgid "!ERROR: Destination already exists, but is not a directory\n"
-#~ msgstr ""
-#~ "!ERREUR : la destination existe dj, mais n'est pas un rpertoire\n"
+#~ msgstr "!ERREUR : la destination existe dj, mais n'est pas un rpertoire\n"
 
 #~ msgid ""
 #~ "!%s\n"
@@ -923,8 +1093,7 @@ msgstr ""
 
 #~ msgid "You need to select the items whose permissions you want to change"
 #~ msgstr ""
-#~ "Vous devez slectionner les objets dont vous voulez changer les "
-#~ "permissions"
+#~ "Vous devez slectionner les objets dont vous voulez changer les permissions"
 
 #~ msgid "a+x (Make executable/searchable)"
 #~ msgstr "a+x (Rendre excutable/cherchable)"
@@ -1014,8 +1183,8 @@ msgstr ""
 #~ "the menu for all items of this type (%s/%s)."
 #~ msgstr ""
 #~ "Faites un lien symbolique des programmes que vous voulez dans ce "
-#~ "rpertoire. Ils apparatront dans le menu pour tous les objets de ce type "
-#~ "(%s/%s)."
+#~ "rpertoire. Ils apparatront dans le menu pour tous les objets de ce type (%"
+#~ "s/%s)."
 
 #~ msgid "Customise Menu..."
 #~ msgstr "Personnaliser le menu..."
@@ -1108,8 +1277,8 @@ msgstr ""
 
 #~ msgid "Sorry, can't display a menu of actions for a remote file / raw data."
 #~ msgstr ""
-#~ "Dsol, impossible d'afficher un menu des actions pour un fichier "
-#~ "distant / des donnes brutes."
+#~ "Dsol, impossible d'afficher un menu des actions pour un fichier distant / "
+#~ "des donnes brutes."
 
 #~ msgid "UntitledData"
 #~ msgstr "UntitledData"
@@ -1123,8 +1292,8 @@ msgstr ""
 #~ msgid ""
 #~ "Can't get data from remote machine (application/octet-stream not provided)"
 #~ msgstr ""
-#~ "Impossible d'obtenir les donnes de la machine distante (application/"
-#~ "octet-stream non fourni)"
+#~ "Impossible d'obtenir les donnes de la machine distante (application/octet-"
+#~ "stream non fourni)"
 
 #~ msgid ""
 #~ "Some of these files are on a different machine - they will be ignored - "
@@ -1161,8 +1330,8 @@ msgstr ""
 
 #~ msgid "Sorry, you need to drop exactly one file onto the drop area."
 #~ msgstr ""
-#~ "Dsol, vous devez faire glisser exactement un seul fichier sur la zone "
-#~ "de dpt."
+#~ "Dsol, vous devez faire glisser exactement un seul fichier sur la zone de "
+#~ "dpt."
 
 #~ msgid "Sorry, I can't use '%s' because it's not a local file."
 #~ msgstr ""
@@ -1212,8 +1381,8 @@ msgstr ""
 #~ "Make sure NumLock is on if you use the keypad."
 #~ msgstr ""
 #~ "Le groupe %s n'est pas dfini. Slectionnez des fichiers et appuyez sur "
-#~ "<Ctrl>+%s pour le dfinir. Appuyez seulement sur %s pour reslectionner "
-#~ "ces fichiers  l'avenir.\n"
+#~ "<Ctrl>+%s pour le dfinir. Appuyez seulement sur %s pour reslectionner ces "
+#~ "fichiers  l'avenir.\n"
 #~ "Assurez-vous que NumLock est activ si vous utilisez le pav numrique."
 
 #~ msgid "Directory '%s' is not accessible"
@@ -1467,8 +1636,8 @@ msgstr ""
 #~ msgstr ""
 #~ "Erreur dans le fichier '%s'  la ligne %d : \n"
 #~ "\"%s\"\n"
-#~ "Cela peut tre d  la mise  jour depuis une version antrieure de ROX-"
-#~ "Filer. Ouvrez la fentre Options et cliquez sur Sauver.\n"
+#~ "Cela peut tre d  la mise  jour depuis une version antrieure de ROX-Filer. "
+#~ "Ouvrez la fentre Options et cliquez sur Sauver.\n"
 #~ "Les erreurs suivantes seront ignores."
 
 #~ msgid "Incorrect or missing line break in text/uri-list data"
@@ -1711,8 +1880,7 @@ msgstr ""
 #~ "\n"
 #~ "  -b, --bottom=PANNEAU\touvre PANNEAU en bas comme panneau\n"
 #~ "  -c, --client-id=ID\tutilis pour la gestion de sessions\n"
-#~ "  -d, --dir=RPERTOIRE\touvre RPERTOIRE comme rpertoire (pas "
-#~ "application)\n"
+#~ "  -d, --dir=RPERTOIRE\touvre RPERTOIRE comme rpertoire (pas application)\n"
 #~ "  -D, --close=RP\tferme RPERTOIRE et ses sous-rpertoires\n"
 #~ "  -h, --help\t\taffiche cette aide et quitte\n"
 #~ "  -l, --left=PANNEAU\touvre PANNEAU  gauche comme panneau\n"
@@ -1834,10 +2002,6 @@ msgstr ""
 #~ msgid "Refresh"
 #~ msgstr "Rafrachir"
 
-#, fuzzy
-#~ msgid "Save Display Settings..."
-#~ msgstr "Sauver les options d'affichage"
-
 #~ msgid "Copy..."
 #~ msgstr "Copier..."
 
@@ -1948,8 +2112,8 @@ msgstr ""
 #~ "If off, the path from the root directory is stored - use this if the "
 #~ "symlink may move but the target will stay put."
 #~ msgstr ""
-#~ "Si active, le lien symbolique sera relatif au rpertoire du fichier "
-#~ "cible. Utiliser ceci si le lien et la cible seront dplacs ensemble.\n"
+#~ "Si active, le lien symbolique sera relatif au rpertoire du fichier cible. "
+#~ "Utiliser ceci si le lien et la cible seront dplacs ensemble.\n"
 #~ "Si dsactive, le lien symbolique est absolu - utiliser ceci si le lien "
 #~ "peut tre dplac sans que la cible bouge."
 
@@ -1957,8 +2121,7 @@ msgstr ""
 #~ msgstr "Le nouveau chemin n'est pas absolu"
 
 #~ msgid "Symlink from '%s' already exists. Replace it with a link to '%s'?"
-#~ msgstr ""
-#~ "Un lien depuis '%s' existe dj. Le remplacer par un lien vers '%s' ?"
+#~ msgstr "Un lien depuis '%s' existe dj. Le remplacer par un lien vers '%s' ?"
 
 #~ msgid "_Replace"
 #~ msgstr "_Remplacer"
@@ -1977,8 +2140,8 @@ msgstr ""
 
 #~ msgid "Error creating file: could not find the template for %s"
 #~ msgstr ""
-#~ "Erreur lors de la cration du fichier: impossible de trouver le modle "
-#~ "pour %s"
+#~ "Erreur lors de la cration du fichier: impossible de trouver le modle pour "
+#~ "%s"
 
 #~ msgid ""
 #~ "The `Send To' menu provides a quick way to send some files to an "
@@ -1994,26 +2157,26 @@ msgstr ""
 #~ "which will only be shown for files of that type. `.group' is shown only "
 #~ "when multiple files are selected."
 #~ msgstr ""
-#~ "Le menu `Envoyer ' fournit une manire rapide d'envoyer des fichiers  "
-#~ "une application. Les applications listes sont celles contenues dans les "
+#~ "Le menu `Envoyer ' fournit une manire rapide d'envoyer des fichiers  une "
+#~ "application. Les applications listes sont celles contenues dans les "
 #~ "rpertoires suivants:\n"
 #~ "\n"
 #~ "%s\n"
 #~ "%s\n"
-#~ "Le menu `Envoyer ' peut tre ouvert par <Shift>+<clic Menu> au-dessus "
-#~ "d'un fichier.\n"
+#~ "Le menu `Envoyer ' peut tre ouvert par <Shift>+<clic Menu> au-dessus d'un "
+#~ "fichier.\n"
 #~ "\n"
 #~ "Utilisation avance :\n"
-#~ "Vous pouvez aussi crer des sous-rpertoires appels `.text_html', `."
-#~ "text', etc. qui n'apparatront que pour des fichiers de ce type. `.group' "
-#~ "n'est montr que si plusieurs fichiers sont slectionns."
+#~ "Vous pouvez aussi crer des sous-rpertoires appels `.text_html', `.text', "
+#~ "etc. qui n'apparatront que pour des fichiers de ce type. `.group' n'est "
+#~ "montr que si plusieurs fichiers sont slectionns."
 
 #~ msgid ""
 #~ "I'll show you your SendTo directory now; you should symlink (Ctrl+Shift "
 #~ "drag) any applications you want into it."
 #~ msgstr ""
-#~ "Je vais maintenant vous montrer votre rpertoire SendTo (envoyer ); "
-#~ "vous devez y lier (faire glisser avec <Ctrl> et <Shift> enfonces) les "
+#~ "Je vais maintenant vous montrer votre rpertoire SendTo (envoyer ); vous "
+#~ "devez y lier (faire glisser avec <Ctrl> et <Shift> enfonces) les "
 #~ "applications voulues."
 
 #~ msgid "Your CHOICESPATH variable setting prevents customisations - sorry."
@@ -2077,8 +2240,7 @@ msgstr ""
 #~ msgstr "Regarder dans ... ?"
 
 #~ msgid "You cannot do this to more than one item at a time"
-#~ msgstr ""
-#~ "Vous ne pouvez pas appliquer cette action  plus d'un objet  la fois"
+#~ msgstr "Vous ne pouvez pas appliquer cette action  plus d'un objet  la fois"
 
 #~ msgid "Rename"
 #~ msgstr "Renommer"
@@ -2097,8 +2259,8 @@ msgstr ""
 #~ "\tgtk-can-change-accels = 1\n"
 #~ "\t(this only works if NOT using XSETTINGS)"
 #~ msgstr ""
-#~ "Les raccourcis utilisateur sont dsactivs par dfaut dans Gtk2 et vous "
-#~ "ne les avez pas activs. Vous pouvez activer cette fonctionnalit:\n"
+#~ "Les raccourcis utilisateur sont dsactivs par dfaut dans Gtk2 et vous ne "
+#~ "les avez pas activs. Vous pouvez activer cette fonctionnalit:\n"
 #~ "\n"
 #~ "1) en utilisant un gestionnaire XSettings, comme ROX-Session ou gnome-"
 #~ "settings-daemon ou\n"
@@ -2123,8 +2285,8 @@ msgstr ""
 #~ "- dplacer le pointeur au-dessus de l'entre voulue,\n"
 #~ "- appuyer sur la touche que vous voulez attacher  l'entre.\n"
 #~ "\n"
-#~ "La touche apparatra  ct de l'entre du menu et vous pourrez  "
-#~ "l'avenir juste appuyer sur cette touche, sans avoir  ouvrir le menu."
+#~ "La touche apparatra  ct de l'entre du menu et vous pourrez  l'avenir "
+#~ "juste appuyer sur cette touche, sans avoir  ouvrir le menu."
 
 #~ msgid "Set keyboard shortcuts"
 #~ msgstr "Fixer les raccourcis clavier"
@@ -2154,8 +2316,8 @@ msgstr ""
 #~ msgid ""
 #~ "Enter a shell command to execute. Click on a file to add it to the buffer."
 #~ msgstr ""
-#~ "Entrez une commande shell  excuter. Cliquez sur un fichier pour "
-#~ "l'ajouter au buffer."
+#~ "Entrez une commande shell  excuter. Cliquez sur un fichier pour l'ajouter "
+#~ "au buffer."
 
 #, fuzzy
 #~ msgid ""
@@ -2193,15 +2355,14 @@ msgstr ""
 #~ msgstr "Symbole '=' manquant"
 
 #~ msgid "Your old panel file has been converted to the new XML format."
-#~ msgstr ""
-#~ "Votre vieux fichier de panneau a t converti au nouveau format XML."
+#~ msgstr "Votre vieux fichier de panneau a t converti au nouveau format XML."
 
 #~ msgid ""
 #~ "You have tried to close a panel via the window manager - I usually find "
 #~ "that this is accidental... really close?"
 #~ msgstr ""
-#~ "Vous avez essay de fermer un panneau avec le gestionnaire de fentres - "
-#~ "je considre gnralement cette action comme accidentelle... Voulez-vous "
+#~ "Vous avez essay de fermer un panneau avec le gestionnaire de fentres - je "
+#~ "considre gnralement cette action comme accidentelle... Voulez-vous "
 #~ "vraiment le fermer ?"
 
 #~ msgid "Missing < or > in panel config file"
@@ -2232,10 +2393,10 @@ msgstr ""
 #~ "application directory into the Set Backdrop dialog box, or (for "
 #~ "programmers) pass it to the SOAP SetBackdropApp method."
 #~ msgstr ""
-#~ "Le gestionnaire d'image de fond doit tre un rpertoire application. "
-#~ "Faites glisser un rpertoire application dans la bote de dialogue "
-#~ "Fixer l'image de fond ou (pour les programmeurs) passez-le  la "
-#~ "mthode SOAP SetBackdropApp."
+#~ "Le gestionnaire d'image de fond doit tre un rpertoire application. Faites "
+#~ "glisser un rpertoire application dans la bote de dialogue Fixer l'image "
+#~ "de fond ou (pour les programmeurs) passez-le  la mthode SOAP "
+#~ "SetBackdropApp."
 
 #~ msgid ""
 #~ "You can only set the backdrop to an image or to a program which knows how "
@@ -2289,8 +2450,8 @@ msgstr ""
 #~ "No pinboard was in use... the 'Default' pinboard has been selected. Use "
 #~ "'rox -p=Default' to turn it on in future."
 #~ msgstr ""
-#~ "Aucun punaiseur n'tait utilis... le punaiseur 'Default' a t "
-#~ "slectionn. Utilisez 'rox -p=Default' pour le choisir  l'avenir."
+#~ "Aucun punaiseur n'tait utilis... le punaiseur 'Default' a t slectionn. "
+#~ "Utilisez 'rox -p=Default' pour le choisir  l'avenir."
 
 #~ msgid ""
 #~ "Only files (and certain applications) can be used to set the background "
@@ -2370,18 +2531,17 @@ msgstr ""
 #~ msgstr "Impossible de lire le lien: %s"
 
 #~ msgid "Broken symlink (or you don't have permission to follow it): %s"
-#~ msgstr ""
-#~ "Lien symbolique incorrect (ou pas de permission pour le suivre): %s"
+#~ msgstr "Lien symbolique incorrect (ou pas de permission pour le suivre): %s"
 
 #~ msgid ""
 #~ "No run action specified for files of this type (%s/%s) - you can set a "
 #~ "run action by choosing `Set Run Action' from the File menu, or you can "
 #~ "just drag the file to an application"
 #~ msgstr ""
-#~ "Aucune action d'excution spcifie pour les fichiers de ce type (%s/%s) "
-#~ "- vous pouvez fixer une action d'excution en choisissant Fixer "
-#~ "l'action d'excution depuis le menu Fichier, ou vous pouvez juste "
-#~ "faire glisser le fichier sur une application"
+#~ "Aucune action d'excution spcifie pour les fichiers de ce type (%s/%s) - "
+#~ "vous pouvez fixer une action d'excution en choisissant Fixer l'action "
+#~ "d'excution depuis le menu Fichier, ou vous pouvez juste faire glisser le "
+#~ "fichier sur une application"
 
 #~ msgid "B"
 #~ msgstr "O"
@@ -2417,16 +2577,16 @@ msgstr ""
 #~ msgstr "Lire"
 
 #~ msgid "Rescan directory contents"
-#~ msgstr "Relire le contenu du rpertoire"
+#~ msgstr "Relire le contenu du répertoire"
 
 #~ msgid "Change icon size"
-#~ msgstr "Changer la taille des icnes"
+#~ msgstr "Changer la taille des icones"
 
 #~ msgid "Automatic size mode"
 #~ msgstr "Mode taille automatique"
 
 #~ msgid "Show extra details"
-#~ msgstr "Montrer tous les dtails"
+#~ msgstr "Montrer tous les détails"
 
 #~ msgid "Sort"
 #~ msgstr "Trier"
@@ -2528,19 +2688,18 @@ msgstr ""
 #~ "worry. Otherwise, you should check, or even just delete, all the existing "
 #~ "run actions."
 #~ msgstr ""
-#~ "L'excutable '%s' a un accs en criture pour tout le monde ! Je refuse "
-#~ "de le lancer. Veuillez changer les droits d'accs ds maintenant (ce "
-#~ "problme a pu tre caus par un bug dans d'anciennes versions du filer).\n"
+#~ "L'excutable '%s' a un accs en criture pour tout le monde ! Je refuse de "
+#~ "le lancer. Veuillez changer les droits d'accs ds maintenant (ce problme a "
+#~ "pu tre caus par un bug dans d'anciennes versions du filer).\n"
 #~ "\n"
 #~ "Avoir des actions d'excution (qui ne sont pas des liens symboliques)  "
-#~ "accs en criture pour tout le monde signifie que d'autres utilisateurs "
-#~ "de votre ordinateur peuvent remplacer vos actions d'excution par des "
+#~ "accs en criture pour tout le monde signifie que d'autres utilisateurs de "
+#~ "votre ordinateur peuvent remplacer vos actions d'excution par des "
 #~ "versions malveillantes.\n"
 #~ "\n"
-#~ "Si vous faites confiance  tous ceux qui peuvent crire dans ces "
-#~ "fichiers, vous n'avez pas  vous inquiter. Dans le cas contraire, vous "
-#~ "devez vrifier, ou mme juste supprimer, toutes les actions d'excution "
-#~ "existantes."
+#~ "Si vous faites confiance  tous ceux qui peuvent crire dans ces fichiers, "
+#~ "vous n'avez pas  vous inquiter. Dans le cas contraire, vous devez "
+#~ "vrifier, ou mme juste supprimer, toutes les actions d'excution existantes."
 
 #~ msgid "go-w (Fix security problem)"
 #~ msgstr "go-w (corriger un problme de scurit)"
@@ -2551,8 +2710,8 @@ msgstr ""
 #~ "\n"
 #~ "gimp \"$@\""
 #~ msgstr ""
-#~ "Entrez une commande shell qui chargera \"$@\" dans un programme "
-#~ "appropri. Ex.:\n"
+#~ "Entrez une commande shell qui chargera \"$@\" dans un programme appropri. "
+#~ "Ex.:\n"
 #~ "\n"
 #~ "gimp \"$@\""
 
@@ -2606,8 +2765,8 @@ msgstr ""
 #~ "A run action already exists and is quite a big program - are you sure you "
 #~ "want to delete it?"
 #~ msgstr ""
-#~ "Une action d'excution existe dj et est un assez gros programme - tes-"
-#~ "vous sr de vouloir la supprimer ?"
+#~ "Une action d'excution existe dj et est un assez gros programme - tes-vous "
+#~ "sr de vouloir la supprimer ?"
 
 #~ msgid "Can't remove %s: %s"
 #~ msgstr "Impossible de supprimer %s : %s"
@@ -2630,9 +2789,9 @@ msgstr ""
 #~ "You should move it there (and make a symlink from ~/.mime to it for older "
 #~ "applications)."
 #~ msgstr ""
-#~ "Le rpertoire ~/.mime a t dplac. Ce doit maintenant tre ~/.local/"
-#~ "share/mime. Vous devez le dplacer l (et crer un lien symbolique de ~/."
-#~ "mime vers lui pour les anciennes applications)."
+#~ "Le rpertoire ~/.mime a t dplac. Ce doit maintenant tre ~/.local/share/"
+#~ "mime. Vous devez le dplacer l (et crer un lien symbolique de ~/.mime vers "
+#~ "lui pour les anciennes applications)."
 
 #~ msgid ""
 #~ "The standard MIME type database (version 0.9 or later) was not found. The "
@@ -2645,10 +2804,10 @@ msgstr ""
 #~ "allow the files to be read (check /usr/local/share/mime/globs or /usr/"
 #~ "share/mime/globs)."
 #~ msgstr ""
-#~ "La base de donnes des types MIME standard (version 0.9 ou ultrieure) "
-#~ "n'a pas t trouve. Le filer ne pourra probablement pas montrer les "
-#~ "types corrects pour les diffrents fichiers. Vous devez tlcharger et "
-#~ "installer le paquet 'shared-mime-info-0.9'  partir de :\n"
+#~ "La base de donnes des types MIME standard (version 0.9 ou ultrieure) n'a "
+#~ "pas t trouve. Le filer ne pourra probablement pas montrer les types "
+#~ "corrects pour les diffrents fichiers. Vous devez tlcharger et installer "
+#~ "le paquet 'shared-mime-info-0.9'  partir de :\n"
 #~ "http://www.freedesktop.org/software/shared-mime-info\n"
 #~ "\n"
 #~ "Si vous avez dj install ce paquet, vrifiez que les droits d'accs "
@@ -2659,19 +2818,11 @@ msgstr ""
 #~ "Icon theme '%s' does not contain MIME icons. Using ROX default theme "
 #~ "instead."
 #~ msgstr ""
-#~ "Le thme d'icnes '%s' ne contient pas d'icnes MIME. Utilisation du "
-#~ "thme par dfaut de ROX."
-
-#~ msgid ""
-#~ "Failed to create symlink '%s':\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible de crer le lien symbolique '%s' :\n"
-#~ "%s"
+#~ "Le thme d'icnes '%s' ne contient pas d'icnes MIME. Utilisation du thme "
+#~ "par dfaut de ROX."
 
 #~ msgid "The pathname you gave does not exist. The icon has not been changed."
-#~ msgstr ""
-#~ "Le chemin que vous avez donn n'existe pas. L'icne n'a pas t change."
+#~ msgstr "Le chemin que vous avez donn n'existe pas. L'icne n'a pas t change."
 
 #~ msgid ""
 #~ "Unable to load image file -- maybe it's not in a format I understand, or "
@@ -2726,10 +2877,10 @@ msgstr ""
 #~ "All users will then see the icon, and you can move the directory around "
 #~ "safely. This is usually the best option if you can write to the directory."
 #~ msgstr ""
-#~ "Copier l'image dans le rpertoire comme fichier cach '.DirIcon'. Tous "
-#~ "les utilisateurs verront alors l'icne et vous pourrez dplacer le "
-#~ "rpertoire sans risque. C'est gnralement la meilleure option si vous "
-#~ "avez le droit d'crire dans le rpertoire."
+#~ "Copier l'image dans le rpertoire comme fichier cach '.DirIcon'. Tous les "
+#~ "utilisateurs verront alors l'icne et vous pourrez dplacer le rpertoire "
+#~ "sans risque. C'est gnralement la meilleure option si vous avez le droit "
+#~ "d'crire dans le rpertoire."
 
 #~ msgid "Copy image into directory"
 #~ msgstr "Copier l'image dans le rpertoire"
@@ -2799,8 +2950,8 @@ msgstr ""
 #~ "`Resize Window' menu entry or by double-clicking on the window background."
 #~ msgstr ""
 #~ "Vous devrez changer manuellement la taille des fentres, via le "
-#~ "gestionnaire de fentres, l'entre du menu Changer taille de la "
-#~ "fentre ou en double-cliquant sur le fond de la fentre."
+#~ "gestionnaire de fentres, l'entre du menu Changer taille de la fentre ou "
+#~ "en double-cliquant sur le fond de la fentre."
 
 #~ msgid "Resize when changing the display style"
 #~ msgstr "Changer de taille quand vous changez le style d'affichage"
@@ -2809,8 +2960,8 @@ msgstr ""
 #~ "Changing the size of the icons or which details are displayed will resize "
 #~ "the window for you."
 #~ msgstr ""
-#~ "Le fait de changer la taille des icnes ou les dtails  afficher "
-#~ "provoquera un changement automatique de la taille de la fentre."
+#~ "Le fait de changer la taille des icnes ou les dtails  afficher provoquera "
+#~ "un changement automatique de la taille de la fentre."
 
 #~ msgid "Always resize"
 #~ msgstr "Toujours changer la taille"
@@ -2820,8 +2971,7 @@ msgstr ""
 #~ "changing directory or display style)."
 #~ msgstr ""
 #~ "Le filer changera la taille des fentres  chaque fois qu'il lui semblera "
-#~ "utile (c'est--dire quand le rpertoire ou le style d'affichage est "
-#~ "chang)."
+#~ "utile (c'est--dire quand le rpertoire ou le style d'affichage est chang)."
 
 #~ msgid "Largest window size:"
 #~ msgstr "Plus grande taille de fentre :"
@@ -2853,8 +3003,8 @@ msgstr ""
 #~ "If you open a directory and that directory is already displayed in "
 #~ "another window, then this option causes the other window to be closed."
 #~ msgstr ""
-#~ "Lorsque vous ouvrez un rpertoire et que ce rpertoire est dj affich "
-#~ "dans une autre fentre, cette option provoque la fermeture de cette autre "
+#~ "Lorsque vous ouvrez un rpertoire et que ce rpertoire est dj affich dans "
+#~ "une autre fentre, cette option provoque la fermeture de cette autre "
 #~ "fentre."
 
 #~ msgid "New window on button 1"
@@ -2889,9 +3039,9 @@ msgstr ""
 #~ "If on then double clicking on the window background resizes the window, "
 #~ "just like clicking on the Automatic size mode button in the toolbar."
 #~ msgstr ""
-#~ "Si active, un double-clic sur le fond d'une fentre change la taille de "
-#~ "la fentre, exactement comme un clic sur le bouton Mode taille "
-#~ "automatique de la barre d'outils."
+#~ "Si active, un double-clic sur le fond d'une fentre change la taille de la "
+#~ "fentre, exactement comme un clic sur le bouton Mode taille automatique de "
+#~ "la barre d'outils."
 
 #~ msgid "Sorting"
 #~ msgstr "Tri"
@@ -2928,8 +3078,8 @@ msgstr ""
 #~ "below."
 #~ msgstr ""
 #~ "Lorsque cette option est active, les options d'affichage de chaque "
-#~ "nouvelle fentre sont hrites de la fentre source si possible, sinon "
-#~ "elles sont fixes aux valeurs par dfaut donnes ci-dessous."
+#~ "nouvelle fentre sont hrites de la fentre source si possible, sinon elles "
+#~ "sont fixes aux valeurs par dfaut donnes ci-dessous."
 
 #~ msgid "View type:"
 #~ msgstr "Type de vue :"
@@ -2950,8 +3100,8 @@ msgstr ""
 #~ "If this is on then files whose names start with a dot are shown too, "
 #~ "otherwise they are hidden."
 #~ msgstr ""
-#~ "Lorsque cette option est active, les fichiers dont le nom commence par "
-#~ "un point sont aussi montrs, sinon ils sont cachs."
+#~ "Lorsque cette option est active, les fichiers dont le nom commence par un "
+#~ "point sont aussi montrs, sinon ils sont cachs."
 
 #~ msgid "Icon View"
 #~ msgstr "Vue icnes"
@@ -2985,9 +3135,9 @@ msgstr ""
 #~ "many items then it will be shown using Small Icons, otherwise Large Icons "
 #~ "will be used."
 #~ msgstr ""
-#~ "Quand le choix automatique de la taille des icnes est slectionn: si "
-#~ "le rpertoire contient au moins autant d'objets, alors il sera affich "
-#~ "avec de petites icnes, sinon de grandes icnes seront utilises."
+#~ "Quand le choix automatique de la taille des icnes est slectionn: si le "
+#~ "rpertoire contient au moins autant d'objets, alors il sera affich avec de "
+#~ "petites icnes, sinon de grandes icnes seront utilises."
 
 #~ msgid "Max width (Large icons):"
 #~ msgstr "Largeur maxi (grandes icnes):"
@@ -3000,8 +3150,8 @@ msgstr ""
 #~ "Huge Icons mode, text is wrapped when 50% wider than this."
 #~ msgstr ""
 #~ "Le texte plus large que spcifi ici est dcoup en deux lignes en mode "
-#~ "Grandes icnes. En mode normes icnes, le texte est pass  la "
-#~ "ligne quand il est 50% plus large que ce qui est fix ici."
+#~ "Grandes icnes. En mode normes icnes, le texte est pass  la ligne quand il "
+#~ "est 50% plus large que ce qui est fix ici."
 
 #~ msgid "(Small Icons):"
 #~ msgstr "(petites icnes):"
@@ -3046,9 +3196,9 @@ msgstr ""
 #~ "number of hidden items (if any). When there's a selection, show the "
 #~ "number of selected items and their combined size."
 #~ msgstr ""
-#~ "Montrer le nombre d'objets affichs dans une fentre du filer, ainsi que "
-#~ "le nombre d'objets cachs (s'il y en a). Quand il y a une slection, "
-#~ "montrer le nombre d'objets slectionns et leur taille combine."
+#~ "Montrer le nombre d'objets affichs dans une fentre du filer, ainsi que le "
+#~ "nombre d'objets cachs (s'il y en a). Quand il y a une slection, montrer "
+#~ "le nombre d'objets slectionns et leur taille combine."
 
 #~ msgid "Select the buttons you want on the bar:"
 #~ msgstr "Slectionnez les boutons que vous voulez sur la barre:"
@@ -3064,9 +3214,9 @@ msgstr ""
 #~ "nothing happens (eg, because there are several possibilities and the next "
 #~ "letter varies)."
 #~ msgstr ""
-#~ "Quand vous utilisez le minibuffer Entrer un chemin... et que vous "
-#~ "appuyez sur <Tab>, bip si rien ne se passe (e.g., parce qu'il y a "
-#~ "plusieurs possibilits et que la lettre suivante varie)."
+#~ "Quand vous utilisez le minibuffer Entrer un chemin... et que vous appuyez "
+#~ "sur <Tab>, bip si rien ne se passe (e.g., parce qu'il y a plusieurs "
+#~ "possibilits et que la lettre suivante varie)."
 
 #~ msgid "Beep if there are several matches"
 #~ msgstr "Bip s'il y a plusieurs compltions"
@@ -3076,16 +3226,16 @@ msgstr ""
 #~ "there is more than one matching file, even though some more letters were "
 #~ "added."
 #~ msgstr ""
-#~ "Quand vous utilisez le minibuffer Entrer un chemin... et que vous "
-#~ "appuyez sur <Tab>, un bip est mis s'il y a plusieurs fichiers qui "
-#~ "conviennent, mme si des lettres ont t ajoutes."
+#~ "Quand vous utilisez le minibuffer Entrer un chemin... et que vous appuyez "
+#~ "sur <Tab>, un bip est mis s'il y a plusieurs fichiers qui conviennent, "
+#~ "mme si des lettres ont t ajoutes."
 
 #~ msgid ""
 #~ "When thumbnails are turned on, each image file in a directory is loaded "
 #~ "and a small thumbnail of it is shown."
 #~ msgstr ""
-#~ "Quand les imagettes sont actives, chaque fichier image dans un "
-#~ "rpertoire est charg et une image rduite est affiche."
+#~ "Quand les imagettes sont actives, chaque fichier image dans un rpertoire "
+#~ "est charg et une image rduite est affiche."
 
 #~ msgid "Show image thumbnails"
 #~ msgstr "Montrer les imagettes"
@@ -3094,8 +3244,8 @@ msgstr ""
 #~ "This is the default setting for new windows. Use the Display menu to turn "
 #~ "thumbnails on and off for individual windows."
 #~ msgstr ""
-#~ "Il s'agit du choix par dfaut pour les nouvelles fentres. Utilisez le "
-#~ "menu Affichage pour activer ou dsactiver les imagettes pour des fentres "
+#~ "Il s'agit du choix par dfaut pour les nouvelles fentres. Utilisez le menu "
+#~ "Affichage pour activer ou dsactiver les imagettes pour des fentres "
 #~ "particulires."
 
 #~ msgid "Thumbnails cache"
@@ -3169,8 +3319,8 @@ msgstr ""
 
 #~ msgid "Use a 2-pixel grid for positioning icons on the desktop."
 #~ msgstr ""
-#~ "Utiliser une grille avec pas de 2 pixels pour le positionnement des "
-#~ "icnes sur le bureau."
+#~ "Utiliser une grille avec pas de 2 pixels pour le positionnement des icnes "
+#~ "sur le bureau."
 
 #~ msgid "Medium"
 #~ msgstr "Moyen"
@@ -3208,9 +3358,9 @@ msgstr ""
 #~ "small button on the pinboard. Requires a compatible window manager, and "
 #~ "the pinboard must be in use."
 #~ msgstr ""
-#~ "Si cette option est active, le filer montrera chaque fentre iconifie "
-#~ "sous forme d'un petit bouton sur le punaiseur. Cela ncessite un "
-#~ "gestionnaire de fentres compatible, et le punaiseur doit tre actif."
+#~ "Si cette option est active, le filer montrera chaque fentre iconifie sous "
+#~ "forme d'un petit bouton sur le punaiseur. Cela ncessite un gestionnaire "
+#~ "de fentres compatible, et le punaiseur doit tre actif."
 
 #~ msgid "Iconify to the"
 #~ msgstr "Iconifier en"
@@ -3266,8 +3416,8 @@ msgstr ""
 #~ "Panels are bars of icons that run along the side of the screen. See the "
 #~ "manual for information about using panels."
 #~ msgstr ""
-#~ "Les panneaux sont des barres d'icnes situes sur les cts de l'cran. "
-#~ "Voir le manuel pour toute information sur l'utilisation des panneaux."
+#~ "Les panneaux sont des barres d'icnes situes sur les cts de l'cran. Voir "
+#~ "le manuel pour toute information sur l'utilisation des panneaux."
 
 #~ msgid "Panel style"
 #~ msgstr "Style du panneau"
@@ -3320,8 +3470,8 @@ msgstr ""
 #~ msgid ""
 #~ "The monitor the panels are confined to in Xinerama mode (numbered from 0)."
 #~ msgstr ""
-#~ "Le moniteur auquel les panneaux sont confins en mode Xinerama (numrot "
-#~ " partir de 0)."
+#~ "Le moniteur auquel les panneaux sont confins en mode Xinerama (numrot  "
+#~ "partir de 0)."
 
 #~ msgid "Action windows"
 #~ msgstr "Fentres d'action"
@@ -3359,8 +3509,7 @@ msgstr ""
 #~ msgstr "Options par dfaut"
 
 #~ msgid "Don't confirm deletion of non-writeable items."
-#~ msgstr ""
-#~ "Ne pas confirmer la suppression d'objets protgs contre l'criture."
+#~ msgstr "Ne pas confirmer la suppression d'objets protgs contre l'criture."
 
 #~ msgid "Don't display so much information in the message area."
 #~ msgstr "Afficher le minimum d'informations dans la zone des messages."
@@ -3428,8 +3577,8 @@ msgstr ""
 #~ "Note that you can still get the menu to appear, by dragging with Alt held "
 #~ "down."
 #~ msgstr ""
-#~ "Notez que vous pouvez toujours faire apparatre le menu par glisser-"
-#~ "dposer tout en maintenant <Alt> enfonce."
+#~ "Notez que vous pouvez toujours faire apparatre le menu par glisser-dposer "
+#~ "tout en maintenant <Alt> enfonce."
 
 #~ msgid "When dragging files with the middle mouse button"
 #~ msgstr "Quand vous glissez-dposez des fichiers avec le bouton du milieu"
@@ -3469,16 +3618,15 @@ msgstr ""
 #~ "Show the File menu instead of the main menu when right-clicking with "
 #~ "files selected (the main menu can be accessed by holding down Control)."
 #~ msgstr ""
-#~ "Montrer le menu Fichier au lieu du menu principal quand vous cliquez "
-#~ "avec le bouton droit alors que des fichiers sont slectionns (le menu "
-#~ "principal peut tre obtenu en appuyant sur la touche Control)."
+#~ "Montrer le menu Fichier au lieu du menu principal quand vous cliquez avec "
+#~ "le bouton droit alors que des fichiers sont slectionns (le menu principal "
+#~ "peut tre obtenu en appuyant sur la touche Control)."
 
 #~ msgid "`Xterm Here' program"
 #~ msgstr "Programme pour Xterm ici"
 
 #~ msgid "The program to launch when you choose `Xterm Here' from the menu."
-#~ msgstr ""
-#~ "Le programme  lancer quand vous choisissez Xterm ici dans le menu."
+#~ msgstr "Le programme  lancer quand vous choisissez Xterm ici dans le menu."
 
 #~ msgid "Keyboard shortcuts"
 #~ msgstr "Raccourcis clavier"
@@ -3496,8 +3644,8 @@ msgstr ""
 #~ msgstr ""
 #~ "Si un fichier a une extension connue (ex.: '.gif'), alors le bit "
 #~ "excutable est ignor. Un tel comportement est utile si vous avez des "
-#~ "fichiers sur un systme de fichiers de type Windows qui sont montrs "
-#~ "comme des programmes excutables."
+#~ "fichiers sur un systme de fichiers de type Windows qui sont montrs comme "
+#~ "des programmes excutables."
 
 #~ msgid "MIME types"
 #~ msgstr "Types MIME"
@@ -3526,9 +3674,9 @@ msgstr ""
 #~ "Use the 'Set Icon...' dialog box to set the icon for each MIME type. Note "
 #~ "that icons set this way override those from the selected theme."
 #~ msgstr ""
-#~ "Utilisez la bote de dialogue Fixer l'icne... pour fixer l'icne "
-#~ "pour chaque type MIME. Notez que les icnes fixes de cette faon ont la "
-#~ "priorit sur celles du thme slectionn."
+#~ "Utilisez la bote de dialogue Fixer l'icne... pour fixer l'icne pour "
+#~ "chaque type MIME. Notez que les icnes fixes de cette faon ont la priorit "
+#~ "sur celles du thme slectionn."
 
 #~ msgid "Colours"
 #~ msgstr "Couleurs"
@@ -3602,8 +3750,8 @@ msgstr ""
 #~ "having them appear in window-select lists."
 #~ msgstr ""
 #~ "Certains gestionnaires de fentres (WM) ne supportent pas le nouveau "
-#~ "systme Extended Window Manager Hints et traitent ainsi le punaiseur "
-#~ "et les panneaux comme des fentres normales. Activer cette option pour "
+#~ "systme Extended Window Manager Hints et traitent ainsi le punaiseur et "
+#~ "les panneaux comme des fentres normales. Activer cette option pour "
 #~ "corriger les problmes comme: le punaiseur passe au premier plan quand "
 #~ "vous cliquez dessus, des barres de titre et autres dcorations "
 #~ "apparaissent autour des fentres, ou ces fentres apparaissent dans les "
@@ -3650,10 +3798,10 @@ msgstr ""
 #~ "a + sign on the pointer but the drop doesn't work."
 #~ msgstr ""
 #~ "Quelques applications parmi les plus anciennes ne supportent pas "
-#~ "compltement le protocole XDND et peuvent ncessiter l'activation de "
-#~ "cette option. Utilisez-la si le glisser de fichiers vers une "
-#~ "application provoque bien l'apparition d'un signe '+' sur le pointeur "
-#~ "mais que le dposer ne fonctionne pas."
+#~ "compltement le protocole XDND et peuvent ncessiter l'activation de cette "
+#~ "option. Utilisez-la si le glisser de fichiers vers une application "
+#~ "provoque bien l'apparition d'un signe '+' sur le pointeur mais que le "
+#~ "dposer ne fonctionne pas."
 
 #~ msgid "A"
 #~ msgstr "T"
