@@ -2,13 +2,19 @@
 <AppInfo>
   <Summary>Sets up your desktop when you log in, and lets you log out again</Summary>
   <Summary xml:lang="es">Configura tu escritorio cuando ingresas y te permite salir</Summary>
-
+  <Summary xml:lang="fr">Montre l'utilisation de la mémoire et des disques avec des diagrammes à barres</Summary>
   <About>
     <Purpose>Session Manager</Purpose>
     <Version>0.1.18 (14-Dec-2002)</Version>
     <Author>Thomas Leonard</Author>
     <License>GNU General Public License</License>
     <Homepage>http://rox.sourceforge.net</Homepage>
+  </About>
+  <About xml:lang="fr">
+    <Purpose label="Fonction">Moniteur système</Purpose>
+    <Author label="Auteur"/>
+    <License label="Licence"/>
+    <Homepage label="Page web"/>
   </About>
   <AppMenu>
     <!-- label attribute is for older filers -->
