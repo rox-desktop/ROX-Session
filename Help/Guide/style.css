@@ -4,6 +4,11 @@ body {
         margin: 10pt;
 }
 
+p.author {
+	text-align: right;
+	font-weight: bold;
+}
+
 h1 {
         text-align: center;
 }
