@@ -37,8 +37,6 @@
 #include "options.h"
 #include "gui_support.h"
 
-#define DEFAULT_WM "sawfish"
-
 pid_t	wm_pid = -1;
 
 static Option o_default_wm;
