@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 
-import findrox; findrox.version(1, 9, 15) #XXX 16
+import findrox; findrox.version(1, 9, 16)
 import rox
 from rox import g
 import os.path

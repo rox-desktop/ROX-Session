@@ -2,10 +2,9 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
-06-Sep-2004
+06-Sep-2004 (Release 0.1.25)
 ~~~~~~~~~~~
 Use new ROX-Lib system for getting root access (Thomas Leonard).
-[ Note: requires ROX-Lib CVS ]
 
 30-Aug-2004
 ~~~~~~~~~~~
