@@ -412,7 +412,7 @@ msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
 msgstr ""
-"Si deve cliccare con il tasto 3 del mouse sul messaggio di errore per "
+"Si deve fare clic con il tasto 3 del mouse sul messaggio di errore per "
 "passare alla finestra di visualizzazione dei log o premere questo pulsante:"
 
 #: tips:18
@@ -652,7 +652,7 @@ msgid ""
 msgstr ""
 "ROX-Session non sembra gestire questa sessione. Impostarlo adesso?\n"
 "\n"
-"Nel caso si pensi che sia già impostato, cliccare su «Aiuto»."
+"Nel caso si pensi che sia già impostato, fare clic su «Aiuto»."
 
 #: setup.py:217
 msgid "Set up ROX"
