@@ -34,9 +34,11 @@
   <AppMenu>
     <Item option='--install'>
       <Label xml:lang="en">Install...</Label>
+      <Label xml:lang='it'>Installa...</Label>
     </Item>
     <Item option='--options'>
       <Label xml:lang="en">Session Settings...</Label>
+      <Label xml:lang='it'>Impostazioni di sessione...</Label>
     </Item>
     <Item option='--setup'>
       <Label xml:lang="en">Auto Start...</Label>
@@ -45,6 +47,7 @@
     </Item>
     <Item option='--messages'>
       <Label xml:lang="en">Message Log...</Label>
+      <Label xml:lang='it'>Messaggi di log...</Label>
     </Item>
   </AppMenu>
 </AppInfo>
