@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+11-Feb-2003
+~~~~~~~~~~~
+Shade power buttons if no command is set (KRJW).
+
 29-Dec-2002
 ~~~~~~~~~~~
 Updated Dutch translation (Jan Wagemakers).

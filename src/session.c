@@ -475,6 +475,7 @@ static GtkWidget *op_button(const char *text, const char *stock,
 			    Option *command, const char *message)
 {
 	GtkWidget *button, *image, *hbox, *label;
+	gchar *tmp;
 
 	button = gtk_button_new();
 
@@ -488,9 +489,19 @@ static GtkWidget *op_button(const char *text, const char *stock,
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 	gtk_box_pack_start(GTK_BOX(hbox), label, TRUE, TRUE, 0);
 
-	g_object_set_data_full(G_OBJECT(button), "rox-message",
-			g_strdup(message), g_free);
-	g_signal_connect(button, "clicked", G_CALLBACK(op_clicked), command);
+	/* No need for clickable buttons if no command is set */
+	tmp = g_strstrip(g_strdup(command->value));
+	if (*tmp)
+	{
+		g_object_set_data_full(G_OBJECT(button), "rox-message",
+				g_strdup(message), g_free);
+		g_signal_connect(button, "clicked", G_CALLBACK(op_clicked),
+				command);
+	}
+	else
+		gtk_widget_set_sensitive(button, FALSE);
+
+	g_free (tmp);
 
 	return button;
 }
