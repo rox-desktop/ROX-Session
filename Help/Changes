@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+30-Aug-2004
+~~~~~~~~~~~
+Added support for changing Xcursor theme and size (Guido Schimmels; code from
+GNOME).
+
 25-Aug-2004
 ~~~~~~~~~~~
 Give a more helpful message if the backup xsession file already exists

@@ -33,6 +33,7 @@
 #include <string.h>
 #include <errno.h>
 #include <signal.h>
+#include <sys/wait.h>
 #include <gtk/gtk.h>
 
 #include "global.h"
@@ -58,6 +59,8 @@ static xmlDoc *settings_doc = NULL;
 
 static int mouse_accel_factor = 20, mouse_accel_threshold = 10;
 static int mouse_left_handed = 0;
+static gchar *cursor_theme = NULL;
+static int cursor_size = 18;
 static gboolean kbd_repeat = TRUE;
 static int kbd_delay = 500, kbd_interval = 30;
 static int dpms_standby_time = 15 * 60;
@@ -157,6 +160,13 @@ static void set_rox_setting(const char *name, const char *value)
 		mouse_accel_factor = atoi(value);
 	else if (strcmp(name, "LeftHanded") == 0)
 		mouse_left_handed = atoi(value);
+	else if (strcmp(name, "CursorTheme") == 0)
+	{
+		if (cursor_theme) g_free (cursor_theme);
+		cursor_theme = g_strdup(value);
+	}
+	else if (strcmp(name, "CursorSize") == 0)
+		cursor_size = atoi(value);
 	else if (strcmp(name, "WindowManager") == 0)
 		set_window_manager(value);
 	else if (strcmp(name, "KeyTable") == 0)
@@ -215,6 +225,127 @@ set_left_handed (void)
   XSetPointerMapping (GDK_DISPLAY (), buttons, n_buttons);
 }
 
+
+/* Helper functions */
+
+/*
+ * Helper function for spawn_with_input() - wait for a child
+ * to exit.
+ */
+static gboolean wait_for_child (GPid pid, int *status)
+{
+  gint ret;
+
+ again:
+  ret = waitpid (pid, status, 0);
+
+  if (ret < 0)
+  {
+      if (errno == EINTR)
+        goto again;
+     else
+      {
+		g_warning ("Unexpected error in waitpid() (%s)",
+		g_strerror (errno));
+		return FALSE;
+      }
+  }
+
+  return TRUE;
+}
+
+
+/*
+ * Helper function for spawn_with_input() - write an entire
+ * string to a fd.
+ */
+static gboolean write_all (int fd, const char *buf, gsize to_write)
+{
+  while (to_write > 0)
+  {
+    gssize count = write (fd, buf, to_write);
+    if (count < 0)
+    {
+	  if (errno != EINTR)
+		return FALSE;
+	}
+   else
+	{
+	  to_write -= count;
+	  buf += count;
+	}
+  }
+
+  return TRUE;
+}
+
+static void load_xcursor_theme(void)
+{
+  char *argv[] = { "xrdb", "-merge", NULL };
+  GError	*error = NULL;
+  GPid child_pid;
+  gint inpipe;
+  int exit_status;
+
+  if (cursor_theme == NULL || cursor_size <= 0)
+	  return;
+
+ /* 
+ * @argv: command line to run
+ * @input: string to write to the child process. 
+ * 
+ * Spawns a child process specified by @argv, writes the text in
+ * @input to it, then waits for the child to exit.
+ */
+  
+  g_spawn_async_with_pipes(NULL, argv, NULL,
+		G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_STDOUT_TO_DEV_NULL,
+		NULL, NULL, &child_pid, &inpipe, NULL, NULL, &error);
+
+  if(error)
+  {
+	 report_error(
+		_("Failed to change the cursor theme:\n%s\nYou can use "
+		"the Mouse configuration application to change the "
+		"setting."),
+		error->message);
+
+		g_error_free(error);
+		return;
+  }
+
+  g_return_if_fail(inpipe != -1);
+
+  GString *input = g_string_new (NULL);
+  g_string_append_printf (input, "Xcursor.theme: %s\n", cursor_theme);
+  g_string_append (input, "Xcursor.theme_core: true\n");
+  g_string_append_printf (input, "Xcursor.size: %d\n", cursor_size);
+
+  if (!write_all (inpipe, input->str, strlen(input->str)))
+  {
+	  gchar *command = g_strjoinv (" ", argv);
+	  report_error("Could not write input to %s\n", command);
+	  g_free (command);
+	  goto out;
+  }
+
+  close (inpipe);
+  
+  wait_for_child (child_pid, &exit_status);
+  //g_spawn_close_pid(child_pid);
+  
+
+  if (!WIFEXITED (exit_status) || WEXITSTATUS (exit_status))
+  {
+      gchar *command = g_strjoinv (" ", argv);
+      report_error("Command %s failed\n", command);
+      g_free (command);
+  }
+
+out:
+  g_string_free (input, TRUE);
+}
+
 static void activate_changes(void)
 {
 	g_return_if_fail(xsettings_manager != NULL);
@@ -224,6 +355,7 @@ static void activate_changes(void)
 				mouse_accel_factor, 10,
 				mouse_accel_threshold);
 	set_left_handed();
+	load_xcursor_theme();
 	set_xkb_repeat(kbd_repeat, kbd_delay, kbd_interval);
 	dpms_set_times(GDK_DISPLAY(),
 			dpms_standby_time, dpms_suspend_time, dpms_off_time);
