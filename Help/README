@@ -11,10 +11,23 @@ ROX project, but can also be used on its own. ROX project home website:
 
 ROX-Session sets up your desktop when you log in, and starts any
 applications you ask it to. It allows you to set various settings, such as
-the default font, cursor blinking and mouse behaviour.
+the default font, cursor blinking and mouse behaviour (through a separate
+application such as LookAndFeel).
 
 It also allows you to choose a window manager, and change between window
 managers without logging out.
+
+You will need:
+
+- ROX-Filer
+- ROX-Lib
+- D-BUS (with Python bindings; you need pyrex if building from source)
+
+These in turn require:
+
+- Python (2.2 or later)
+- PyGTK (GTK 2 version)
+- GTK 2
 
 
 Conditions
@@ -57,16 +70,18 @@ manually:
 
 	$ ROX-Session/AppRun
 
-ROX-Session will offer to manage your session in future. If you accept, it
-will create suitable .xsession and .xinitrc files for you and ask you to
-log out. When you log in again, ROX-Session will be running. You may need
-to choose 'Default' or 'Xsession' from your login screen's list of desktops.
-See below for instructions on adding ROX directly to this list.
+ROX-Session will offer to manage your session in future. You can choose
+whether to add ROX to the list of session managers on your login screen,
+or to only set it up for the current user.
 
-	** If ROX-Session fails to run (possibly with font errors), **
-	** try editing ROX-Session/AppRun and turn off XFT support. **
+Once set up, it ask you to log out. When you log in again, ROX-Session will be
+running. If you chose to install the single-user mode, you may need to choose
+'Default' or 'Xsession' from your login screen's list of desktops. The code
+for adding ROX-Session to the session manager has only currently been tested
+with gdm2.
 
-The first time you log in, ROX-Session asks you to choose a window manager.
+The first time you log in, ROX-Session asks you to choose a window manager
+(except for Zero Install users; you get OroboROX by default automatically).
 Select one from the list provided and click on 'Start window manager'.
 If the window mananger crashes, or you quit it, ROX-Session will ask you to
 choose again. If your preferred window manager isn't on the list then you
@@ -155,8 +170,8 @@ default in /usr/[local]/share/Choices/ROX-Filer/pan_Default.
 
 Listing ROX in the login box
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-If you're using gdm (the GNOME display manager) then you can add ROX to the
-list of sessions like this:
+If you're using gdm 1 (the old GNOME display manager) then you can add ROX to
+the list of sessions like this:
 
 - Go to /etc/gdm/Sessions.
 
@@ -170,6 +185,8 @@ list of sessions like this:
 
 kdm users can use kcontrol to set things up in a similar way (but put the
 'ROX' script in /usr/local/bin or similar).
+
+ROX-Session is able to add itself to the gdm2 menu automatically.
 
 
 Environment
