@@ -219,7 +219,7 @@ int main(int argc, char **argv)
 
 	rox_session_window = gdk_atom_intern("_ROX_SESSION_WINDOW3", FALSE);
 
-#if 0
+#if 1
 	existing_session_window = get_existing_session();
 	if (existing_session_window)
 	{
@@ -266,7 +266,7 @@ int main(int argc, char **argv)
 
 	session_init();
 
-#if 0
+#if 1
 	start_window_manager();
 	run_login_script();
 #else
