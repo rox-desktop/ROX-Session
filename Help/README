@@ -88,8 +88,7 @@ Select one from the list provided and click on 'Start window manager'.
 If the window mananger crashes, or you quit it, ROX-Session will ask you to
 choose again. If your preferred window manager isn't on the list then you
 can enter its name manually. Click on 'OK' to make the chosen window
-manager the default for future sessions. You can also adjust various other
-settings from this window.
+manager the default for future sessions.
 
 When you want to logout, simply run ROX-Session a second time to display the
 logout box. This box also contains a 'Session Settings' button which takes you
@@ -258,17 +257,6 @@ Complaining to the program's author is also a good move, as redirecting errors
 could make you miss something important.
 
 
-Window manager list
-~~~~~~~~~~~~~~~~~~~
-You can edit the list of window managers that ROX-Session offers by
-copying the ROX-Session/WindowMans file as <Choices>/ROX-Session/WindowMans
-and editing it there.
-
-This is mainly useful if you're a system administrator and you want to
-set the list for all your users. Only window managers found in $PATH will
-actually be displayed to the user.
-
-
 What's a session manager?
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 	The following is some background information about
@@ -320,9 +308,9 @@ Very little. When you run it from your '.xsession' file it just loads, runs
 the Login script (as described above) and waits.
 
 When you want to log out you simply run it a second time. The new copy sees
-that the first one is running and sends it a message. The first copy displays a
-box confirming that you want to log out and, if you say yes, quits.  This
-causes your X session to be terminated. Save your data before logging out!!
+that the first one is running and displays a box confirming that you want to
+log out and, if you say yes, tells the first copy to quit. This causes your X
+session to be terminated. Save your data before logging out!!
 
 
 !!!WARNING!!!
