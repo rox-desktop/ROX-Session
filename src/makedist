@@ -1,0 +1,43 @@
+#!/usr/bin/env perl
+
+chdir "../../ROX-Session";
+
+system "cvs rel .";
+
+open(VER, "./AppRun --version 2>&1 |") or die "open(): $!";
+while (<VER>) {
+  last if /^ROX-Session/;
+}
+close(VER);
+
+/(\d+)\.(\d+)\.(\d+)$/;
+
+($a, $b, $c) = ($1, $2, $3);
+
+print "Check the manual is up-to-date!\n";
+print "Version $a.$b.$c --- OK?\n";
+
+<STDIN> =~ /^[yY]/ or die "OK, fix the version number!\n";
+
+system "cvs tag -F Release-$a-$b-$c";
+# system "cd src/po; ./update-po; ./dist";
+
+chdir;
+
+mkdir "ROX-Session-$a.$b.$c", 0775 or warn "mkdir() failed: $!\n";
+chdir "ROX-Session-$a.$b.$c";
+
+system "cvs -d:pserver:anonymous\@cvs.rox.sourceforge.net:/cvsroot/rox export -r Release-$a-$b-$c ROX-Session";
+
+system "cd ROX-Session/src; autoconf";
+
+system "mv ROX-Session/* .";
+rmdir "ROX-Session";
+
+system "find -name '.cvsignore' | xargs rm";
+
+chdir "..";
+system "tar czf ROX-Session-$a.$b.$c.tgz rox-$a.$b.$c";
+system "rm -r ROX-Session-$a.$b.$c";
+
+print "OK, done\n";
