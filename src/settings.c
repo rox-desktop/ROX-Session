@@ -79,10 +79,9 @@ static void save_settings(void);
 
 void settings_init(void)
 {
-	const char *xsettings_path[] = {"Settings", NULL};
 	char *path;
 
-	register_object_path(xsettings_path, xsettings_handler);
+	register_object_path("/Settings", xsettings_handler);
 
 	if (xsettings_manager_check_running(gdk_display,
 					    DefaultScreen(gdk_display)))

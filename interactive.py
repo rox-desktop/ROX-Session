@@ -30,8 +30,11 @@ try:
 	dbus_object = dbus_service.get_object('/org/freedesktop/DBus',
 						   'org.freedesktop.DBus')
 	rox_session_running = 'net.sf.rox.Session' in dbus_object.ListServices()
-except:
+except dbus.dbus_bindings.DBusException:
 	rox_session_running = False
+except:
+	rox.report_exception()
+	raise SystemExit()
 
 try:
 	if rox_session_running:

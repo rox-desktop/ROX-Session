@@ -18,6 +18,6 @@ typedef DBusMessage *(*MessageHandler)(DBusMessage *message, DBusError *error);
 
 /* Prototypes */
 void dbus_init(void);
-gboolean register_object_path(const char **path, MessageHandler handler);
+gboolean register_object_path(const char *path, MessageHandler handler);
 
 #endif /* _DBUS_H */
