@@ -89,14 +89,8 @@ application directory into Choices/ROX-Session and edit it there.
 Environment
 ~~~~~~~~~~~
 
-ROX-Session does two extra things before running the Login script:
-
-- If you have a 'bin' directory inside your home directory then it adds that
-  to the front of your PATH environment variable.
-- If you have a 'lib' directory, then it adds that to LD_LIBRARY_PATH.
-
-These are done in the .xsession script because they may be needed to run
-ROX-Session itself, or the failsafe session if ROX-Session can't be found.
+In the .xsession script, before ROX-Session is started, ~/bin is added to
+the front of your PATH (if the ~/bin directory exists).
 
 
 Errors
@@ -109,10 +103,7 @@ ROX-Session has a number of safety measures:
   It will also use xmessage to explain what has happened.
 
 - If ROX-Session hasn't been compiled when you try to run it, it will
-  write an explanation to standard error (which might get logged rather
-  than displayed) and then run an xterm instead. Use the xterm to compile
-  ROX-Session as explained above and then logout (type 'exit' in the
-  xterm).
+  try to compile itself first.
 
 - If the Login script returns an error code then ROX-Session will run an
   xterm and display a suitable message. Run ROX-Session a second time to

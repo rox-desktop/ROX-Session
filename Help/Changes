@@ -11,6 +11,8 @@ Removed session support, after realising that, despite its insane levels of
 complexity, it doesn't actually support what I want (confirmation of logout)!
 Updated configure.in for new autoconf (Richard Boulton).
 Put in lots of quotes to cope with spaces in filenames.
+Default .xsession no longer sets LD_LIBRARY_PATH, but does provide an easier
+way to turn on anti-aliased fonts.
 
 18-Oct-2001
 ~~~~~~~~~~~
