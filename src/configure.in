@@ -57,7 +57,7 @@ dnl Use -Wall, etc if possible
 if test "x$GCC" = "xyes"; then
   case " $CFLAGS " in
   *[\ \	]-Wall[\ \	]*) ;;
-  *) CFLAGS="$CFLAGS -Wall -Wstrict-prototypes -Wmissing-prototypes" ;;
+  *) CFLAGS="$CFLAGS -Wall -Wmissing-prototypes" ;;
   esac
 fi
 ]
