@@ -22,7 +22,8 @@ def backup(old, backup):
 		return		# Nothing to backup
 	if os.path.exists(backup):
 		rox.croak(_("Tried to make a backup of your old '%s' file, "
-			"but the backup file ('%s') already exists.") %
+			"but the backup file ('%s') already exists.\n"
+			"If you want to keep it, move it somewhere safe. Otherwise, delete it.") %
 			(old, backup))
 	os.rename(old, backup)
 

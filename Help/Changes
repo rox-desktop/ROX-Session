@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+25-Aug-2004
+~~~~~~~~~~~
+Give a more helpful message if the backup xsession file already exists
+(requested by Nils-Erik Svangård).
+
 14-Aug-2004 (Release 0.1.24)
 ~~~~~~~~~~~
 Added support for D-BUS 0.22; 0.20 and 0.21 are still supported (Thomas

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 0.1.18 PREVIEW\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-07 16:35+0100\n"
+"POT-Creation-Date: 2004-08-20 16:45+0100\n"
 "PO-Revision-Date: 2002-12-04 13:13+0100\n"
 "Last-Translator: Guido Schimmels <guido.schimmels@freenet.de>\n"
 "Language-Team: \n"
@@ -97,25 +97,61 @@ msgstr ""
 ". Ich öffne ihnen ein Terminal zur Reparatur. ROX-Session selber "
 "funktioniert aber - starte mich ein zweites mal zum Abmelden."
 
-#: dbus.c:95
+#: dbus.c:105
 msgid ""
 "ROX-Session lost its connection to the D-BUS session bus.\n"
 "You should save your work and logout as soon as possible (many things won't "
 "work correctly without the bus, and this is the only way to restart it)."
 msgstr ""
 
-#: dbus.c:226
+#: dbus.c:303
 #, fuzzy
 msgid "ROX-Session is already running. Can't manage your session twice!"
 msgstr "ROX-Session ist bereits Ihr Sitzungsmanager!"
 
-#: dbus.c:298
+#: dbus.c:362
+msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
+msgstr ""
+
+#: dbus.c:369
+msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
+msgstr ""
+
+#: dbus.c:392
 #, c-format
 msgid ""
 "%s\n"
 "\n"
 "You can get D-BUS from freedesktop.org.\n"
 "ROX-Session will not work correctly without it!"
+msgstr ""
+
+#: dpms.c:35
+msgid "DPMS extension not supported"
+msgstr ""
+
+#: dpms.c:40
+msgid "Display not capable of DPMS"
+msgstr ""
+
+#: dpms.c:55
+msgid "DPMS timeout under 10 seconds, rounding up"
+msgstr ""
+
+#: dpms.c:62
+msgid "Unable to read previous DPMS timeouts"
+msgstr ""
+
+#: dpms.c:68
+msgid "Unable to set DPMS timeouts"
+msgstr ""
+
+#: dpms.c:81
+msgid "Unable to get DPMS state"
+msgstr ""
+
+#: dpms.c:87
+msgid "Unable to set DPMS state"
 msgstr ""
 
 #: i18n.c:38
@@ -126,19 +162,19 @@ msgstr ""
 "Beachten Sie, dass geänderte Einstellungen\n"
 "erst nach erneutem Anmelden voll wirksam werden."
 
-#: log.c:366
+#: log.c:378
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: Fehler beim Schreiben auf Fehlerausgabe!\n"
 
-#: log.c:390
+#: log.c:402
 msgid "ROX-Session: read(stderr) failed!\n"
 msgstr "ROX-Session: Fehler beim Lesen von Fehlerausgabe!\n"
 
-#: log.c:414
+#: log.c:448
 msgid "ROX-Session message log"
 msgstr "Aufzeichnung der ROX-Session Meldungen"
 
-#: log.c:465
+#: log.c:502
 msgid "Show message log"
 msgstr "Zeige Aufzeichnung der Meldungen"
 
@@ -176,7 +212,7 @@ msgstr ""
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(kein Schreibrecht in CHOICESPATH)"
 
-#: options.c:1093 settings.c:216
+#: options.c:1093 settings.c:279
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Fehler beim Speichern von %s: %s"
@@ -263,12 +299,16 @@ msgstr ""
 "%s\n"
 "Bitte versuchen Sie es mit einem anderen Fenstermanager."
 
-#: xkb.c:89
+#: xkb.c:92
 #, c-format
 msgid ""
 "Failed to set keyboard map:\n"
 "%s\n"
 "You can use the Keyboard configuration application to change the setting."
+msgstr ""
+
+#: xkb.c:113
+msgid "Failed to set auto repeat rate/interval"
 msgstr ""
 
 #: tips:1
@@ -508,7 +548,7 @@ msgstr ""
 msgid "Add to login"
 msgstr ""
 
-#: setup.py:114
+#: setup.py:115
 #, fuzzy
 msgid ""
 "OK, now logout by your usual method and when you log in again, I should be "
@@ -520,27 +560,27 @@ msgstr ""
 "Sitzungsmanager sein.\n"
 "Sie können die Datei .xsession nach Ihren wünschen anpassen..."
 
-#: setup.py:128
+#: setup.py:129
 msgid ""
 "I wanted to install a rox.desktop file in your session directory, but I "
 "couldn't find one! I tried these places (defaults for gdm2, at least):\n"
 "\n"
 msgstr ""
 
-#: setup.py:133
+#: setup.py:134
 msgid ""
 "/usr/local/sbin directory is missing! I want to install the rox-session "
 "script there... Please create it and try again."
 msgstr ""
 
-#: setup.py:151
+#: setup.py:152
 msgid ""
 "OK, now logout by your usual method, and choose ROX from the session menu on "
 "your login screen just after entering your user name (but before entering "
 "your password)."
 msgstr ""
 
-#: setup.py:164
+#: setup.py:165
 msgid ""
 "OK, I don't know what the problem is. Please ask on the rox-users mailing "
 "list. When we know what the problem is, we can add an extra check here to "
@@ -550,7 +590,7 @@ msgid ""
 "(you can copy and paste that address into your browser)"
 msgstr ""
 
-#: setup.py:175
+#: setup.py:176
 msgid ""
 "ROX-Session does not appear to be managing your session. Would you like to "
 "set it up now?\n"
@@ -558,25 +598,25 @@ msgid ""
 "If you think it should already be set up, click on Help."
 msgstr ""
 
-#: setup.py:180
+#: setup.py:181
 msgid "Set up ROX"
 msgstr ""
 
-#: setup.py:183
+#: setup.py:184
 msgid "Set up ROX-Session"
 msgstr ""
 
-#: setup.py:195
+#: setup.py:196
 msgid ""
 "Please enter the root password when prompted. I will attempt to create the "
 "files '%s' and '%s'."
 msgstr ""
 
-#: setup.py:203
+#: setup.py:204
 msgid "Error trying to run xterm to ask for the root password."
 msgstr ""
 
-#: setup.py:205 setup.py:207
+#: setup.py:206 setup.py:208
 #, fuzzy
 msgid "Failed to create '%s'"
 msgstr ""
