@@ -24,12 +24,15 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include <signal.h>
 #include <gtk/gtk.h>
 
 #include "global.h"
 
 #include "dbus.h"
 #include "gui_support.h"
+
+static gint dbus_pid = -1;
 
 /* Read one line from fd and store in DBUS_SESSION_BUS_ADDRESS. */
 static void read_address(gint fd)
@@ -65,6 +68,17 @@ static void read_address(gint fd)
 	}
 }
 
+/* This is a nasty hack. The D-BUS daemon should notice stderr being
+ * closed when we exit, and quit itself. But for now, we need to stop
+ * multiple D-BUS processes from building up...
+ */
+static void kill_dbus(void)
+{
+	g_return_if_fail(dbus_pid != -1);
+	kill(dbus_pid, SIGTERM);
+	dbus_pid = -1;
+}
+
 /* Returns once the D-BUS session daemon is running and we have a connection
  * to it. Sets the environment variable.
  */
@@ -72,8 +86,7 @@ void dbus_init(void)
 {
 	GError *error = NULL;
 	gint stdout_pipe = -1;
-	gchar *argv[] = {
-			"dbus-daemon-1", "--session", "--print-address", NULL};
+	gchar *argv[] = {"dbus-daemon-1", "--session", "--print-address", NULL};
 
 	if (getenv("DBUS_SESSION_BUS_ADDRESS") != NULL)
 		return;
@@ -81,7 +94,7 @@ void dbus_init(void)
 	g_spawn_async_with_pipes(NULL, argv, NULL,
 			G_SPAWN_SEARCH_PATH,
 			NULL, NULL,	/* Child setup */
-			NULL,		/* PID */
+			&dbus_pid,
 			NULL, &stdout_pipe, NULL,
 			&error);
 
@@ -98,6 +111,8 @@ void dbus_init(void)
 	}
 
 	g_return_if_fail(stdout_pipe != -1);
+
+	atexit(kill_dbus);
 
 	read_address(stdout_pipe);
 
