@@ -4,6 +4,11 @@
 
 17-Apr-2003
 ~~~~~~~~~~~
+Added note in RunROX explaining the need for -n (suggested by Keith R. John
+Warno).
+
+17-Apr-2003 (Release 0.1.19)
+~~~~~~~~~~~
 Update logging code to handle GTK+-2.2 (so ROX-Session doesn't try to log
 its own errors and deadlock).
 Only show themes with a gtk-2.0 subdirectory.

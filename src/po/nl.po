@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-04-14 15:27+0200\n"
+"POT-Creation-Date: 2003-04-17 12:19+0100\n"
 "PO-Revision-Date: 2002-12-28 09:12+0100\n"
 "Last-Translator: Jan Wagemakers <janw@easynet.be>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,19 +136,19 @@ msgstr ""
 "Merk op dat je uw instellingen moet bewaren, uitloggen en terug inloggen "
 "alvorens deze nieuwe instellingen volledig effekt zullen hebben."
 
-#: log.c:361
+#: log.c:365
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: schrijven naar stderr mislukt!\n"
 
-#: log.c:385
+#: log.c:389
 msgid "ROX-Session: read(stderr) failed!\n"
 msgstr "ROX-Session: read(stderr) mislukt!\n"
 
-#: log.c:409
+#: log.c:413
 msgid "ROX-Session message log"
 msgstr "ROX-Session berichten log"
 
-#: log.c:463
+#: log.c:467
 msgid "Show message log"
 msgstr "Toon berichten log"
 
@@ -203,31 +203,31 @@ msgstr "Ongeldig .gmo vertalingsbestand (te kort): %s"
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr "Ongeldig .gmo vertalingsbestand (GNU magisch nummer niet gevonden): %s"
 
-#: session.c:275
+#: session.c:276
 msgid "_Halt"
 msgstr "Sto_p"
 
-#: session.c:276
+#: session.c:277
 msgid "Attempting to halt the system..."
 msgstr "Bezig met het systeem te stoppen..."
 
-#: session.c:279
+#: session.c:280
 msgid "_Reboot"
 msgstr "_Herstart"
 
-#: session.c:280
+#: session.c:281
 msgid "Attempting to restart the system..."
 msgstr "Bezig met het systeem te herstarten..."
 
-#: session.c:283
+#: session.c:284
 msgid "_Sleep"
 msgstr "_Slaap"
 
-#: session.c:284
+#: session.c:285
 msgid "Attempting to enter suspend mode..."
 msgstr "Bezig met het systeem in slaap mode te brengen..."
 
-#: session.c:289
+#: session.c:290
 msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
@@ -235,15 +235,15 @@ msgstr ""
 "Echt uitloggen?\n"
 "(niet bewaarde gegevens zullen verloren gaan)"
 
-#: session.c:299
+#: session.c:300
 msgid "Session Settings"
 msgstr "Sessie Instellingen"
 
-#: session.c:306
+#: session.c:307
 msgid "Logout"
 msgstr "Log Uit"
 
-#: session.c:359
+#: session.c:360
 #, c-format
 msgid ""
 "Failed to run login script:\n"
@@ -252,23 +252,23 @@ msgstr ""
 "Mislukt om inlog script te starten:\n"
 "%s"
 
-#: session.c:420
+#: session.c:421
 msgid "Single click!"
 msgstr "Enkele klik!"
 
-#: session.c:422
+#: session.c:423
 msgid "Double click!!"
 msgstr "Dubbele klik!!"
 
-#: session.c:424
+#: session.c:425
 msgid "Triple click!!!"
 msgstr "Driedubbele klik!!!"
 
-#: session.c:433
+#: session.c:434
 msgid "Double-click here to test mouse"
 msgstr "Hier dubbel klikken om de muis te testen"
 
-#: session.c:580
+#: session.c:587
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
@@ -276,24 +276,27 @@ msgstr ""
 "ROX-Session beheert XSettings niet, hierdoor zullen aanpassingen geen "
 "onmiddelijk effekt hebben..."
 
-#: session.c:667
+#: session.c:674
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
-msgstr "ROX-Filer is afgesloten (ge-crashed?). Het is waarschijnlijk het beste om ROX-Filer te herstarten."
+msgstr ""
+"ROX-Filer is afgesloten (ge-crashed?). Het is waarschijnlijk het beste om "
+"ROX-Filer te herstarten."
 
-#: session.c:669
+#: session.c:676
 msgid "Do nothing"
 msgstr "Doe niets"
 
-#: session.c:670
+#: session.c:677
 msgid "Run Xterm"
 msgstr "Start Xterm"
 
-#: session.c:671
+#: session.c:678
 msgid "_Restart"
 msgstr "_Herstarten"
 
-#: session.c:696
+#: session.c:703
+#, c-format
 msgid ""
 "Failed to run '%s':\n"
 "%s"
@@ -481,8 +484,8 @@ msgid ""
 "operation.\n"
 "Set this high if you find yourself dragging things unintentionally."
 msgstr ""
-"Bepaalt hoe ver de muis gesleept dient te worden alvorens een "
-"sleep-en-drop operatie gestart wordt.\n"
+"Bepaalt hoe ver de muis gesleept dient te worden alvorens een sleep-en-drop "
+"operatie gestart wordt.\n"
 "Zet dit hoger indien het slepen per ongeluk gestart wordt."
 
 #: tips:33

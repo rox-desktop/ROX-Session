@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 1.1.0\n"
-"POT-Creation-Date: 2003-02-24 04:30+0300\n"
+"POT-Creation-Date: 2003-04-17 12:19+0100\n"
 "PO-Revision-Date: 2001-06-05 20:46+0300\n"
 "Last-Translator: Alexey Lubimov <avl@altlinux.ru>\n"
 "Language-Team: Russian <out of team>\n"
@@ -28,14 +28,15 @@ msgstr ""
 "на условиях Генеральной Публичной Лицензии GNU GPL\n"
 "Для получения более подробной информации см. файл COPYING\n"
 
-
 #: main.c:66
 msgid "Try `ROX-Session/AppRun --help' for more information.\n"
-msgstr "Попробуйте `ROX-Session/AppRun --help' для получения большей информации.\n"
+msgstr ""
+"Попробуйте `ROX-Session/AppRun --help' для получения большей информации.\n"
 
 #: main.c:69
 msgid "Try `ROX-Session/AppRun -h' for more information.\n"
-msgstr "Попробуйте `ROX-Session/AppRun --h' для получения большей информации.\n"
+msgstr ""
+"Попробуйте `ROX-Session/AppRun --h' для получения большей информации.\n"
 
 #: main.c:71
 msgid ""
@@ -96,8 +97,8 @@ msgstr ""
 "Дорогой друг; ни черта не работает и я понятия не имею, почему!\n"
 "Ошибка была:\n"
 "%s\n"
-"Убедитесь, что ваши .xsession и .xinitrc файлы в порядке и "
-"отошлите багрепорт по адресу tal197@users.sourceforge.net. спасибо."
+"Убедитесь, что ваши .xsession и .xinitrc файлы в порядке и отошлите "
+"багрепорт по адресу tal197@users.sourceforge.net. спасибо."
 
 #: main.c:364
 msgid ""
@@ -105,8 +106,8 @@ msgid ""
 "your session manager.\n"
 "You can edit your .xsession file to customise things..."
 msgstr ""
-"Порядок, сейчас завершите работу и когда вы войдете в систему опять"
-",возможно, я буду вашим менеджером сессий.\n"
+"Порядок, сейчас завершите работу и когда вы войдете в систему опять,"
+"возможно, я буду вашим менеджером сессий.\n"
 "Вы можете отредактировать ваш .xsession файл в соответствии с вашими вкусами"
 
 #: main.c:387
@@ -133,19 +134,19 @@ msgstr ""
 "Вы должны сохранить настройки, разлогиниться и войти в систему снова, чтобы "
 "новые установки вступили в силу."
 
-#: log.c:361
+#: log.c:365
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: запись в stderr невозможна!\n"
 
-#: log.c:385
+#: log.c:389
 msgid "ROX-Session: read(stderr) failed!\n"
 msgstr "ROX-Session: чтение(stderr) невозможно!\n"
 
-#: log.c:409
+#: log.c:413
 msgid "ROX-Session message log"
 msgstr "ROX-Session лог сообщений"
 
-#: log.c:463
+#: log.c:467
 msgid "Show message log"
 msgstr "Показать лог сообщений"
 
@@ -175,7 +176,8 @@ msgstr "Восстановить все настройки с которыми диалог опций был открыт"
 msgid ""
 "Choices will be saved as:\n"
 "%s"
-msgstr "Настройки будут сохранены как:\n"
+msgstr ""
+"Настройки будут сохранены как:\n"
 "%s"
 
 #: options.c:920
@@ -197,93 +199,97 @@ msgstr "Плохой .gmo файл перевода (слишком короткий): %s"
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr "Плохой .gmo файл перевода (GNU magic number не найден): %s"
 
-#: session.c:271
+#: session.c:276
 msgid "_Halt"
 msgstr "Выключить"
 
-#: session.c:272
+#: session.c:277
 msgid "Attempting to halt the system..."
 msgstr "Попытка остановить работу компьютера..."
 
-#: session.c:275
+#: session.c:280
 msgid "_Reboot"
 msgstr "Перезагрузка"
 
-#: session.c:276
+#: session.c:281
 msgid "Attempting to restart the system..."
 msgstr "Попытка перезагрузить крмпьютер..."
 
-#: session.c:279
+#: session.c:284
 msgid "_Sleep"
 msgstr "Заснуть"
 
-#: session.c:280
+#: session.c:285
 msgid "Attempting to enter suspend mode..."
 msgstr "Попытаться войти в режим сна (suspend mode)..."
 
-#: session.c:285
+#: session.c:290
 msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
-msgstr "В самом деле выйти?"
-"(несохраненная информация может быть потеряна)"
-#: session.c:295
+msgstr "В самом деле выйти?(несохраненная информация может быть потеряна)"
+
+#: session.c:300
 msgid "Session Settings"
 msgstr "Установки на сессию"
 
-#: session.c:302
+#: session.c:307
 msgid "Logout"
 msgstr "Выход"
 
-#: session.c:355
+#: session.c:360
 #, c-format
 msgid ""
 "Failed to run login script:\n"
 "%s"
-msgstr "Провал выполнения скрипта логина:\n"
+msgstr ""
+"Провал выполнения скрипта логина:\n"
 "%s"
 
-#: session.c:416
+#: session.c:421
 msgid "Single click!"
 msgstr "Один щелчок!"
 
-#: session.c:418
+#: session.c:423
 msgid "Double click!!"
 msgstr "Двойной щелчок!!"
 
-#: session.c:420
+#: session.c:425
 msgid "Triple click!!!"
 msgstr "Тройной щелчок!!!"
 
-#: session.c:429
+#: session.c:434
 msgid "Double-click here to test mouse"
 msgstr "Сделайте двойной щелчок здесь для теста мыши"
 
-#: session.c:453
+#: session.c:587
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
 msgstr ""
-"ROX-Session не управляет XSettings, поэтому изменения не дадут"
-"мгновенного эффекта"
-#: session.c:540
+"ROX-Session не управляет XSettings, поэтому изменения не дадутмгновенного "
+"эффекта"
+
+#: session.c:674
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
-msgstr "ROX-Filer завершил свою работу (рухнул?). Вам может потребоваться перезапустить его."
+msgstr ""
+"ROX-Filer завершил свою работу (рухнул?). Вам может потребоваться "
+"перезапустить его."
 
-#: session.c:542
+#: session.c:676
 msgid "Do nothing"
 msgstr "Нечего делать"
 
-#: session.c:543
+#: session.c:677
 msgid "Run Xterm"
 msgstr "Выполняю Xterm"
 
-#: session.c:544
+#: session.c:678
 msgid "_Restart"
 msgstr "Перезагрузка"
 
-#: session.c:569
+#: session.c:703
 #, c-format
 msgid ""
 "Failed to run '%s':\n"
@@ -297,8 +303,8 @@ msgid ""
 "Your window manager has crashed (or quit). Please restart it, or choose "
 "another window manager."
 msgstr ""
-"Ваш оконный менеджер рухнул (или завершил работу). Пожалуйста рестартуйте его, или выберите"
-"другой оконный менеджер"
+"Ваш оконный менеджер рухнул (или завершил работу). Пожалуйста рестартуйте "
+"его, или выберитедругой оконный менеджер"
 
 #: wm.c:129
 #, c-format
@@ -314,8 +320,8 @@ msgid ""
 "The window manager which ROX-Session started for you is still running. Quit "
 "it before starting a new one."
 msgstr ""
-"Оконный менеджер с которым ROX-Session стартовал продолжает работать. Завершите"
-"его до старта нового менеджера"
+"Оконный менеджер с которым ROX-Session стартовал продолжает работать. "
+"Завершитеего до старта нового менеджера"
 
 #: wm.c:158
 msgid ""
@@ -352,7 +358,6 @@ msgstr ""
 "Оконный менеджер, это программа, которая добавляет заголовок и рамку к окну. "
 "Он позволяет вам передвигать, изменять размер и закрывать окна"
 
-
 #: tips:4
 msgid "Default window manager"
 msgstr "Оконный менеджер по умолчанию"
@@ -382,62 +387,62 @@ msgid "German"
 msgstr "Немецкий"
 
 #: tips:11
+msgid "Russian"
+msgstr ""
+
+#: tips:12
 msgid "Use the LANG environment variable"
 msgstr "Использовать переменную окружения LANG"
 
-#: tips:12
+#: tips:13
 msgid "Display"
 msgstr "Экран"
 
-#: tips:13
+#: tips:14
 msgid "Text"
 msgstr "Текст"
 
-#: tips:14
+#: tips:15
 msgid "Default font"
 msgstr "Шрифт по умолчанию"
 
-#: tips:15 tips:16
+#: tips:16 tips:17
 msgid "The font used by Gtk+-2.0 applications"
 msgstr "Шрифт, используемый GTK+-2.0 приложениями"
 
-#: tips:17
+#: tips:18
 msgid "Desktop background"
 msgstr "Фон рабочего стола"
 
-#: tips:18 tips:19
+#: tips:19 tips:20
 msgid ""
 "Bring up the menu over the desktop background to set the backdrop image or "
 "change the pinboard options."
 msgstr ""
-"Вызовите меню правой кнопкой на рабочем столе для установки фона "
-"или настройки рабочего стола"
+"Вызовите меню правой кнопкой на рабочем столе для установки фона или "
+"настройки рабочего стола"
 
-#: tips:20
+#: tips:21
 msgid "Theme"
 msgstr "Тема"
 
-#: tips:21
+#: tips:22
 msgid "GTK theme"
 msgstr "GTK тема"
 
-#: tips:22 tips:23 tips:24
-msgid "The name of the theme to use."
-msgstr "Название используемой темы"
-
-#: tips:25
+#: tips:23
 msgid "Mouse"
 msgstr "Мышь"
 
-#: tips:26
+#: tips:24
 msgid "Motion"
 msgstr "Движение"
 
-#: tips:27
+#: tips:25
 msgid "Acceleration threshold"
 msgstr "Порог ускорения"
 
-#: tips:28
+#: tips:26
 msgid ""
 "Controls how fast you have to move the pointer before the acceleration "
 "(below) kicks in."
@@ -445,185 +450,193 @@ msgstr ""
 "Указывает, как быстро вы можете двигать мышь, прежде чем включится ускорение "
 "(внизу)."
 
-#: tips:29
+#: tips:27
 msgid "Acceleration (none)"
 msgstr "Ускорение (нет)"
 
-#: tips:30
+#: tips:28
 msgid "(10x)"
 msgstr "(10x)"
 
-#: tips:31
+#: tips:29
 msgid ""
 "When the pointer is moved quickly more than the threshold number of pixels, "
 "its speed is multiplied by this number."
 msgstr ""
-"Когда указатель передвигается быстрее, чем пороговое значение пикселей "
-"его скорость умножается на указанное значение."
+"Когда указатель передвигается быстрее, чем пороговое значение пикселей его "
+"скорость умножается на указанное значение."
 
-#: tips:32
+#: tips:30
 msgid "DnD Drag Threshold"
 msgstr "Порог D'n'D"
 
-#: tips:33 tips:34
+#: tips:31 tips:32
 msgid ""
 "Controls how far you have to drag the mouse to start a drag-and-drop "
 "operation.\n"
 "Set this high if you find yourself dragging things unintentionally."
 msgstr ""
-"Указывает, на какое расстояние вы должны передвинуть мышь для начала операции перетаскивания\n"
-"Ставьте большее значение, если вы находите перетаскивание (D'n'D) для себя  неудобным"
+"Указывает, на какое расстояние вы должны передвинуть мышь для начала "
+"операции перетаскивания\n"
+"Ставьте большее значение, если вы находите перетаскивание (D'n'D) для себя  "
+"неудобным"
 
-#: tips:35
+#: tips:33
 msgid "Buttons"
 msgstr "Кнопки"
 
-#: tips:36
+#: tips:34
 msgid "Double-click speed: (fast)"
 msgstr "Двойной щелчок (быстро)"
 
-#: tips:37 tips:43
+#: tips:35 tips:41
 msgid "(slow)"
 msgstr "(медленно)"
 
-#: tips:38
+#: tips:36
 msgid ""
 "Time allowed between the two clicks that make up a double click. Make this "
 "bigger if you have trouble double-clicking fast enough; set it smaller if "
 "two single-clicks sometimes get treated as a double click."
 msgstr ""
-"Допустимое время между двумя щелчка, которые должны приниматься за один двойной щелчок. "
-"Увеличивайте это значение, если испытываете затруднения с двойным щелчком. "
-"Уменьшайте это значение, если идущие подряд одиночные щелчки сливаются у вас в двойные."
+"Допустимое время между двумя щелчка, которые должны приниматься за один "
+"двойной щелчок. Увеличивайте это значение, если испытываете затруднения с "
+"двойным щелчком. Уменьшайте это значение, если идущие подряд одиночные "
+"щелчки сливаются у вас в двойные."
 
-#: tips:39
+#: tips:37
 msgid "Keyboard"
 msgstr "Клавиатура"
 
-#: tips:40
+#: tips:38
 msgid "Cursor"
 msgstr "Курсор"
 
-#: tips:41
+#: tips:39
 msgid "Blinking cursor"
 msgstr "Мигающий курсор"
 
-#: tips:42
+#: tips:40
 msgid "Speed: (fast)"
 msgstr "Скорость (быстро)"
 
-#: tips:44 tips:45
+#: tips:42 tips:43
 msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
 msgstr "Скорость "
 
-#: tips:46
+#: tips:44
 msgid "Shortcuts"
 msgstr "Горячие клавиши"
 
-#: tips:47
+#: tips:45
 msgid "Allow keybindings to be changed from menus"
 msgstr "Разрешить менять привязки клавиш из меню"
 
-#: tips:48
+#: tips:46
 msgid ""
 "When this is on, you can set up a short-cut for a menu item by holding to "
 "pointer over the menu item and pressing the key. If off, short-cuts cannot "
 "be changed."
 msgstr ""
-"Когда опция активизирована, вы можете устанавливать горячие клавиши для пунктов меню, просто "
-"остановив курсор над пунктом и нажав нужную вам клавишу. Если выключена, горячие клавиши менять не получиться."
+"Когда опция активизирована, вы можете устанавливать горячие клавиши для "
+"пунктов меню, просто остановив курсор над пунктом и нажав нужную вам "
+"клавишу. Если выключена, горячие клавиши менять не получиться."
 
-#: tips:49 tips:50 tips:51
+#: tips:47 tips:48 tips:49
 msgid ""
 "You can set global shortcuts (which work from any\n"
 "application) by assigning them to icons on a ROX-Filer pinboard or panel."
 msgstr ""
-"Вы также можете установить глобальные горячие клавиши (которые будут работать из любого приложения)"
-"присваивая их иконкам на рабочем столе или панели ROX-Filer"
+"Вы также можете установить глобальные горячие клавиши (которые будут "
+"работать из любого приложения)присваивая их иконкам на рабочем столе или "
+"панели ROX-Filer"
 
-#: tips:52
+#: tips:50
 msgid "Messages"
 msgstr "Сообщения"
 
-#: tips:53
+#: tips:51
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
 "program it starts. It displays all the messages it collects this way briefly "
 "on screen."
 msgstr ""
-"Все программы имеют стандартный поток (stderr) куда они пишут сообщения об ошибках. "
-"ROX-Session соединяется с каждым приложением при запуске и отображает все принятые сообщения "
-"на экране"
+"Все программы имеют стандартный поток (stderr) куда они пишут сообщения об "
+"ошибках. ROX-Session соединяется с каждым приложением при запуске и "
+"отображает все принятые сообщения на экране"
 
-#: tips:54
+#: tips:52
 msgid "On-screen message log"
-msgstr ""
-"Экранный лог сообщений"
+msgstr "Экранный лог сообщений"
 
-#: tips:55
+#: tips:53
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
 msgstr ""
-"Вы можете щелкнуть средней кнопкой мыши по сообщению об ошибке для вызова окна "
-"с логами, или используйте эту кнопку:"
+"Вы можете щелкнуть средней кнопкой мыши по сообщению об ошибке для вызова "
+"окна с логами, или используйте эту кнопку:"
 
-#: tips:56
+#: tips:54
 msgid "Show messages for:"
 msgstr "Показывать сообщения:"
 
-#: tips:57
+#: tips:55
 msgid "seconds"
 msgstr "секунд"
 
-#: tips:58 tips:59 tips:60
+#: tips:56 tips:57 tips:58
 msgid "Number of seconds to display each message for"
 msgstr "Кол-во секунд на отображение каждого сообщения"
 
-
-#: tips:61 tips:62
+#: tips:59 tips:60
 msgid "Power"
 msgstr "Питание"
 
-#: tips:63
+#: tips:61
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
 "use xsu or sudo with the command if your system doesn't give normal users "
 "permission to shutdown the system."
 msgstr ""
-"Эта команда может быть выбрана в диалоге выхода как альтернатива завершению сеанса. "
-"Корректные установки сильно различаются для разных систем. Вам может потребоваться "
-"xsu или sudo, если ваша система не позволяет непривилегированному пользователю выключать или перезагружать компьютер"
+"Эта команда может быть выбрана в диалоге выхода как альтернатива завершению "
+"сеанса. Корректные установки сильно различаются для разных систем. Вам может "
+"потребоваться xsu или sudo, если ваша система не позволяет "
+"непривилегированному пользователю выключать или перезагружать компьютер"
 
-#: tips:64
+#: tips:62
 msgid "Halt command:"
 msgstr "Команда выключения"
 
-#: tips:65
+#: tips:63
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
-msgstr "Команда для выключения типа 'halt' или 'shutdown -t now' или 'poweroff'"
+msgstr ""
+"Команда для выключения типа 'halt' или 'shutdown -t now' или 'poweroff'"
 
-
-#: tips:66
+#: tips:64
 msgid "Reboot command:"
 msgstr "Команда перезагрузки"
 
-#: tips:67
+#: tips:65
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "Команда перезагрузки типа 'reboot' или 'shutdown -t now -r'"
 
-#: tips:68
+#: tips:66
 msgid "Suspend command:"
 msgstr "Команда перехода в сон"
 
-#: tips:69 tips:70 tips:71 tips:72
+#: tips:67 tips:68 tips:69 tips:70
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
 "need a kernel with the correct system compiled in and enabled."
 msgstr ""
-"Если ваша система использует APM, для управления питанием, попробуйте 'apm -s' или нечто похожее. "
-"ACPI пользователи могут поробовать 'xset dpms force off; echo 1 > /proc/acpi/sleep'.  Вам необходимо правильно "
-"собранное ядро с включенной поддержкой этих возможностей"
+"Если ваша система использует APM, для управления питанием, попробуйте 'apm -"
+"s' или нечто похожее. ACPI пользователи могут поробовать 'xset dpms force "
+"off; echo 1 > /proc/acpi/sleep'.  Вам необходимо правильно собранное ядро с "
+"включенной поддержкой этих возможностей"
+
+#~ msgid "The name of the theme to use."
+#~ msgstr "Название используемой темы"

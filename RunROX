@@ -30,4 +30,6 @@ if [ -z "$PANEL" -a -n "$MYCHOICES" ]; then
   "$1/SetupPanel" "$1" "$MYCHOICES"
 fi
 
+# The -n is needed to stop the filer going into the background, causing
+# ROX-Session to offer to restart it...
 exec rox -n -p Default -b Default
