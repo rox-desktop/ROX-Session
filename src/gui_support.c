@@ -28,6 +28,9 @@
 #include "main.h"
 #include "gui_support.h"
 
+/* The dialog box that is currently open */
+GtkWidget	*current_dialog = NULL;
+
 static void choice_clicked(GtkWidget *widget, gpointer number)
 {
 	int	*choice_return;
@@ -43,6 +46,9 @@ static void choice_clicked(GtkWidget *widget, gpointer number)
  * The user can choose from a selection of buttons at the bottom.
  * Returns -1 if the window is destroyed, or the number of the button
  * if one is clicked (starting from zero).
+ *
+ * If a dialog is already open, returns -1 without waiting AND
+ * brings the current dialog to the front.
  */
 int get_choice(char *title,
 	       char *message,
@@ -56,7 +62,14 @@ int get_choice(char *title,
 	va_list	ap;
 	int		choice_return;
 
-	dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+	if (current_dialog)
+	{
+		gtk_widget_hide(current_dialog);
+		gtk_widget_show(current_dialog);
+		return -1;
+	}
+
+	current_dialog = dialog = gtk_window_new(GTK_WINDOW_DIALOG);
 	GTK_WIDGET_UNSET_FLAGS(dialog, GTK_CAN_FOCUS);
 	gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
 	gtk_window_set_title(GTK_WINDOW(dialog), title);
@@ -119,6 +132,8 @@ int get_choice(char *title,
 
 	if (retval != -1)
 		gtk_widget_destroy(dialog);
+
+	current_dialog = NULL;
 
 	return retval;
 }

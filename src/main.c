@@ -255,24 +255,14 @@ static gboolean session_prop_touched(GtkWidget *window,
 				     GdkEventProperty *event,
 				     gpointer data)
 {
-	static gint logout_window_open = 0;
-
 	if (event->atom == rox_session_window)
 	{
-		if (logout_window_open)
-		{
-			gdk_beep();
-			return TRUE;
-		}
-
-		logout_window_open++;
 		if (get_choice(PROJECT,
 				_("Really logout?"), 2,
 				_("Logout"), _("Cancel")) == 0)
 		{
 			gtk_main_quit();
 		}
-		logout_window_open--;
 		
 		return TRUE;
 	}
