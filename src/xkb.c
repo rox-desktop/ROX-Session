@@ -41,8 +41,8 @@ void set_xkb_layout(const char *command)
 	GPtrArray *argv;
 	GError	*error = NULL;
 
-	if (!*command)
-		command = NULL;
+	if (!command || !*command)
+		return;
 
 	argv = g_ptr_array_new();
 

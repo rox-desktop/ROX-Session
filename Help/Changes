@@ -3,7 +3,11 @@
 			by Thomas Leonard
 
 
-05-Jun-2004
+11-Jun-2004
+~~~~~~~~~~~
+Bugfix: Setting the keymap to an empty string produced a crash.
+
+05-Jun-2004 (Release 0.1.23)
 ~~~~~~~~~~~
 Added setting to control keymap (Guido Schimmels).
 

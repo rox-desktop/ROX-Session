@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-17 15:45+0100\n"
+"POT-Creation-Date: 2004-06-07 16:35+0100\n"
 "PO-Revision-Date: 2002-04-10 17:59+0100\n"
 "Last-Translator: Christian Storgaard <cybolic@goth.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,7 +179,7 @@ msgstr ""
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(gemning slået fra af CHOICESPATH)"
 
-#: options.c:1093 settings.c:213
+#: options.c:1093 settings.c:216
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Fejl under gemning af %s: %s"
@@ -265,6 +265,14 @@ msgstr ""
 "%s\n"
 "Vælg venligst en ny window manager og prøv igen."
 
+#: xkb.c:89
+#, c-format
+msgid ""
+"Failed to set keyboard map:\n"
+"%s\n"
+"You can use the Keyboard configuration application to change the setting."
+msgstr ""
+
 #: tips:1
 msgid "Translation"
 msgstr "Oversættelse"
@@ -286,39 +294,43 @@ msgid "English (no translation)"
 msgstr "Engelsk"
 
 #: tips:6
-msgid "German"
+msgid "French"
 msgstr ""
 
 #: tips:7
-msgid "Italian"
+msgid "German"
 msgstr ""
 
 #: tips:8
-msgid "Lithuanian"
+msgid "Italian"
 msgstr ""
 
 #: tips:9
+msgid "Lithuanian"
+msgstr ""
+
+#: tips:10
 #, fuzzy
 msgid "Spanish"
 msgstr "Dansk"
 
-#: tips:10
+#: tips:11
 msgid "Japanese"
 msgstr ""
 
-#: tips:11
+#: tips:12
 msgid "Russian"
 msgstr ""
 
-#: tips:12
+#: tips:13
 msgid "Use the LANG environment variable"
 msgstr "Brug LANG miljø variabel"
 
-#: tips:13
+#: tips:14
 msgid "Messages"
 msgstr ""
 
-#: tips:14
+#: tips:15
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
@@ -326,48 +338,48 @@ msgid ""
 "on screen."
 msgstr ""
 
-#: tips:15
+#: tips:16
 msgid "On-screen message log"
 msgstr ""
 
-#: tips:16
+#: tips:17
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
 msgstr ""
 
-#: tips:17
+#: tips:18
 msgid "Show messages for:"
 msgstr ""
 
-#: tips:18
+#: tips:19
 msgid "seconds"
 msgstr ""
 
-#: tips:19
+#: tips:20
 msgid "Number of seconds to display each message for"
 msgstr ""
 
-#: tips:20
+#: tips:21
 msgid "Max area for popup display:"
 msgstr ""
 
-#: tips:21
+#: tips:22
 msgid "%"
 msgstr ""
 
-#: tips:22 tips:23 tips:24
+#: tips:23 tips:24 tips:25
 msgid ""
 "Normally, messages are shown overlayed on the screen for a few seconds. If "
 "there are a large number of messages (more than this amount of the screen is "
 "covered) then the view switches to the window style."
 msgstr ""
 
-#: tips:25 tips:26
+#: tips:26 tips:27
 msgid "Power"
 msgstr ""
 
-#: tips:27
+#: tips:28
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -375,41 +387,45 @@ msgid ""
 "permission to shutdown the system."
 msgstr ""
 
-#: tips:28
+#: tips:29
 msgid "Halt command:"
 msgstr ""
 
-#: tips:29
+#: tips:30
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr ""
 
-#: tips:30
+#: tips:31
 msgid "Reboot command:"
 msgstr ""
 
-#: tips:31
+#: tips:32
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr ""
 
-#: tips:32
+#: tips:33
 msgid "Suspend command:"
 msgstr ""
 
-#: tips:33 tips:34 tips:35
+#: tips:34 tips:35 tips:36
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
 "need a kernel with the correct system compiled in and enabled."
 msgstr ""
 
-#: tips:36
+#: tips:37
 msgid "Look and Feel"
 msgstr ""
 
-#: tips:37 tips:38 tips:39
+#: tips:38 tips:39 tips:40
 msgid ""
 "The mouse, keyboard and display options have moved to the new LookAndFeel "
 "application, available from http://rox.sf.net."
+msgstr ""
+
+#: AutoStart.py:13
+msgid "Symlink any applications you want run on login into this directory"
 msgstr ""
 
 #: logout.py:66

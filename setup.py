@@ -61,8 +61,8 @@ def create_session_script(path):
 	file(path, 'w').write("""#!/bin/sh
 # This file was created by ROX-Session.
 
-if [ -d $HOME/bin ]; then
-	PATH=${HOME}/bin:${PATH}
+if [ -d "$HOME/bin" ]; then
+	PATH="${HOME}/bin:${PATH}"
 fi
 
 # Step 1: Try to run ROX-Session. If it works, stop right here.
