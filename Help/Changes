@@ -8,11 +8,11 @@ Make Ctrl-U work again (GTK+-2 broke it).
 
 18-Jun-2003
 ~~~~~~~~~~~
-Added Italian translation: Help/Guide/AppInfo.xml.
+Added Italian translation: Help/Guide/AppInfo.xml (Yuri Bongiorno).
 
 14-Jun-2003
 ~~~~~~~~~~~
-Added Italian translations: src/po/it.po, AppInfo.xml.
+Added Italian translations: src/po/it.po, AppInfo.xml (Yuri Bongiorno).
 
 07-Jun-2003
 ~~~~~~~~~~~

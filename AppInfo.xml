@@ -6,7 +6,7 @@
   <Summary xml:lang="it">Configura il desktop dopo l'accesso al sistema e permette di terminare la sessione</Summary>
   <About>
     <Purpose>Session Manager</Purpose>
-    <Version>0.1.20 PREVIEW</Version>
+    <Version>0.1.20 (19-Jun-2003)</Version>
     <Author>Thomas Leonard</Author>
     <License>GNU General Public License</License>
     <Homepage>http://rox.sourceforge.net</Homepage>
@@ -25,8 +25,7 @@
     <Homepage label="Sito web"/>
   </About>
   <AppMenu>
-    <!-- label attribute is for older filers -->
-    <Item option='--setup' label='Auto Start...'>
+    <Item option='--setup'>
       <Label>Auto Start...</Label>
       <Label xml:lang='es'>Iniciar Autom&#x00E1;ticamente...</Label>
       <Label xml:lang='it'>Esecuzione automatica...</Label>

@@ -246,7 +246,8 @@ copying the ROX-Session/WindowMans file as <Choices>/ROX-Session/WindowMans
 and editing it there.
 
 This is mainly useful if you're a system administrator and you want to
-set the list for all your users.
+set the list for all your users. Only window managers found in $PATH will
+actually be displayed to the user.
 
 
 What's a session manager?
