@@ -1,0 +1,595 @@
+# Lithuanian messages for ROX-Session.
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Rimas Kudelis <rq@akl.lt>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ROX-Session 1.1.0\n"
+"POT-Creation-Date: 2003-10-26 12:35+0000\n"
+"PO-Revision-Date: 2003-11-20 01:01+0300\n"
+"Last-Translator: Rimas Kudelis <rq@akl.lt>\n"
+"Language-Team: Lithuanian Language Team <komp_lt@konf.lt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: main.c:57
+msgid ""
+"Copyright (C) 2002 Thomas Leonard.\n"
+"ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
+"to the extent permitted by law.\n"
+"You may redistribute copies of ROX-Session\n"
+"under the terms of the GNU General Public License.\n"
+"For more information about these matters, see the file named COPYING.\n"
+msgstr ""
+"Autorinės teisės priklauso © 2002 Thomas Leonard.\n"
+"ROX-Session pateikiamas VISIŠKAI BE JOKIOS GARANTIJOS.\n"
+"Jūs galite platinti ROX-Session kopijas,\n"
+"vadovaudamiesi GNU GPL licencijos sąlygomis.\n"
+"Platesnė informacija - byloje COPYING.\n"
+
+#: main.c:66
+msgid "Try `ROX-Session/AppRun --help' for more information.\n"
+msgstr "Įvykdykite komandą „ROX-Session/AppRun --help“ platesnei informacijai gauti.\n"
+
+#: main.c:69
+msgid "Try `ROX-Session/AppRun -h' for more information.\n"
+msgstr "Įvykdykite komandą „ROX-Session/AppRun -h“ platesnei informacijai gauti.\n"
+
+#: main.c:71
+msgid ""
+"NOTE: Your system does not support long options - \n"
+"you must use the short versions instead.\n"
+"\n"
+msgstr ""
+"DĖMESIO: jūsų sistema nepalaiko ilgų argumentų, \n"
+"vietoje jų naudokitės trumpaisiais.\n"
+"\n"
+
+#: main.c:75
+msgid ""
+"Usage: ROX-Session/AppRun [OPTION]...\n"
+"If ROX-Session is already managing your session then display\n"
+"the logout window. If not, offer to make ROX-Session your\n"
+"session manager for future sessions.\n"
+"\n"
+"  -h, --help\t\tdisplay this help and exit\n"
+"  -v, --version\t\tdisplay the version information and exit\n"
+"  -w, --wait\t\tsimply wait until run again (internal use)\n"
+"\n"
+"The latest version can be found at:\n"
+"\thttp://rox.sourceforge.net\n"
+"\n"
+"Report bugs to <tal197@users.sourceforge.net>.\n"
+msgstr ""
+"Naudojimas: ROX-Session/AppRun [ARGUMENTAS]...\n"
+"Jei ROX-Session jau kontroliuoja jūsų sesiją, pamatysite\n"
+"išsiregistravimo langą. Priešingu atveju jums bus pasiūlyta\n"
+"padaryti ROX-Session nutylimaja jūsų būsimųjų sesijų tvarkykle.\n"
+"\n"
+"  -h, --help\t\tparodo šią pagalbą ir baigia progamos darbą.\n"
+"  -v, --version\t\tparodo informaciją apie versiją ir baigia programos darbą.\n"
+"  -w, --wait\t\ttiesiog laukia pakartotino paleidimo (naudojama viduje).\n"
+"\n"
+"Naujausią versiją galima rasti adresu:\n"
+"\thttp://rox.sourceforge.net\n"
+"\n"
+"Prašome pranešti apie programos riktus adresu <tal197@users.sourceforge.net>.\n"
+
+#: main.c:206
+msgid "ROX-Session is already managing your session - can't manage it twice!"
+msgstr "ROX-Session jau kontroliuoja jūsų sesiją - negaliu to daryti dukart!"
+
+#: main.c:333
+msgid "Would you like to make ROX-Session your session manager?"
+msgstr "Ar norite padaryti ROX-Session savo nutylimaja sesijos tvarkykle?"
+
+#: main.c:352
+#, c-format
+msgid ""
+"Oh dear; it didn't work and I don't know why!\n"
+"Error was:\n"
+"%s\n"
+"Make sure your .xsession and .xinitrc files are OK, then report the problem to tal197@users.sourceforge.net - thanks"
+msgstr ""
+"Ot velnias; kažkas nesuveikė ir nežinau, kas!\n"
+"Klaida buvo tokia:\n"
+"%s\n"
+"Įsitikinę, jog jūsų .xsession ir .xinitrc bylos tvarkingos, praneškite apie problemą adresu tal197@users.sourceforge.net. Ačiū."
+
+#: main.c:364
+msgid ""
+"OK, now logout by your usual method and when you log in again, I should be your session manager.\n"
+"You can edit your .xsession file to customise things..."
+msgstr ""
+"Šaunu. Dabar išsiregistruokite įprastu būdu ir kai sekantį kartą įsiregistruosite, aš turėčiau būti jūsų sesijos tvarkyklė.\n"
+"Jūs galite paredaguoti savo .xsession bylą, jei norite ką nors tinkinti."
+
+#: main.c:387
+#, c-format
+msgid "Your login script (%s) died"
+msgstr "Jūsų įsiregistravimo skriptas (%s) nulūžo"
+
+#: main.c:390
+#, c-format
+msgid "Your login script (%s) exited with exit status %d"
+msgstr "Jūsų įsiregistravimo skriptas (%s) nutraukė darbą su tokiu pranešimu: %d"
+
+#: main.c:395
+msgid ". I'll give you an xterm to try and fix it. ROX-Session itself is running fine though - run me a second time to logout."
+msgstr ". Aš jums paleisiu terminalą, kad pabandytumėte tai sutvarkyti. Pats ROX-Session veikia puikiai, jei norėsite išsiregistruoti paleiskite mane dar kartą."
+
+#: i18n.c:38
+msgid "Note that you must save your choices, logout and log back in again before the new settings will take full effect."
+msgstr "Nepamirškite, jog turite išsaugoti savo parinktis, išsiregistruoti ir vėl įsiregistruoti, kad naujosios nuostatos įsigaliotų pilnai."
+
+#: log.c:366
+msgid "ROX-Session: write to stderr failed!\n"
+msgstr "ROX-Session: nepavyko rašyti į stderr!\n"
+
+#: log.c:390
+msgid "ROX-Session: read(stderr) failed!\n"
+msgstr "ROX-Session: nepavyko skaityti iš stderr!\n"
+
+#: log.c:414
+msgid "ROX-Session message log"
+msgstr "ROX-Session pranešimų žurnalas"
+
+#: log.c:468
+msgid "Show message log"
+msgstr "Rodyti pranešimų žurnalą"
+
+#: options.c:464
+#: options.c:1187
+msgid "(use default)"
+msgstr "(naudoti nutylimą)"
+
+#: options.c:735
+#, c-format
+msgid "Internal error: %s unreadable"
+msgstr "Vidinė klaida: nepavyksta nuskaityti %s"
+
+#: options.c:846
+msgid "Options"
+msgstr "Nuostatos"
+
+#: options.c:891
+msgid "_Revert"
+msgstr "_Atstatyti"
+
+#: options.c:897
+msgid "Restore all choices to how they were when the Options box was opened."
+msgstr "Atstatyti visas parinktis į tokias, kokios jos buvo atidarius šį nuostatų dialogą."
+
+#: options.c:912
+#, c-format
+msgid ""
+"Choices will be saved as:\n"
+"%s"
+msgstr ""
+"Parinktys bus išsaugotos kaip:\n"
+"%s"
+
+#: options.c:920
+msgid "(saving disabled by CHOICESPATH)"
+msgstr "(išaugojimas deaktyvuotas iš CHOICESPATH)"
+
+#: options.c:1093
+#, c-format
+msgid "Error saving %s: %s"
+msgstr "Klaida bandant išsaugoti %s: %s"
+
+#: rox_gettext.c:93
+#, c-format
+msgid "Invalid .gmo translation file (too short): %s"
+msgstr "Netinkama (per maža) .gmo vertimo byla: %s"
+
+#: rox_gettext.c:106
+#, c-format
+msgid "Invalid .gmo translation file (GNU magic number not found): %s"
+msgstr "Netinkama .gmo vertimo byla (nerandu GNU magiškojo skaičiuko): %s"
+
+#: session.c:276
+msgid "_Halt"
+msgstr "_Išjungti"
+
+#: session.c:277
+msgid "Attempting to halt the system..."
+msgstr "Bandau išjungti sistemą..."
+
+#: session.c:280
+msgid "_Reboot"
+msgstr "_Perkrauti"
+
+#: session.c:281
+msgid "Attempting to restart the system..."
+msgstr "Bandau perkrauti sistemą..."
+
+#: session.c:284
+msgid "_Sleep"
+msgstr "Pri_stabdyti"
+
+#: session.c:285
+msgid "Attempting to enter suspend mode..."
+msgstr "Bandau pristabdyti sistemą..."
+
+#: session.c:290
+msgid ""
+"Really logout?\n"
+"(unsaved data will be lost)"
+msgstr ""
+"Ar tikrai norite išsiregistruoti?\n"
+"(neišsaugoti duomenys bus prarasti)"
+
+#: session.c:300
+msgid "Session Settings"
+msgstr "Sesijos nuostatos"
+
+#: session.c:307
+msgid "Logout"
+msgstr "Išsiregistruoti"
+
+#: session.c:361
+#, c-format
+msgid ""
+"Failed to run login script:\n"
+"%s"
+msgstr ""
+"Nepavyko paleisti įsiregistravimo skripto:\n"
+"%s"
+
+#: session.c:428
+msgid "Single click!"
+msgstr "Viengubas spustelėjimas!"
+
+#: session.c:430
+msgid "Double click!!"
+msgstr "Dvigubas spustelėjimas!!"
+
+#: session.c:432
+msgid "Triple click!!!"
+msgstr "Trigubas Spustelėjimas!!!"
+
+#: session.c:441
+msgid "Double-click here to test mouse"
+msgstr "Dukart spustelėkite čia pelės testavimui"
+
+#: session.c:601
+msgid "ROX-Session not managing XSettings, so changes will have no immediate effect..."
+msgstr "ROX-Session nekontroliuoja X nuostatų, tad pakeitimai nebus aktyvuoti iškart..."
+
+#: session.c:688
+msgid "ROX-Filer has terminated (crashed?).You should probably try to restart it."
+msgstr "ROX-Filer baigė darbą (lūžo?). Jums reikėtų pabandyti jį perleisti."
+
+#: session.c:690
+msgid "Do nothing"
+msgstr "Nieko nedaryti"
+
+#: session.c:691
+msgid "Run Xterm"
+msgstr "Paleisti Xterm"
+
+#: session.c:692
+msgid "_Restart"
+msgstr "_Perkrauti"
+
+#: session.c:718
+#, c-format
+msgid ""
+"Failed to run '%s':\n"
+"%s"
+msgstr ""
+"Nepavyko paleisti „%s“:\n"
+"%s"
+
+#: wm.c:74
+msgid "Your window manager has crashed (or quit). Please restart it, or choose another window manager."
+msgstr "Jūsų langų tvarkyklė nulūžo (arba baigė darbą). Prašau ją perleisti, arba pasirinkti kitą tvarkyklę."
+
+#: wm.c:143
+#, c-format
+msgid ""
+"Error loading window manager list '%s':\n"
+"%s"
+msgstr ""
+"Klaida bandant pakrauti langų tvarkyklių sąrašą „%s“:\n"
+"%s"
+
+#: wm.c:164
+msgid "The window manager which ROX-Session started for you is still running. Quit it before starting a new one."
+msgstr "Langų tvarkyklė, kurią ROX-Session jums paleido, vis dar veikia. Išjunkite ją prieš paleisdami naują."
+
+#: wm.c:172
+msgid ""
+"No window manager is currently selected.\n"
+"Please choose a window manager now."
+msgstr ""
+"Šiuo metu nepasirinkta jokia langų tvarkyklė.\n"
+"Pasirinkite ją dabar."
+
+#: wm.c:190
+#, c-format
+msgid ""
+"Failed to start window manager:\n"
+"%s\n"
+"Please choose a new window manager and try again."
+msgstr ""
+"Nepavyko paleisti langų tvarkyklės:\n"
+"%s\n"
+"Pasirinkite kitą langų tvarkyklę ir pabandkykite iš naujo."
+
+#: wm.c:267
+msgid "Start window manager"
+msgstr "Paleisti langų tvarkyklę"
+
+#: tips:1
+#: tips:3
+msgid "Window manager"
+msgstr "Langų tvarkyklė"
+
+#: tips:2
+msgid "The window manager is a program which puts title bars and frames on windows. It allows you to move windows around, resize them, close them and so on."
+msgstr "Langų tvarkyklė - tai programa, uždedanti langams antraštes ir rėmelius. Ji leidžia jums stumdyti langus, keisti jų dydį, juos uždaryti ir pan."
+
+#: tips:4
+msgid "Default window manager"
+msgstr "Nutylimoji langų tvarkyklė"
+
+#: tips:5
+msgid "Translation"
+msgstr "Vertimas"
+
+#: tips:6
+msgid "Language"
+msgstr "Kalba"
+
+#: tips:7
+msgid "Danish"
+msgstr "Danų"
+
+#: tips:8
+msgid "Dutch"
+msgstr "Olandų"
+
+#: tips:9
+msgid "English (no translation)"
+msgstr "Anglų (jokio vertimo)"
+
+#: tips:10
+msgid "German"
+msgstr "Vokiečių"
+
+#: tips:11
+msgid "Italian"
+msgstr "Italų"
+
+#: tips:12
+msgid "Spanish"
+msgstr "Ispanų"
+
+#: tips:13
+msgid "Japanese"
+msgstr "Japonų"
+
+#: tips:14
+msgid "Russian"
+msgstr "Rusų"
+
+#: tips:15
+msgid "Use the LANG environment variable"
+msgstr "Parinkti pagal LANG aplinkos kintamąjį"
+
+#: tips:16
+msgid "Display"
+msgstr "Vaizdas"
+
+#: tips:17
+msgid "Text"
+msgstr "Tekstas"
+
+#: tips:18
+msgid "Default font"
+msgstr "Nutylimasis šriftas"
+
+#: tips:19
+#: tips:20
+msgid "The font used by Gtk+-2.0 applications"
+msgstr "Šriftas, naudojamas GTK+-2.0 programose"
+
+#: tips:21
+msgid "Desktop background"
+msgstr "Darbastalio fonas"
+
+#: tips:22
+#: tips:23
+#, fuzzy
+msgid "Bring up the menu over the desktop background to set the backdrop image or change the pinboard options."
+msgstr "Parodyti meniu ant darbastalio, leidžiantį pakeisti jo foną ar pakeisti *pinboard* nuostatas."
+
+#: tips:24
+msgid "Theme"
+msgstr "Tema"
+
+#: tips:25
+msgid "GTK theme"
+msgstr "GTK tema"
+
+#: tips:26
+msgid "Mouse"
+msgstr "Pelė"
+
+#: tips:27
+msgid "Motion"
+msgstr "Judėjimas"
+
+#: tips:28
+msgid "Acceleration threshold"
+msgstr "Pagreičio delsa"
+
+#: tips:29
+msgid "Controls how fast you have to move the pointer before the acceleration (below) kicks in."
+msgstr "Kontroliuoja, kiek greitai jūs turite judinti pelę, kad ji imtų judėti su pagreičiu."
+
+#: tips:30
+msgid "Acceleration (none)"
+msgstr "Pagreitis (joks)"
+
+#: tips:31
+msgid "(10x)"
+msgstr "(10x)"
+
+#: tips:32
+msgid "When the pointer is moved quickly more than the threshold number of pixels, its speed is multiplied by this number."
+msgstr "Kai žymeklis greitai pravažiuoja didesnį taškų kiekį, negu nurodyta, jo greitis bus padaugintas iš šio skaičiaus."
+
+#: tips:33
+msgid "DnD Drag Threshold"
+msgstr "„Paimk ir nešk“ nešimo delsa"
+
+#: tips:34
+#: tips:35
+msgid ""
+"Controls how far you have to drag the mouse to start a drag-and-drop operation.\n"
+"Set this high if you find yourself dragging things unintentionally."
+msgstr ""
+"Nustato, kiek toli jūs turite nunešti objektą, kad būtų skaitoma, jog norite jį kažkur nunešti.\n"
+"Nustatykite šį skaičių didesnį, jei kartais nešiojate objektus be priežasties."
+
+#: tips:36
+msgid "Buttons"
+msgstr "Mygtukai"
+
+#: tips:37
+msgid "Double-click speed: (fast)"
+msgstr "Dvigubo paspaudimo greitis: (greitas)"
+
+#: tips:38
+#: tips:44
+msgid "(slow)"
+msgstr "(lėtas)"
+
+#: tips:39
+msgid "Time allowed between the two clicks that make up a double click. Make this bigger if you have trouble double-clicking fast enough; set it smaller if two single-clicks sometimes get treated as a double click."
+msgstr "Maksimalus laikas tarp dviejų paspaudimų, kai jie dar laikomi vienu dvigubu. Nustatykite šią reikšmę didesnę, jei jums problematiška pakankamai greitai dukart spustelėti mygtuką; pamažinkite ją, jei du atskiri jūsų pelės paspaudimai kartais traktuojami kaip vienas dvigubas."
+
+#: tips:40
+msgid "Keyboard"
+msgstr "Klaviatūra"
+
+#: tips:41
+msgid "Cursor"
+msgstr "Žymeklis"
+
+#: tips:42
+msgid "Blinking cursor"
+msgstr "Mirksintis žymeklis"
+
+#: tips:43
+msgid "Speed: (fast)"
+msgstr "Greitis: (greitas)"
+
+#: tips:45
+#: tips:46
+msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
+msgstr "Greitis, kuriuo mirksi teksto įvedimo žymeklis (jei įjungtas jo mirksėjimas)"
+
+#: tips:47
+msgid "Shortcuts"
+msgstr "Trumpės"
+
+#: tips:48
+msgid "Allow keybindings to be changed from menus"
+msgstr "Leisti iš meniu keisti klavišų susiejimą"
+
+#: tips:49
+msgid "When this is on, you can set up a short-cut for a menu item by holding to pointer over the menu item and pressing the key. If off, short-cuts cannot be changed."
+msgstr "Kai ši funkcija įjungta, jūs galėsite nustatyti norimą greitąjį klavišą meniu punktui, užvažiuodami ant jo pele ir paspausdami klavišą. Jei ši nuostata išjungta, klavišų susiejimas negali būti keičiamas. "
+
+#: tips:50
+#: tips:51
+#: tips:52
+#, fuzzy
+msgid ""
+"You can set global shortcuts (which work from any\n"
+"application) by assigning them to icons on a ROX-Filer pinboard or panel."
+msgstr "Jūs galite nustatyti globalias trumpes (kurios veikia iš visų programų), priskirdami jas piktogramoms ROX-Filer panelėje arba *pinboard*."
+
+#: tips:53
+msgid "Messages"
+msgstr "Pranešimai"
+
+#: tips:54
+msgid "All programs have a 'standard error stream' which they can write text messages to. ROX-Session creates such a connection between itself and every program it starts. It displays all the messages it collects this way briefly on screen."
+msgstr "Kiekviena programa turi „standartinę klaidų išvestį“, į kurią rašo savo tekstinius pranešimus. ROX-Session sukuria ryšį tarp savęs ir kiekvienos jo paleistos programos. Tokiu būdu gautas žinutes jis trumpam parodo ekrane."
+
+#: tips:55
+msgid "On-screen message log"
+msgstr "Žinučių žurnalas ekrane"
+
+#: tips:56
+msgid "You can click button-3 on an error message to switch to the log window display, or use this button:"
+msgstr "Norėdami pamatyti pranešimų žurnalą atskirame lange, jūs galite spustelti trečiąjį pelės mygtuką, arba pasinaudoti šiuo mygtuku: "
+
+#: tips:57
+msgid "Show messages for:"
+msgstr "Žinutes rodyti:"
+
+#: tips:58
+msgid "seconds"
+msgstr "sekundes"
+
+#: tips:59
+msgid "Number of seconds to display each message for"
+msgstr "Sekundžių kiekis kiekvienai žinutei rodyti."
+
+#: tips:60
+msgid "Max area for popup display:"
+msgstr "Maksimalus iššokančio pranešimo plotas:"
+
+#: tips:61
+msgid "%"
+msgstr "%"
+
+#: tips:62
+#: tips:63
+#: tips:64
+msgid "Normally, messages are shown overlayed on the screen for a few seconds. If there are a large number of messages (more than this amount of the screen is covered) then the view switches to the window style."
+msgstr "Paprastai pranešimai kelias sekundes rodomi užkloti ant ekrano. Jei pranešimų yra daug (daugiau, negu ši ekrano ploto dalis), jie bus parodyti atskirame lange."
+
+#: tips:65
+#: tips:66
+msgid "Power"
+msgstr "Energija"
+
+#: tips:67
+msgid "These commands can be selected in the Logout box as alternatives to logging out. The correct settings vary between different systems. You may need to use xsu or sudo with the command if your system doesn't give normal users permission to shutdown the system."
+msgstr "Šios komandos gali būti vykdomos iš išsiregistravimo dialogo vietoje išsiregistravimo. Teisingos nuostatos priklauso nuo sistemos.Jums gali tekti pasinaudoti xsu arba sudo bei norima komanda, jei jūsų sistema neleidžia paprastiems vartotojams išjungti sistemos."
+
+#: tips:68
+msgid "Halt command:"
+msgstr "Išjungimo komanda:"
+
+#: tips:69
+msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
+msgstr "Dažniausiai išjungimui naudojamos „halt“ bei „shutdown -t now“ arba „poweroff“ komandos"
+
+#: tips:70
+msgid "Reboot command:"
+msgstr "Perkrovimo komanda:"
+
+#: tips:71
+msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
+msgstr "Dažniausiai perkrovimui naudojamos „reboot“ bei „shutdown -t now -r“ komandos"
+
+#: tips:72
+msgid "Suspend command:"
+msgstr "Sulaikymo komanda:"
+
+#: tips:73
+#: tips:74
+#: tips:75
+#: tips:76
+msgid "If your system uses APM for power management, try 'apm -s' or similar. ACPI users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll need a kernel with the correct system compiled in and enabled."
+msgstr "Jei jūsų sistema naudoja APM energijai valdyti, pabandykite „apm -s“ ar pan. ACPI vartotojai gali pabandyti „xset dpms force off; echo 1 > /proc/acpi/sleep“. Jums reikės branduolio su aktyvuotu atitinkamos sistemos palaikymu."
+

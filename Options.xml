@@ -17,6 +17,7 @@
         <radio label='English (no translation)' value='None'/>
 	<radio label='German' value='de'/>
 	<radio label='Italian' value='it'/>
+	<radio label='Lithuanian' value='lt'/>
 	<radio label='Spanish' value='es'/>
 	<radio label='Japanese' value='ja'/>
         <radio label='Russian' value='ru'/>
@@ -30,6 +31,9 @@
   <section title='Display'>
     <frame label='Text'>
       <font name='Gtk/FontName' label='Default font'>The font used by Gtk+-2.0 applications</font>
+      <!--
+      <toggle name='Xft/Antialias' label='Antialias text'>Removed the jagged look of fonts by using shades of grey to represent half-filled pixels.</toggle>
+      -->
     </frame>
     <frame label='Desktop background'>
       <label help='1'>Bring up the menu over the desktop background to set the backdrop image or change the pinboard options.</label>

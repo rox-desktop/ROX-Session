@@ -90,6 +90,10 @@ static Setting settings[] = {
 
 	{"Gtk/CanChangeAccels", "1"},
 	{"Gtk/FontName", "Sans 10"},
+
+#if 0
+	{"Xft/Antialias", "0"},
+#endif
 };
 
 static Option mouse_accel_threshold;

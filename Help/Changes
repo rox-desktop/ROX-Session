@@ -2,13 +2,19 @@
 			A very simple session manager
 			by Thomas Leonard
 
+TODO: Never overwrite .xsession.old
+
+21-Nov-2003
+~~~~~~~~~~~
+Added Lithuanian translation (Rimas Kudelis).
+
 10-Nov-2003
 ~~~~~~~~~~~
 Added AppMenu item to get quick access to the message log (Stephen Watson).
 
 01-Nov-2003
 ~~~~~~~~~~~
-Updated Dutch translation. (Jan Wagemakers)
+Updated Dutch translation (Jan Wagemakers).
 
 26-Oct-2003
 ~~~~~~~~~~~
