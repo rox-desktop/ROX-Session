@@ -10,7 +10,7 @@
 
 #include <gtk/gtk.h>
 
-GtkWidget *button_new_mixed(char *stock, char *label);
-void report_error(char *message, ...);
+GtkWidget *button_new_mixed(const char *stock, const char *message);
+void report_error(const char *message, ...);
 
 #endif /* _GUI_SUPPORT_H */

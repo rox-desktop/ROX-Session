@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * ROX-Session, a very simple session manager
+ * ROX-Filer, filer for the ROX desktop project
  * Copyright (C) 2002, Thomas Leonard, <tal197@users.sourceforge.net>.
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -103,6 +103,12 @@ static GHashTable *loading = NULL;
  */
 static GHashTable *widget_builder = NULL;
 
+/* A mapping (name -> GtkSizeGroup) of size groups used by the widgets
+ * in the options box. This hash table is created/destroyed every time
+ * the box is opened/destroyed.
+ */
+static GHashTable *size_groups = NULL;
+
 /* List of functions to call after all option values are updated */
 static GList *notify_callbacks = NULL;
 
@@ -112,24 +118,28 @@ static GList *saver_callbacks = NULL;
 static int updating_widgets = 0;	/* Ignore change signals when set */
 
 /* Static prototypes */
-static void save_options(GtkWidget *widget, gpointer data);
+static void save_options(gpointer unused);
 static void revert_options(GtkWidget *widget, gpointer data);
 static void build_options_window(void);
-static GtkWidget *build_frame(void);
+static GtkWidget *build_window_frame(GtkTreeView **tree_view);
 static void update_option_widgets(void);
 static void button_patch_set_colour(GtkWidget *button, GdkColor *color);
-static void option_add(Option *option, guchar *key);
+static void option_add(Option *option, const gchar *key);
 static void set_not_changed(gpointer key, gpointer value, gpointer data);
 static void load_options(xmlDoc *doc);
+
+static GList *build_label(Option *option, xmlNode *node, guchar *label);
+static GList *build_spacer(Option *option, xmlNode *node, guchar *label);
+static GList *build_frame(Option *option, xmlNode *node, guchar *label);
 
 static GList *build_toggle(Option *option, xmlNode *node, guchar *label);
 static GList *build_slider(Option *option, xmlNode *node, guchar *label);
 static GList *build_entry(Option *option, xmlNode *node, guchar *label);
+static GList *build_numentry(Option *option, xmlNode *node, guchar *label);
 static GList *build_radio_group(Option *option, xmlNode *node, guchar *label);
 static GList *build_colour(Option *option, xmlNode *node, guchar *label);
 static GList *build_menu(Option *option, xmlNode *node, guchar *label);
 static GList *build_font(Option *option, xmlNode *node, guchar *label);
-
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -152,15 +162,23 @@ void options_init(void)
 		 * They get moved to option_hash when they're registered.
 		 */
 		doc = xmlParseFile(path);
-		load_options(doc);
-		xmlFreeDoc(doc);
+		if (doc)
+		{
+			load_options(doc);
+			xmlFreeDoc(doc);
+		}
 
 		g_free(path);
 	}
 
+	option_register_widget("label", build_label);
+	option_register_widget("spacer", build_spacer);
+	option_register_widget("frame", build_frame);
+
 	option_register_widget("toggle", build_toggle);
 	option_register_widget("slider", build_slider);
 	option_register_widget("entry", build_entry);
+	option_register_widget("numentry", build_numentry);
 	option_register_widget("radio-group", build_radio_group);
 	option_register_widget("colour", build_colour);
 	option_register_widget("menu", build_menu);
@@ -217,7 +235,8 @@ void option_check_widget(Option *option)
 }
 
 /* Call all the notify callbacks. This should happen after any options
- * have their values changed. Set each has_changed before calling.
+ * have their values changed.
+ * Set each option->has_changed flag before calling this function.
  */
 void options_notify(void)
 {
@@ -272,14 +291,14 @@ GtkWidget *options_show(void)
 }
 
 /* Initialise and register a new integer option */
-void option_add_int(Option *option, guchar *key, int value)
+void option_add_int(Option *option, const gchar *key, int value)
 {
 	option->value = g_strdup_printf("%d", value);
 	option->int_value = value;
 	option_add(option, key);
 }
 
-void option_add_string(Option *option, guchar *key, guchar *value)
+void option_add_string(Option *option, const gchar *key, const gchar *value)
 {
 	option->value = g_strdup(value);
 	option->int_value = atoi(value);
@@ -287,7 +306,7 @@ void option_add_string(Option *option, guchar *key, guchar *value)
 }
 
 /* Add a callback which will be called after any options have changed their
- * values. If serveral options change at once, this is called after all
+ * values. If several options change at once, this is called after all
  * changes.
  */
 void option_add_notify(OptionNotify *callback)
@@ -318,7 +337,7 @@ void option_add_saver(OptionNotify *callback)
  * On exit, the value will have been updated to the loaded value, if
  * different to the default.
  */
-static void option_add(Option *option, guchar *key)
+static void option_add(Option *option, const gchar *key)
 {
 	gpointer okey, value;
 
@@ -333,7 +352,7 @@ static void option_add(Option *option, guchar *key)
 	option->read_widget = NULL;
 	option->backup = NULL;
 
-	g_hash_table_insert(option_hash, key, option);
+	g_hash_table_insert(option_hash, (gchar *) key, option);
 
 	/* Use the value loaded from the file, if any */
 	if (g_hash_table_lookup_extended(loading, key, &okey, &value))
@@ -354,35 +373,25 @@ static GtkFontSelectionDialog *current_fontsel_box = NULL;
 static void get_new_colour(GtkWidget *ok, Option *option)
 {
 	GtkWidget	*csel;
-	gdouble		c[4];
-	GdkColor	colour;
+	GdkColor	c;
 
 	g_return_if_fail(current_csel_box != NULL);
 
 	csel = current_csel_box->colorsel;
 
-	gtk_color_selection_get_color(GTK_COLOR_SELECTION(csel), c);
-	colour.red = c[0] * 0xffff;
-	colour.green = c[1] * 0xffff;
-	colour.blue = c[2] * 0xffff;
+	gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(csel), &c);
 
-	button_patch_set_colour(option->widget, &colour);
+	button_patch_set_colour(option->widget, &c);
 	
 	gtk_widget_destroy(GTK_WIDGET(current_csel_box));
 
 	option_check_widget(option);
 }
 
-static void set_to_null(gpointer *data)
-{
-	*data = NULL;
-}
-
 static void open_coloursel(GtkWidget *button, Option *option)
 {
 	GtkColorSelectionDialog	*csel;
 	GtkWidget		*dialog, *patch;
-	gdouble			c[4];
 
 	if (current_csel_box)
 		gtk_widget_destroy(GTK_WIDGET(current_csel_box));
@@ -392,22 +401,19 @@ static void open_coloursel(GtkWidget *button, Option *option)
 	current_csel_box = csel;
 	gtk_window_set_position(GTK_WINDOW(csel), GTK_WIN_POS_MOUSE);
 
-	gtk_signal_connect_object(GTK_OBJECT(dialog), "destroy",
-			GTK_SIGNAL_FUNC(set_to_null),
-			(GtkObject *) &current_csel_box);
+	g_signal_connect(dialog, "destroy",
+			G_CALLBACK(gtk_widget_destroyed), &current_csel_box);
 	gtk_widget_hide(csel->help_button);
-	gtk_signal_connect_object(GTK_OBJECT(csel->cancel_button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_destroy),
-			GTK_OBJECT(dialog));
-	gtk_signal_connect(GTK_OBJECT(csel->ok_button), "clicked",
-			GTK_SIGNAL_FUNC(get_new_colour), option);
+	g_signal_connect_swapped(csel->cancel_button, "clicked",
+			G_CALLBACK(gtk_widget_destroy), dialog);
+	g_signal_connect(csel->ok_button, "clicked",
+			G_CALLBACK(get_new_colour), option);
 
 	patch = GTK_BIN(button)->child;
 
-	c[0] = ((gdouble) patch->style->bg[GTK_STATE_NORMAL].red) / 0xffff;
-	c[1] = ((gdouble) patch->style->bg[GTK_STATE_NORMAL].green) / 0xffff;
-	c[2] = ((gdouble) patch->style->bg[GTK_STATE_NORMAL].blue) / 0xffff;
-	gtk_color_selection_set_color(GTK_COLOR_SELECTION(csel->colorsel), c);
+	gtk_color_selection_set_current_color(
+			GTK_COLOR_SELECTION(csel->colorsel),
+			&patch->style->bg[GTK_STATE_NORMAL]);
 
 	gtk_widget_show(dialog);
 }
@@ -444,15 +450,14 @@ static void open_fontsel(GtkWidget *button, Option *option)
 	gtk_window_set_position(GTK_WINDOW(current_fontsel_box),
 				GTK_WIN_POS_MOUSE);
 
-	gtk_signal_connect_object(GTK_OBJECT(current_fontsel_box), "destroy",
-			GTK_SIGNAL_FUNC(set_to_null),
-			(GtkObject *) &current_fontsel_box);
+	g_signal_connect(current_fontsel_box, "destroy",
+			G_CALLBACK(gtk_widget_destroy), &current_fontsel_box);
 
 	gtk_font_selection_dialog_set_font_name(current_fontsel_box,
 						option->value);
 
-	gtk_signal_connect(GTK_OBJECT(current_fontsel_box), "response",
-			GTK_SIGNAL_FUNC(font_chosen), option);
+	g_signal_connect(current_fontsel_box, "response",
+			G_CALLBACK(font_chosen), option);
 
 	gtk_widget_show(GTK_WIDGET(current_fontsel_box));
 }
@@ -492,6 +497,46 @@ static int get_int(xmlNode *node, guchar *attr)
 	return retval;
 }
 
+/* Adds 'widget' to the GtkSizeGroup selected by 'index'.  This function
+ * does nothing if 'node' has no "sizegroup" attribute.
+ * The value of "sizegroup" is either a key. All widgets with the same
+ * key request the same size.
+ * Size groups are created on the fly and get destroyed when the options
+ * box is closed.
+ */
+static void add_to_size_group(xmlNode *node, GtkWidget *widget)
+{
+	GtkSizeGroup	*sg;
+	guchar		*name;
+
+	g_return_if_fail(node != NULL);
+	g_return_if_fail(widget != NULL);
+
+	name = xmlGetProp(node, "sizegroup");
+	if (!name)
+		return;
+
+	if (size_groups == NULL)
+		size_groups = g_hash_table_new_full(g_str_hash, g_str_equal,
+				g_free, NULL);
+
+	sg = (GtkSizeGroup *) g_hash_table_lookup(size_groups, name);
+	if (sg == NULL)
+	{
+
+		sg = (GtkSizeGroup *) gtk_size_group_new(
+				GTK_SIZE_GROUP_HORIZONTAL);
+		g_hash_table_insert(size_groups, name, sg);
+		gtk_size_group_add_widget(sg, widget);
+		g_object_unref(G_OBJECT(sg));
+	}
+	else
+	{
+		gtk_size_group_add_widget(sg, widget);
+		g_free(name);
+	}
+}
+
 static GtkWidget *build_radio(xmlNode *radio, GtkWidget *prev)
 {
 	GtkWidget	*button;
@@ -501,15 +546,15 @@ static GtkWidget *build_radio(xmlNode *radio, GtkWidget *prev)
 	label = xmlGetProp(radio, "label");
 
 	button = gtk_radio_button_new_with_label(
-			prev_button ? gtk_radio_button_group(prev_button)
+			prev_button ? gtk_radio_button_get_group(prev_button)
 				    : NULL,
 			_(label));
 	g_free(label);
 
 	may_add_tip(button, radio);
 
-	gtk_object_set_data(GTK_OBJECT(button), "value",
-			xmlGetProp(radio, "value"));
+	g_object_set_data(G_OBJECT(button), "value",
+			  xmlGetProp(radio, "value"));
 
 	return button;
 }
@@ -529,8 +574,7 @@ static void build_menu_item(xmlNode *node, GtkWidget *option_menu)
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
 	gtk_widget_show_all(menu);
 
-	gtk_object_set_data(GTK_OBJECT(item),
-				"value", xmlGetProp(node, "value"));
+	g_object_set_data(G_OBJECT(item), "value", xmlGetProp(node, "value"));
 }
 
 static void build_widget(xmlNode *widget, GtkWidget *box)
@@ -540,31 +584,6 @@ static void build_widget(xmlNode *widget, GtkWidget *box)
 	guchar	*oname;
 	Option	*option;
 	guchar	*label;
-
-	if (strcmp(name, "label") == 0)
-	{
-		GtkWidget *label;
-		guchar *text;
-
-		text = DATA(widget);
-		label = gtk_label_new(_(text));
-		g_free(text);
-
-		gtk_misc_set_alignment(GTK_MISC(label), 0, 1);
-		gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
-		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
-		gtk_box_pack_start(GTK_BOX(box), label, FALSE, TRUE, 0);
-		return;
-	}
-	else if (strcmp(name, "spacer") == 0)
-	{
-		GtkWidget *eb;
-
-		eb = gtk_event_box_new();
-		gtk_widget_set_usize(eb, 12, 12);
-		gtk_box_pack_start(GTK_BOX(box), eb, FALSE, TRUE, 0);
-		return;
-	}
 
 	label = xmlGetProp(widget, "label");
 
@@ -576,7 +595,7 @@ static void build_widget(xmlNode *widget, GtkWidget *box)
 		if (name[0] == 'h')
 			nbox = gtk_hbox_new(FALSE, 4);
 		else
-			nbox = gtk_vbox_new(FALSE, 4);
+			nbox = gtk_vbox_new(FALSE, 0);
 
 		if (label)
 			gtk_box_pack_start(GTK_BOX(nbox),
@@ -634,46 +653,34 @@ static void build_widget(xmlNode *widget, GtkWidget *box)
 	g_free(label);
 }
 
-static void build_sections(xmlNode *options, GtkWidget *sections_box)
+static void build_section(xmlNode *section, GtkWidget *notebook,
+			  GtkTreeStore *tree_store, GtkTreeIter *parent)
 {
-	xmlNode	*section = options->xmlChildrenNode;
+	guchar 		*title = NULL;
+	GtkWidget   	*page;
+	GtkTreeIter	iter;
+	xmlNode		*widget;
 
-	g_return_if_fail(strcmp(options->name, "options") == 0);
+	title = xmlGetProp(section, "title");
+	page = gtk_vbox_new(FALSE, 4);
+	gtk_container_set_border_width(GTK_CONTAINER(page), 4);
+	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), page, NULL);
 
-	for (; section; section = section->next)
+	gtk_tree_store_append(tree_store, &iter, parent);
+	gtk_tree_store_set(tree_store, &iter, 0, _(title), 1, page, -1);
+	g_free(title);
+		
+	widget = section->xmlChildrenNode;
+	for (; widget; widget = widget->next)
 	{
-		guchar 		*title;
-		GtkWidget   	*page, *scrolled_area;
-		xmlNode		*widget;
-
-		if (section->type != XML_ELEMENT_NODE)
-			continue;
-
-		title = xmlGetProp(section, "title");
-		page = gtk_vbox_new(FALSE, 0);
-		gtk_container_set_border_width(GTK_CONTAINER(page), 4);
-
-		scrolled_area = gtk_scrolled_window_new(NULL, NULL);
-		gtk_scrolled_window_set_policy(
-					GTK_SCROLLED_WINDOW(scrolled_area),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-		gtk_scrolled_window_add_with_viewport(
-					GTK_SCROLLED_WINDOW(scrolled_area),
-					page);
-
-		gtk_notebook_append_page(GTK_NOTEBOOK(sections_box),
-					scrolled_area,
-					gtk_label_new(_(title)));
-
-		widget = section->xmlChildrenNode;
-		for (; widget; widget = widget->next)
+		if (widget->type == XML_ELEMENT_NODE)
 		{
-			if (widget->type == XML_ELEMENT_NODE)
+			if (strcmp(widget->name, "section") == 0)
+				build_section(widget, notebook,
+						tree_store, &iter);
+			else
 				build_widget(widget, page);
 		}
-
-		g_free(title);
 	}
 }
 
@@ -682,11 +689,14 @@ static void build_sections(xmlNode *options, GtkWidget *sections_box)
  */
 static void build_options_window(void)
 {
-	GtkWidget *sections_box;
-	xmlDocPtr options_doc;
-	gchar	  *path;
+	GtkTreeView	*tree;
+	GtkTreeStore	*store;
+	GtkWidget	*notebook;
+	xmlDocPtr	options_doc;
+	xmlNode		*options, *section;
+	gchar		*path;
 
-	sections_box = build_frame();
+	notebook = build_window_frame(&tree);
 	
 	path = g_strconcat(app_dir, "/Options.xml", NULL);
 	options_doc = xmlParseFile(path);
@@ -700,7 +710,25 @@ static void build_options_window(void)
 
 	g_free(path);
 
-	build_sections(xmlDocGetRootElement(options_doc), sections_box);
+	options = xmlDocGetRootElement(options_doc);
+	if (strcmp(options->name, "options") == 0)
+	{
+		GtkTreePath *treepath;
+
+		store = (GtkTreeStore *) gtk_tree_view_get_model(tree);
+		section = options->xmlChildrenNode;
+		for (; section; section = section->next)
+			if (section->type == XML_ELEMENT_NODE)
+				build_section(section, notebook, store, NULL);
+
+		gtk_tree_view_expand_all(tree);
+		treepath = gtk_tree_path_new_first();
+		if (treepath)
+		{
+			gtk_tree_view_set_cursor(tree, treepath, NULL, FALSE);
+			gtk_tree_path_free(treepath);
+		}
+	}
 
 	xmlFreeDoc(options_doc);
 	options_doc = NULL;
@@ -727,41 +755,103 @@ static void options_destroyed(GtkWidget *widget, gpointer data)
 		window = NULL;
 
 		g_hash_table_foreach(option_hash, null_widget, NULL);
+
+		if (size_groups)
+		{
+			g_hash_table_destroy(size_groups);
+			size_groups = NULL;
+			
+		}
 	}
 }
 
-/* Creates the window and adds the various buttons to it.
- * Returns the vbox to add sections to and sets the global
- * 'window'.
+/* The cursor has been changed in the tree view, so switch to the new
+ * page in the notebook.
  */
-static GtkWidget *build_frame(void)
+static void tree_cursor_changed(GtkTreeView *tv, gpointer data)
 {
-	GtkWidget	*sections_box;
-	GtkWidget	*tl_vbox;
-	GtkWidget	*actions, *button;
+	GtkTreePath	*path = NULL;
+	GtkNotebook	*nbook = GTK_NOTEBOOK(data);
+	GtkTreeModel	*model;
+	GtkWidget	*page = NULL;
+	GtkTreeIter	iter;
+
+	gtk_tree_view_get_cursor(tv, &path, NULL);
+	if (!path)
+		return;
+
+	model = gtk_tree_view_get_model(tv);
+	gtk_tree_model_get_iter(model, &iter, path);
+	gtk_tree_path_free(path);
+	gtk_tree_model_get(model, &iter, 1, &page, -1);
+
+	if (page)
+		gtk_notebook_set_current_page(nbook,
+				gtk_notebook_page_num(nbook, page));
+}
+
+/* Creates the window and adds the various buttons to it.
+ * Returns the notebook to add sections to and sets the global
+ * 'window'. If 'tree_view' is non-NULL, it stores the address
+ * of the tree view widget there.
+ */
+static GtkWidget *build_window_frame(GtkTreeView **tree_view)
+{
+	GtkWidget	*notebook;
+	GtkWidget	*tl_vbox, *hbox, *sw, *tv;
+	GtkWidget	*actions, *button, *frame;
+	GtkTreeStore	*model;
 	char		*string, *save_path;
 
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_title(GTK_WINDOW(window), _("Options"));
-	gtk_signal_connect(GTK_OBJECT(window), "destroy",
-			GTK_SIGNAL_FUNC(options_destroyed), NULL);
+	g_signal_connect(window, "destroy",
+			G_CALLBACK(options_destroyed), NULL);
 	gtk_container_set_border_width(GTK_CONTAINER(window), 4);
-	gtk_window_set_default_size(GTK_WINDOW(window), -1, 300);
 
 	tl_vbox = gtk_vbox_new(FALSE, 4);
 	gtk_container_add(GTK_CONTAINER(window), tl_vbox);
 
-	sections_box = gtk_notebook_new();
-	gtk_notebook_set_scrollable(GTK_NOTEBOOK(sections_box), TRUE);
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(sections_box), GTK_POS_LEFT);
-	gtk_box_pack_start(GTK_BOX(tl_vbox), sections_box, TRUE, TRUE, 0);
-	
+	hbox = gtk_hbox_new(FALSE, 4);
+	gtk_box_pack_start(GTK_BOX(tl_vbox), hbox, TRUE, TRUE, 0);
+
+	frame = gtk_frame_new(NULL);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+	gtk_box_pack_end(GTK_BOX(hbox), frame, TRUE, TRUE, 0);
+
+	notebook = gtk_notebook_new();
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(notebook), FALSE);
+	gtk_notebook_set_show_border(GTK_NOTEBOOK(notebook), FALSE);
+	gtk_container_add(GTK_CONTAINER(frame), notebook);
+
+	/* scrolled window for the tree view */
+	sw = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(sw),
+			GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw),
+			GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+	gtk_box_pack_start(GTK_BOX(hbox), sw, FALSE, TRUE, 0);
+
+	/* tree view */
+	model = gtk_tree_store_new(2, G_TYPE_STRING, GTK_TYPE_WIDGET);
+	tv = gtk_tree_view_new_with_model(GTK_TREE_MODEL(model));
+	g_object_unref(model);
+	gtk_tree_selection_set_mode(
+			gtk_tree_view_get_selection(GTK_TREE_VIEW(tv)),
+			GTK_SELECTION_BROWSE);
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(tv), FALSE);
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv), -1,
+			NULL, gtk_cell_renderer_text_new(), "text", 0, NULL);
+	gtk_container_add(GTK_CONTAINER(sw), tv);
+	g_signal_connect(tv, "cursor_changed",
+			G_CALLBACK(tree_cursor_changed), notebook);
+
 	actions = gtk_hbutton_box_new();
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(actions),
 				  GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(actions), 10);
+	gtk_box_set_spacing(GTK_BOX(actions), 10);
 
 	save_path = choices_find_path_save("...", PROJECT, FALSE);
 	if (save_path)
@@ -778,27 +868,26 @@ static GtkWidget *build_frame(void)
 		gtk_box_pack_start(GTK_BOX(hbox), actions, TRUE, TRUE, 0);
 	}
 	
-	button = button_new_mixed(GTK_STOCK_UNDO, "_Revert");
+	button = button_new_mixed(GTK_STOCK_UNDO, _("_Revert"));
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_box_pack_start(GTK_BOX(actions), button, FALSE, TRUE, 0);
-	gtk_signal_connect(GTK_OBJECT(button), "clicked",
-			GTK_SIGNAL_FUNC(revert_options), NULL);
+	g_signal_connect(button, "clicked", G_CALLBACK(revert_options), NULL);
 	gtk_tooltips_set_tip(option_tooltips, button,
 			_("Restore all choices to how they were when the "
 			  "Options box was opened."), NULL);
 
-	button = button_new_mixed(GTK_STOCK_APPLY, "_OK");
+	button = button_new_mixed(GTK_STOCK_APPLY, _("_OK"));
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_box_pack_start(GTK_BOX(actions), button, FALSE, TRUE, 0);
-	gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-		GTK_SIGNAL_FUNC(gtk_widget_destroy), GTK_OBJECT(window));
+	g_signal_connect_swapped(button, "clicked",
+				G_CALLBACK(gtk_widget_destroy), window);
 
 	if (save_path)
 	{
 		button = gtk_button_new_from_stock(GTK_STOCK_SAVE);
 		gtk_box_pack_start(GTK_BOX(actions), button, FALSE, TRUE, 0);
-		gtk_signal_connect(GTK_OBJECT(button), "clicked",
-			GTK_SIGNAL_FUNC(save_options), NULL);
+		g_signal_connect_swapped(button, "clicked",
+					 G_CALLBACK(save_options), NULL);
 
 		string = g_strdup_printf(_("Choices will be saved as:\n%s"),
 					save_path);
@@ -810,7 +899,10 @@ static GtkWidget *build_frame(void)
 		gtk_widget_grab_focus(button);
 	}
 
-	return sections_box;
+	if (tree_view)
+		*tree_view = GTK_TREE_VIEW(tv);
+
+	return notebook;
 }
 
 /* Given the last radio button in the group, select whichever
@@ -820,13 +912,12 @@ static void radio_group_set_value(GtkRadioButton *last, guchar *value)
 {	
 	GSList	*next;
 
-	next = gtk_radio_button_group(last);
-	while (next)
+	for (next = gtk_radio_button_get_group(last); next; next = next->next)
 	{
 		GtkToggleButton *button = (GtkToggleButton *) next->data;
 		guchar	*val;
 
-		val = gtk_object_get_data(GTK_OBJECT(button), "value");
+		val = g_object_get_data(G_OBJECT(button), "value");
 		g_return_if_fail(val != NULL);
 
 		if (strcmp(val, value) == 0)
@@ -834,8 +925,6 @@ static void radio_group_set_value(GtkRadioButton *last, guchar *value)
 			gtk_toggle_button_set_active(button, TRUE);
 			return;
 		}
-		
-		next = next->next;
 	}
 
 	g_warning("Can't find radio button with value %s\n", value);
@@ -848,8 +937,7 @@ static guchar *radio_group_get_value(GtkRadioButton *last)
 {
 	GSList	*next;
 
-	next = gtk_radio_button_group(last);
-	while (next)
+	for (next = gtk_radio_button_get_group(last); next; next = next->next)
 	{
 		GtkToggleButton *button = (GtkToggleButton *) next->data;
 
@@ -857,13 +945,11 @@ static guchar *radio_group_get_value(GtkRadioButton *last)
 		{
 			guchar	*val;
 
-			val = gtk_object_get_data(GTK_OBJECT(button), "value");
+			val = g_object_get_data(G_OBJECT(button), "value");
 			g_return_val_if_fail(val != NULL, NULL);
 
 			return g_strdup(val);
 		}
-		
-		next = next->next;
 	}
 
 	return NULL;
@@ -877,14 +963,14 @@ static void option_menu_set(GtkOptionMenu *om, guchar *value)
 	int	  i = 0;
 
 	menu = gtk_option_menu_get_menu(om);
-	list = gtk_container_children(GTK_CONTAINER(menu));
+	list = gtk_container_get_children(GTK_CONTAINER(menu));
 
 	for (next = list; next; next = next->next)
 	{
-		GtkObject	*item = (GtkObject *) next->data;
-		guchar		*data;
+		GObject	*item = (GObject *) next->data;
+		guchar	*data;
 
-		data = gtk_object_get_data(item, "value");
+		data = g_object_get_data(item, "value");
 		g_return_if_fail(data != NULL);
 
 		if (strcmp(data, value) == 0)
@@ -907,7 +993,7 @@ static guchar *option_menu_get(GtkOptionMenu *om)
 	menu = gtk_option_menu_get_menu(om);
 	item = gtk_menu_get_active(GTK_MENU(menu));
 
-	return gtk_object_get_data(GTK_OBJECT(item), "value");
+	return g_object_get_data(G_OBJECT(item), "value");
 }
 
 static void restore_backup(gpointer key, gpointer value, gpointer data)
@@ -964,7 +1050,7 @@ static int save_xml_file(xmlDocPtr doc, gchar *filename)
 	return 0;
 }
 
-static void save_options(GtkWidget *widget, gpointer data)
+static void save_options(gpointer unused)
 {
 	xmlDoc	*doc;
 	GList	*next;
@@ -1000,7 +1086,8 @@ static void save_options(GtkWidget *widget, gpointer data)
 		cb();
 	}
 
-	gtk_widget_destroy(window);
+	if (window)
+		gtk_widget_destroy(window);
 }
 
 /* Make the widget reflect the current value of the option */
@@ -1040,6 +1127,12 @@ static void update_toggle(Option *option)
 static void update_entry(Option *option)
 {
 	gtk_entry_set_text(GTK_ENTRY(option->widget), option->value);
+}
+
+static void update_numentry(Option *option)
+{
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(option->widget),
+			option->int_value);
 }
 
 static void update_radio_group(Option *option)
@@ -1088,6 +1181,12 @@ static guchar *read_entry(Option *option)
 	return gtk_editable_get_chars(GTK_EDITABLE(option->widget), 0, -1);
 }
 
+static guchar *read_numentry(Option *option)
+{
+	return g_strdup_printf("%f",
+		gtk_spin_button_get_value(GTK_SPIN_BUTTON(option->widget)));
+}
+
 static guchar *read_slider(Option *option)
 {
 	return g_strdup_printf("%f",
@@ -1126,6 +1225,80 @@ static void set_not_changed(gpointer key, gpointer value, gpointer data)
 	option->has_changed = FALSE;
 }
 
+/* Builders for decorations (no corresponding option) */
+
+static GList *build_label(Option *option, xmlNode *node, guchar *label)
+{
+	GtkWidget *widget;
+	guchar *text;
+	int help;
+
+	g_return_val_if_fail(option == NULL, NULL);
+	g_return_val_if_fail(label == NULL, NULL);
+
+	text = DATA(node);
+	widget = gtk_label_new(_(text));
+	g_free(text);
+
+	help = get_int(node, "help");
+
+	gtk_misc_set_alignment(GTK_MISC(widget), 0, help ? 0.5 : 1);
+	gtk_label_set_justify(GTK_LABEL(widget), GTK_JUSTIFY_LEFT);
+	gtk_label_set_line_wrap(GTK_LABEL(widget), TRUE);
+
+	if (help)
+	{
+		GtkWidget *hbox, *image, *align;
+
+		hbox = gtk_hbox_new(FALSE, 4);
+		image = gtk_image_new_from_stock(GTK_STOCK_DIALOG_INFO,
+				GTK_ICON_SIZE_BUTTON);
+		align = gtk_alignment_new(0, 0, 0, 0);
+
+		gtk_container_add(GTK_CONTAINER(align), image);
+		gtk_box_pack_start(GTK_BOX(hbox), align, FALSE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(hbox), widget, FALSE, TRUE, 0);
+
+		return g_list_append(NULL, hbox);
+	}
+
+	return g_list_append(NULL, widget);
+}
+
+static GList *build_spacer(Option *option, xmlNode *node, guchar *label)
+{
+	GtkWidget *eb;
+
+	g_return_val_if_fail(option == NULL, NULL);
+	g_return_val_if_fail(label == NULL, NULL);
+
+	eb = gtk_event_box_new();
+	gtk_widget_set_size_request(eb, 12, 12);
+
+	return g_list_append(NULL, eb);
+}
+
+static GList *build_frame(Option *option, xmlNode *node, guchar *label)
+{
+	GtkWidget *nbox, *frame;
+	xmlNode	  *hw;
+
+	g_return_val_if_fail(option == NULL, NULL);
+	g_return_val_if_fail(label != NULL, NULL);
+
+	frame = gtk_frame_new(_(label));
+
+	nbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_set_border_width(GTK_CONTAINER(nbox), 4);
+	gtk_container_add(GTK_CONTAINER(frame), nbox);
+
+	for (hw = node->xmlChildrenNode; hw; hw = hw->next)
+		if (hw->type == XML_ELEMENT_NODE)
+			build_widget(hw, nbox);
+
+	return g_list_append(NULL, frame);
+}
+
 /* These create new widgets in the options window and set the appropriate
  * callbacks.
  */
@@ -1144,9 +1317,8 @@ static GList *build_toggle(Option *option, xmlNode *node, guchar *label)
 	option->read_widget = read_toggle;
 	option->widget = toggle;
 
-	gtk_signal_connect_object(GTK_OBJECT(toggle), "toggled",
-			GTK_SIGNAL_FUNC(option_check_widget),
-			(GtkObject *) option);
+	g_signal_connect_swapped(toggle, "toggled",
+			G_CALLBACK(option_check_widget), option);
 
 	return g_list_append(NULL, toggle);
 }
@@ -1154,7 +1326,7 @@ static GList *build_toggle(Option *option, xmlNode *node, guchar *label)
 static GList *build_slider(Option *option, xmlNode *node, guchar *label)
 {
 	GtkAdjustment *adj;
-	GtkWidget *hbox, *slide;
+	GtkWidget *hbox, *slide, *label_wid;
 	int	min, max;
 	int	fixed;
 	int	showvalue;
@@ -1171,9 +1343,14 @@ static GList *build_slider(Option *option, xmlNode *node, guchar *label)
 				min, max, 1, 10, 0));
 
 	hbox = gtk_hbox_new(FALSE, 4);
-	gtk_box_pack_start(GTK_BOX(hbox),
-			gtk_label_new(_(label)),
-			FALSE, TRUE, 0);
+
+	if (label)
+	{
+		label_wid = gtk_label_new(_(label));
+		gtk_misc_set_alignment(GTK_MISC(label_wid), 0, 0.5);
+		gtk_box_pack_start(GTK_BOX(hbox), label_wid, FALSE, TRUE, 0);
+		add_to_size_group(node, label_wid);
+	}
 
 	end = xmlGetProp(node, "end");
 	if (end)
@@ -1186,7 +1363,7 @@ static GList *build_slider(Option *option, xmlNode *node, guchar *label)
 	slide = gtk_hscale_new(adj);
 
 	if (fixed)
-		gtk_widget_set_usize(slide, adj->upper, 24);
+		gtk_widget_set_size_request(slide, adj->upper, 24);
 	if (showvalue)
 	{
 		gtk_scale_set_draw_value(GTK_SCALE(slide), TRUE);
@@ -1206,9 +1383,8 @@ static GList *build_slider(Option *option, xmlNode *node, guchar *label)
 	option->read_widget = read_slider;
 	option->widget = slide;
 
-	gtk_signal_connect_object(GTK_OBJECT(adj), "value-changed",
-			GTK_SIGNAL_FUNC(option_check_widget),
-			(GtkObject *) option);
+	g_signal_connect_swapped(adj, "value-changed",
+			G_CALLBACK(option_check_widget), option);
 
 	return g_list_append(NULL, hbox);
 }
@@ -1217,25 +1393,70 @@ static GList *build_entry(Option *option, xmlNode *node, guchar *label)
 {
 	GtkWidget	*hbox;
 	GtkWidget	*entry;
+	GtkWidget	*label_wid;
 
 	g_return_val_if_fail(option != NULL, NULL);
 
 	hbox = gtk_hbox_new(FALSE, 4);
 
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(label)),
-				FALSE, TRUE, 0);
+	if (label)
+	{
+		label_wid = gtk_label_new(_(label));
+		gtk_misc_set_alignment(GTK_MISC(label_wid), 1.0, 0.5);
+		gtk_box_pack_start(GTK_BOX(hbox), label_wid, FALSE, TRUE, 0);
+	}
 
 	entry = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), entry, TRUE, TRUE, 0);
+	add_to_size_group(node, entry);
 	may_add_tip(entry, node);
 
 	option->update_widget = update_entry;
 	option->read_widget = read_entry;
 	option->widget = entry;
 
-	gtk_signal_connect_object_after(GTK_OBJECT(entry), "changed",
-			GTK_SIGNAL_FUNC(option_check_widget),
-			(GtkObject *) option);
+	g_signal_connect_data(entry, "changed",
+			G_CALLBACK(option_check_widget), option,
+			NULL, G_CONNECT_AFTER | G_CONNECT_SWAPPED);
+
+	return g_list_append(NULL, hbox);
+}
+
+static GList *build_numentry(Option *option, xmlNode *node, guchar *label)
+{
+	GtkWidget	*hbox;
+	GtkWidget	*spin;
+	GtkWidget	*label_wid;
+	int		min, max, step, width;
+
+	g_return_val_if_fail(option != NULL, NULL);
+
+	min = get_int(node, "min");
+	max = get_int(node, "max");
+	step = get_int(node, "step");
+	width = get_int(node, "width");
+	
+	hbox = gtk_hbox_new(FALSE, 4);
+
+	if (label)
+	{
+		label_wid = gtk_label_new(_(label));
+		gtk_misc_set_alignment(GTK_MISC(label_wid), 1.0, 0.5);
+		gtk_box_pack_start(GTK_BOX(hbox), label_wid, FALSE, TRUE, 0);
+		add_to_size_group(node, label_wid);
+	}
+
+	spin = gtk_spin_button_new_with_range(min, max, step > 0 ? step : 1);
+	gtk_entry_set_width_chars(GTK_ENTRY(spin), width > 1 ? width + 1 : -1);
+	gtk_box_pack_start(GTK_BOX(hbox), spin, FALSE, TRUE, 0);
+	may_add_tip(spin, node);
+
+	option->update_widget = update_numentry;
+	option->read_widget = read_numentry;
+	option->widget = spin;
+
+	g_signal_connect_swapped(spin, "value-changed",
+			G_CALLBACK(option_check_widget), option);
 
 	return g_list_append(NULL, hbox);
 }
@@ -1253,9 +1474,8 @@ static GList *build_radio_group(Option *option, xmlNode *node, guchar *label)
 		if (rn->type == XML_ELEMENT_NODE)
 		{
 			button = build_radio(rn, button);
-			gtk_signal_connect_object(GTK_OBJECT(button), "toggled",
-				GTK_SIGNAL_FUNC(option_check_widget),
-				(GtkObject *) option);
+			g_signal_connect_swapped(button, "toggled",
+				G_CALLBACK(option_check_widget), option);
 			list = g_list_append(list, button);
 		}
 	}
@@ -1269,37 +1489,28 @@ static GList *build_radio_group(Option *option, xmlNode *node, guchar *label)
 
 static GList *build_colour(Option *option, xmlNode *node, guchar *label)
 {
-	GtkWidget	*hbox, *da, *button;
-	int		lpos;
+	GtkWidget	*hbox, *da, *button, *label_wid;
 	
 	g_return_val_if_fail(option != NULL, NULL);
 
-	/* lpos gives the position for the label 
-	 * 0: label comes before the button
-	 * non-zero: label comes after the button
-	 */
-	lpos = get_int(node, "lpos");
-
 	hbox = gtk_hbox_new(FALSE, 4);
-	if (lpos == 0)
-		gtk_box_pack_start(GTK_BOX(hbox),
-			gtk_label_new(_(label)),
-			FALSE, TRUE, 0);
+
+	if (label)
+	{
+		label_wid = gtk_label_new(_(label));
+		gtk_misc_set_alignment(GTK_MISC(label_wid), 1.0, 0.5);
+		gtk_box_pack_start(GTK_BOX(hbox), label_wid, TRUE, TRUE, 0);
+	}
 
 	button = gtk_button_new();
 	da = gtk_drawing_area_new();
-	gtk_drawing_area_size(GTK_DRAWING_AREA(da), 64, 12);
+	gtk_widget_set_size_request(da, 64, 12);
 	gtk_container_add(GTK_CONTAINER(button), da);
-	gtk_signal_connect(GTK_OBJECT(button), "clicked",
-			GTK_SIGNAL_FUNC(open_coloursel), option);
+	g_signal_connect(button, "clicked", G_CALLBACK(open_coloursel), option);
 
 	may_add_tip(button, node);
 	
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, TRUE, 0);
-	if (lpos)
-		gtk_box_pack_start(GTK_BOX(hbox),
-			gtk_label_new(_(label)),
-			FALSE, TRUE, 0);
 
 	option->update_widget = update_colour;
 	option->read_widget = read_colour;
@@ -1310,18 +1521,16 @@ static GList *build_colour(Option *option, xmlNode *node, guchar *label)
 
 static GList *build_menu(Option *option, xmlNode *node, guchar *label)
 {
-	GtkWidget	*hbox, *om, *option_menu;
+	GtkWidget	*hbox, *om, *option_menu, *label_wid;
 	xmlNode		*item;
-	GtkWidget	*menu;
-	GList		*list, *kids;
-	int		min_w = 4, min_h = 4;
 
 	g_return_val_if_fail(option != NULL, NULL);
 
 	hbox = gtk_hbox_new(FALSE, 4);
 
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(label)),
-			FALSE, TRUE, 0);
+	label_wid = gtk_label_new(_(label));
+	gtk_misc_set_alignment(GTK_MISC(label_wid), 1.0, 0.5);
+	gtk_box_pack_start(GTK_BOX(hbox), label_wid, TRUE, TRUE, 0);
 
 	option_menu = gtk_option_menu_new();
 	gtk_box_pack_start(GTK_BOX(hbox), option_menu, FALSE, TRUE, 0);
@@ -1329,42 +1538,21 @@ static GList *build_menu(Option *option, xmlNode *node, guchar *label)
 	om = gtk_menu_new();
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(option_menu), om);
 
+	add_to_size_group(node, option_menu);
+
 	for (item = node->xmlChildrenNode; item; item = item->next)
 	{
 		if (item->type == XML_ELEMENT_NODE)
 			build_menu_item(item, option_menu);
 	}
 
-	menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(option_menu));
-	list = kids = gtk_container_children(GTK_CONTAINER(menu));
-
-	while (kids)
-	{
-		GtkWidget	*item = (GtkWidget *) kids->data;
-		GtkRequisition	req;
-
-		gtk_widget_size_request(item, &req);
-		if (req.width > min_w)
-			min_w = req.width;
-		if (req.height > min_h)
-			min_h = req.height;
-		
-		kids = kids->next;
-	}
-
-	g_list_free(list);
-
-	gtk_widget_set_usize(option_menu,
-			min_w + 50,	/* Else node doesn't work! */
-			min_h + 4);
-
 	option->update_widget = update_menu;
 	option->read_widget = read_menu;
 	option->widget = option_menu;
 
-	gtk_signal_connect_object_after(GTK_OBJECT(option_menu), "changed",
-			GTK_SIGNAL_FUNC(option_check_widget),
-			(GtkObject *) option);
+	g_signal_connect_data(option_menu, "changed",
+			G_CALLBACK(option_check_widget), option,
+			NULL, G_CONNECT_AFTER | G_CONNECT_SWAPPED);
 
 	return g_list_append(NULL, hbox);
 }
@@ -1388,8 +1576,7 @@ static GList *build_font(Option *option, xmlNode *node, guchar *label)
 	option->widget = GTK_BIN(button)->child;
 	may_add_tip(button, node);
 
-	gtk_signal_connect(GTK_OBJECT(button), "clicked",
-			GTK_SIGNAL_FUNC(open_fontsel), (GtkObject *) option);
+	g_signal_connect(button, "clicked", G_CALLBACK(open_fontsel), option);
 
 	return g_list_append(NULL, hbox);
 }
@@ -1406,7 +1593,7 @@ static void button_patch_set_colour(GtkWidget *button, GdkColor *colour)
 	style->bg[GTK_STATE_NORMAL].green = colour->green;
 	style->bg[GTK_STATE_NORMAL].blue = colour->blue;
 	gtk_widget_set_style(patch, style);
-	gtk_style_unref(style);
+	g_object_unref(G_OBJECT(style));
 
 	if (GTK_WIDGET_REALIZED(patch))
 		gdk_window_clear(patch->window);

@@ -8,12 +8,10 @@
 #undef HAVE_UNSETENV
 #undef HAVE_LOCALE_H
 
-#if 0
-#  include "rox_gettext.h"
-#  define _(String) rox_gettext(String)
-#endif
-#define _(String) (String)
- 
+#include "rox_gettext.h"
+
+#define _(String) rox_gettext(String)
+
 /* Short for gettext_noop() - marks a string as translatable without
  * actually translating it at that point. Used by xgettext.
  */

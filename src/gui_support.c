@@ -28,7 +28,7 @@
 #include "gui_support.h"
 
 /* Display a message in a window */
-void report_error(char *message, ...)
+void report_error(const char *message, ...)
 {
 	GtkWidget *dialog;
         va_list args;
@@ -54,7 +54,7 @@ void report_error(char *message, ...)
 	g_free(s);
 }
 
-GtkWidget *button_new_mixed(char *stock, char *message)
+GtkWidget *button_new_mixed(const char *stock, const char *message)
 {
 	GtkWidget *button, *align, *image, *hbox, *label;
 	

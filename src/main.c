@@ -46,6 +46,7 @@
 #include "xsettings-manager.h"
 #include "session.h"
 #include "options.h"
+#include "i18n.h"
 
 #define COPYING								\
 	     N_("Copyright (C) 2002 Thomas Leonard.\n"			\
@@ -130,6 +131,7 @@ int main(int argc, char **argv)
 
 	choices_init();
 	options_init();
+	i18n_init();
 
 	while (1)
 	{
