@@ -60,7 +60,7 @@ static void got_log_data(gpointer data,
 			 gint source,
 			 GdkInputCondition condition);
 static gint log_clicked(GtkWidget *text, GdkEventButton *bev, gpointer data);
-static void log_msg(guchar *text, gint len);
+static void log_msg(const gchar *text, gint len);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -242,7 +242,7 @@ static gboolean prune(gpointer data)
 	return FALSE;
 }
 
-static void log_msg(guchar *text, gint len)
+static void log_msg(const gchar *text, gint len)
 {
 	Chunk   *new;
 
@@ -268,7 +268,8 @@ static void write_stderr(guchar *buffer, int len)
 		sent = write(real_stderr, buffer + pos, len - pos);
 		if (sent < 0)
 		{
-			log_msg("ROX-Session: write to stderr failed!\n", -1);
+			log_msg(_("ROX-Session: write to stderr failed!\n"),
+					-1);
 			close(real_stderr);
 			real_stderr = -1;
 			return;
@@ -294,7 +295,7 @@ static void got_log_data(gpointer data,
 	if (got <= 0)
 	{
 		gtk_input_remove(input_tag);
-		log_msg("ROX-Session: read(stderr) failed!\n", -1);
+		log_msg(_("ROX-Session: read(stderr) failed!\n"), -1);
 	}
 	else
 	{

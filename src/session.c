@@ -175,8 +175,8 @@ void session_init(void)
 static void show_session_options(void)
 {
 	if (!manager)
-		report_error("ROX-Session not managing XSettings, so changes "
-				"will have no immediate effect...");
+		report_error(_("ROX-Session not managing XSettings, so changes "
+				"will have no immediate effect..."));
 	options_show();
 }
 
@@ -186,7 +186,7 @@ void show_main_window(void)
 	
 	window = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
 			 GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
-			 "\nReally logout?\n");
+			 _("\nReally logout?\n"));
 
 	gtk_window_set_title(GTK_WINDOW(window), PROJECT);
 
@@ -197,7 +197,7 @@ void show_main_window(void)
 			GTK_STOCK_CANCEL, GTK_RESPONSE_DELETE_EVENT,
 			NULL);
 
-	button = button_new_mixed(GTK_STOCK_QUIT, "_Logout");
+	button = button_new_mixed(GTK_STOCK_QUIT, _("_Logout"));
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_widget_show(button);
 
@@ -245,7 +245,8 @@ void run_login_script(void)
 	{
 		login_child = -1;
 	
-		report_error("Failed to run login script:\n%s", error->message);
+		report_error(_("Failed to run login script:\n%s"),
+				error->message);
 		
 		g_error_free(error);
 	}

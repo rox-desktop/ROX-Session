@@ -169,8 +169,8 @@ static void run_wm(void)
 	{
 		wm_pid = -1;
 
-		report_error("Failed to start window manager:\n%s\n"
-			"Please choose a new window manager and try again.",
+		report_error(_("Failed to start window manager:\n%s\n"
+			"Please choose a new window manager and try again."),
 				error->message);
 
 		g_error_free(error);
@@ -246,7 +246,7 @@ static GList *start_wm_button(Option *option, xmlNode *node, guchar *label)
 	g_return_val_if_fail(option == NULL, NULL);
 	
 	align = gtk_alignment_new(0.5, 0.5, 0, 0);
-	button = button_new_mixed(GTK_STOCK_YES, "Start window manager");
+	button = button_new_mixed(GTK_STOCK_YES, _("Start window manager"));
 	gtk_container_add(GTK_CONTAINER(align), button);
 	gtk_signal_connect(GTK_OBJECT(button), "clicked",
 			GTK_SIGNAL_FUNC(run_wm), NULL);
