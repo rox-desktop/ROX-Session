@@ -16,6 +16,24 @@ Thank you.
 ])
 ])
 
+dnl rox_CHECK_EXISTS(PROGRAM, ERROR)
+dnl Ensure that PROGRAM --version works.
+dnl Stops and displays ERROR if it's missing.
+AC_DEFUN(rox_CHECK_EXISTS, [
+AC_MSG_CHECKING(that $1 runs)
+if "$1" --version > /dev/null 2>&1 ; then
+  AC_MSG_RESULT(yes)
+else
+  AC_MSG_RESULT(no)
+  AC_MSG_ERROR([*** Missing program ***
+
+$1 failed to run - make sure it is inside one of the
+directories in your PATH environment variable!
+]
+$2)
+fi
+])
+
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_MAKE_SET
@@ -29,6 +47,30 @@ if test "x$GCC" = "xyes"; then
   esac
 fi
 ]
+
+dnl Warn about missing gtk-config...
+if test -z "$GTK_CONFIG"; then
+  GTK_CONFIG=gtk-config
+fi
+
+rox_CHECK_EXISTS([$GTK_CONFIG],
+		   [You need to install the gtk-devel package before compiling:
+		    http://www.gtk.org])
+
+GTK_CFLAGS="$GTK_CONFIG --cflags"
+GTK_LIBS="$GTK_CONFIG --libs"
+AC_SUBST(GTK_CFLAGS)
+AC_SUBST(GTK_LIBS)
+
+dnl Find libxml...
+if test -z "$XML_CONFIG"; then
+  AC_CHECK_PROG(XML_CONFIG, xml2-config, xml2-config, xml-config)
+fi
+AC_SUBST(XML_CONFIG)
+rox_CHECK_EXISTS([$XML_CONFIG],
+	   [You need to install the xml-devel package before compiling:
+	    http://xmlsoft.org/])
+
 
 dnl Extract version info from AppInfo.xml
 AC_MSG_CHECKING(extracting version information)

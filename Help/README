@@ -100,6 +100,24 @@ If you need even more control, copy the Login file from inside ROX-Session's
 application directory into Choices/ROX-Session and edit it there.
 
 
+Listing ROX in the login box
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If you're using gdm (the GNOME display manager) then you can add ROX to the
+list of sessions like this:
+
+- Go to /etc/gdm/Sessions.
+
+- Copy the .xsession that ROX-Session created in your home directory into this
+  directory, as 'ROX'.
+
+- Run gdmconfig.
+
+- Go to Expert -> Login sessions and check that 'ROX' is listed.
+  Add it if not.
+
+kdm users can use kcontrol to set things up in a similar way.
+
+
 Environment
 ~~~~~~~~~~~
 

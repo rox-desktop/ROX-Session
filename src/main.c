@@ -2,7 +2,7 @@
  * $Id$
  *
  * ROX-Session, a very simple session manager
- * Copyright (C) 2000, Thomas Leonard, <tal197@users.sourceforge.net>.
+ * Copyright (C) 2002, Thomas Leonard, <tal197@users.sourceforge.net>.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -29,9 +29,9 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkinvisible.h>
-#include <gdk/gdkx.h>
 #include <X11/X.h>
 #include <X11/Xatom.h>
 
@@ -46,6 +46,8 @@
 #include "choices.h"
 #include "wm.h"
 #include "xsettings-manager.h"
+#include "session.h"
+#include "options.h"
 
 #define COPYING								\
 	     N_("Copyright (C) 2000 Thomas Leonard.\n"			\
@@ -77,7 +79,7 @@
        "\thttp://rox.sourceforge.net\n"					\
        "\nReport bugs to <tal197@users.sourceforge.net>.\n")
 
-#define SHORT_OPS "hvw"
+#define SHORT_OPS "htvw"
 
 #ifdef HAVE_GETOPT_LONG
 static struct option long_opts[] =
@@ -88,9 +90,6 @@ static struct option long_opts[] =
 	{NULL, 0, NULL, 0},
 };
 #endif
-
-/* See http://www.freedesktop.org/standards/xsettings/xsettings.html */
-XSettingsManager *manager = NULL;
 
 static GdkAtom rox_session_window;
 static GtkWidget *ipc_window;
@@ -113,11 +112,6 @@ static gboolean session_prop_touched(GtkWidget *window,
 				     gpointer data);
 static int become_default_session(void);
 static void run_login_script(void);
-
-static void terminate_xsettings(void *data)
-{
-	g_warning("ROX-Session is no longer the XSETTINGS manager!");
-}
 
 /* This is called as a signal handler */
 static void child_died(int signum)
@@ -164,10 +158,12 @@ static void child_died(int signum)
 
 int main(int argc, char **argv)
 {
-	GdkWindowPrivate	*window;
+	Window			xwindow;
+	GdkWindow		*window;
 	GdkWindow		*existing_session_window;
 	struct sigaction	act;
 	gboolean		wait_mode = FALSE;
+	gboolean		test_mode = FALSE;
 	guchar			*rc_file;
 
 	app_dir = g_strdup(getenv("APP_DIR"));
@@ -186,6 +182,7 @@ int main(int argc, char **argv)
 	gtk_init(&argc, &argv);
 
 	choices_init();
+	options_init();
 
 	while (1)
 	{
@@ -211,6 +208,9 @@ int main(int argc, char **argv)
 				fputs(_(HELP), stderr);
 				fputs(_(SHORT_ONLY_WARNING), stderr);
 				return EXIT_SUCCESS;
+			case 't':
+				test_mode = TRUE;
+				break;
 			case 'w':
 				wait_mode = TRUE;
 				break;
@@ -224,7 +224,9 @@ int main(int argc, char **argv)
 	gtk_rc_parse(rc_file);
 	g_free(rc_file);
 
-	rox_session_window = gdk_atom_intern("_ROX_SESSION_WINDOW2", FALSE);
+	rox_session_window = gdk_atom_intern(
+			test_mode ? "_ROX_SESSION_TEST"
+				  : "_ROX_SESSION_WINDOW2", FALSE);
 
 	existing_session_window = get_existing_session();
 	if (existing_session_window)
@@ -233,9 +235,8 @@ int main(int argc, char **argv)
 
 		if (wait_mode)
 		{
-			report_error(PROJECT,
-				_("ROX-Session is already managing your "
-				"session - can't manage it twice!"));
+			report_error(_("ROX-Session is already managing your "
+					"session - can't manage it twice!"));
 			return EXIT_FAILURE;
 		}
 
@@ -250,16 +251,17 @@ int main(int argc, char **argv)
 	ipc_window = gtk_invisible_new();
 	gtk_widget_realize(ipc_window);
 			
-	window = (GdkWindowPrivate *) ipc_window->window;
+	window = ipc_window->window;
+	xwindow = GDK_WINDOW_XWINDOW(window);
 	gdk_property_change(ipc_window->window, rox_session_window,
 			XA_WINDOW, 32, GDK_PROP_MODE_REPLACE,
-			(guchar *) &window->xwindow, 1);
+			(guchar *) &xwindow, 1);
 	gtk_widget_add_events(ipc_window, GDK_PROPERTY_CHANGE_MASK);
 	gtk_signal_connect(GTK_OBJECT(ipc_window), "property-notify-event",
 			GTK_SIGNAL_FUNC(session_prop_touched), NULL);
 	gdk_property_change(GDK_ROOT_PARENT(), rox_session_window,
 			XA_WINDOW, 32, GDK_PROP_MODE_REPLACE,
-			(guchar *) &window->xwindow, 1);
+			(guchar *) &xwindow, 1);
 
 	/* Let child processes die */
 	act.sa_handler = child_died;
@@ -267,18 +269,18 @@ int main(int argc, char **argv)
 	act.sa_flags = SA_NOCLDSTOP;
 	sigaction(SIGCHLD, &act, NULL);
 
-	if (xsettings_manager_check_running(gdk_display, DefaultScreen(gdk_display)))
-		report_error("ROX-Session", "An XSETTINGS manager is already running. "
-				"Not taking control of XSETTINGS...");
+	session_init();
+
+	if (test_mode)
+		show_main_window();
 	else
-		manager = xsettings_manager_new(gdk_display, DefaultScreen(gdk_display),
-					        terminate_xsettings, NULL);
+	{
+		log_init();		/* Capture standard error */
 
-	log_init();		/* Capture standard error */
+		start_window_manager();
 
-	start_window_manager();
-
-	run_login_script();
+		run_login_script();
+	}
 
 	gtk_main();
 
@@ -336,18 +338,12 @@ static gboolean session_prop_touched(GtkWidget *window,
 				     GdkEventProperty *event,
 				     gpointer data)
 {
-	if (event->atom == rox_session_window)
-	{
-		if (get_choice(PROJECT,
-				_("Really logout?"), 2,
-				_("Logout"), _("Cancel")) == 0)
-		{
-			gtk_main_quit();
-		}
+	if (event->atom != rox_session_window)
+		return FALSE;
+
+	show_main_window();
 		
-		return TRUE;
-	}
-	return FALSE;
+	return TRUE;
 }
 
 static int become_default_session(void)
@@ -366,8 +362,7 @@ static int become_default_session(void)
 	switch (child)
 	{
 		case -1:
-			report_error(PROJECT,
-				_("fork() failed: giving up!"));
+			report_error(_("fork() failed: giving up!"));
 			return EXIT_FAILURE;
 		case 0:
 			/* We're the child... */
@@ -388,15 +383,14 @@ static int become_default_session(void)
 
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 	{
-		report_error(PROJECT,
-			_("OK, now logout by your usual method and when "
+		report_error( _("OK, now logout by your usual method and when "
 			"you log in again, I should be your session manager.\n"
 			"You can edit your .xsession file to customise "
 			"things..."));
 	}
 	else
 	{
-		report_error(PROJECT,
+		report_error(
 			_("Oh dear; it didn't work and I don't know why!\n"
 			"Make sure your .xsession and .xinitrc files are OK, "
 			"then report the problem to "
@@ -433,7 +427,7 @@ void login_failure(int error)
 		  "to logout."));
 
 	g_free(login);
-	report_error(PROJECT, message->str);
+	report_error("%s", message->str);
 	g_string_free(message, TRUE);
 
 	system("xterm&");

@@ -2,7 +2,7 @@
  * $Id$
  *
  * ROX-Session, a very simple session manager
- * Copyright (C) 2000, Thomas Leonard, <tal197@users.sourceforge.net>.
+ * Copyright (C) 2002, Thomas Leonard, <tal197@users.sourceforge.net>.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -138,13 +138,34 @@ int get_choice(char *title,
 	return retval;
 }
 
-/* Display a message in a window */
-void report_error(char *title, char *message)
+/* Display a message in a window with PROJECT as title */
+void report_error(char *message, ...)
 {
+        va_list args;
+	gchar *s;
+
 	g_return_if_fail(message != NULL);
 
-	if (!title)
-		title = _("Error");
+	va_start(args, message);
+	s = g_strdup_vprintf(message, args);
+	va_end(args);
 
-	get_choice(title, message, 1, "OK");
+#ifdef GTK2
+	{
+		GtkWidget *dialog;
+		dialog = gtk_message_dialog_new(NULL,
+				GTK_DIALOG_MODAL,
+				GTK_MESSAGE_ERROR,
+				GTK_BUTTONS_OK,
+				"%s", s);
+		gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+		gtk_dialog_set_default_response(GTK_DIALOG(dialog),
+						GTK_RESPONSE_OK);
+		gtk_dialog_run(GTK_DIALOG(dialog));
+		gtk_widget_destroy(dialog);
+	}
+#else
+	get_choice(PROJECT, s, 1, _("OK"));
+#endif
+	g_free(s);
 }
