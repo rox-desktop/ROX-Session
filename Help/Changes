@@ -2,6 +2,11 @@
 			A very simple session manager
 			by Thomas Leonard
 
+29-Nov-2002
+~~~~~~~~~~~
+Remove the '?' image from the dialog box; it made it too cluttered (suggested
+by Alastair Porter).
+
 28-Nov-2002
 ~~~~~~~~~~~
 Automatically create a default panel containing ROX-Session, some mount

@@ -226,7 +226,7 @@ void child_died_callback(void)
 void show_main_window(void)
 {
 	static GtkWidget *window = NULL;
-	GtkWidget *button, *hbox;
+	GtkWidget *button, *hbox, *vbox;
 
 	if (window)
 	{
@@ -234,18 +234,15 @@ void show_main_window(void)
 		return;
 	}
 	
-	window = gtk_message_dialog_new(NULL, 0,
-			 GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
-			 _("Really logout?\n(unsaved data will be lost)"));
+	window = gtk_dialog_new();
 	gtk_dialog_set_has_separator(GTK_DIALOG(window), FALSE);
+	vbox = GTK_DIALOG(window)->vbox;
 
 	hbox = gtk_hbutton_box_new();
 	gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(window)->vbox),
-			   hbox, FALSE, TRUE, 0);
-	gtk_box_reorder_child(GTK_BOX(GTK_DIALOG(window)->vbox), hbox, 0);
-	
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
+
 	button = op_button(_("_Halt"), ROX_STOCK_HALT, &halt_command,
 			_("Attempting to halt the system..."));
 	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
@@ -256,7 +253,11 @@ void show_main_window(void)
 			_("Attempting to enter suspend mode..."));
 	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
 
-	gtk_widget_show_all(hbox);
+	gtk_box_pack_start(GTK_BOX(vbox),
+		gtk_label_new(_("Really logout?\n(unsaved data will be lost)")),
+		TRUE, TRUE, 20);
+
+	gtk_widget_show_all(vbox);
 
 	gtk_window_set_title(GTK_WINDOW(window), PROJECT);
 
