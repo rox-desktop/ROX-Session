@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+25-Sep-2002
+~~~~~~~~~~~
+Added options to control mouse acceleration.
+
 12-Sep-2002
 ~~~~~~~~~~~
 Switch to log window display if too many messages are shown.

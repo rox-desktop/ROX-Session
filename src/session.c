@@ -69,11 +69,19 @@ static Setting settings[] = {
 	{"Gtk/FontName", "Sans 10"},
 };
 
+static Option mouse_accel_threshold;
+static Option mouse_accel_factor;
+
 #define N_SETTINGS (sizeof(settings) / sizeof(*settings))
 
+/* Also called for mouse settings... */
 static void xsettings_changed(void)
 {
 	int i;
+
+	XChangePointerControl(GDK_DISPLAY(), True, True,
+				mouse_accel_factor.int_value, 10,
+				mouse_accel_threshold.int_value);
 
 	if (!manager)
 		return;
@@ -171,10 +179,12 @@ void session_init(void)
 				  settings[i].default_value);
 	}
 
+	option_add_int(&mouse_accel_threshold, "accel_threshold", 10);
+	option_add_int(&mouse_accel_factor, "accel_factor", 20);
+
 	option_add_notify(xsettings_changed);
 
-	if (manager)
-		xsettings_changed();
+	xsettings_changed();
 }
 
 static void show_session_options(void)
@@ -187,7 +197,14 @@ static void show_session_options(void)
 
 void show_main_window(void)
 {
-	GtkWidget *window, *button;
+	static GtkWidget *window = NULL;
+	GtkWidget *button;
+
+	if (window)
+	{
+		gtk_window_present(GTK_WINDOW(window));
+		return;
+	}
 	
 	window = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
 			 GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
@@ -226,6 +243,7 @@ void show_main_window(void)
 	}
 
 	gtk_widget_destroy(window);
+	window = NULL;
 }
 
 void run_login_script(void)
