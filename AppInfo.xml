@@ -9,6 +9,9 @@
     <Homepage>http://rox.sourceforge.net</Homepage>
   </About>
   <AppMenu>
-    <Item option='--setup' label='Auto Start...'/>
+    <!-- label attribute is for older filers -->
+    <Item option='--setup' label='Auto Start...'>
+      <Label>Auto Start...</Label>
+    </Item>
   </AppMenu>
 </AppInfo>
