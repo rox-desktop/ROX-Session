@@ -8,6 +8,7 @@
 #define HAVE_GETOPT_LONG 1
 #define HAVE_UNSETENV 1
 #define HAVE_LOCALE_H 1
+#define HAVE__ICETRANSNOLISTEN 1
 
 #if 0
 #  include "rox_gettext.h"
