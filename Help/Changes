@@ -2,6 +2,10 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+22-Jan-2005
+~~~~~~~~~~~
+Allow setting keyboard LEDs (Caps lock, Num lock, Scroll lock) on login (Guido
+Schimmes). This is used by Keyboard, a configuration application.
 
 23-Dec-2004
 ~~~~~~~~~~~

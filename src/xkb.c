@@ -31,6 +31,8 @@
 
 #include <gdk/gdkx.h>
 #include <X11/XKBlib.h>
+#include <X11/extensions/XTest.h>
+#include <X11/keysym.h>
 
 #include "global.h"
 
@@ -117,3 +119,48 @@ void set_xkb_repeat(gboolean repeat, int delay, int interval)
 		XAutoRepeatOff(GDK_DISPLAY());
 	}
 }
+
+/* Code for changing the led settings of a X display based on:
+ * xsetleds (0.1.3) Copyright (C) 2002 Benedikt Meurer,
+ * adapted for ROX-Session by Guido Schimmels <__guido__@web.de>.
+*/
+
+inline static gboolean get_xkb_state (const unsigned int code)
+{
+	unsigned int states;
+
+	/* get key state using XKB */
+	if (XkbGetIndicatorState (GDK_DISPLAY(), XkbUseCoreKbd, &states) != Success)
+		g_warning (_("error in reading keyboard indicator states"));
+
+	return (states & code) ? TRUE : FALSE;
+}
+
+static void toggle_xkb_state (const KeySym keysym, const gboolean keystate)
+{
+	/* toggle the state of the key by sending fake key events */
+
+	if (get_xkb_state (keysym) != keystate)
+	{
+		KeyCode code = XKeysymToKeycode(GDK_DISPLAY(), keysym);
+		if (!XTestFakeKeyEvent (GDK_DISPLAY(), code, True, CurrentTime) ||
+			!XTestFakeKeyEvent (GDK_DISPLAY(), code, False, CurrentTime)) 
+			g_warning (_("error while sending fake key events"));
+	}
+}
+
+void set_xkb_numlock(const gboolean keystate)
+{
+	toggle_xkb_state (XK_Num_Lock, keystate);
+}
+
+void set_xkb_capslock(const gboolean keystate)
+{
+	toggle_xkb_state (XK_Caps_Lock, keystate);
+}
+
+void set_xkb_scrolllock(const gboolean keystate)
+{
+	toggle_xkb_state (XK_Scroll_Lock, keystate);
+}
+

@@ -6,7 +6,7 @@ PLATFORM_DIR = ../${PLATFORM}
 .SUFFIXES: .c .o
 
 CC = @CC@
-LIBS = @LIBS@
+LIBS = @LIBS@ -lXtst
 
 CFLAGS = @CFLAGS@ `pkg-config --cflags gtk+-2.0 libxml-2.0 dbus-1 dbus-glib-1` -I.
 LDFLAGS = @LDFLAGS@ `pkg-config --libs gtk+-2.0 libxml-2.0 dbus-1 dbus-glib-1` -I. ${LIBS}
