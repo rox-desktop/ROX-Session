@@ -10,7 +10,7 @@ def add_button(dialog, stock_icon, action, response):
 
 def test_rox_session():
 	apprun = os.path.join(rox.app_dir, 'AppRun')
-	proc = processes.PipeThroughCommand([apprun, '--version'], None, None)
+	proc = processes.PipeThroughCommand([apprun, '-v'], None, None)
 	proc.wait()
 
 def backup(old, backup):
@@ -63,6 +63,7 @@ def create_session_script(path):
 
 if [ -d "$HOME/bin" ]; then
 	PATH="${HOME}/bin:${PATH}"
+	export PATH
 fi
 
 # Step 1: Try to run ROX-Session. If it works, stop right here.
