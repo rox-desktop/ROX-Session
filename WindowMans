@@ -3,7 +3,7 @@
 # specify a full pathname.
 # Copy this file as <Choices>/ROX-Session/WindowMans before editing it.
 
-0run "rox.sourceforge.net/testing/OroboROX 2004-04-21"
+0run "rox.sourceforge.net/apps/OroboROX 2004-04-23"
 sawfish
 xfwm4
 framer

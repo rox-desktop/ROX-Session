@@ -2,10 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
-23-Apr-2004
+23-Apr-2004 (Release 0.1.22)
 ~~~~~~~~~~~
 Start ZeroProgress (Zero Install progress monitor) on login, if Zero Install
-is being used.
+is being used. Use OroboROX as the default window manager, if available.
 
 22-Apr-2004
 ~~~~~~~~~~~

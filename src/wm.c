@@ -60,8 +60,15 @@ void start_window_manager(void)
 {
 	option_register_widget("start-wm", start_wm_button);
 	option_register_widget("wm-combo", wm_combo);
-		
-	option_add_string(&o_default_wm, "DefaultWM", "");
+
+	/* If we have Zero Install, then OroboROX is the default window
+	 * manager. Otherwise, ask the user to choose on first login.
+	 */
+	if (access("/uri/0install/rox.sourceforge.net", F_OK) == 0)
+		option_add_string(&o_default_wm, "DefaultWM",
+			"0run 'rox.sourceforge.net/apps/OroboROX 2004-04-23'");
+	else
+		option_add_string(&o_default_wm, "DefaultWM", "");
 
 	if (!test_mode)
 		run_wm();
