@@ -7,13 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 0.1.22\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-21 11:57+0200\n"
-"PO-Revision-Date: 2004-04-21 18:35+0100\n"
-"Last-Translator: Yuri Bongiorno http://yuri.webhop.org\n"
+"POT-Creation-Date: 2004-04-23 09:21+0200\n"
+"PO-Revision-Date: 2004-04-23 10:27+0200\n"
+"Last-Translator: Yuri Bongiorno http://yuri.webhop.org <>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: main.c:60
 msgid ""
@@ -78,18 +78,18 @@ msgstr ""
 "\n"
 "Segnalare i bug a <tal197@users.sourceforge.net>.\n"
 
-#: main.c:231
+#: main.c:232
 #, c-format
 msgid "Your login script (%s) died"
 msgstr "Lo script di accesso al sistema (%s) è terminato"
 
-#: main.c:234
+#: main.c:235
 #, c-format
 msgid "Your login script (%s) exited with exit status %d"
 msgstr ""
 "Lo script di accesso al sistema (%s) è terminato con lo stato di uscita %d"
 
-#: main.c:239
+#: main.c:240
 msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
@@ -98,21 +98,22 @@ msgstr ""
 "ROX-Session sia in esecuzione correttamente, lo si esegua di nuovo per "
 "uscire."
 
-#: dbus.c:93
+#: dbus.c:95
 msgid ""
 "ROX-Session lost its connection to the D-BUS session bus.\n"
 "You should save your work and logout as soon as possible (many things won't "
 "work correctly without the bus, and this is the only way to restart it)."
 msgstr ""
 "ROX-Session ha perso la connessione con D-BUS.\n"
-"Salvare i documenti e disconnettersi al più presto possibile (molte cose "
-"non funzionano correttamente senza il bus e questo è l'unico modo di riavviarlo)."
+"Salvare i documenti e disconnettersi al più presto possibile (molte cose non "
+"funzionano correttamente senza il bus e questo è l'unico modo di riavviarlo)."
 
-#: dbus.c:222
+#: dbus.c:226
 msgid "ROX-Session is already running. Can't manage your session twice!"
-msgstr "ROX-Session è già in esecuzione: non si può gestire la sessione due volte."
+msgstr ""
+"ROX-Session è già in esecuzione: non si può gestire la sessione due volte."
 
-#: dbus.c:294
+#: dbus.c:298
 #, c-format
 msgid ""
 "%s\n"
@@ -124,7 +125,6 @@ msgstr ""
 "\n"
 "Procurarsi D-BUS su freedesktop.org:\n"
 "ROX-Session non funziona correttamente senza."
-
 
 #: i18n.c:38
 msgid ""
@@ -144,11 +144,11 @@ msgstr "ROX-Session: read(stderr) fallita.\n"
 
 #: log.c:414
 msgid "ROX-Session message log"
-msgstr "Messaggio di log di ROX-Session"
+msgstr "Messaggi di log di ROX-Session"
 
-#: log.c:468
+#: log.c:465
 msgid "Show message log"
-msgstr "Mostra il messaggio di log"
+msgstr "Mostra i messaggi di log"
 
 #: options.c:464 options.c:1187
 msgid "(use default)"
@@ -201,47 +201,7 @@ msgstr "File di traduzione .gmo non valido (troppo corto): %s"
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr "File di traduzione .gmo non valido (numero magico GNU non trovato): %s"
 
-#: session.c:207
-msgid "_Halt"
-msgstr "_Arresta il sistema"
-
-#: session.c:208
-msgid "Attempting to halt the system..."
-msgstr "Arresto del sistema in corso..."
-
-#: session.c:211
-msgid "_Reboot"
-msgstr "_Riavvia il computer"
-
-#: session.c:212
-msgid "Attempting to restart the system..."
-msgstr "Riavvio del computer in corso..."
-
 #: session.c:215
-msgid "_Sleep"
-msgstr "_Sospendi"
-
-#: session.c:216
-msgid "Attempting to enter suspend mode..."
-msgstr "Sospensione del computer in corso..."
-
-#: session.c:221
-msgid ""
-"Really logout?\n"
-"(unsaved data will be lost)"
-msgstr ""
-"Uscire veramente?\n"
-"(si perdono i dati non salvati)"
-
-#: session.c:231
-msgid "Session Settings"
-msgstr "Impostazioni di sessione"
-
-#: session.c:238
-msgid "Logout"
-msgstr "Esci"
-
-#: session.c:292
 #, c-format
 msgid ""
 "Failed to run login script:\n"
@@ -250,24 +210,24 @@ msgstr ""
 "Fallita l'esecuzione dello script di accesso al sistema:\n"
 "%s"
 
-#: session.c:403
+#: session.c:263
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
 msgstr "ROX-Filer è terminato (crash?). Provare a riavviarlo."
 
-#: session.c:405
+#: session.c:265
 msgid "Do nothing"
 msgstr "Non fare niente"
 
-#: session.c:406
+#: session.c:266
 msgid "Run Xterm"
 msgstr "Esegui Xterm"
 
-#: session.c:407
+#: session.c:267
 msgid "_Restart"
 msgstr "_Riavvia"
 
-#: session.c:433
+#: session.c:293
 #, c-format
 msgid ""
 "Failed to run '%s':\n"
@@ -406,7 +366,7 @@ msgstr ""
 
 #: tips:19
 msgid "On-screen message log"
-msgstr "Messaggio di log sullo schermo"
+msgstr "Messaggi di log sullo schermo"
 
 #: tips:20
 msgid ""
@@ -459,7 +419,7 @@ msgid ""
 msgstr ""
 "Questi comandi possono essere selezionati nella finestra di fine sessione "
 "come alternativa alla disconnessione. Le impostazioni corrette variano a "
-"seconda dei sistemi. Può essere necessario l'uso di xsu o di sudo se gli "
+"seconda dei sistemi. Può essere necessario l'uso di «xsu» o di «sudo» se gli "
 "utenti normali non hanno i permessi di arrestare o riavviare il computer."
 
 #: tips:32
@@ -503,3 +463,171 @@ msgid ""
 msgstr ""
 "Le opzioni di visualizzazione, del mouse e della tastiera si trovano ora "
 "nell'applicazione «LookAndFeel», disponibile su http://rox.sf.net."
+
+#: logout.py:66
+msgid "_Halt"
+msgstr "_Arresta il sistema"
+
+#: logout.py:68
+msgid "Attempting to halt the system..."
+msgstr "Arresto del sistema in corso..."
+
+#: logout.py:71
+msgid "_Reboot"
+msgstr "_Riavvia il computer"
+
+#: logout.py:73
+msgid "Attempting to restart the system..."
+msgstr "Riavvio del computer in corso..."
+
+#: logout.py:76
+msgid "_Sleep"
+msgstr "_Sospendi"
+
+#: logout.py:78
+msgid "Attempting to enter suspend mode..."
+msgstr "Sospensione del computer in corso..."
+
+#: logout.py:82
+msgid ""
+"Really logout?\n"
+"(unsaved data will be lost)"
+msgstr ""
+"Uscire veramente?\n"
+"(si perdono i dati non salvati)"
+
+#: logout.py:87
+msgid "ROX-Session"
+msgstr "ROX-Session"
+
+#: logout.py:92
+msgid "Session Settings"
+msgstr "Impostazioni di sessione"
+
+#: logout.py:98
+msgid "Logout"
+msgstr "Esci"
+
+#: setup.py:24
+msgid ""
+"Tried to make a backup of your old '%s' file, but the backup file ('%s') "
+"already exists."
+msgstr ""
+"Si è tentato di fare un backup del vecchio file «%s», ma il backup («%s») "
+"esiste già."
+
+#: setup.py:35
+msgid ""
+"Do you want to make ROX a choice on your login screen (affects all users and "
+"requires the root password), or do you just want to set the session for your "
+"current user?\n"
+"\n"
+"If you know the root password and use a graphical display manager such as "
+"gdm or kdm, you should probably choose that option."
+msgstr ""
+"Rendere ROX una possibilità di scelta sulla schermata di accesso al sistema "
+"(per tutti gli utenti, quindi c'è bisogno della password di root) o impostare "
+"la sessione solo per l'utente attuale?\n"
+"\n"
+"Se non si conosce la password di root o se non si usa un gestore grafico "
+"come gdm o kdm, è meglio scegliere «Solo per l'utente»."
+
+#: setup.py:43
+msgid "Setup for user"
+msgstr "Solo per l'utente"
+
+#: setup.py:44
+msgid "Add to login"
+msgstr "Aggiungi"
+
+#: setup.py:114
+msgid ""
+"OK, now logout by your usual method and when you log in again, I should be "
+"your session manager.\n"
+"Note: you may need to select 'Default' as your desktop type after entering "
+"your user name on the login screen."
+msgstr ""
+"Disconnettersi adesso con la solita procedura e al prossimo accesso al sistema, "
+"ROX-Session dovrebbe essere il gestore di sessione predefinito.\n"
+"Nota: potrebbe essere necessario selezionare «Default» come tipo di desktop "
+"alla schermata di accesso al sistema."
+
+#: setup.py:128
+msgid ""
+"I wanted to install a rox.desktop file in your session directory, but I "
+"couldn't find one! I tried these places (defaults for gdm2, at least):\n"
+"\n"
+msgstr ""
+"Il programma ha bisogno di installare un file rox.desktop nella directory "
+"di sessione, ma non riesce a trovarne una. Ha provato in questi posti "
+"(che sono i predefiniti per gdm2):\n"
+"\n"
+
+#: setup.py:133
+msgid ""
+"/usr/local/sbin directory is missing! I want to install the rox-session "
+"script there... Please create it and try again."
+msgstr ""
+"Manca la directory «/usr/local/sbin». È necessario installare lo script "
+"di rox-session lì, quindi si deve creare la directory e riprovare."
+
+#: setup.py:151
+msgid ""
+"OK, now logout by your usual method, and choose ROX from the session menu on "
+"your login screen just after entering your user name (but before entering "
+"your password)."
+msgstr ""
+"Disconnettersi adesso con la solita procedura e scegliere ROX dal menù di "
+"sessione, dopo aver inserito il nome utente (ma prima di inserire la "
+"password)." 
+
+#: setup.py:164
+msgid ""
+"OK, I don't know what the problem is. Please ask on the rox-users mailing "
+"list. When we know what the problem is, we can add an extra check here to "
+"help out others in future.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(you can copy and paste that address into your browser)"
+msgstr ""
+"Problema sconosciuto. Chiedere aiuto sulla mailing list rox-users. "
+"Se non riusciamo a capire il problema, aggiungeremo dei controlli extra "
+"per aiutare gli altri in futuro.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(è possibile copiare e incollare l'indirizzo nel browser web)"
+
+#: setup.py:175
+msgid ""
+"ROX-Session does not appear to be managing your session. Would you like to "
+"set it up now?\n"
+"\n"
+"If you think it should already be set up, click on Help."
+msgstr ""
+"ROX-Session non sembra gestire questa sessione. Impostarlo adesso?\n"
+"\n"
+"Nel caso si pensi che sia già impostato, cliccare su «Aiuto»."
+
+#: setup.py:180
+msgid "Set up ROX"
+msgstr "Imposta ROX"
+
+#: setup.py:183
+msgid "Set up ROX-Session"
+msgstr "Imposta ROX-Session"
+
+#: setup.py:195
+msgid ""
+"Please enter the root password when prompted. I will attempt to create the "
+"files '%s' and '%s'."
+msgstr ""
+"Inserire la password di root quando richiesto. Serve per creare il file «%s» e «%s»."
+
+#: setup.py:203
+msgid "Error trying to run xterm to ask for the root password."
+msgstr "Errore durante l'esecuzione di xterm per chiedere la password di root"
+
+#: setup.py:205 setup.py:207
+msgid "Failed to create '%s'"
+msgstr "Fallita la creazione di «%s»"
+
