@@ -96,31 +96,14 @@ static struct option long_opts[] =
 	{"help", 0, NULL, 'h'},
 	{"version", 0, NULL, 'v'},
 	{"wait", 0, NULL, 'w'},
-	{"messages", 0, NULL, 'm'},
 	{NULL, 0, NULL, 0},
 };
 #endif
 
-static GdkAtom rox_session_window;
-static GdkAtom rox_message_window;
-static GtkWidget *ipc_window;
-
 guchar *app_dir;
-
-/* Static prototypes */
-static GdkWindow *get_existing_session(void);
-static gboolean get_session(GdkWindow *window, Window *r_xid);
-static void touch(GdkWindow *window, int is_message);
-static gboolean session_prop_touched(GtkWidget *window,
-				     GdkEventProperty *event,
-				     gpointer data);
-static int become_default_session(void);
 
 int main(int argc, char **argv)
 {
-	Window			xwindow;
-	GdkWindow		*window;
-	GdkWindow		*existing_session_window;
 	gboolean		wait_mode = FALSE;
 	gboolean		messages = FALSE;
 	guchar			*rc_file;
@@ -203,52 +186,18 @@ int main(int argc, char **argv)
 	gtk_rc_parse(rc_file);
 	g_free(rc_file);
 
-	rox_session_window = gdk_atom_intern(
-			test_mode ? "_ROX_SESSION_TEST"
-				  : "_ROX_SESSION_WINDOW2", FALSE);
-	rox_message_window = gdk_atom_intern("_ROX_SESSION_MESSAGE_WINDOW",
-					     FALSE);
-
-	existing_session_window = get_existing_session();
-	if (existing_session_window)
+	if (!wait_mode)
 	{
-		/* There is a valid session already running... */
-
-		if (wait_mode)
-		{
-			report_error(_("ROX-Session is already managing your "
-					"session - can't manage it twice!"));
-			return EXIT_FAILURE;
-		}
-
-		/* Get it to respond  */
-		touch(existing_session_window, messages);
-		return EXIT_SUCCESS;
+		report_error("Invalid options passed to ROX-Session");
+		return EXIT_FAILURE;
 	}
 
-	if (!wait_mode)
-		return become_default_session();
-
-	ipc_window = gtk_invisible_new();
-	gtk_widget_realize(ipc_window);
-			
-	window = ipc_window->window;
-	xwindow = GDK_WINDOW_XWINDOW(window);
-	gtk_signal_connect(GTK_OBJECT(ipc_window), "property-notify-event",
-			GTK_SIGNAL_FUNC(session_prop_touched), NULL);
-	gtk_widget_add_events(ipc_window, GDK_PROPERTY_CHANGE_MASK);
-	gdk_property_change(ipc_window->window, rox_session_window,
-			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
-			GDK_PROP_MODE_REPLACE, (guchar *) &xwindow, 1);
-	gdk_property_change(GDK_ROOT_PARENT(), rox_session_window,
-			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
-			GDK_PROP_MODE_REPLACE, (guchar *) &xwindow, 1);
+	dbus_init();
 
 	session_init();
 
 	log_init();		/* Capture standard error */
 
-	dbus_init();
 	settings_init();
 
 	start_window_manager();
@@ -263,135 +212,6 @@ int main(int argc, char **argv)
 
 	if (xsettings_manager)
 		xsettings_manager_destroy(xsettings_manager);
-
-	return EXIT_SUCCESS;
-}
-
-static GdkWindow *get_existing_session(void)
-{
-	Window		xid, xid_confirm;
-	GdkWindow	*window;
-
-	if (!get_session(GDK_ROOT_PARENT(), &xid))
-		return NULL;
-
-	window = gdk_window_foreign_new(xid);
-	if (!window)
-		return NULL;
-
-	if (!get_session(window, &xid_confirm) || xid_confirm != xid)
-		return NULL;
-
-	return window;
-}
-
-static gboolean get_session(GdkWindow *window, Window *r_xid)
-{
-	guchar		*data;
-	gint		format, length;
-	gboolean	retval = FALSE;
-	
-	if (gdk_property_get(window, rox_session_window,
-				gdk_x11_xatom_to_atom(XA_WINDOW), 0, 4,
-			FALSE, NULL, &format, &length, &data) && data)
-	{
-		if (format == 32 && length == 4)
-		{
-			retval = TRUE;
-			*r_xid = *((Window *) data);
-		}
-		g_free(data);
-	}
-
-	return retval;
-}
-
-static void touch(GdkWindow *window, int is_message)
-{
-	gdk_property_change(window,
-			    is_message? rox_message_window: rox_session_window,
-			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
-			GDK_PROP_MODE_APPEND, "", 0);
-	gdk_flush();
-}
-
-static gboolean session_prop_touched(GtkWidget *window,
-				     GdkEventProperty *event,
-				     gpointer data)
-{
-	static gboolean first_time = TRUE;
-
-	if (event->atom != rox_session_window &&
-	    event->atom != rox_message_window)
-		return FALSE;
-
-	if (first_time)
-	{
-		/* Simply selecting for property events AFTER setting it
-		 * the first time doesn't work, because Gtk might have
-		 * selected them itself by then.
-		 */
-		first_time = FALSE;
-		return FALSE;
-	}
-
-
-	if(event->atom == rox_message_window)
-		show_message_log();
-	else
-		show_main_window();
-
-	return TRUE;
-}
-
-static int become_default_session(void)
-{
-	char	*argv[3];
-	int	status;
-	GError	*error = NULL;
-	GtkWidget *dialog;
-
-	dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
-		GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
-		_("Would you like to make ROX-Session your session manager?"));
-	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
-	gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_YES);
-	if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_YES)
-		return EXIT_SUCCESS;
-	gtk_widget_destroy(dialog);
-
-	argv[0] = g_strconcat(app_dir, "/", "MakeDefault.sh", NULL);
-	argv[1] = app_dir;
-	argv[2] = NULL;
-
-	g_spawn_sync(NULL, argv, NULL, 0, NULL, NULL,
-				NULL, NULL, &status, &error);
-
-	g_free(argv[0]);
-
-	if (error)
-	{
-		report_error(
-			_("Oh dear; it didn't work and I don't know why!\n"
-			"Error was:\n%s\n"
-			"Make sure your .xsession and .xinitrc files are OK, "
-			"then report the problem to "
-			"tal197@users.sourceforge.net - thanks"),
-			error->message);
-		g_error_free(error);
-		return EXIT_SUCCESS;
-	}
-
-	dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
-			GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
-			_("OK, now logout by your usual method and when "
-			"you log in again, I should be your session manager.\n"
-			"Note: you may need to select 'Default' as your "
-			"desktop type after entering your user name on the "
-			"login screen."));
-	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
-	gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_widget_destroy(dialog);
 
 	return EXIT_SUCCESS;
 }

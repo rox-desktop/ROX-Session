@@ -40,7 +40,7 @@
       <Label xml:lang='es'>Iniciar Autom&#x00E1;ticamente...</Label>
       <Label xml:lang='it'>Esecuzione automatica...</Label>
     </Item>
-    <Item option='-m'>
+    <Item option='--messages'>
       <Label xml:lang="en">Message Log...</Label>
     </Item>
   </AppMenu>

@@ -77,6 +77,7 @@ void settings_init(void)
 	{
 		g_printerr("An XSETTINGS manager is already running. "
 				"Not taking control of XSETTINGS...\n");
+		return;
 	}
 	else
 		xsettings_manager = xsettings_manager_new(gdk_display,
@@ -135,6 +136,8 @@ static void set_rox_setting(const char *name, int value)
 
 static void activate_changes(void)
 {
+	g_return_if_fail(xsettings_manager != NULL);
+
 	xsettings_manager_notify(xsettings_manager);
 	XChangePointerControl(GDK_DISPLAY(), True, True,
 				mouse_accel_factor, 10,
@@ -318,6 +321,8 @@ static void terminate_xsettings(void *data)
 static void set_from_xml(xmlNode *setting)
 {
 	char *name, *value, *type;
+
+	g_return_if_fail(xsettings_manager != NULL);
 
 	name = xmlGetProp(setting, "name");
 	type = xmlGetProp(setting, "type");

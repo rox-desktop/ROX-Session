@@ -21,7 +21,7 @@ try:
 	dbus_service = bus.get_service('org.freedesktop.DBus')
 	dbus_object = dbus_service.get_object('/org/freedesktop/DBus',
 						   'org.freedesktop.DBus')
-	rox_session_running = 'net.sf.rox.Session2' in dbus_object.ListServices()
+	rox_session_running = 'net.sf.rox.Session' in dbus_object.ListServices()
 except:
 	rox_session_running = False
 

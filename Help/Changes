@@ -4,6 +4,10 @@
 
 TODO: Never overwrite .xsession.old
 
+- Halt, Reboot, Suspend need to be reimplemented
+- Set up system wide
+- Move remaining options to Python
+
 13-Apr-2004
 ~~~~~~~~~~~
 Guide will get ROX-Filer through Zero Install if there's no local copy

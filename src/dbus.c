@@ -36,6 +36,7 @@
 #include "dbus.h"
 #include "gui_support.h"
 #include "session.h"
+#include "log.h"
 
 static gint dbus_pid = -1;
 static DBusConnection *dbus_connection = NULL;
@@ -172,6 +173,11 @@ static DBusMessage *session_handler(DBusMessage *message, DBusError *error)
 	{
 		gtk_main_quit();
 		return dbus_message_new_method_return(message);
+	} else if (dbus_message_is_method_call(message, ROX_CONTROL_NS,
+						"ShowMessages"))
+	{
+		show_message_log();
+		return dbus_message_new_method_return(message);
 	}
 
 	return NULL;
@@ -209,10 +215,23 @@ static gboolean connect_to_bus(void)
 	if (error)
 		goto err;
 	dbus_connection_set_exit_on_disconnect(dbus_connection, FALSE);
+
+	if (dbus_bus_service_exists(dbus_connection, ROX_SESSION_DBUS_SERVICE,
+				&derror))
+	{
+		report_error(_("ROX-Session is already running. Can't manage "
+				"your session twice!"));
+		exit(EXIT_FAILURE);
+	}
+
+	if (error)
+		goto err;
+	
 	dbus_bus_acquire_service(dbus_connection,
 			ROX_SESSION_DBUS_SERVICE,
 			0,
 			&derror);
+
 	if (dbus_error_is_set(&derror))
 		goto err;
 
@@ -245,7 +264,8 @@ err:
 }
 
 /* Returns once the D-BUS session daemon is running and we have a connection
- * to it. Sets the environment variable.
+ * to it. Sets the environment variable. Reports error if ROX-Session is
+ * already running.
  */
 void dbus_init(void)
 {

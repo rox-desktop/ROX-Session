@@ -13,6 +13,7 @@ ROX-Session contains the following objects, available at the
 	Methods:
 
 	net.sf.rox.Session.Control.ShowOptions()
+	net.sf.rox.Session.Control.ShowMessages()
 	net.sf.rox.Session.Control.LogoutWithoutConfirm()
 
 /Settings
