@@ -5,33 +5,55 @@ PROG=ROX-Session
 APP_DIR=`dirname $0`
 APP_DIR=`cd $APP_DIR;pwd`; export APP_DIR
 
-PLATFORM=`uname -s`-`uname -m`
+ARCH=`uname -m`
+case $ARCH in
+	i?86) ARCH=ix86 ;;
+esac
+
+PLATFORM=`uname -s`-$ARCH
 
 DEBUGGER=""
+
 case $1 in
 	--debug) shift ; DEBUGGER=gdb ;;
 	--setup) exec $APP_DIR/Setup ;;
 	--compile)
+		shift
 		if [ ! -d $APP_DIR/src ] ; then
 			echo "ERROR from $0:" >&2
 			echo "Cannot compile - source code is missing!" >&2
 			exit 1
 		fi
 		echo "Compiling $APP_DIR... please wait..." >&2
+		if [ ! -x "$APP_DIR/src/configure" ]; then
+		  echo "No 'configure' script! Trying to run autoconf..."
+		  (cd $APP_DIR/src; autoconf)
+		fi
 		rm -f $APP_DIR/src/config.cache
 		cd $APP_DIR/src && ./configure --bindir=$APP_DIR/$PLATFORM \
+			"$@" \
 			&& make clean && make && echo Done >&2 && exit 0
 		echo Compile failed >&2
+		echo Press Return... >&2
+		read WAIT
 		exit 1
 esac
 
 BIN=$APP_DIR/$PLATFORM/$PROG
 
-if [ -x $BIN ] ; then
+if [ -x $BIN ]; then
   exec $DEBUGGER $BIN "$@"
 else
   echo "ERROR from $0:" >&2
   echo "I cannot find an executable file for your host type ($PLATFORM)." >&2
-  echo "Try using the --compile option." >&2
-  exec xterm
+  echo "Trying to compile..." >&2
+  if [ -n "$DISPLAY" ]; then
+    xterm -e $0 --compile
+  else
+    $0 --compile
+  fi
+  if [ -x $BIN ]; then
+    exec $BIN "$@"
+  fi
+  exit 1
 fi

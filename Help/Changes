@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+10-Mar-2001 (Release 0.1.11)
+~~~~~~~~~~~ 
+ROX-Session will now compile automatically the first time it is run.
+
 09-Mar-2001
 ~~~~~~~~~~~
 The default login script now runs everything it finds in
