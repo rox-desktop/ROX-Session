@@ -32,7 +32,7 @@ def op_button(text, stock, command, message):
 	image.set_from_stock(stock, g.ICON_SIZE_BUTTON)
 	hbox.pack_start(image, False, True, 4)
 
-	label = g.Label()
+	label = g.Label('')
 	label.set_text_with_mnemonic(text)
 	label.set_alignment(0, 0.5)
 	hbox.pack_start(label, True, True, 0)
