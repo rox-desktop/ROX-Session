@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+22-Apr-2004
+~~~~~~~~~~~
+Improved icon (Jonatan Liljedahl).
+
 21-Apr-2004
 ~~~~~~~~~~~
 Use a GtkScrolledWindow for the message log, so that the mouse wheel works

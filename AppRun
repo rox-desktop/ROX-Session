@@ -10,6 +10,12 @@ GDK_USE_XFT=1; export GDK_USE_XFT
 QT_XFT=1; export QT_XFT
 
 
+# If we're using Zero Install, start Zero Progress now so the user gets
+# some feedback if nothing happens for a bit (because we're downloading)
+if [ -d /uri/0install/zero-install.sourceforge.net ]; then
+	0run "zero-install.sourceforge.net/apps/ZeroProgress 2004-03-26" &
+fi
+
 PROG=ROX-Session
 
 APP_DIR=`dirname "$0"`
