@@ -2,11 +2,15 @@
 			A very simple session manager
 			by Thomas Leonard
 
+06-Oct-2002
+~~~~~~~~~~~
+Added Dutch translation (Jan Wagemakers).
+
 25-Sep-2002
 ~~~~~~~~~~~
 Added options to control mouse acceleration.
 
-12-Sep-2002
+12-Sep-2002 (Release 0.1.17)
 ~~~~~~~~~~~
 Switch to log window display if too many messages are shown.
 Increase history size limit.

@@ -1,16 +1,17 @@
-# Danish messages for ROX-Session.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# Christian Storgaard <cybolic@goth.net>, 2002.
+# Jan Wagemakers <janw@easynet.be>, 2002.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-10-06 14:29+0100\n"
-"PO-Revision-Date: 2002-04-10 17:59+0100\n"
-"Last-Translator: Christian Storgaard <cybolic@goth.net>\n"
+"PO-Revision-Date: 2002-10-05 10:12+0200\n"
+"Last-Translator: Jan Wagemakers <janw@easynet.be>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: main.c:54
@@ -23,19 +24,19 @@ msgid ""
 "For more information about these matters, see the file named COPYING.\n"
 msgstr ""
 "Copyright (C) 2002 Thomas Leonard.\n"
-"ROX-Session kommer med ABSOLUT INGEN GARANTI,\n"
-"i den grad der er tilladt af loven.\n"
-"Du må redistribuere copier af ROX-Session\n"
-"under retningslinjerne fremsat i GNU General Public License.\n"
-"For mere information omkring disse ting, se filen ved navn COPYING.\n"
+"ROX-Filer komt ABSOLUUT ZONDER GARANTIE,\n"
+"voor zover wettelijk toegestaan.\n"
+"Kopiëen van ROX-Filer mogen verspreid worden onder de\n"
+"voorwaarden van de GNU General Public Licence.\n"
+"Voor meer informatie zie het bestand COPYING.\n"
 
 #: main.c:63
 msgid "Try `ROX-Session/AppRun --help' for more information.\n"
-msgstr "Prøv 'ROX-Session/AppRun --help' for mere information.\n"
+msgstr "Probeer `ROX-Session/AppRun --help' voor meer informatie.\n"
 
 #: main.c:66
 msgid "Try `ROX-Session/AppRun -h' for more information.\n"
-msgstr "Prøv 'ROX-Session/AppRun -h' for mere information.\n"
+msgstr "Probeer `ROX-Session/AppRun -h' voor meer informatie.\n"
 
 #: main.c:68
 msgid ""
@@ -43,8 +44,9 @@ msgid ""
 "you must use the short versions instead.\n"
 "\n"
 msgstr ""
-"BEMÆRK: Dit system understøtter ikke lange valgmuligheder - \n"
-"du bliver nød til at bruge de korte istedet.\n"
+"Let op: uw systeem ondersteunt geen lange opties - \n"
+"gebruik in plaats daarvan de korte versies.\n"
+"\n"
 
 #: main.c:72
 msgid ""
@@ -62,29 +64,27 @@ msgid ""
 "\n"
 "Report bugs to <tal197@users.sourceforge.net>.\n"
 msgstr ""
-"Anvendelse: ROX-Session/AppRun [VALGMULIGHEDER]...\n"
-"Hvis ROX-Session allerede kontrollerer din session så vis\n"
-"log ud vinduet. Hvis ikke, så tilbyd at gøre ROX-Session din\n"
-"session manager for fremtiden.\n"
+"Gebruik: ROX-Session/AppRun [OPTIES]...\n"
+"Indien ROX-Session reeds uw sessie beheert, wordt het uitlog venster\n"
+"getoond. Anders wordt voorgesteld om ROX-Session in de toekomst\n"
+"als sessie-beheerder te gebruiken.\n"
 "\n"
-"  -h, --help\t\tvis denne hjælp og afslut\n"
-"  -v, --version\t\tvis version informationen og afslut\n"
-"  -w, --wait\t\tvent indtil ROX-Session kæres igen (intern brug)\n"
+"  -h, --help\t\ttoon deze helptekst en sluit af\n"
+"  -v, --version\t\ttoon informatie over versie en sluit af\n"
+"  -w, --wait\t\twacht tot opnieuw gestart wordt (intern gebruik)\n"
 "\n"
-"Den nyeste version kan findes på:\n"
-"\thttp://rox.sourceforge.net\n"
+"De meest recente versie is te vinden op:\n"
+"\thttp:/rox.sourceforge.net\n"
 "\n"
-"Rapporter fejl til <tal197@users.sourceforge.net>.\n"
+"Rapporteer bugs aan <tal197@users.sourceforge.net>.\n"
 
 #: main.c:189
 msgid "ROX-Session is already managing your session - can't manage it twice!"
-msgstr ""
-"ROX-Session kontrollerer allerede din session - kan ikke kontrollere den to "
-"gange!"
+msgstr "ROX-Session beheert reeds uw sessie - kan ze niet tweemaal beheren!"
 
 #: main.c:316
 msgid "Would you like to make ROX-Session your session manager?"
-msgstr "Vil du gøre ROX-Session til din session manager?"
+msgstr "Wil je ROX-Session gebruiken als sessie-beheerder?"
 
 #: main.c:335
 #, c-format
@@ -95,11 +95,11 @@ msgid ""
 "Make sure your .xsession and .xinitrc files are OK, then report the problem "
 "to tal197@users.sourceforge.net - thanks"
 msgstr ""
-"Åh dog; det virkede ikke og jeg ved ikke hvorfor!\n"
-"Fejlen var:\n"
+"Whoeps; het heeft niet gewerkt en ik weet niet waarom!\n"
+"De fout was:\n"
 "%s\n"
-"Sørg for at dine .xsession og .xinitrc filer er OK, raporter derefter "
-"problemet til tal197@users.sourceforge.net - tak"
+"Ga na of uw .xsession en .xinitrc bestanden in orde zijn, indien ja, meld "
+"het probleem aan tal197@users.sourceforge.net - bedankt"
 
 #: main.c:347
 msgid ""
@@ -107,58 +107,58 @@ msgid ""
 "your session manager.\n"
 "You can edit your .xsession file to customise things..."
 msgstr ""
-"OK, log nu ud ved din sædvanlige metode og når du logger ind igen skulle jeg "
-"gerne være din session manager.\n"
-"Du kan redigere din .xsession fil for at indstille ting..."
+"OK, log nu uit volgens de gebruikelijke methode en log daarna terug in, Ik "
+"zou nu uw sessie-beheerder moeten zijn.\n"
+"Je kan uw .xsession bestand naar wens aanpassen..."
 
 #: main.c:370
 #, c-format
 msgid "Your login script (%s) died"
-msgstr "Dit login skript (%s) døde"
+msgstr "Uw login script (%s) is gestorven"
 
 #: main.c:373
 #, c-format
 msgid "Your login script (%s) exited with exit status %d"
-msgstr "Dit login skript (%s) afsluttede med slut status %d."
+msgstr "Uw login script (%s) is gestopt met status %d"
 
 #: main.c:378
 msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
 msgstr ""
-". Jeg giver dig en xterm så du kan forsøge at løse problemet. Selve ROX-"
-"Session kører dog fint - kør mig en til gang for at logge ud"
+". Ik zal een xterm starten zodat je kan proberen het probleem op te lossen. "
+"ROX-Session is weldegelijk aan het lopen - start mij een tweede keer om uit "
+"te loggen."
 
 #: log.c:361
 msgid "ROX-Session: write to stderr failed!\n"
-msgstr "ROX-Session: skrivning til stderr mislykkedes!\n"
+msgstr "ROX-Session: schrijven naar stderr mislukt!\n"
 
 #: log.c:385
 msgid "ROX-Session: read(stderr) failed!\n"
-msgstr "ROX-Session: read(stderr) mislykkedes!\n"
+msgstr "ROX-Session: read(stderr) mislukt!\n"
 
 #: log.c:409
-#, fuzzy
 msgid "ROX-Session message log"
-msgstr "ROX-Session"
+msgstr "ROX-Session berichten log"
 
 #: log.c:463
 msgid "Show message log"
-msgstr ""
+msgstr "Toon berichten log"
 
 #: options.c:825
 msgid "Options"
-msgstr "Indstillinger"
+msgstr "Opties"
 
 #: options.c:874
 msgid "_Revert"
-msgstr "_Gendan"
+msgstr "O_ngedaan maken"
 
 #: options.c:880
 msgid "Restore all choices to how they were when the Options box was opened."
 msgstr ""
-"Gendan alle indstillinger til hvordan de var da Indstillinger-boksen blev "
-"åbnet."
+"Zet alle instellingen terug naar de toestand toen het Opties venster werd "
+"geopend."
 
 #: options.c:895
 #, c-format
@@ -166,35 +166,35 @@ msgid ""
 "Choices will be saved as:\n"
 "%s"
 msgstr ""
-"Choices vil blive gemt som:\n"
+"Instellingen zullen opgeslagen worden als:\n"
 "%s"
 
 #: options.c:903
 msgid "(saving disabled by CHOICESPATH)"
-msgstr "(gemning slået fra af CHOICESPATH)"
+msgstr "(opslaan is uitgezet door de CHOICESPATH variabele)"
 
 #: options.c:1098
 #, c-format
 msgid "Error saving %s: %s"
-msgstr "Fejl under gemning af %s: %s"
+msgstr "Fout tijdens bewaren bestand %s: %s"
 
 #: rox_gettext.c:93
 #, c-format
 msgid "Invalid .gmo translation file (too short): %s"
-msgstr "Ugyldig .gmo oversættelses-fil (for kort): %s"
+msgstr "Ongeldig .gmo vertalingsbestand (te kort): %s"
 
 #: rox_gettext.c:106
 #, c-format
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
-msgstr "Ugyldig .gmo oversættelses-fil (GNU magic number ikke fundet): %s"
+msgstr "Ongeldig .gmo vertalingsbestand (GNU magisch nummer niet gevonden): %s"
 
 #: session.c:193
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
 msgstr ""
-"ROX-Session kontrollerer ikke XSettings, så ændringer vil ikke have nogen "
-"åjeblikkelig effekt..."
+"ROX-Session beheert XSettings niet, hierdoor zullen aanpassingen geen "
+"onmiddelijk effekt hebben..."
 
 #: session.c:211
 msgid ""
@@ -202,16 +202,15 @@ msgid ""
 "Really logout?\n"
 msgstr ""
 "\n"
-"Vil du virkelig logge ud?\n"
+"Daadwerkelijk uitloggen?\n"
 
 #: session.c:218
-#, fuzzy
 msgid "Session _Settings"
-msgstr "XSettings"
+msgstr "Sessie _Instellingen"
 
 #: session.c:225
 msgid "_Logout"
-msgstr "_Log ud"
+msgstr "_Log Uit"
 
 #: session.c:273
 #, c-format
@@ -219,7 +218,7 @@ msgid ""
 "Failed to run login script:\n"
 "%s"
 msgstr ""
-"Mislykkedes i at køre login-skriptet:\n"
+"Mislukt om inlog script te starten:\n"
 "%s"
 
 #: wm.c:74
@@ -227,8 +226,8 @@ msgid ""
 "Your window manager has crashed (or quit). Please restart it, or choose "
 "another window manager."
 msgstr ""
-"Din window manager er blevet afbrydt (eller afsluttet). Genstart den "
-"venligst, eller vælg en anden window manager."
+"Uw window manager is ge-crashed (of gestopt). Start het opnieuw, of kies een "
+"andere window manager."
 
 #: wm.c:129
 #, c-format
@@ -236,7 +235,7 @@ msgid ""
 "Error loading window manager list '%s':\n"
 "%s"
 msgstr ""
-"Fejl under indlæsning af window manager listen '%s':\n"
+"Fout bij het laden window manager lijst '%s':\n"
 "%s"
 
 #: wm.c:150
@@ -244,16 +243,16 @@ msgid ""
 "The window manager which ROX-Session started for you is still running. Quit "
 "it before starting a new one."
 msgstr ""
-"Den window manager, som ROX-Session startede for dig, kærer stadig. Afslut "
-"den før du starter en ny."
+"De window manager die ROX-Session voor je gestart heeft, is nog steeds "
+"lopende. Stop het alvorens een nieuwe te starten."
 
 #: wm.c:158
 msgid ""
 "No window manager is currently selected.\n"
 "Please choose a window manager now."
 msgstr ""
-"Der er i øjeblikket ikke valgt nogen window manager.\n"
-"Vælg venligst en window manager nu."
+"Momenteel is er geen window manager geselecteerd.\n"
+"Kies nu een window manager."
 
 #: wm.c:175
 #, c-format
@@ -262,9 +261,9 @@ msgid ""
 "%s\n"
 "Please choose a new window manager and try again."
 msgstr ""
-"Mislykkedes i at starte window manageren:\n"
+"Mislukt om een window manager te starten:\n"
 "%s\n"
-"Vælg venligst en ny window manager og prøv igen."
+"Kies een nieuwe window manager en probeer nogmaals."
 
 #: wm.c:252
 msgid "Start window manager"
@@ -279,45 +278,46 @@ msgid ""
 "The window manager is a program which puts title bars and frames on windows. "
 "It allows you to move windows around, resize them, close them and so on."
 msgstr ""
-"Window manageren er et program som putter tittel-bjælker og rammer på "
-"vinduer. Det gør at du kan flytte dine vinduer rundt, ændre størrelse på "
-"dem, lukke dem og så videre."
+"De window manager (venster beheerder) is een programma dat de titelbalken en "
+"kaders van de vensters (windows) maakt. Het stelt je tevens in de "
+"mogelijkheid om vensters te verplaatsen, de afmetingen aan te passen, ze te "
+"sluiten, enz."
 
 #: tips:3
 msgid "Default window manager"
-msgstr "Standard window manager"
+msgstr "Standaard window manager"
 
 #: tips:4
 msgid "Translation"
-msgstr "Oversættelse"
+msgstr "Vertaling"
 
 #: tips:5
 msgid "Language"
-msgstr "Sprog"
+msgstr "Taal"
 
 #: tips:6
 msgid "Danish"
-msgstr "Dansk"
+msgstr "Deens"
 
 #: tips:7
 msgid "English (no translation)"
-msgstr "Engelsk"
+msgstr "Engels (geen vertaling)"
 
 #: tips:8
 msgid "Use the LANG environment variable"
-msgstr "Brug LANG miljø variabel"
+msgstr "Gebruik de LANG variabele"
 
 #: tips:9 tips:10
 msgid ""
 "Note that you must save your choices, logout and log back in again before "
 "the new settings will take full effect."
 msgstr ""
-"Bemærk at du bliver nød til at gemme dine valg, logge ud og logge ind igen "
-"før de nye indstillinger vil have fuld effekt."
+"Merk op dat je uw instellingen moet bewaren, uitloggen en terug inloggen "
+"alvorens deze nieuwe instellingen volledig effekt zullen hebben."
 
 #: tips:11
 msgid "Display"
-msgstr "Display"
+msgstr "Beeld"
 
 #: tips:12
 msgid ""
@@ -328,23 +328,23 @@ msgstr ""
 #: tips:13
 #, fuzzy
 msgid "Default Gtk font"
-msgstr "Standard skrifttype"
+msgstr "Standaard lettertype"
 
 #: tips:14 tips:15
 msgid "The font used by Gtk+ applications"
-msgstr "Skriftypen der vil blive brugt af Gtk+ programmer"
+msgstr "Het lettertype gebruikt door Gtk+ programma's"
 
 #: tips:16
 msgid "Mouse"
-msgstr "Mus"
+msgstr "Muis"
 
 #: tips:17
 msgid "Double-click speed: (fast)"
-msgstr "Dobbelt-kliks hastighed: (hurtig)"
+msgstr "Dubbele-klik snelheid: (snel)"
 
 #: tips:18 tips:29
 msgid "(slow)"
-msgstr "(langsom)"
+msgstr "(traag)"
 
 #: tips:19
 msgid ""
@@ -352,9 +352,9 @@ msgid ""
 "bigger if you have trouble double-clicking fast enough; set it smaller if "
 "two single-clicks sometimes get treated as a double click."
 msgstr ""
-"Tiden mellem to klik der bestemmer om det er et dobbelt klik. Gør denne "
-"størrere hvis du har svært ved at dobbelt-klikke hurtigt nok; gør den mindre "
-"hvis to enkelt-klik sommetider bliver opfattet som et dobbelt-klik."
+"Tijd tussen twee klikken die als een dubbele klik herkent wordt. Maak dit "
+"groter als je moeilijkheden ondervind om snel genoeg te dubbel-klikken; "
+"kleiner als twee enkele-klikken soms als een dubbele klik behandeld worden."
 
 #: tips:20
 msgid "Acceleration threshold"
@@ -382,24 +382,25 @@ msgstr ""
 
 #: tips:26
 msgid "Keyboard"
-msgstr "Tastatur"
+msgstr "Toetsenbord"
 
 #: tips:27
 msgid "Blinking cursor"
-msgstr "Blinkende cursor"
+msgstr "Knipperende cursor"
 
 #: tips:28
 msgid "Speed: (fast)"
-msgstr "Hastighed: (hurtig)"
+msgstr "Snelheid: (snel)"
 
 #: tips:30
 msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
 msgstr ""
-"Den hastighed som tekst-cursoren blinker med (hvis blinkning er slået til)"
+"Snelheid waarmee de tekst cursor knipperd (indien knipperen aan staat)."
 
 #: tips:31
 msgid "Allow keybindings to be changed from menus"
-msgstr "Tllad ændringer af tastatur-genveje fra menuer"
+msgstr ""
+"Sta toe dat toestenbord-bindingen vanuit de menus aangepast kunnen worden"
 
 #: tips:32 tips:33
 msgid ""
@@ -407,13 +408,13 @@ msgid ""
 "pointer over the menu item and pressing the key. If off, short-cuts cannot "
 "be changed."
 msgstr ""
-"Når denne er slået til kan du lave en tastatur-genvej til et menu objekt ved "
-"at holde din pointer over objektet og trykke på den ønskede tast. Hvis slået "
-"fra, kan tastatur-genvejene ikke ændres."
+"Wanneer dit aan staat, kan je een afkorting voor een menu item maken door op "
+"het menu item te gaan staan en de gewenste toets in te drukken. Als dit uit "
+"staat, kunnen afkortingen niet aangepast worden."
 
 #: tips:34
 msgid "Messages"
-msgstr ""
+msgstr "Berichten"
 
 #: tips:35
 msgid ""
@@ -422,74 +423,29 @@ msgid ""
 "program it starts. It displays all the messages it collects this way briefly "
 "on screen."
 msgstr ""
+"Alle programma's hebben een 'standard error stream' waarnaar zij tekst-"
+"berichten kunnen schrijven. ROX-Session maakt een verbinding tussen zichzelf "
+"en elk programma dat het start. Het toont alle berichten die het op deze "
+"manier verzamelt kort op het scherm."
 
 #: tips:36
 msgid "On-screen message log"
-msgstr ""
+msgstr "'Op het scherm' berichten log"
 
 #: tips:37
 msgid "Show messages for:"
-msgstr ""
+msgstr "Toon berichten voor:"
 
 #: tips:38
 msgid "Number of seconds to display each message for"
-msgstr ""
+msgstr "Tijd in seconden die bepaald hoe lang elk bericht getoond wordt"
 
 #~ msgid "XSettings"
-#~ msgstr "XSettings"
+#~ msgstr "Xsettings"
 
 #~ msgid ""
 #~ "These settings affect all XSettings-aware programs immediately. Older "
 #~ "programs will not be affected."
 #~ msgstr ""
-#~ "Disse indstillinger vil påvirke alle XSettings-forberedte programer med "
-#~ "det samme. Ældre programmer vil ikke blive påvirket."
-
-#~ msgid "_OK"
-#~ msgstr "_OK"
-
-#~ msgid "Could not save options: %s"
-#~ msgstr "Kunne ikke gemme indstillingerne: %s"
-
-#~ msgid "Choices saving is disabled by CHOICESPATH variable"
-#~ msgstr "Gemning af Choices er slået fra af CHOICESPATH variablen"
-
-#~ msgid "help"
-#~ msgstr "hjælp"
-
-#~ msgid "version"
-#~ msgstr "version"
-
-#~ msgid "wait"
-#~ msgstr "vent"
-
-#~ msgid ""
-#~ "APP_DIR environment variable was unset!\n"
-#~ "Use the AppRun script to invoke ROX-Session...\n"
-#~ msgstr ""
-#~ "APP_DIR miljø variablen var ikke sat!\n"
-#~ "Brug AppRun skriptet til at starte ROX-Session...\n"
-
-#~ msgid "Cancel"
-#~ msgstr "Fortryd"
-
-#~ msgid "Yes"
-#~ msgstr "Ja"
-
-#~ msgid "No"
-#~ msgstr "Nej"
-
-#~ msgid "fork() failed: giving up!"
-#~ msgstr "fork() mislykkedes: giver op!"
-
-#~ msgid "execl(%s) failed: %s\n"
-#~ msgstr "execk(%s) mislykkedes: %s\n"
-
-#~ msgid "waitpid(%ld) failed: %s\n"
-#~ msgstr "waitpid(%ld) mislykkedes: %s\n"
-
-#~ msgid "Login"
-#~ msgstr "log ind"
-
-#~ msgid "exec(%s) failed: %s\n"
-#~ msgstr "exec(%s) mislykkedes: %s\n"
+#~ "Deze instellingen beïnvloeden alle XSettings-bewuste programma's "
+#~ "onmiddelijk. Oudere programma's zullen niet aangepast worden."

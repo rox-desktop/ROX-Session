@@ -11,6 +11,7 @@
     <frame label='Language'>
       <radio-group name='i18n_translation'>
         <radio label='Danish' value='da'/>
+        <radio label='Dutch' value='nl'/>
         <radio label='English (no translation)' value='None'/>
         <radio label='Use the LANG environment variable' value='From LANG'/>
       </radio-group>
