@@ -2,8 +2,6 @@
 			A very simple session manager
 			by Thomas Leonard
 
-			Introduction
-
 Brief
 ~~~~~
 ROX-Session is a simple and easy to use session manager. It is part of the
@@ -60,16 +58,14 @@ application directory instead. This default script will try to find a
 window manager for you and will then try to load ROX-Filer with a panel
 and a pinboard setup.
 
-You'll probably find you have an empty panel when you log in again.
-Right click for a menu and open your home directory. Drag stuff onto the panel
-(ROX-Session itself is a good thing to put there!).
+When you want to logout, simply run ROX-Session a second time.
 
 
 Customising
 ~~~~~~~~~~~
-If you want to cusomise your login sequence, simply create a directory
-called `~/Choices/ROX-Session' and copy the Login script from inside
-ROX-Session into this directory. Then, edit the copy.
+If you want to cusomise your login sequence, create a directory called
+`~/Choices/ROX-Session' and copy the Login script from inside ROX-Session
+into this directory. Then, edit the copy.
 
 
 Environment
@@ -97,7 +93,7 @@ ROX-Session has a number of safety measures:
 - If ROX-Session hasn't been compiled when you try to run it, it will
   write an explanation to standard error (which might get logged rather
   than displayed) and then run an xterm instead. Use the xterm to compile
-  ROX-Session as explained above and the logout (type 'exit' in the
+  ROX-Session as explained above and then logout (type 'exit' in the
   xterm).
 
 - If the Login script returns an error code then ROX-Session will run an

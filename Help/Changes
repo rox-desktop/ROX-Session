@@ -1,7 +1,11 @@
 			ROX-Session
 			A very simple session manager
 			by Thomas Leonard
-	
+
+01-Jan-2001
+~~~~~~~~~~~
+Improved the icon (slightly).
+
 19-Dec-2000
 ~~~~~~~~~~~
 Fixed a minor compiler warning (Bernard Jungen).
