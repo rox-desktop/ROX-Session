@@ -45,3 +45,7 @@ config.status: configure
 
 configure: configure.in
 	autoconf
+
+messages.pot: ${SRCS} ../Options.xml
+	python po/tips.py
+	xgettext --keyword=_ --keyword=N_ --output=$@ ${SRCS} tips

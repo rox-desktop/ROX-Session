@@ -1,0 +1,307 @@
+# Danish messages for ROX-Session.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# Christian Storgaard <cybolic@goth.net>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-04-08 16:18+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Christian Storgaard <cybolic@goth.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: main.c:51
+#, fuzzy
+msgid ""
+"Copyright (C) 2002 Thomas Leonard.\n"
+"ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
+"to the extent permitted by law.\n"
+"You may redistribute copies of ROX-Session\n"
+"under the terms of the GNU General Public License.\n"
+"For more information about these matters, see the file named COPYING.\n"
+msgstr ""
+"Copyright (C) 2000 Thomas Leonard.\n"
+"ROX-Session kommer med ABSOLUT INGEN GARANTI,\n"
+"i den grad der er tilladt af loven.\n"
+"Du må redistribuere copier af ROX-Session\n"
+"under retningslinjerne fremsat i GNU General Public License.\n"
+"For mere information omkring disse ting, se filen ved navn COPYING.\n"
+
+#: main.c:60
+msgid "Try `ROX-Session/AppRun --help' for more information.\n"
+msgstr ""
+
+#: main.c:63
+msgid "Try `ROX-Session/AppRun -h' for more information.\n"
+msgstr ""
+
+#: main.c:65
+msgid ""
+"NOTE: Your system does not support long options - \n"
+"you must use the short versions instead.\n"
+"\n"
+msgstr ""
+"BEMÆRK: Dit system understøtter ikke lange valgmuligheder - \n"
+"du bliver nød til at bruge de korte istedet.\n"
+
+#: main.c:69
+#, fuzzy
+msgid ""
+"Usage: ROX-Session/AppRun [OPTION]...\n"
+"If ROX-Session is already managing your session then display\n"
+"the logout window. If not, offer to make ROX-Session your\n"
+"session manager for future sessions.\n"
+"\n"
+"  -h, --help\t\tdisplay this help and exit\n"
+"  -v, --version\t\tdisplay the version information and exit\n"
+"  -w, --wait\t\tsimply wait until run again (internal use)\n"
+"\n"
+"The latest version can be found at:\n"
+"\thttp://rox.sourceforge.net\n"
+"\n"
+"Report bugs to <tal197@users.sourceforge.net>.\n"
+msgstr ""
+"Hvis ROX-Session allerede kontrollerer din session så vis\n"
+"log ud vinduet. Hvis ikke, så tilbyd at gøre ROX-Session din\n"
+"session manager for fremtiden.\n"
+"\n"
+"  -h, --help\t\tvis denne hjælp og afslut\n"
+"  -v, --version\t\tvis version informationen og afslut\n"
+"  -w, --wait\t\tvent indtil ROX-Session kæres igen (intern brug)\n"
+"\n"
+"Den nyeste version kan findes på:\n"
+"\thttp://rox.sourceforge.net\n"
+"\n"
+"Rapporter fejl til <tal197@users.sourceforge.net>.\n"
+
+#: main.c:185
+msgid "ROX-Session is already managing your session - can't manage it twice!"
+msgstr ""
+"ROX-Session kontrollerer allerede din session - kan ikke kontrollere den to "
+"gange!"
+
+#: main.c:300
+msgid "Would you like to make ROX-Session your session manager?"
+msgstr "Vil du gøre ROX-Session til din session manager?"
+
+#: main.c:319
+#, fuzzy, c-format
+msgid ""
+"Oh dear; it didn't work and I don't know why!\n"
+"Error was:\n"
+"%s\n"
+"Make sure your .xsession and .xinitrc files are OK, then report the problem "
+"to tal197@users.sourceforge.net - thanks"
+msgstr ""
+"Åh dog; det virkede ikke og jeg ved ikke hvorfor!\n"
+"Sørg for at dine .xsession og .xinitrc filer er OK, raporter derefter "
+"problemet til tal197@users.sourceforge.net - tak"
+
+#: main.c:331
+msgid ""
+"OK, now logout by your usual method and when you log in again, I should be "
+"your session manager.\n"
+"You can edit your .xsession file to customise things..."
+msgstr ""
+"OK, log nu ud ved din sædvanlige metode og når du logger ind igen skulle jeg "
+"gerne være din session manager.\n"
+"Du kan redigere din .xsession fil for at indstille ting..."
+
+#: main.c:354
+#, c-format
+msgid "Your login script (%s) died"
+msgstr "Dit login skript (%s) døde"
+
+#: main.c:357
+#, fuzzy, c-format
+msgid "Your login script (%s) exited with exit status %d"
+msgstr "Dit login skript (%s) døde"
+
+#: main.c:362
+#, fuzzy
+msgid ""
+". I'll give you an xterm to try and fix it. ROX-Session itself is running "
+"fine though - run me a second time to logout."
+msgstr ""
+"Dit login skript (%s) afsluttede med slut status %d. Jeg giver dig en xterm "
+"så du kan forsøge at læse problemet. Selve ROX-Session kører dog fint - kør "
+"mig en til gang for at logge ud"
+
+#: options.c:747
+msgid "Options"
+msgstr ""
+
+#: options.c:776
+msgid "(saving disabled by CHOICESPATH)"
+msgstr ""
+
+#: options.c:787
+msgid "Restore all choices to how they were when the Options box was opened."
+msgstr ""
+
+#: options.c:803
+#, c-format
+msgid ""
+"Choices will be saved as:\n"
+"%s"
+msgstr ""
+
+#: options.c:976
+#, c-format
+msgid "Could not save options: %s"
+msgstr ""
+
+#: options.c:977
+msgid "Choices saving is disabled by CHOICESPATH variable"
+msgstr ""
+
+#: options.c:991
+#, c-format
+msgid "Error saving %s: %s"
+msgstr ""
+
+#: wm.c:72
+msgid ""
+"Your window manager has crashed (or quit). Please restart it, or choose "
+"another window manager."
+msgstr ""
+
+#: wm.c:127
+#, c-format
+msgid ""
+"Error loading window manager list '%s':\n"
+"%s"
+msgstr ""
+
+#: wm.c:148
+msgid ""
+"The window manager which ROX-Session started for you is still running. Quit "
+"it before starting a new one."
+msgstr ""
+
+#: wm.c:156
+msgid ""
+"No window manager is currently selected.\n"
+"Please choose a window manager now."
+msgstr ""
+
+#: tips:1
+msgid "Window manager"
+msgstr ""
+
+#: tips:2
+msgid ""
+"The window manager is a program which puts title bars and frames on windows. "
+"It allows you to move windows around, resize them, close them and so on."
+msgstr ""
+
+#: tips:3
+msgid "Default window manager"
+msgstr ""
+
+#: tips:4
+msgid "XSettings"
+msgstr ""
+
+#: tips:5
+msgid ""
+"These settings affect all XSettings-aware programs immediately. Older "
+"programs will not be affected."
+msgstr ""
+
+#: tips:6
+msgid "Default font"
+msgstr ""
+
+#: tips:7
+msgid "The font used by Gtk+ applications"
+msgstr ""
+
+#: tips:8
+msgid "Double-click speed: (fast)"
+msgstr ""
+
+#: tips:9
+msgid ""
+"Time allowed between the two clicks that make up a double click. Make this "
+"bigger if you have trouble double-clicking fast enough; set it smaller if "
+"two single-clicks sometimes get treated as a double click."
+msgstr ""
+
+#: tips:10
+msgid "Allow keybindings to be changed from menus"
+msgstr ""
+
+#: tips:11
+msgid ""
+"When this is on, you can set up a short-cut for a menu item by holding to "
+"pointer over the menu item and pressing the key. If off, short-cuts cannot "
+"be changed."
+msgstr ""
+
+#: tips:12
+msgid "Blinking cursor"
+msgstr ""
+
+#: tips:13
+msgid "Speed: (fast)"
+msgstr ""
+
+#: tips:14 tips:15 tips:16
+msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
+msgstr ""
+
+#~ msgid "help"
+#~ msgstr "hjælp"
+
+#~ msgid "version"
+#~ msgstr "version"
+
+#~ msgid "wait"
+#~ msgstr "vent"
+
+#~ msgid ""
+#~ "APP_DIR environment variable was unset!\n"
+#~ "Use the AppRun script to invoke ROX-Session...\n"
+#~ msgstr ""
+#~ "APP_DIR miljø variablen var ikke sat!\n"
+#~ "Brug AppRun skriptet til at starte ROX-Session...\n"
+
+#~ msgid "Really logout?"
+#~ msgstr "Vil du virkelig logge ud?"
+
+#~ msgid "Logout"
+#~ msgstr "Log ud"
+
+#~ msgid "Cancel"
+#~ msgstr "Fortryd"
+
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#~ msgid "No"
+#~ msgstr "Nej"
+
+#~ msgid "fork() failed: giving up!"
+#~ msgstr "fork() mislykkedes: giver op!"
+
+#~ msgid "execl(%s) failed: %s\n"
+#~ msgstr "execk(%s) mislykkedes: %s\n"
+
+#~ msgid "waitpid(%ld) failed: %s\n"
+#~ msgstr "waitpid(%ld) mislykkedes: %s\n"
+
+#~ msgid "Login"
+#~ msgstr "log ind"
+
+#~ msgid "ROX-Session"
+#~ msgstr "ROX-Session"
+
+#~ msgid "fork() failed - can't run Login script!"
+#~ msgstr "fork() mislykkedes - kan ikke køre Login skriptet!"
+
+#~ msgid "exec(%s) failed: %s\n"
+#~ msgstr "exec(%s) mislykkedes: %s\n"
