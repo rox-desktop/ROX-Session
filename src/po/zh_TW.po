@@ -1,0 +1,620 @@
+# Rox-Session Chinese Translation.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR: Babyfai Cheung <babyfai1@yahoo.com.hk>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-12-24 00:32+0800\n"
+"PO-Revision-Date: 2004-12-16 23:07+0800\n"
+"Last-Translator: Babyfai Cheung <babyfai1@yahoo.com.hk>\n"
+"Language-Team: none>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: main.c:60
+msgid ""
+"Copyright (C) 2002 Thomas Leonard.\n"
+"ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
+"to the extent permitted by law.\n"
+"You may redistribute copies of ROX-Session\n"
+"under the terms of the GNU General Public License.\n"
+"For more information about these matters, see the file named COPYING.\n"
+msgstr ""
+
+#: main.c:69
+msgid "Try `ROX-Session/AppRun --help' for more information.\n"
+msgstr "請用指令 `ROX-Session/AppRun --help'  來獲得更多訊息.\n"
+
+#: main.c:72
+msgid "Try `ROX-Session/AppRun -h' for more information.\n"
+msgstr "請用指令 `ROX-Session/AppRun -h'  來獲得更多訊息.\n"
+
+#: main.c:74
+msgid ""
+"NOTE: Your system does not support long options - \n"
+"you must use the short versions instead.\n"
+"\n"
+msgstr ""
+"NOTE: Your system does not support long options - \n"
+"you must use the short versions instead.\n"
+"\n"
+
+#: main.c:78
+msgid ""
+"Usage: ROX-Session/AppRun [OPTION]...\n"
+"If ROX-Session is already managing your session then display\n"
+"the logout window. If not, offer to make ROX-Session your\n"
+"session manager for future sessions.\n"
+"\n"
+"  -h, --help\t\tdisplay this help and exit\n"
+"  -v, --version\t\tdisplay the version information and exit\n"
+"  -w, --wait\t\tsimply wait until run again (internal use)\n"
+"\n"
+"The latest version can be found at:\n"
+"\thttp://rox.sourceforge.net\n"
+"\n"
+"Report bugs to <tal197@users.sourceforge.net>.\n"
+msgstr ""
+
+#: main.c:232
+#, c-format
+msgid "Your login script (%s) died"
+msgstr ""
+
+#: main.c:235
+#, c-format
+msgid "Your login script (%s) exited with exit status %d"
+msgstr ""
+
+#: main.c:240
+msgid ""
+". I'll give you an xterm to try and fix it. ROX-Session itself is running "
+"fine though - run me a second time to logout."
+msgstr ""
+". xterm 將會運行,請嘗試解決問題. ROX-Session 已正常 啟動 - 稍後將會結出."
+
+#: dbus.c:105
+msgid ""
+"ROX-Session lost its connection to the D-BUS session bus.\n"
+"You should save your work and logout as soon as possible (many things won't "
+"work correctly without the bus, and this is the only way to restart it)."
+msgstr ""
+
+#: dbus.c:303
+msgid "ROX-Session is already running. Can't manage your session twice!"
+msgstr "ROX-Session 經已運行,不能再次執行此程式"
+
+#: dbus.c:362
+msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
+msgstr "錯誤開啟 libdbus-1.so.0. D-BUS 支援取消"
+
+#: dbus.c:369
+msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
+msgstr "錯誤開啟 libdbus-glib-1.so.0. D-BUS 支援取消"
+
+#: dbus.c:392
+#, c-format
+msgid ""
+"%s\n"
+"\n"
+"You can get D-BUS from freedesktop.org.\n"
+"ROX-Session will not work correctly without it!"
+msgstr ""
+"%s\n"
+"\n"
+"D-BUS 可在 freedesktop.org 找到.\n"
+"ROX-Session 需要此套件!"
+
+#: dpms.c:35
+msgid "DPMS extension not supported"
+msgstr "DPMS 功用不支援"
+
+#: dpms.c:40
+msgid "Display not capable of DPMS"
+msgstr "顯示未能符合DPMS"
+
+#: dpms.c:55
+msgid "DPMS timeout under 10 seconds, rounding up"
+msgstr ""
+
+#: dpms.c:62
+msgid "Unable to read previous DPMS timeouts"
+msgstr ""
+
+#: dpms.c:68
+msgid "Unable to set DPMS timeouts"
+msgstr ""
+
+#: dpms.c:81
+msgid "Unable to get DPMS state"
+msgstr ""
+
+#: dpms.c:87
+msgid "Unable to set DPMS state"
+msgstr ""
+
+#: i18n.c:38
+msgid ""
+"Note that you must save your choices, logout and log back in again before "
+"the new settings will take full effect."
+msgstr "您必須先儲存設定,登出及再次登入, 所有設定才會完全生效."
+
+#: log.c:378
+msgid "ROX-Session: write to stderr failed!\n"
+msgstr ""
+
+#: log.c:402
+msgid "ROX-Session: read(stderr) failed!\n"
+msgstr ""
+
+#: log.c:448
+msgid "ROX-Session message log"
+msgstr "ROX-Session 訊息日誌"
+
+#: log.c:502
+msgid "Show message log"
+msgstr "顯示訊息日誌"
+
+#: options.c:464 options.c:1187
+msgid "(use default)"
+msgstr "(套用預設值)"
+
+#: options.c:735
+#, c-format
+msgid "Internal error: %s unreadable"
+msgstr "內部錯誤: %s不可讀的"
+
+#: options.c:846
+msgid "Options"
+msgstr "選項"
+
+#: options.c:891
+msgid "_Revert"
+msgstr "恢復(_R)"
+
+#: options.c:897
+msgid "Restore all choices to how they were when the Options box was opened."
+msgstr "回復開啟時設置"
+
+#: options.c:912
+#, c-format
+msgid ""
+"Choices will be saved as:\n"
+"%s"
+msgstr ""
+"選擇會被儲存為:\n"
+"%s"
+
+#: options.c:920
+msgid "(saving disabled by CHOICESPATH)"
+msgstr "(儲存被取消,因應 CHOICESPATH)"
+
+#: options.c:1093 settings.c:415
+#, c-format
+msgid "Error saving %s: %s"
+msgstr "錯誤儲存 %s: %s"
+
+#: rox_gettext.c:93
+#, c-format
+msgid "Invalid .gmo translation file (too short): %s"
+msgstr ""
+
+#: rox_gettext.c:106
+#, c-format
+msgid "Invalid .gmo translation file (GNU magic number not found): %s"
+msgstr ""
+
+#: session.c:215
+#, c-format
+msgid ""
+"Failed to run login script:\n"
+"%s"
+msgstr ""
+
+#: session.c:263
+msgid ""
+"ROX-Filer has terminated (crashed?).You should probably try to restart it."
+msgstr "ROX-Filer 終止(崩潰?).請嘗試重新開啟"
+
+#: session.c:265
+msgid "Do nothing"
+msgstr "沒有動作"
+
+#: session.c:266
+msgid "Run Xterm"
+msgstr "執行 Xterm"
+
+#: session.c:267
+msgid "_Restart"
+msgstr "重新啟動(_R)"
+
+#: session.c:293
+#, c-format
+msgid ""
+"Failed to run '%s':\n"
+"%s"
+msgstr ""
+"失敗執行 '%s':\n"
+"%s"
+
+#: settings.c:312
+#, c-format
+msgid ""
+"Failed to change the cursor theme:\n"
+"%s\n"
+"You can use the Mouse configuration application to change the setting."
+msgstr ""
+"失敗更改鼠標佈景:\n"
+"%s\n"
+"請在滑鼠設置程式內進行設定."
+
+#: wm.c:79
+msgid ""
+"Your window manager has crashed (or quit). Please restart it, or choose "
+"another window manager."
+msgstr " 窗口管理員已崩潰(或退出). 請重新啟動, 或另選其他的窗口管理員."
+
+#: wm.c:98
+#, c-format
+msgid ""
+"Your default window manager is now '%s'.\n"
+"Would you like to quit your current window manager and start the new one "
+"right now?"
+msgstr ""
+"您現在的預設窗口管理員是 '%s'.\n"
+"是否要退出當前的窗口管理員而套用 您所選擇的?"
+
+#: wm.c:172
+msgid ""
+"The window manager which ROX-Session started for you is still running. Quit "
+"it before starting a new one."
+msgstr "ROX-Session 啟動時載入的窗口管理員仍然運行. 在執行新的時請先行退出."
+
+#: wm.c:194
+#, c-format
+msgid ""
+"Failed to start window manager:\n"
+"%s\n"
+"Please choose a new window manager and try again."
+msgstr ""
+"未能啟動窗口管理員:\n"
+"%s\n"
+"請再嘗試或另選其他的窗口管理員."
+
+#: xkb.c:92
+#, c-format
+msgid ""
+"Failed to set keyboard map:\n"
+"%s\n"
+"You can use the Keyboard configuration application to change the setting."
+msgstr ""
+"未能設定鍵盤佈局:\n"
+"%s\n"
+"請在鍵盤設置程式內進行設定."
+
+#: xkb.c:113
+msgid "Failed to set auto repeat rate/interval"
+msgstr "未能設置自動重復 速率/間距"
+
+#: tips:1
+msgid "Translation"
+msgstr "翻譯"
+
+#: tips:2
+msgid "Language"
+msgstr "語言"
+
+#: tips:3
+msgid "Danish"
+msgstr "丹麥"
+
+#: tips:4
+msgid "Dutch"
+msgstr "荷蘭"
+
+#: tips:5
+msgid "English (no translation)"
+msgstr "英語(不翻譯)"
+
+#: tips:6
+msgid "French"
+msgstr "法語"
+
+#: tips:7
+msgid "German"
+msgstr "德語"
+
+#: tips:8
+msgid "Italian"
+msgstr "意大利"
+
+#: tips:9
+msgid "Lithuanian"
+msgstr "立陶宛"
+
+#: tips:10
+msgid "Spanish"
+msgstr "西班牙"
+
+#: tips:11
+msgid "Japanese"
+msgstr "日語"
+
+#: tips:12
+msgid "Russian"
+msgstr "俄語"
+
+#: tips:13
+msgid "Chinese(Simplified)"
+msgstr "中文(簡體)"
+
+#: tips:14
+msgid "Chinese(Traditional)"
+msgstr "中文(繁體)"
+
+#: tips:15
+msgid "Use the LANG environment variable"
+msgstr "系統預設"
+
+#: tips:16
+msgid "Messages"
+msgstr "訊息"
+
+#: tips:17
+msgid ""
+"All programs have a 'standard error stream' which they can write text "
+"messages to. ROX-Session creates such a connection between itself and every "
+"program it starts. It displays all the messages it collects this way briefly "
+"on screen."
+msgstr ""
+"所有程式均有一個'標準錯誤流情' ,並會藉其以文字方式將錯誤訊息輸出. ROX-"
+"Session 會監視每個程式 及會將其收集到的錯誤訊息,詳細顯示到螢幕上. "
+
+#: tips:18
+msgid "On-screen message log"
+msgstr "螢幕訊息日誌"
+
+#: tips:19
+msgid ""
+"You can click button-3 on an error message to switch to the log window "
+"display, or use this button:"
+msgstr "您可在訊息上單擊按鈕-3來切換到窗口顯示模式, 亦可點擊下面的按鈕:"
+
+#: tips:20
+msgid "Show messages for:"
+msgstr "顯示訊息:"
+
+#: tips:21
+msgid "seconds"
+msgstr "秒"
+
+#: tips:22
+msgid "Number of seconds to display each message for"
+msgstr "顯示每句訊息的停留秒數"
+
+#: tips:23
+msgid "Max area for popup display:"
+msgstr "彈出顯示所佔的最大位置"
+
+#: tips:24
+msgid "%"
+msgstr ""
+
+#: tips:25 tips:26 tips:27
+msgid ""
+"Normally, messages are shown overlayed on the screen for a few seconds. If "
+"there are a large number of messages (more than this amount of the screen is "
+"covered) then the view switches to the window style."
+msgstr ""
+"通常,訊息會停留在螢幕上數秒. 但假如訊息太多 (超過螢幕所覆蓋) 便會改以窗口模式"
+"顯示."
+
+#: tips:28 tips:29
+msgid "Power"
+msgstr "電源"
+
+#: tips:30
+msgid ""
+"These commands can be selected in the Logout box as alternatives to logging "
+"out. The correct settings vary between different systems. You may need to "
+"use xsu or sudo with the command if your system doesn't give normal users "
+"permission to shutdown the system."
+msgstr ""
+"此等指令會在登出時在訊息盒中顯示. 在不同的系統中,可能有不同的設定和指令. 假如"
+"您的系統不賦予一般用戶執行關機這類指令,您可能要運用 xsu 或 sudo 來執行. "
+
+#: tips:31
+msgid "Halt command:"
+msgstr "停機指令:"
+
+#: tips:32
+msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
+msgstr "用以停止指令如 'halt' and 'shutdown -t now' "
+
+#: tips:33
+msgid "Reboot command:"
+msgstr "重啟機器指令:"
+
+#: tips:34
+msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
+msgstr "用以重新啟動指令如 'reboot' and 'shutdown -t now -r"
+
+#: tips:35
+msgid "Suspend command:"
+msgstr "待機指令:"
+
+#: tips:36 tips:37 tips:38
+msgid ""
+"If your system uses APM for power management, try 'apm -s' or similar. ACPI "
+"users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
+"need a kernel with the correct system compiled in and enabled."
+msgstr ""
+"如系統是用 APM 來作電源管理, 請嘗試這個指令 'apm -s' . ACPI 的可用這個 'xset "
+"dpms force off; echo 1 > /proc/acpi/sleep'.  您的系統核心亦必須要支援電源管理"
+"這功能."
+
+#: tips:39
+msgid "Look and Feel"
+msgstr ""
+
+#: tips:40 tips:41 tips:42
+msgid ""
+"The mouse, keyboard and display options have moved to the new LookAndFeel "
+"application, available from http://rox.sf.net."
+msgstr ""
+"滑鼠,鍵盤及顯示選項,已移植到另一新程式 'LookAndFeel' 上.  詳情可瀏覽 http://"
+"rox.sf.net."
+
+#: AutoStart.py:13
+msgid "Symlink any applications you want run on login into this directory"
+msgstr "連結您想在登入時要啟動的程式"
+
+#: logout.py:66
+msgid "_Halt"
+msgstr "關閉(_H)"
+
+#: logout.py:68
+msgid "Attempting to halt the system..."
+msgstr "嘗試關閉系統中..."
+
+#: logout.py:71
+msgid "_Reboot"
+msgstr "重啟(_R)"
+
+#: logout.py:73
+msgid "Attempting to restart the system..."
+msgstr "嘗試重新啟動系統中..."
+
+#: logout.py:76
+msgid "_Sleep"
+msgstr "休眠(_S)"
+
+#: logout.py:78
+msgid "Attempting to enter suspend mode..."
+msgstr "嘗試進入停止狀態..."
+
+#: logout.py:82
+msgid ""
+"Really logout?\n"
+"(unsaved data will be lost)"
+msgstr ""
+"確認登出?\n"
+"(資料若未儲存將會遺失)"
+
+#: logout.py:87
+msgid "ROX-Session"
+msgstr ""
+
+#: logout.py:92
+msgid "Session Settings"
+msgstr "設定"
+
+#: logout.py:98
+msgid "Logout"
+msgstr "登出"
+
+#: setup.py:25
+msgid ""
+"Tried to make a backup of your old '%s' file, but the backup file ('%s') "
+"already exists.\n"
+"If you want to keep it, move it somewhere safe. Otherwise, delete it."
+msgstr ""
+"嘗試備份檔案為 '%s' 時錯誤, 因這個名為 ('%s') 的檔案已存在.\n"
+"如要保留,請將其移到別處. 否則,請將他刪除."
+
+#: setup.py:37
+msgid ""
+"Do you want to make ROX a choice on your login screen (affects all users and "
+"requires the root password), or do you just want to set the session for your "
+"current user?\n"
+"\n"
+"If you know the root password and use a graphical display manager such as "
+"gdm or kdm, you should probably choose that option."
+msgstr ""
+"您是否要 ROX  成為登入畫面中的一個選項(對應所有用戶並需要'root' 的密碼), 又或"
+"只對應當前用戶進行設定?\n"
+"\n"
+"首要是,您必須知道'root' 的密碼及以一個圖型登入管理員如 'gdm' 或 'kdm',  您才"
+"可運用此選項."
+
+#: setup.py:45
+msgid "Setup for user"
+msgstr "對用戶設置"
+
+#: setup.py:46
+msgid "Add to login"
+msgstr "加進登入"
+
+#: setup.py:122
+msgid ""
+"OK, now logout by your usual method and when you log in again, I should be "
+"your session manager.\n"
+"Note: you may need to select 'Default' as your desktop type after entering "
+"your user name on the login screen."
+msgstr ""
+"完成,請登出後再登入,這便成為您的 session manager 了.\n"
+"注意: 在圖型登入視窗中選擇 'Default'  ,然後 開始登入."
+
+#: setup.py:137
+msgid ""
+"I wanted to install a rox.desktop file in your session directory, but I "
+"couldn't find one! I tried these places (defaults for gdm2, at least):\n"
+"\n"
+msgstr ""
+"嘗試安裝 rox.desktop 檔案到您的 session 目錄失敗, 目錄不存在! 改為安裝到這處 "
+"( 預設是gdm2, 最少也要):\n"
+"\n"
+
+#: setup.py:142
+msgid ""
+"/usr/local/sbin directory is missing! I want to install the rox-session "
+"script there... Please create it and try again."
+msgstr ""
+"/usr/local/sbin 目錄不存在! rox-session 的程序檔需要他... 請建立後再試."
+
+#: setup.py:184
+msgid ""
+"OK, now logout by your usual method, and choose ROX from the session menu on "
+"your login screen just after entering your user name (but before entering "
+"your password)."
+msgstr ""
+"完成, 現在請登出再在圖型登入視窗中, 輸入您的名字,然後選 ROX   (隨後是您 用戶"
+"密碼)."
+
+#: setup.py:201
+msgid ""
+"OK, I don't know what the problem is. Please ask on the rox-users mailing "
+"list. When we know what the problem is, we can add an extra check here to "
+"help out others in future.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(you can copy and paste that address into your browser)"
+msgstr ""
+"發生未明的錯誤. 請詢問 rox-users mailing list. 我們會嘗試找出原因 並盡快解"
+"決.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(您可複製及貼上到瀏覽器上)"
+
+#: setup.py:212
+msgid ""
+"ROX-Session does not appear to be managing your session. Would you like to "
+"set it up now?\n"
+"\n"
+"If you think it should already be set up, click on Help."
+msgstr ""
+"ROX-Session 還未成功設立. 現在安裝設立?\n"
+"\n"
+"如已經安裝,請點擊說明檔."
+
+#: setup.py:217
+msgid "Set up ROX"
+msgstr "安裝設立 ROX "
+
+#: setup.py:220
+msgid "Set up ROX-Session"
+msgstr "安裝設立 ROX -Session"

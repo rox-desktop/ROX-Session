@@ -31,23 +31,45 @@
     <License label="Licencia">Licencia Pública General GNU</License>
     <Homepage label="Sitio web"/>
   </About>
+  <About xml:lang="zh_CN">
+    <Purpose label="功能"/>
+    <Version label="版本"/>
+    <Author label="作者"/>
+    <License label="版权"/>
+    <Homepage label="网页"/>
+  </About>
+  <About xml:lang="zh_TW">
+    <Purpose label="功能"/>
+    <Version label="版本"/>
+    <Author label="作者"/>
+    <License label="版權"/>
+    <Homepage label="網頁"/>
+  </About>
   <AppMenu>
     <Item option='--install'>
       <Label xml:lang="en">Install...</Label>
       <Label xml:lang='it'>Installa...</Label>
+      <Label xml:lang="zh_CN">安装....</Label>
+      <Label xml:lang="zh_TW">安裝...</Label>
     </Item>
     <Item option='--options'>
       <Label xml:lang="en">Session Settings...</Label>
       <Label xml:lang='it'>Impostazioni di sessione...</Label>
+      <Label xml:lang="zh_CN">Session 设定...</Label>
+      <Label xml:lang="zh_TW">Session 設定...</Label>
     </Item>
     <Item option='--setup'>
       <Label xml:lang="en">Auto Start...</Label>
       <Label xml:lang='es'>Iniciar Autom&#x00E1;ticamente...</Label>
       <Label xml:lang='it'>Esecuzione automatica...</Label>
+      <Label xml:lang="zh_CN">自动执行...</Label>
+      <Label xml:lang="zh_TW">自動執行...</Label>            
     </Item>
     <Item option='--messages'>
       <Label xml:lang="en">Message Log...</Label>
       <Label xml:lang='it'>Messaggi di log...</Label>
+      <Label xml:lang="zh_CN">讯息日志...</Label>
+      <Label xml:lang="zh_TW">訊息日誌...</Label>            
     </Item>
   </AppMenu>
 </AppInfo>
