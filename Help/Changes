@@ -2,6 +2,12 @@
 			A very simple session manager
 			by Thomas Leonard
 
+20-Dec-2002
+~~~~~~~~~~~
+Run ROX-Filer from a separate RunROX script. This allows ROX-Session to offer
+to restart the filer if it crashes. If you've made your own Login file, remove
+the lines to run ROX-Filer from it.
+
 09-Dec-2002 (Release 0.1.18)
 ~~~~~~~~~~~
 Style improvements to options window.

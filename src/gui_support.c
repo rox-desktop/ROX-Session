@@ -27,31 +27,107 @@
 
 #include "gui_support.h"
 
-/* Display a message in a window */
-void report_error(const char *message, ...)
+static GtkWidget *current_dialog = NULL;
+
+/* Open a modal dialog box showing a message.
+ * The user can choose from a selection of buttons at the bottom.
+ * Returns -1 if the window is destroyed, or the number of the button
+ * if one is clicked (starting from zero).
+ *
+ * If a dialog is already open, returns -1 without waiting AND
+ * brings the current dialog to the front.
+ *
+ * Each button has two arguments, a GTK_STOCK icon and some text. If the
+ * text is NULL, the stock's text is used.
+ */
+int get_choice(const char *message, int number_of_buttons, ...)
+{
+	GtkWidget	*dialog;
+	GtkWidget	*button = NULL;
+	int		i, retval;
+	va_list	ap;
+
+	if (current_dialog)
+	{
+		gtk_window_present(GTK_WINDOW(current_dialog));
+		return -1;
+	}
+
+	current_dialog = dialog = gtk_message_dialog_new(NULL,
+					GTK_DIALOG_MODAL,
+					GTK_MESSAGE_QUESTION,
+					GTK_BUTTONS_NONE,
+					"%s", message);
+	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+
+	va_start(ap, number_of_buttons);
+
+	for (i = 0; i < number_of_buttons; i++)
+	{
+		const char *stock = va_arg(ap, char *);
+		const char *text = va_arg(ap, char *);
+
+		if (text)
+			button = button_new_mixed(stock, text);
+		else
+			button = gtk_button_new_from_stock(stock);
+
+		GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+		gtk_widget_show(button);
+
+		gtk_dialog_add_action_widget(GTK_DIALOG(current_dialog),
+						button, i);
+	}
+
+	gtk_window_set_title(GTK_WINDOW(dialog), PROJECT);
+	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+
+	gtk_dialog_set_default_response(GTK_DIALOG(dialog), i - 1);
+
+	va_end(ap);
+
+	retval = gtk_dialog_run(GTK_DIALOG(dialog));
+	if (retval == GTK_RESPONSE_NONE)
+		retval = -1;
+	gtk_widget_destroy(dialog);
+
+	current_dialog = NULL;
+
+	return retval;
+}
+
+static void run_error_info_dialog(GtkMessageType type, const char *message,
+				  va_list args)
 {
 	GtkWidget *dialog;
-        va_list args;
 	gchar *s;
 
 	g_return_if_fail(message != NULL);
 
-	va_start(args, message);
 	s = g_strdup_vprintf(message, args);
 	va_end(args);
 
 	dialog = gtk_message_dialog_new(NULL,
-			GTK_DIALOG_MODAL,
-			GTK_MESSAGE_ERROR,
-			GTK_BUTTONS_OK,
-			"%s", s);
+					GTK_DIALOG_MODAL,
+					type,
+					GTK_BUTTONS_OK,
+					"%s", s);
 	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
-	gtk_dialog_set_default_response(GTK_DIALOG(dialog),
-					GTK_RESPONSE_OK);
+	gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 	gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy(dialog);
 
 	g_free(s);
+}
+
+/* Display a message in a window with "ROX-Filer" as title */
+void report_error(const char *message, ...)
+{
+	va_list args;
+
+	va_start(args, message);
+
+	run_error_info_dialog(GTK_MESSAGE_ERROR, message, args);
 }
 
 GtkWidget *button_new_mixed(const char *stock, const char *message)

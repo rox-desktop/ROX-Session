@@ -9,31 +9,14 @@
 # then exit. If you want to customise it, first copy it to
 # ~/Choices/ROX-Session/Login and then edit that.
 #
+# See also the ROX-Session/RunROX script.
+#
 # $1 is the ROX-Session application directory.
 
 if [ ! -n "$CHOICESPATH" ]; then
 	CHOICESPATH=${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices
 fi
 IFS=":"
-
-# Load ROX-Filer with a panel and a pinboard set up.
-MYCHOICES="(none)"
-for DIR in $CHOICESPATH; do
-  if [ "$MYCHOICES" = "(none)" ]; then
-    MYCHOICES="$DIR"
-  fi
-  PANEL="$DIR/ROX-Filer/pan_Default"
-  if [ -f "$PANEL" ]; then
-    break;
-  fi;
-  PANEL="";
-done
-
-if [ -z "$PANEL" -a -n "$MYCHOICES" ]; then
-  "$1/SetupPanel" "$1" "$MYCHOICES"
-fi
-
-rox -p Default -b Default &
 
 # Run any other stuff the user wants by searching all the
 # Choices/ROX-Session/AutoStart directories...

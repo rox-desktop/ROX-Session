@@ -49,6 +49,11 @@
  */
 static pid_t	login_child = -1;
 
+/* The pid of the ROX-Filer process managing the pinboard and panel.
+ * ROX-Session will offer to restart this if it dies.
+ */
+static pid_t	rox_pid = -1;
+
 /* If log.c gets any data and this is TRUE, it calls child_died_callback() */
 gboolean call_child_died = FALSE;
 
@@ -114,6 +119,8 @@ static void show_session_options(void);
 static GtkWidget *op_button(const char *text, const char *stock,
 			    Option *command, const char *message);
 static char *pathdup(const char *path);
+static void rox_process_died(void);
+static void run_rox_process(void);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -212,6 +219,12 @@ void child_died_callback(void)
 			wm_process_died();
 		}
 
+		if (child == rox_pid)
+		{
+			rox_pid = -1;
+			rox_process_died();
+		}
+
 		if (child == login_child &&
 			(WIFEXITED(status) == 0 || WEXITSTATUS(status) != 0))
 		{
@@ -299,23 +312,26 @@ void run_login_script(void)
 {
 	static gboolean logged_in = FALSE;
 	GError	*error = NULL;
-	gchar	*argv[3];
+	gchar	*argv[2];
 	gint	pid;
 
 	if (logged_in || test_mode)
 		return;
 	logged_in = TRUE;
 
+	/* Run ROX-Filer */
+	run_rox_process();
+
+	/* Run Login script */
+
 	argv[0] = choices_find_path_load("Login", "ROX-Session");
 	if (!argv[0])
 		argv[0] = g_strconcat(app_dir, "/Login", NULL);
 
-	argv[1] = pathdup(app_dir);
-	argv[2] = NULL;
+	argv[1] = NULL;
 	g_spawn_async(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD,
 			NULL, NULL, &pid, &error);
 	g_free(argv[0]);
-	g_free(argv[1]);
 
 	if (error)
 	{
@@ -487,4 +503,51 @@ static char *pathdup(const char *path)
 		return g_strdup(real);
 
 	return g_strdup(path);
+}
+
+static void rox_process_died(void)
+{
+	int r;
+
+	rox_pid = -1;
+
+	r = get_choice(_("ROX-Filer has terminated (crashed?)."
+			 "You should probably try to restart it."), 3,
+			GTK_STOCK_NO, _("Do nothing"),
+			GTK_STOCK_EXECUTE, _("Run Xterm"),
+			GTK_STOCK_REFRESH, _("_Restart"));
+
+	if (r == 2)
+		run_rox_process();
+	else if (r == 1)
+		system("xterm &");
+}
+
+static void run_rox_process(void)
+{
+	GError	*error = NULL;
+	gchar	*argv[3];
+	gint	pid;
+
+	argv[0] = choices_find_path_load("RunROX", "ROX-Session");
+	if (!argv[0])
+		argv[0] = g_strconcat(app_dir, "/RunROX", NULL);
+	argv[1] = pathdup(app_dir);
+	argv[2] = NULL;
+	g_spawn_async(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD,
+			NULL, NULL, &pid, &error);
+
+	if (error)
+	{
+		rox_pid = -1;
+		report_error(_("Failed to run '%s':\n%s"),
+				argv[0], error->message);
+		g_error_free(error);
+		rox_process_died();
+	}
+	else
+		rox_pid = pid;
+
+	g_free(argv[0]);
+	g_free(argv[1]);
 }
