@@ -1,0 +1,15 @@
+body {
+        background: #fff;
+        color: #000;
+        margin: 10pt;
+}
+
+h1 {
+        text-align: center;
+}
+
+div {
+        max-width: 45em;
+        background: #eee;
+        padding: 0.1cm 1cm 0.2cm 1cm;
+}
