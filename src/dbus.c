@@ -21,15 +21,9 @@
 
 #include "config.h"
 
-#define DBUS_API_SUBJECT_TO_CHANGE
-#include <dbus/dbus.h>
-#include <dbus/dbus-glib.h>
-
 #define ROX_CONTROL_NS "net.sf.rox.Session.Control"
-#define ROX_XSETTINGS_NS "net.sf.rox.Session.XSettings"
 
-#define ROX_SESSION_DBUS_SERVICE "net.sf.rox.SessionTest"
-#define ROX_SESSION_ERROR "net.sf.rox.Session.Error"
+#define ROX_SESSION_DBUS_SERVICE "net.sf.rox.Session"
 
 #include <unistd.h>
 #include <string.h>
@@ -177,18 +171,22 @@ static DBusMessage *session_handler(DBusMessage *message, DBusError *error)
 	return NULL;
 }
 
-static DBusMessage *xsettings_handler(DBusMessage *message, DBusError *error)
+/* When a method is invoked on 'path', call handler to generate a reply. */
+gboolean register_object_path(const char **path, MessageHandler handler)
 {
-	if (dbus_message_is_method_call(message, ROX_XSETTINGS_NS, "Set")) {
-		char *name = NULL;
-		if (!dbus_message_get_args(message, error,
-					DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID))
-			return NULL;
-		printf("[ Set '%s'= ]\n", name);
-		return dbus_message_new_method_return(message);
+	DBusObjectPathVTable vtable = {
+		NULL,
+		message_handler,
+	};
+
+	if (!dbus_connection_register_object_path(dbus_connection,
+			path, &vtable, handler))
+	{
+		g_warning("Out of memory");
+		return FALSE;
 	}
 
-	return NULL;
+	return TRUE;
 }
 
 /* TRUE on success */
@@ -197,12 +195,7 @@ static gboolean connect_to_bus(void)
 	GError *error = NULL;
 	DBusError derror;
 	DBusGProxy *local = NULL;
-	DBusObjectPathVTable vtable = {
-		NULL,
-		message_handler,
-	};
 	const char *session_path[] = {"Session", NULL};
-	const char *xsettings_path[] = {"XSettings", NULL};
 
 	dbus_error_init(&derror);
 
@@ -217,13 +210,7 @@ static gboolean connect_to_bus(void)
 	if (dbus_error_is_set(&derror))
 		goto err;
 
-	if (!dbus_connection_register_object_path(dbus_connection,
-			session_path, &vtable, session_handler))
-		g_warning("Out of memory");
-
-	if (!dbus_connection_register_object_path(dbus_connection,
-			xsettings_path, &vtable, xsettings_handler))
-		g_warning("Out of memory");
+	register_object_path(session_path, session_handler);
 
 	/* Get notified when the bus dies */
 	local = dbus_gproxy_new_for_peer(dbus_connection,

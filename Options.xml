@@ -28,13 +28,12 @@
     </frame>
   </section>
 
+<!--
   <section title='Display'>
     <frame label='Text'>
       <label help='1'>On newer systems, you can install fonts by dragging them into your ~/.fonts directory.</label>
       <font name='Gtk/FontName' label='Default font'>The font used by Gtk+-2.0 applications</font>
-      <!--
       <toggle name='Xft/Antialias' label='Antialias text'>Removed the jagged look of fonts by using shades of grey to represent half-filled pixels.</toggle>
-      -->
     </frame>
     <frame label='Desktop background'>
       <label help='1'>Bring up the menu over the desktop background to set the backdrop image or change the pinboard options.</label>
@@ -43,6 +42,7 @@
       <gtk-theme name='Net/ThemeName' label='GTK theme'/>
     </frame>
   </section>
+      -->
 
   <section title='Mouse'>
     <frame label='Motion'>
@@ -68,6 +68,7 @@ Set this high if you find yourself dragging things unintentionally.
     </frame>
   </section>
   
+  <!--
   <section title='Keyboard'>
     <frame label='Cursor'>
       <toggle label='Blinking cursor' name='Net/CursorBlink'/>
@@ -82,6 +83,7 @@ Set this high if you find yourself dragging things unintentionally.
 application) by assigning them to icons on a ROX-Filer pinboard or panel.</label>
     </frame>
   </section>
+  -->
 
   <section title='Messages'>
     <label help='1'>All programs have a 'standard error stream' which they can write text messages to. ROX-Session creates such a connection between itself and every program it starts. It displays all the messages it collects this way briefly on screen.</label>

@@ -8,12 +8,9 @@
 #ifndef _SESSION_H
 #define _SESSION_H
 
-#include "xsettings-manager.h"
-
 #include <sys/types.h>
 #include <unistd.h>
 
-extern XSettingsManager *manager;
 extern gboolean call_child_died;
 
 /* Prototypes */

@@ -54,6 +54,7 @@
 #include "options.h"
 #include "i18n.h"
 #include "dbus.h"
+#include "settings.h"
 
 #define COPYING								\
 	     N_("Copyright (C) 2002 Thomas Leonard.\n"			\
@@ -248,6 +249,7 @@ int main(int argc, char **argv)
 	log_init();		/* Capture standard error */
 
 	dbus_init();
+	settings_init();
 
 	start_window_manager();
 
@@ -259,8 +261,8 @@ int main(int argc, char **argv)
 
 	gtk_main();
 
-	if (manager)
-		xsettings_manager_destroy(manager);
+	if (xsettings_manager)
+		xsettings_manager_destroy(xsettings_manager);
 
 	return EXIT_SUCCESS;
 }

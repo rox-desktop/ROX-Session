@@ -4,6 +4,11 @@
 
 TODO: Never overwrite .xsession.old
 
+11-Apr-2004
+~~~~~~~~~~~
+Removed XSettings from GUI. Instead, a new D-BUS interface can be used to
+change the settings from external programs.
+
 10-Apr-2004
 ~~~~~~~~~~~
 Start a session D-BUS daemon running on login, if one isn't running already.

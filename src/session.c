@@ -60,48 +60,10 @@ static pid_t	rox_pid = -1;
 /* If log.c gets any data and this is TRUE, it calls child_died_callback() */
 gboolean call_child_died = FALSE;
 
-/* See http://www.freedesktop.org/standards/xsettings/xsettings.html */
-XSettingsManager *manager = NULL;
-
-typedef struct _Setting Setting;
-
-struct _Setting {
-	gchar *name;
-	gchar *default_value;
-	Option option;
-};
-
-static Setting settings[] = {
-	{"Net/DoubleClickTime", "250"},
-	{"Net/DndDragThreshold", "8"},
-#if 0
-	{ "Gtk/ColorPalette", "gtk-color-palette" }, */
-	{ "Gtk/IconSizes", "gtk-icon-sizes" }
-	{ "Gtk/KeyThemeName", NULL },
-	{ "Gtk/ToolbarStyle", "gtk-toolbar-style" },
-	{ "Gtk/ToolbarIconSize", "gtk-toolbar-icon-size" },
-	{ "Gtk/IMPreeditStyle", "gtk-im-preedit-style" },
-	{ "Gtk/IMStatusStyle", "gtk-im-status-style" },
-#endif
-	{"Net/ThemeName", "Default"},
-
-	{"Net/CursorBlink", "1"},
-	{"Net/CursorBlinkTime", "1200"},
-
-	{"Gtk/CanChangeAccels", "1"},
-	{"Gtk/FontName", "Sans 10"},
-
-#if 0
-	{"Xft/Antialias", "0"},
-#endif
-};
-
 static Option mouse_accel_threshold;
 static Option mouse_accel_factor;
 
 static Option halt_command, reboot_command, suspend_command;
-
-#define N_SETTINGS (sizeof(settings) / sizeof(*settings))
 
 static const char * bad_xpm[] = {
 "12 12 3 1",
@@ -131,15 +93,15 @@ static const char *stocks[] = {
 
 /* Static prototypes */
 static GList *build_mouse_tester(Option *option, xmlNode *node, guchar *label);
-static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label);
+/* static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label); */
 static void child_died(int signum);
-static void terminate_xsettings(void *data);
-static void xsettings_changed(void);
 static GtkWidget *op_button(const char *text, const char *stock,
 			    Option *command, const char *message);
 static char *pathdup(const char *path);
 static void rox_process_died(void);
 static void run_rox_process(void);
+static void options_changed(void);
+
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -157,24 +119,6 @@ void session_init(void)
 	act.sa_flags = SA_NOCLDSTOP;
 	sigaction(SIGCHLD, &act, NULL);
 
-	if (xsettings_manager_check_running(gdk_display,
-					    DefaultScreen(gdk_display)))
-	{
-		g_printerr("An XSETTINGS manager is already running. "
-				"Not taking control of XSETTINGS...\n");
-	}
-	else
-		manager = xsettings_manager_new(gdk_display,
-						DefaultScreen(gdk_display),
-					        terminate_xsettings, NULL);
-
-	for (i = 0; i < N_SETTINGS; i++)
-	{
-		option_add_string(&settings[i].option,
-				  settings[i].name,
-				  settings[i].default_value);
-	}
-
 	option_add_int(&mouse_accel_threshold, "accel_threshold", 10);
 	option_add_int(&mouse_accel_factor, "accel_factor", 20);
 
@@ -184,11 +128,7 @@ void session_init(void)
 			  "xset dpms force off");
 
 	option_register_widget("mouse-tester", build_mouse_tester);
-	option_register_widget("gtk-theme", build_gtk_theme);
-
-	option_add_notify(xsettings_changed);
-
-	xsettings_changed();
+	/* option_register_widget("gtk-theme", build_gtk_theme); */
 
 	factory = gtk_icon_factory_new();
 	for (i = 0; i < G_N_ELEMENTS(stocks); i++)
@@ -215,6 +155,8 @@ void session_init(void)
 		gtk_icon_set_unref(iset);
 	}
 	gtk_icon_factory_add_default(factory);
+
+	option_add_notify(options_changed);
 }
 
 /* Called from the mainloop sometime after child_died executes */
@@ -374,42 +316,11 @@ void run_login_script(void)
  *			INTERNAL FUNCTIONS			*
  ****************************************************************/
 
-/* Also called for mouse settings... */
-static void xsettings_changed(void)
+static void options_changed(void)
 {
-	int i;
-
 	XChangePointerControl(GDK_DISPLAY(), True, True,
 				mouse_accel_factor.int_value, 10,
 				mouse_accel_threshold.int_value);
-
-	if (!manager)
-		return;
-
-	for (i = 0; i < N_SETTINGS; i++)
-	{
-		if (g_ascii_isdigit(settings[i].default_value[0]))
-			xsettings_manager_set_int(manager,
-					settings[i].name,
-					settings[i].option.int_value);
-		else
-			xsettings_manager_set_string(manager,
-					settings[i].name,
-					settings[i].option.value);
-	}
-
-	/* This one is hard-coded. Despite the name, it actually enables
-	 * the standard Unix keybinding of Ctrl-U. It only adds shortcuts,
-	 * without changing any existing ones, so we always want this.
-	 */
-	xsettings_manager_set_string(manager, "Gtk/KeyThemeName", "Emacs");
-
-	xsettings_manager_notify(manager);
-}
-
-static void terminate_xsettings(void *data)
-{
-	g_warning("ROX-Session is no longer the XSETTINGS manager!");
 }
 
 /* This is called as a signal handler.
@@ -462,6 +373,7 @@ static GList *build_mouse_tester(Option *option, xmlNode *node, guchar *label)
 	return g_list_prepend(NULL, widget);
 }
 
+#if 0
 static guchar *read_theme(Option *option)
 {
 	GtkOptionMenu *om = GTK_OPTION_MENU(option->widget);
@@ -597,12 +509,10 @@ static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label)
 
 	return g_list_append(NULL, hbox);
 }
+#endif
 
 void show_session_options(void)
 {
-	if (!manager)
-		report_error(_("ROX-Session not managing XSettings, so changes "
-				"will have no immediate effect..."));
 	options_show();
 }
 
