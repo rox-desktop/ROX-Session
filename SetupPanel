@@ -35,6 +35,7 @@ $DRIVES
 </start>
 <end>
 <icon label="Session" shortcut="Control+Shift+F12">$1</icon>
+<icon label="Guide">$1/Help/Guide</icon>
 </end>
 </panel>
 EOF
