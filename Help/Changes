@@ -2,6 +2,11 @@
 			A very simple session manager
 			by Thomas Leonard
 
+23-Apr-2004
+~~~~~~~~~~~
+Start ZeroProgress (Zero Install progress monitor) on login, if Zero Install
+is being used.
+
 22-Apr-2004
 ~~~~~~~~~~~
 Improved icon (Jonatan Liljedahl).
