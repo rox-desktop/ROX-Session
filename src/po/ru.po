@@ -214,7 +214,7 @@ msgstr "Перезагрузка"
 
 #: session.c:281
 msgid "Attempting to restart the system..."
-msgstr "Попытка перезагрузить крмпьютер..."
+msgstr "Попытка перезагрузить компьютер..."
 
 #: session.c:284
 msgid "_Sleep"
@@ -228,7 +228,8 @@ msgstr "Попытаться войти в режим сна (suspend mode)..."
 msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
-msgstr "В самом деле выйти?(несохраненная информация может быть потеряна)"
+msgstr "В самом деле выйти?\n"
+"(несохраненная информация может быть потеряна)"
 
 #: session.c:300
 msgid "Session Settings"
@@ -305,7 +306,7 @@ msgid ""
 "another window manager."
 msgstr ""
 "Ваш оконный менеджер рухнул (или завершил работу). Пожалуйста рестартуйте "
-"его, или выберитедругой оконный менеджер"
+"его, или выберите другой оконный менеджер"
 
 #: wm.c:143
 #, c-format
@@ -389,20 +390,19 @@ msgstr "Немецкий"
 
 #: tips:11
 msgid "Italian"
-msgstr ""
+msgstr "Итальянский"
 
 #: tips:12
-#, fuzzy
 msgid "Spanish"
-msgstr "Датский"
+msgstr "Испанский"
 
 #: tips:13
 msgid "Japanese"
-msgstr ""
+msgstr "Японский"
 
 #: tips:14
 msgid "Russian"
-msgstr ""
+msgstr "Русский"
 
 #: tips:15
 msgid "Use the LANG environment variable"
@@ -606,7 +606,7 @@ msgstr "Кол-во секунд на отображение каждого сообщения"
 
 #: tips:60
 msgid "Max area for popup display:"
-msgstr ""
+msgstr "Часть экрана для сообщений:"
 
 #: tips:61
 msgid "%"
@@ -618,6 +618,8 @@ msgid ""
 "there are a large number of messages (more than this amount of the screen is "
 "covered) then the view switches to the window style."
 msgstr ""
+"Обычно, сообщения перекрывают изображение на экране всего на немсколько секунд. "
+"Если сообщений больше, чем можно поместить на экране, они выводятся в окно."
 
 #: tips:65 tips:66
 msgid "Power"
