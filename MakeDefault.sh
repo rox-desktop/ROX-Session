@@ -49,7 +49,7 @@ fi
 # Load a window manager. Keep trying until we find one that works!
 
 for wm in sawfish sawmill enlightenment wmaker icewm blackbox fluxbox metacity \
-	  kwm fvwm2 fvwm 4Dwm twm; do
+	  kwin kwm fvwm2 fvwm 4Dwm twm; do
   if [ -x "\`which \$wm\`" ]; then break; fi;
 done
 
