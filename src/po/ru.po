@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 1.1.0\n"
-"POT-Creation-Date: 2003-04-17 12:19+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-19 15:36+0100\n"
 "PO-Revision-Date: 2001-06-05 20:46+0300\n"
 "Last-Translator: Alexey Lubimov <avl@altlinux.ru>\n"
 "Language-Team: Russian <out of team>\n"
@@ -134,19 +135,19 @@ msgstr ""
 "Вы должны сохранить настройки, разлогиниться и войти в систему снова, чтобы "
 "новые установки вступили в силу."
 
-#: log.c:365
+#: log.c:364
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: запись в stderr невозможна!\n"
 
-#: log.c:389
+#: log.c:388
 msgid "ROX-Session: read(stderr) failed!\n"
 msgstr "ROX-Session: чтение(stderr) невозможно!\n"
 
-#: log.c:413
+#: log.c:412
 msgid "ROX-Session message log"
 msgstr "ROX-Session лог сообщений"
 
-#: log.c:467
+#: log.c:466
 msgid "Show message log"
 msgstr "Показать лог сообщений"
 
@@ -237,7 +238,7 @@ msgstr "Установки на сессию"
 msgid "Logout"
 msgstr "Выход"
 
-#: session.c:360
+#: session.c:361
 #, c-format
 msgid ""
 "Failed to run login script:\n"
@@ -246,23 +247,23 @@ msgstr ""
 "Провал выполнения скрипта логина:\n"
 "%s"
 
-#: session.c:421
+#: session.c:428
 msgid "Single click!"
 msgstr "Один щелчок!"
 
-#: session.c:423
+#: session.c:430
 msgid "Double click!!"
 msgstr "Двойной щелчок!!"
 
-#: session.c:425
+#: session.c:432
 msgid "Triple click!!!"
 msgstr "Тройной щелчок!!!"
 
-#: session.c:434
+#: session.c:441
 msgid "Double-click here to test mouse"
 msgstr "Сделайте двойной щелчок здесь для теста мыши"
 
-#: session.c:587
+#: session.c:594
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
@@ -270,26 +271,26 @@ msgstr ""
 "ROX-Session не управляет XSettings, поэтому изменения не дадутмгновенного "
 "эффекта"
 
-#: session.c:674
+#: session.c:681
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
 msgstr ""
 "ROX-Filer завершил свою работу (рухнул?). Вам может потребоваться "
 "перезапустить его."
 
-#: session.c:676
+#: session.c:683
 msgid "Do nothing"
 msgstr "Нечего делать"
 
-#: session.c:677
+#: session.c:684
 msgid "Run Xterm"
 msgstr "Выполняю Xterm"
 
-#: session.c:678
+#: session.c:685
 msgid "_Restart"
 msgstr "Перезагрузка"
 
-#: session.c:703
+#: session.c:711
 #, c-format
 msgid ""
 "Failed to run '%s':\n"
@@ -306,7 +307,7 @@ msgstr ""
 "Ваш оконный менеджер рухнул (или завершил работу). Пожалуйста рестартуйте "
 "его, или выберитедругой оконный менеджер"
 
-#: wm.c:129
+#: wm.c:143
 #, c-format
 msgid ""
 "Error loading window manager list '%s':\n"
@@ -315,7 +316,7 @@ msgstr ""
 "Ошибка загрузки списка оконных менеджеров '%s':\n"
 "%s"
 
-#: wm.c:150
+#: wm.c:164
 msgid ""
 "The window manager which ROX-Session started for you is still running. Quit "
 "it before starting a new one."
@@ -323,7 +324,7 @@ msgstr ""
 "Оконный менеджер с которым ROX-Session стартовал продолжает работать. "
 "Завершитеего до старта нового менеджера"
 
-#: wm.c:158
+#: wm.c:172
 msgid ""
 "No window manager is currently selected.\n"
 "Please choose a window manager now."
@@ -331,7 +332,7 @@ msgstr ""
 "Оконный менеджер пока что не выбран.\n"
 "Пожалуйста, выберите сейчас оконный менеджер"
 
-#: wm.c:175
+#: wm.c:190
 #, c-format
 msgid ""
 "Failed to start window manager:\n"
@@ -342,7 +343,7 @@ msgstr ""
 "%s\n"
 "Пожулуйста, выберите новый оконный менеджер и повторите попытку"
 
-#: wm.c:252
+#: wm.c:267
 msgid "Start window manager"
 msgstr "Запустить оконный менеджер"
 
@@ -387,34 +388,42 @@ msgid "German"
 msgstr "Немецкий"
 
 #: tips:11
-msgid "Russian"
+msgid "Italian"
 msgstr ""
 
 #: tips:12
+msgid "Japanese"
+msgstr ""
+
+#: tips:13
+msgid "Russian"
+msgstr ""
+
+#: tips:14
 msgid "Use the LANG environment variable"
 msgstr "Использовать переменную окружения LANG"
 
-#: tips:13
+#: tips:15
 msgid "Display"
 msgstr "Экран"
 
-#: tips:14
+#: tips:16
 msgid "Text"
 msgstr "Текст"
 
-#: tips:15
+#: tips:17
 msgid "Default font"
 msgstr "Шрифт по умолчанию"
 
-#: tips:16 tips:17
+#: tips:18 tips:19
 msgid "The font used by Gtk+-2.0 applications"
 msgstr "Шрифт, используемый GTK+-2.0 приложениями"
 
-#: tips:18
+#: tips:20
 msgid "Desktop background"
 msgstr "Фон рабочего стола"
 
-#: tips:19 tips:20
+#: tips:21 tips:22
 msgid ""
 "Bring up the menu over the desktop background to set the backdrop image or "
 "change the pinboard options."
@@ -422,27 +431,27 @@ msgstr ""
 "Вызовите меню правой кнопкой на рабочем столе для установки фона или "
 "настройки рабочего стола"
 
-#: tips:21
+#: tips:23
 msgid "Theme"
 msgstr "Тема"
 
-#: tips:22
+#: tips:24
 msgid "GTK theme"
 msgstr "GTK тема"
 
-#: tips:23
+#: tips:25
 msgid "Mouse"
 msgstr "Мышь"
 
-#: tips:24
+#: tips:26
 msgid "Motion"
 msgstr "Движение"
 
-#: tips:25
+#: tips:27
 msgid "Acceleration threshold"
 msgstr "Порог ускорения"
 
-#: tips:26
+#: tips:28
 msgid ""
 "Controls how fast you have to move the pointer before the acceleration "
 "(below) kicks in."
@@ -450,15 +459,15 @@ msgstr ""
 "Указывает, как быстро вы можете двигать мышь, прежде чем включится ускорение "
 "(внизу)."
 
-#: tips:27
+#: tips:29
 msgid "Acceleration (none)"
 msgstr "Ускорение (нет)"
 
-#: tips:28
+#: tips:30
 msgid "(10x)"
 msgstr "(10x)"
 
-#: tips:29
+#: tips:31
 msgid ""
 "When the pointer is moved quickly more than the threshold number of pixels, "
 "its speed is multiplied by this number."
@@ -466,11 +475,11 @@ msgstr ""
 "Когда указатель передвигается быстрее, чем пороговое значение пикселей его "
 "скорость умножается на указанное значение."
 
-#: tips:30
+#: tips:32
 msgid "DnD Drag Threshold"
 msgstr "Порог D'n'D"
 
-#: tips:31 tips:32
+#: tips:33 tips:34
 msgid ""
 "Controls how far you have to drag the mouse to start a drag-and-drop "
 "operation.\n"
@@ -481,19 +490,19 @@ msgstr ""
 "Ставьте большее значение, если вы находите перетаскивание (D'n'D) для себя  "
 "неудобным"
 
-#: tips:33
+#: tips:35
 msgid "Buttons"
 msgstr "Кнопки"
 
-#: tips:34
+#: tips:36
 msgid "Double-click speed: (fast)"
 msgstr "Двойной щелчок (быстро)"
 
-#: tips:35 tips:41
+#: tips:37 tips:43
 msgid "(slow)"
 msgstr "(медленно)"
 
-#: tips:36
+#: tips:38
 msgid ""
 "Time allowed between the two clicks that make up a double click. Make this "
 "bigger if you have trouble double-clicking fast enough; set it smaller if "
@@ -504,35 +513,35 @@ msgstr ""
 "двойным щелчком. Уменьшайте это значение, если идущие подряд одиночные "
 "щелчки сливаются у вас в двойные."
 
-#: tips:37
+#: tips:39
 msgid "Keyboard"
 msgstr "Клавиатура"
 
-#: tips:38
+#: tips:40
 msgid "Cursor"
 msgstr "Курсор"
 
-#: tips:39
+#: tips:41
 msgid "Blinking cursor"
 msgstr "Мигающий курсор"
 
-#: tips:40
+#: tips:42
 msgid "Speed: (fast)"
 msgstr "Скорость (быстро)"
 
-#: tips:42 tips:43
+#: tips:44 tips:45
 msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
 msgstr "Скорость "
 
-#: tips:44
+#: tips:46
 msgid "Shortcuts"
 msgstr "Горячие клавиши"
 
-#: tips:45
+#: tips:47
 msgid "Allow keybindings to be changed from menus"
 msgstr "Разрешить менять привязки клавиш из меню"
 
-#: tips:46
+#: tips:48
 msgid ""
 "When this is on, you can set up a short-cut for a menu item by holding to "
 "pointer over the menu item and pressing the key. If off, short-cuts cannot "
@@ -542,7 +551,7 @@ msgstr ""
 "пунктов меню, просто остановив курсор над пунктом и нажав нужную вам "
 "клавишу. Если выключена, горячие клавиши менять не получиться."
 
-#: tips:47 tips:48 tips:49
+#: tips:49 tips:50 tips:51
 msgid ""
 "You can set global shortcuts (which work from any\n"
 "application) by assigning them to icons on a ROX-Filer pinboard or panel."
@@ -551,11 +560,11 @@ msgstr ""
 "работать из любого приложения)присваивая их иконкам на рабочем столе или "
 "панели ROX-Filer"
 
-#: tips:50
+#: tips:52
 msgid "Messages"
 msgstr "Сообщения"
 
-#: tips:51
+#: tips:53
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
@@ -566,11 +575,11 @@ msgstr ""
 "ошибках. ROX-Session соединяется с каждым приложением при запуске и "
 "отображает все принятые сообщения на экране"
 
-#: tips:52
+#: tips:54
 msgid "On-screen message log"
 msgstr "Экранный лог сообщений"
 
-#: tips:53
+#: tips:55
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
@@ -578,23 +587,23 @@ msgstr ""
 "Вы можете щелкнуть средней кнопкой мыши по сообщению об ошибке для вызова "
 "окна с логами, или используйте эту кнопку:"
 
-#: tips:54
+#: tips:56
 msgid "Show messages for:"
 msgstr "Показывать сообщения:"
 
-#: tips:55
+#: tips:57
 msgid "seconds"
 msgstr "секунд"
 
-#: tips:56 tips:57 tips:58
+#: tips:58 tips:59 tips:60
 msgid "Number of seconds to display each message for"
 msgstr "Кол-во секунд на отображение каждого сообщения"
 
-#: tips:59 tips:60
+#: tips:61 tips:62
 msgid "Power"
 msgstr "Питание"
 
-#: tips:61
+#: tips:63
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -606,28 +615,28 @@ msgstr ""
 "потребоваться xsu или sudo, если ваша система не позволяет "
 "непривилегированному пользователю выключать или перезагружать компьютер"
 
-#: tips:62
+#: tips:64
 msgid "Halt command:"
 msgstr "Команда выключения"
 
-#: tips:63
+#: tips:65
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr ""
 "Команда для выключения типа 'halt' или 'shutdown -t now' или 'poweroff'"
 
-#: tips:64
+#: tips:66
 msgid "Reboot command:"
 msgstr "Команда перезагрузки"
 
-#: tips:65
+#: tips:67
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "Команда перезагрузки типа 'reboot' или 'shutdown -t now -r'"
 
-#: tips:66
+#: tips:68
 msgid "Suspend command:"
 msgstr "Команда перехода в сон"
 
-#: tips:67 tips:68 tips:69 tips:70
+#: tips:69 tips:70 tips:71 tips:72
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "

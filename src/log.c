@@ -45,6 +45,7 @@
 #define MARGIN 4
 
 static Option o_time_shown;
+static Option o_percent_switch;
 
 static GtkWidget *log_window = NULL;	/* The popup message window */
 static GtkWidget *label = NULL;	/* Contains the log messages */
@@ -102,6 +103,7 @@ void log_init(void)
 				"time", NULL);
 
 	option_add_int(&o_time_shown, "log_time_shown", 5);
+	option_add_int(&o_percent_switch, "log_percent_switch", 30);
 
 	option_register_widget("show-log", show_log);
 
@@ -235,7 +237,7 @@ static void show(void)
 		int	max_h;
 
 		gtk_widget_size_request(label, &req);
-		max_h = gdk_screen_height() / 3;
+		max_h = o_percent_switch.int_value * gdk_screen_height() / 100;
 
 		if (req.height > max_h)
 		{

@@ -486,7 +486,13 @@ static void update_theme(Option *option)
 		GtkLabel *item = GTK_LABEL(GTK_BIN(next->data)->child);
 		const gchar *label;
 
+		/* The label actually moves from the menu!! */
+		if (!item)
+			item = GTK_LABEL(GTK_BIN(om)->child);
+
 		label = gtk_label_get_text(item);
+
+		g_return_if_fail(label != NULL);
 
 		if (strcmp(label, option->value) == 0)
 			break;
@@ -572,6 +578,7 @@ static GList *build_gtk_theme(Option *option, xmlNode *node, guchar *label)
 
 		item = gtk_menu_item_new_with_label(name);
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+		gtk_widget_show_all(item);
 	}
 
 	g_ptr_array_free(names, TRUE);

@@ -27,7 +27,8 @@ chdir;
 mkdir "ROX-Session-$a.$b.$c", 0775 or warn "mkdir() failed: $!\n";
 chdir "ROX-Session-$a.$b.$c";
 
-system "cvs -d:pserver:anonymous\@cvs.rox.sourceforge.net:/cvsroot/rox export -r Release-$a-$b-$c ROX-Session";
+#system "cvs -d:pserver:anonymous\@cvs.rox.sourceforge.net:/cvsroot/rox export -r Release-$a-$b-$c ROX-Session";
+system "cvs -d:ext:tal197\@cvs.sourceforge.net:/cvsroot/rox export -r Release-$a-$b-$c ROX-Session";
 
 system "cd ROX-Session/src; autoconf";
 mkdir "ROX-Session/Messages";
