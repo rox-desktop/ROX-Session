@@ -1,11 +1,11 @@
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# Jan Wagemakers <janw@easynet.be>, 2002...2003
+# Jan Wagemakers <janw@easynet.be>, 2002...2004
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-26 12:35+0000\n"
+"POT-Creation-Date: 2004-05-07 17:18+0200\n"
 "PO-Revision-Date: 2002-12-28 09:12+0100\n"
 "Last-Translator: Jan Wagemakers <janw@easynet.be>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: main.c:57
+#: main.c:60
 msgid ""
 "Copyright (C) 2002 Thomas Leonard.\n"
 "ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
@@ -29,15 +29,15 @@ msgstr ""
 "voorwaarden van de GNU General Public Licence.\n"
 "Voor meer informatie zie het bestand COPYING.\n"
 
-#: main.c:66
+#: main.c:69
 msgid "Try `ROX-Session/AppRun --help' for more information.\n"
 msgstr "Probeer `ROX-Session/AppRun --help' voor meer informatie.\n"
 
-#: main.c:69
+#: main.c:72
 msgid "Try `ROX-Session/AppRun -h' for more information.\n"
 msgstr "Probeer `ROX-Session/AppRun -h' voor meer informatie.\n"
 
-#: main.c:71
+#: main.c:74
 msgid ""
 "NOTE: Your system does not support long options - \n"
 "you must use the short versions instead.\n"
@@ -47,7 +47,7 @@ msgstr ""
 "gebruik in plaats daarvan de korte versies.\n"
 "\n"
 
-#: main.c:75
+#: main.c:78
 msgid ""
 "Usage: ROX-Session/AppRun [OPTION]...\n"
 "If ROX-Session is already managing your session then display\n"
@@ -77,57 +77,52 @@ msgstr ""
 "\n"
 "Rapporteer bugs aan <tal197@users.sourceforge.net>.\n"
 
-#: main.c:206
-msgid "ROX-Session is already managing your session - can't manage it twice!"
-msgstr "ROX-Session beheert reeds uw sessie - kan ze niet tweemaal beheren!"
-
-#: main.c:333
-msgid "Would you like to make ROX-Session your session manager?"
-msgstr "Wil je ROX-Session gebruiken als sessie-beheerder?"
-
-#: main.c:352
-#, c-format
-msgid ""
-"Oh dear; it didn't work and I don't know why!\n"
-"Error was:\n"
-"%s\n"
-"Make sure your .xsession and .xinitrc files are OK, then report the problem "
-"to tal197@users.sourceforge.net - thanks"
-msgstr ""
-"Whoeps; het heeft niet gewerkt en ik weet niet waarom!\n"
-"De fout was:\n"
-"%s\n"
-"Ga na of uw .xsession en .xinitrc bestanden in orde zijn, indien ja, meld "
-"het probleem aan tal197@users.sourceforge.net - bedankt"
-
-#: main.c:364
-msgid ""
-"OK, now logout by your usual method and when you log in again, I should be "
-"your session manager.\n"
-"You can edit your .xsession file to customise things..."
-msgstr ""
-"OK, log nu uit volgens de gebruikelijke methode en log daarna terug in, Ik "
-"zou nu uw sessie-beheerder moeten zijn.\n"
-"Je kan uw .xsession bestand naar wens aanpassen..."
-
-#: main.c:387
+#: main.c:232
 #, c-format
 msgid "Your login script (%s) died"
 msgstr "Uw login script (%s) is gestorven"
 
-#: main.c:390
+#: main.c:235
 #, c-format
 msgid "Your login script (%s) exited with exit status %d"
 msgstr "Uw login script (%s) is gestopt met status %d"
 
-#: main.c:395
+#: main.c:240
 msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
 msgstr ""
 ". Ik zal een xterm starten zodat je kan proberen het probleem op te lossen."
 "ROX-Session is weldegelijk aan het lopen - start mij een tweede keer om "
-"uitte loggen."
+"uit te loggen."
+
+#: dbus.c:95
+msgid ""
+"ROX-Session lost its connection to the D-BUS session bus.\n"
+"You should save your work and logout as soon as possible (many things won't "
+"work correctly without the bus, and this is the only way to restart it)."
+msgstr ""
+"ROX-Session heeft de verbinding met de D-BUS sessie verloren.\n"
+"Om problemen te vermijden, bewaar uw werk en log uit zo snel als mogelijk "
+"(vele zaken zullen niet juist werken zonder de bus en uitloggen is de enige "
+"manier om deze te herstarten)."
+
+#: dbus.c:226
+msgid "ROX-Session is already running. Can't manage your session twice!"
+msgstr "ROX-Session is reeds gestart. Kan een sessie niet tweemaal beheren!"
+
+#: dbus.c:298
+#, c-format
+msgid ""
+"%s\n"
+"\n"
+"You can get D-BUS from freedesktop.org.\n"
+"ROX-Session will not work correctly without it!"
+msgstr ""
+"%s\n"
+"\n"
+"D-BUS is beschikbaar op freedesktop.org.\n"
+"ROX-Session zal niet juist werken zonder!"
 
 #: i18n.c:38
 msgid ""
@@ -135,7 +130,7 @@ msgid ""
 "the new settings will take full effect."
 msgstr ""
 "Merk op dat je uw instellingen moet bewaren, uitloggen en terug inloggen "
-"alvorens deze nieuwe instellingen volledig effekt zullen hebben."
+"alvorens deze nieuwe instellingen volledig effect zullen hebben."
 
 #: log.c:366
 msgid "ROX-Session: write to stderr failed!\n"
@@ -149,7 +144,7 @@ msgstr "ROX-Session: read(stderr) mislukt!\n"
 msgid "ROX-Session message log"
 msgstr "ROX-Session berichten log"
 
-#: log.c:468
+#: log.c:465
 msgid "Show message log"
 msgstr "Toon berichten log"
 
@@ -189,7 +184,7 @@ msgstr ""
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(opslaan is uitgezet door de CHOICESPATH variabele)"
 
-#: options.c:1093
+#: options.c:1093 settings.c:194
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Fout tijdens bewaren bestand %s: %s"
@@ -204,47 +199,7 @@ msgstr "Ongeldig .gmo vertalingsbestand (te kort): %s"
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr "Ongeldig .gmo vertalingsbestand (GNU magisch nummer niet gevonden): %s"
 
-#: session.c:276
-msgid "_Halt"
-msgstr "Sto_p"
-
-#: session.c:277
-msgid "Attempting to halt the system..."
-msgstr "Bezig met het systeem te stoppen..."
-
-#: session.c:280
-msgid "_Reboot"
-msgstr "_Herstart"
-
-#: session.c:281
-msgid "Attempting to restart the system..."
-msgstr "Bezig met het systeem te herstarten..."
-
-#: session.c:284
-msgid "_Sleep"
-msgstr "_Slaap"
-
-#: session.c:285
-msgid "Attempting to enter suspend mode..."
-msgstr "Bezig met het systeem in slaap mode te brengen..."
-
-#: session.c:290
-msgid ""
-"Really logout?\n"
-"(unsaved data will be lost)"
-msgstr ""
-"Echt uitloggen?\n"
-"(niet opgeslagen gegevens zullen verloren gaan)"
-
-#: session.c:300
-msgid "Session Settings"
-msgstr "Sessie Instellingen"
-
-#: session.c:307
-msgid "Logout"
-msgstr "Log Uit"
-
-#: session.c:361
+#: session.c:215
 #, c-format
 msgid ""
 "Failed to run login script:\n"
@@ -253,50 +208,26 @@ msgstr ""
 "Mislukt om inlog script te starten:\n"
 "%s"
 
-#: session.c:428
-msgid "Single click!"
-msgstr "Enkele klik!"
-
-#: session.c:430
-msgid "Double click!!"
-msgstr "Dubbele klik!!"
-
-#: session.c:432
-msgid "Triple click!!!"
-msgstr "Driedubbele klik!!!"
-
-#: session.c:441
-msgid "Double-click here to test mouse"
-msgstr "Hier dubbel klikken om de muis te testen"
-
-#: session.c:601
-msgid ""
-"ROX-Session not managing XSettings, so changes will have no immediate "
-"effect..."
-msgstr ""
-"ROX-Session beheert XSettings niet, hierdoor zullen aanpassingen geen "
-"onmiddelijk effekt hebben..."
-
-#: session.c:688
+#: session.c:263
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
 msgstr ""
 "ROX-Filer is afgesloten (ge-crashed?). Het is waarschijnlijk het beste om "
 "ROX-Filer te herstarten."
 
-#: session.c:690
+#: session.c:265
 msgid "Do nothing"
 msgstr "Doe niets"
 
-#: session.c:691
+#: session.c:266
 msgid "Run Xterm"
 msgstr "Start Xterm"
 
-#: session.c:692
+#: session.c:267
 msgid "_Restart"
 msgstr "_Herstarten"
 
-#: session.c:718
+#: session.c:293
 #, c-format
 msgid ""
 "Failed to run '%s':\n"
@@ -305,7 +236,7 @@ msgstr ""
 "Mislukt om '%s' te starten:\n"
 "%s"
 
-#: wm.c:74
+#: wm.c:81
 msgid ""
 "Your window manager has crashed (or quit). Please restart it, or choose "
 "another window manager."
@@ -313,7 +244,7 @@ msgstr ""
 "Uw window manager is ge-crashed (of gestopt). Start het opnieuw, of kies een "
 "andere window manager."
 
-#: wm.c:143
+#: wm.c:150
 #, c-format
 msgid ""
 "Error loading window manager list '%s':\n"
@@ -322,7 +253,7 @@ msgstr ""
 "Fout bij het laden window manager lijst '%s':\n"
 "%s"
 
-#: wm.c:164
+#: wm.c:171
 msgid ""
 "The window manager which ROX-Session started for you is still running. Quit "
 "it before starting a new one."
@@ -330,7 +261,7 @@ msgstr ""
 "De window manager die ROX-Session voor je gestart heeft, is nog steeds "
 "lopende. Stop het alvorens een nieuwe te starten."
 
-#: wm.c:172
+#: wm.c:179
 msgid ""
 "No window manager is currently selected.\n"
 "Please choose a window manager now."
@@ -338,7 +269,7 @@ msgstr ""
 "Momenteel is er geen window manager geselecteerd.\n"
 "Kies nu een window manager."
 
-#: wm.c:190
+#: wm.c:197
 #, c-format
 msgid ""
 "Failed to start window manager:\n"
@@ -349,7 +280,7 @@ msgstr ""
 "%s\n"
 "Kies een nieuwe window manager en probeer nogmaals."
 
-#: wm.c:267
+#: wm.c:274
 msgid "Start window manager"
 msgstr "Start window manager"
 
@@ -400,181 +331,30 @@ msgid "Italian"
 msgstr "Italiaans"
 
 #: tips:12
+msgid "Lithuanian"
+msgstr "Litouws"
+
+#: tips:13
 msgid "Spanish"
 msgstr "Spaans"
 
-#: tips:13
+#: tips:14
 msgid "Japanese"
 msgstr "Japans"
 
-#: tips:14
+#: tips:15
 msgid "Russian"
 msgstr "Russisch"
 
-#: tips:15
+#: tips:16
 msgid "Use the LANG environment variable"
 msgstr "Gebruik de LANG variabele"
 
-#: tips:16
-msgid "Display"
-msgstr "Beeld"
-
 #: tips:17
-msgid "Text"
-msgstr "Tekst"
-
-#: tips:18
-msgid "Default font"
-msgstr "Standaard lettertype"
-
-#: tips:19 tips:20
-msgid "The font used by Gtk+-2.0 applications"
-msgstr "Het lettertype dat door Gtk+-2.0 programma's gebruikt wordt"
-
-#: tips:21
-msgid "Desktop background"
-msgstr "Desktop achtergrond"
-
-#: tips:22 tips:23
-msgid ""
-"Bring up the menu over the desktop background to set the backdrop image or "
-"change the pinboard options."
-msgstr ""
-"Roep het menu via de desktop achtergrond op om zo de achtergrond afbeelding "
-"of de prikbord opties te veranderen."
-
-#: tips:24
-msgid "Theme"
-msgstr "Thema"
-
-#: tips:25
-msgid "GTK theme"
-msgstr "GTK thema"
-
-#: tips:26
-msgid "Mouse"
-msgstr "Muis"
-
-#: tips:27
-msgid "Motion"
-msgstr "Tempo"
-
-#: tips:28
-msgid "Acceleration threshold"
-msgstr "Versnellings drempel"
-
-#: tips:29
-msgid ""
-"Controls how fast you have to move the pointer before the acceleration "
-"(below) kicks in."
-msgstr ""
-"Bepaalt de snelheid waarmee de muis bewogen moet worden alvorens de "
-"versnelling (zie beneden) intreedt."
-
-#: tips:30
-msgid "Acceleration (none)"
-msgstr "Versnelling (geen)"
-
-#: tips:31
-msgid "(10x)"
-msgstr "(10x)"
-
-#: tips:32
-msgid ""
-"When the pointer is moved quickly more than the threshold number of pixels, "
-"its speed is multiplied by this number."
-msgstr ""
-"Wanneer de muis snel bewogen wordt met een waarde hoger dan de drempel "
-"instelling, dan wordt de snelheid vermenigvuldigd met dit getal."
-
-#: tips:33
-msgid "DnD Drag Threshold"
-msgstr "DnD Sleep Drempel"
-
-#: tips:34 tips:35
-msgid ""
-"Controls how far you have to drag the mouse to start a drag-and-drop "
-"operation.\n"
-"Set this high if you find yourself dragging things unintentionally."
-msgstr ""
-"Bepaalt hoe ver de muis gesleept dient te worden alvorens een sleep-en-drop "
-"operatie gestart wordt.\n"
-"Zet dit hoger indien het slepen per ongeluk gestart wordt."
-
-#: tips:36
-msgid "Buttons"
-msgstr "Knoppen"
-
-#: tips:37
-msgid "Double-click speed: (fast)"
-msgstr "Dubbele-klik snelheid: (snel)"
-
-#: tips:38 tips:44
-msgid "(slow)"
-msgstr "(traag)"
-
-#: tips:39
-msgid ""
-"Time allowed between the two clicks that make up a double click. Make this "
-"bigger if you have trouble double-clicking fast enough; set it smaller if "
-"two single-clicks sometimes get treated as a double click."
-msgstr ""
-"Tijd tussen twee klikken die als een dubbele klik herkent wordt. Maak dit "
-"groter als je moeilijkheden ondervind om snel genoeg te dubbel-klikken; "
-"kleiner als twee enkele-klikken soms als een dubbele klik behandeld worden."
-
-#: tips:40
-msgid "Keyboard"
-msgstr "Toetsenbord"
-
-#: tips:41
-msgid "Cursor"
-msgstr "Cursor"
-
-#: tips:42
-msgid "Blinking cursor"
-msgstr "Knipperende cursor"
-
-#: tips:43
-msgid "Speed: (fast)"
-msgstr "Snelheid: (snel)"
-
-#: tips:45 tips:46
-msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
-msgstr "Snelheid waarmee de tekst cursor knippert (als knipperen aan staat)."
-
-#: tips:47
-msgid "Shortcuts"
-msgstr "Afkortingen"
-
-#: tips:48
-msgid "Allow keybindings to be changed from menus"
-msgstr ""
-"Sta toe dat toestenbord-bindingen vanuit de menus aangepast kunnen worden"
-
-#: tips:49
-msgid ""
-"When this is on, you can set up a short-cut for a menu item by holding to "
-"pointer over the menu item and pressing the key. If off, short-cuts cannot "
-"be changed."
-msgstr ""
-"Wanneer dit aan staat, kan je een afkorting voor een menu item maken door op "
-"het menu item te gaan staan en de gewenste toets in te drukken. Als dit uit "
-"staat, kunnen afkortingen niet aangepast worden."
-
-#: tips:50 tips:51 tips:52
-msgid ""
-"You can set global shortcuts (which work from any\n"
-"application) by assigning them to icons on a ROX-Filer pinboard or panel."
-msgstr ""
-"Je kan globale afkortingen zetten (die werken vanuit elke toepassing)\n"
-"door ze toe te kennen aan de ikonen op een ROX-Filer prikbord of paneel."
-
-#: tips:53
 msgid "Messages"
 msgstr "Berichten"
 
-#: tips:54
+#: tips:18
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
@@ -586,11 +366,11 @@ msgstr ""
 "en elk programma dat het start. Het toont alle berichten die het op deze "
 "manier verzamelt kort op het scherm."
 
-#: tips:55
+#: tips:19
 msgid "On-screen message log"
 msgstr "'Op het scherm' berichten log"
 
-#: tips:56
+#: tips:20
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
@@ -598,41 +378,42 @@ msgstr ""
 "Je kan via muisknop 3 klikken op een foutmelding om over te gaan naar het "
 "log venster, of onderstaande knop gebruiken:"
 
-#: tips:57
+#: tips:21
 msgid "Show messages for:"
 msgstr "Toon berichten gedurende:"
 
-#: tips:58
+#: tips:22
 msgid "seconds"
 msgstr "seconden"
 
-#: tips:59
+#: tips:23
 msgid "Number of seconds to display each message for"
 msgstr "Aantal seconden dat elk bericht getoond wordt"
 
-#: tips:60
+#: tips:24
 msgid "Max area for popup display:"
 msgstr "Max afmeting van het popup bericht:"
 
-#: tips:61
+#: tips:25
 msgid "%"
 msgstr ""
 
-#: tips:62 tips:63 tips:64
+#: tips:26 tips:27 tips:28
 msgid ""
 "Normally, messages are shown overlayed on the screen for a few seconds. If "
 "there are a large number of messages (more than this amount of the screen is "
 "covered) then the view switches to the window style."
 msgstr ""
-"Normaal zullen berichten voor een paar seconden over het huidige beeld verschijnen. "
-"Als er een groot aantal berichten zijn (het beeld is voor meer dan dit getal bedekt) "
-"dan zullen de berichten in een gewoon venster worden getoond."
+"Normaal zullen berichten voor een paar seconden over het huidige beeld "
+"verschijnen. Als er een groot aantal berichten zijn (het beeld is voor meer "
+"dan dit getal bedekt) dan zullen de berichten in een gewoon venster worden "
+"getoond."
 
-#: tips:65 tips:66
+#: tips:29 tips:30
 msgid "Power"
 msgstr "Stroom"
 
-#: tips:67
+#: tips:31
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -645,27 +426,27 @@ msgstr ""
 "commando kan nodig zijn als uw systeem normale gebruikers geen toestemming "
 "geeft om het systeem af te sluiten."
 
-#: tips:68
+#: tips:32
 msgid "Halt command:"
 msgstr "Stop commando:"
 
-#: tips:69
+#: tips:33
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr "Mogelijke stop commando's zijn 'halt' en 'shutdown -t now'"
 
-#: tips:70
+#: tips:34
 msgid "Reboot command:"
 msgstr "Herstart commando:"
 
-#: tips:71
+#: tips:35
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "Mogelijke herstart commando's zijn 'reboot' and 'shutdown -t now -r'"
 
-#: tips:72
+#: tips:36
 msgid "Suspend command:"
 msgstr "Slaap commando:"
 
-#: tips:73 tips:74 tips:75 tips:76
+#: tips:37 tips:38 tips:39
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
@@ -675,3 +456,183 @@ msgstr ""
 "d. te gebruiken. ACPI gebruikers kunnen 'xset dpms force off; echo 1 > /proc/"
 "acpi/sleep' proberen. Hiervoor is een kernel nodig gecompileerd met het "
 "juiste systeem."
+
+#: tips:40
+msgid "Look and Feel"
+msgstr "Uiterlijk en Gedrag"
+
+#: tips:41 tips:42 tips:43
+msgid ""
+"The mouse, keyboard and display options have moved to the new LookAndFeel "
+"application, available from http://rox.sf.net."
+msgstr ""
+"Muis, toetsenbord en Beeldscherm opties zijn verplaatst naar het nieuwe LookAndFeel "
+"programma, beschikbaar op http://rox.sf.net."
+
+#: logout.py:66
+msgid "_Halt"
+msgstr "Sto_p"
+
+#: logout.py:68
+msgid "Attempting to halt the system..."
+msgstr "Bezig met het systeem te stoppen..."
+
+#: logout.py:71
+msgid "_Reboot"
+msgstr "_Herstart"
+
+#: logout.py:73
+msgid "Attempting to restart the system..."
+msgstr "Bezig met het systeem te herstarten..."
+
+#: logout.py:76
+msgid "_Sleep"
+msgstr "_Slaap"
+
+#: logout.py:78
+msgid "Attempting to enter suspend mode..."
+msgstr "Bezig met het systeem in slaap mode te brengen..."
+
+#: logout.py:82
+msgid ""
+"Really logout?\n"
+"(unsaved data will be lost)"
+msgstr ""
+"Echt uitloggen?\n"
+"(niet opgeslagen gegevens zullen verloren gaan)"
+
+#: logout.py:87
+msgid "ROX-Session"
+msgstr "ROX-Session"
+
+#: logout.py:92
+msgid "Session Settings"
+msgstr "Sessie Instellingen"
+
+#: logout.py:98
+msgid "Logout"
+msgstr "Log Uit"
+
+#: setup.py:24
+msgid ""
+"Tried to make a backup of your old '%s' file, but the backup file ('%s') "
+"already exists."
+msgstr ""
+"Poging gedaan om een backup van uw oude '%s' bestand te maken, maar het backup bestand ('%s') "
+"bestaat reeds."
+
+#: setup.py:35
+msgid ""
+"Do you want to make ROX a choice on your login screen (affects all users and "
+"requires the root password), or do you just want to set the session for your "
+"current user?\n"
+"\n"
+"If you know the root password and use a graphical display manager such as "
+"gdm or kdm, you should probably choose that option."
+msgstr ""
+"Van ROX een keuze-optie maken op uw inlog-scherm (geeft effect bij alle gebruikers en "
+"vereist het root paswoord), of gewoon de sessie instellen voor de huidige gebruiker?\n"
+"\n"
+"Als het root paswoord gekent is en een grafische display manager zoals "
+"gdm of kdm gebruikt wordt, dan is dit waarschijnlijk de aangewezen optie."
+
+#: setup.py:43
+msgid "Setup for user"
+msgstr "Instellen voor gebruiker"
+
+#: setup.py:44
+msgid "Add to login"
+msgstr "Toevoegen aan inlog-scherm"
+
+#: setup.py:114
+msgid ""
+"OK, now logout by your usual method and when you log in again, I should be "
+"your session manager.\n"
+"Note: you may need to select 'Default' as your desktop type after entering "
+"your user name on the login screen."
+msgstr ""
+"OK, log nu uit volgens de gebruikelijke methode en log daarna terug in, Ik "
+"zou nu uw sessie-beheerder moeten zijn.\n"
+"Nota: het kan nodig zijn om 'Standaard' te selecteren als uw desktop type "
+"na het ingeven van de gebruiker op het inlog-scherm"
+
+#: setup.py:128
+msgid ""
+"I wanted to install a rox.desktop file in your session directory, but I "
+"couldn't find one! I tried these places (defaults for gdm2, at least):\n"
+"\n"
+msgstr ""
+"Ik wou een rox.desktop bestand installeren in uw sessie map, maar kon er "
+"geen vinden! I heb hier geprobeerd (standaard voor gdm2, ten minste):\n"
+"\n"
+
+#: setup.py:133
+msgid ""
+"/usr/local/sbin directory is missing! I want to install the rox-session "
+"script there... Please create it and try again."
+msgstr ""
+"/usr/local/sbin map ontbreekt! I zou hier het rox-session script willen "
+"installeren... Maak deze map aan en probeer opnieuw."
+
+#: setup.py:151
+msgid ""
+"OK, now logout by your usual method, and choose ROX from the session menu on "
+"your login screen just after entering your user name (but before entering "
+"your password)."
+msgstr ""
+"OK, log uit volgens de gebruikelijke methode, an kies ROX van het sessie menu op "
+"het inlog scherm juist na het ingeven van uw gebruikersnaam (maar voor het "
+"ingeven van uw paswoord)."
+
+#: setup.py:164
+msgid ""
+"OK, I don't know what the problem is. Please ask on the rox-users mailing "
+"list. When we know what the problem is, we can add an extra check here to "
+"help out others in future.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(you can copy and paste that address into your browser)"
+msgstr ""
+"OK, I heb geen idee van de oorzaak van het probleem. Aarzel niet om hulp te "
+"vragen via de rox-users mailing list. Wanneer we het probleem kennen, kan hier een "
+"extra controle toegevoegd worden om dit probleem naar de toekomst toe te vermijden.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(het is mogelijk om dit adres naar een webbrowser te knippen/plakken)"
+
+#: setup.py:175
+msgid ""
+"ROX-Session does not appear to be managing your session. Would you like to "
+"set it up now?\n"
+"\n"
+"If you think it should already be set up, click on Help."
+msgstr ""
+"ROX-Session blijkt uw sessie niet te beheren. Nu instellen als sessie-beheerder?\n"
+"\n"
+"Klik op Help als het reeds zo ingesteld zou moeten zijn."
+
+#: setup.py:180
+msgid "Set up ROX"
+msgstr "ROX instellen"
+
+#: setup.py:183
+msgid "Set up ROX-Session"
+msgstr "ROX-Session installen"
+
+#: setup.py:195
+msgid ""
+"Please enter the root password when prompted. I will attempt to create the "
+"files '%s' and '%s'."
+msgstr ""
+"Geef het root paswoord als het gevraagd wordt. Er zal dan getracht worden de "
+"bestanden '%s' en '%s' aan te maken."
+
+#: setup.py:203
+msgid "Error trying to run xterm to ask for the root password."
+msgstr "Fout bij het starten van een xterm nodig om het root paswoord te vragen."
+
+#: setup.py:205 setup.py:207
+msgid "Failed to create '%s'"
+msgstr ""
+"Mislukt om '%s' aan te maken"
+
