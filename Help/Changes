@@ -2,6 +2,12 @@
 			A very simple session manager
 			by Thomas Leonard
 
+04-Apr-2004
+~~~~~~~~~~~
+When using Zero Install, get default choices from there so you get default run
+actions for archives, text files, web pages, etc.
+If the Python D-BUS bindings aren't found, give a more helpful error message.
+
 23-Apr-2004 (Release 0.1.22)
 ~~~~~~~~~~~
 Start ZeroProgress (Zero Install progress monitor) on login, if Zero Install
