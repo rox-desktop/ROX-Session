@@ -349,7 +349,8 @@ void run_login_script(void)
 		argv[0] = g_strconcat(app_dir, "/Login", NULL);
 
 	argv[1] = NULL;
-	g_spawn_async(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD,
+	g_spawn_async(NULL, argv, NULL,
+			G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_STDOUT_TO_DEV_NULL,
 			NULL, NULL, &pid, &error);
 	g_free(argv[0]);
 
@@ -694,7 +695,8 @@ static void run_rox_process(void)
 		argv[0] = g_strconcat(app_dir, "/RunROX", NULL);
 	argv[1] = pathdup(app_dir);
 	argv[2] = NULL;
-	g_spawn_async(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD,
+	g_spawn_async(NULL, argv, NULL,
+			G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_STDOUT_TO_DEV_NULL,
 			NULL, NULL, &pid, &error);
 
 	if (error)

@@ -163,7 +163,8 @@ static void run_wm(void)
 
 	if (g_shell_parse_argv(o_default_wm.value, NULL, &argv, &error))
 		g_spawn_async(NULL, argv, NULL,
-			G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+			G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD |
+			G_SPAWN_STDOUT_TO_DEV_NULL,
 			NULL, NULL, &pid, &error);
 	g_strfreev(argv);
 	argv = NULL;
