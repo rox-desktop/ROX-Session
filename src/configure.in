@@ -30,6 +30,14 @@ if test "x$GCC" = "xyes"; then
 fi
 ]
 
+dnl Extract version info from AppInfo.xml
+AC_MSG_CHECKING(extracting version information)
+[
+VERSION=`sed -n 's/^.*<Version>\([.0-9]*\).*<\/Version>.*$/\1/p' ../AppInfo.xml`
+]
+AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
+AC_MSG_RESULT(version $VERSION)
+
 dnl Checks for header files.
 AC_PATH_X
 AC_HEADER_STDC
