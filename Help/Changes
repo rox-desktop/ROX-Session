@@ -6,6 +6,7 @@
 ~~~~~~~~~~~
 Use a GtkScrolledWindow for the message log, so that the mouse wheel works
 (Tristan McLeay).
+Added Zero Install version of OroboROX to window manager list.
 
 20-Apr-2004
 ~~~~~~~~~~~
