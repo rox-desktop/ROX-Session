@@ -90,8 +90,6 @@ static const char *stocks[] = {
 
 /* Static prototypes */
 static void child_died(int signum);
-static GtkWidget *op_button(const char *text, const char *stock,
-			    Option *command, const char *message);
 static char *pathdup(const char *path);
 static void rox_process_died(void);
 static void run_rox_process(void);
@@ -184,81 +182,6 @@ void child_died_callback(void)
 	}
 }
 
-void show_main_window(void)
-{
-	static GtkWidget *window = NULL;
-	GtkWidget *button, *hbox, *vbox;
-
-	if (window)
-	{
-		gtk_window_present(GTK_WINDOW(window));
-		return;
-	}
-	
-	window = gtk_dialog_new();
-	gtk_dialog_set_has_separator(GTK_DIALOG(window), FALSE);
-	vbox = GTK_DIALOG(window)->vbox;
-
-	hbox = gtk_hbutton_box_new();
-	gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
-
-	button = op_button(_("_Halt"), ROX_STOCK_HALT, &halt_command,
-			_("Attempting to halt the system..."));
-	GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
-	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
-	button = op_button(_("_Reboot"), GTK_STOCK_REFRESH, &reboot_command,
-			_("Attempting to restart the system..."));
-	GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
-	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
-	button = op_button(_("_Sleep"), ROX_STOCK_SUSPEND, &suspend_command,
-			_("Attempting to enter suspend mode..."));
-	GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
-	gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, TRUE, 0);
-
-	gtk_box_pack_start(GTK_BOX(vbox),
-		gtk_label_new(_("Really logout?\n(unsaved data will be lost)")),
-		TRUE, TRUE, 20);
-
-	gtk_widget_show_all(vbox);
-
-	gtk_window_set_title(GTK_WINDOW(window), PROJECT);
-
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-
-	button = button_new_mixed(GTK_STOCK_PREFERENCES,
-				_("Session Settings"));
-	gtk_widget_show(button);
-	gtk_dialog_add_action_widget(GTK_DIALOG(window), button, 1);
-
-	gtk_dialog_add_button(GTK_DIALOG(window),
-			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-
-	button = button_new_mixed(GTK_STOCK_QUIT, _("Logout"));
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	gtk_widget_show(button);
-	gtk_dialog_add_action_widget(GTK_DIALOG(window),
-			button, GTK_RESPONSE_YES);
-
-	gtk_dialog_set_default_response(GTK_DIALOG(window), GTK_RESPONSE_YES);
-
-	switch (gtk_dialog_run(GTK_DIALOG(window)))
-	{
-		case GTK_RESPONSE_YES:
-			gtk_main_quit();
-			break;
-		case 1:
-			show_session_options();
-			break;
-		default:
-			break;
-	}
-
-	gtk_widget_destroy(window);
-	window = NULL;
-}
-
 void run_login_script(void)
 {
 	static gboolean logged_in = FALSE;
@@ -316,69 +239,6 @@ static void child_died(int signum)
 void show_session_options(void)
 {
 	options_show();
-}
-
-static void op_clicked(GtkButton *button, Option *command)
-{
-	pid_t child;
-	const char *message;
-	GtkWidget *dialog;
-
-	dialog = gtk_widget_get_toplevel(GTK_WIDGET(button));
-	gtk_dialog_response(GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
-
-	message = g_object_get_data(G_OBJECT(button), "rox-message");
-
-	child = fork();
-	if (child == -1)
-	{
-		report_error("fork() failed: %s", g_strerror(errno));
-		return;
-	}
-	else if (child)
-		return;	/* Parent */
-
-	dup2(STDERR_FILENO, STDOUT_FILENO);
-	close(STDIN_FILENO);
-
-	g_print("ROX-Session: %s\n", message);
-	
-	_exit(system(command->value));
-}
-
-static GtkWidget *op_button(const char *text, const char *stock,
-			    Option *command, const char *message)
-{
-	GtkWidget *button, *image, *hbox, *label;
-	gchar *tmp;
-
-	button = gtk_button_new();
-
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(button), hbox);
-
-	image = gtk_image_new_from_stock(stock, GTK_ICON_SIZE_BUTTON);
-	gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, TRUE, 4);
-
-	label = gtk_label_new_with_mnemonic(text);
-	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-	gtk_box_pack_start(GTK_BOX(hbox), label, TRUE, TRUE, 0);
-
-	/* No need for clickable buttons if no command is set */
-	tmp = g_strstrip(g_strdup(command->value));
-	if (*tmp)
-	{
-		g_object_set_data_full(G_OBJECT(button), "rox-message",
-				g_strdup(message), g_free);
-		g_signal_connect(button, "clicked", G_CALLBACK(op_clicked),
-				command);
-	}
-	else
-		gtk_widget_set_sensitive(button, FALSE);
-
-	g_free (tmp);
-
-	return button;
 }
 
 /* Like g_strdup, but does realpath() too (if possible) */

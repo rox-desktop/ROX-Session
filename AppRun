@@ -67,9 +67,9 @@ BIN="$APP_DIR/$PLATFORM/$PROG"
 if [ -x "$BIN" ]; then
   exec $DEBUGGER "$BIN" "$@"
 else
-  echo "ERROR from $0:" >&2
-  echo "I cannot find an executable file for your host type ($PLATFORM)." >&2
-  echo "Trying to compile..." >&2
+  echo "Message from $0:"
+  echo "I cannot find an executable file for your host type ($PLATFORM)."
+  echo "Trying to compile..."
   if [ -n "$DISPLAY" ]; then
     xterm -e "$0" --compile
   else
