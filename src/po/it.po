@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 0.1.23\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-31 10:42+0200\n"
+"POT-Creation-Date: 2004-10-14 21:43+0200\n"
 "PO-Revision-Date: 2004-07-31 10:47+0200\n"
 "Last-Translator: Yuri Bongiorno http://yuri.webhop.org <>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -99,7 +99,7 @@ msgstr ""
 "ROX-Session sia in esecuzione correttamente, lo si esegua di nuovo per "
 "uscire."
 
-#: dbus.c:95
+#: dbus.c:105
 msgid ""
 "ROX-Session lost its connection to the D-BUS session bus.\n"
 "You should save your work and logout as soon as possible (many things won't "
@@ -109,12 +109,20 @@ msgstr ""
 "Salvare i documenti e disconnettersi al più presto possibile (molte cose non "
 "funzionano correttamente senza il bus e questo è l'unico modo di riavviarlo)."
 
-#: dbus.c:226
+#: dbus.c:303
 msgid "ROX-Session is already running. Can't manage your session twice!"
 msgstr ""
 "ROX-Session è già in esecuzione: non si può gestire la sessione due volte."
 
-#: dbus.c:298
+#: dbus.c:362
+msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
+msgstr "Fallita l'apertura di libdbus-1.so.0. Il supporto a D-BUS è disabilitato."
+
+#: dbus.c:369
+msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
+msgstr "Fallita l'apertura di libdbus-glib-1.so.0. Il supporto a D-BUS è disabilitato."
+
+#: dbus.c:392
 #, c-format
 msgid ""
 "%s\n"
@@ -215,7 +223,7 @@ msgstr ""
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(salvataggio disabilitato da CHOICESPATH)"
 
-#: options.c:1093 settings.c:240
+#: options.c:1093 settings.c:411
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Errore durante il salvataggio di %s: %s"
@@ -265,6 +273,17 @@ msgstr ""
 "Fallita l'esecuzione di «%s»:\n"
 "%s"
 
+#: settings.c:308
+#, c-format
+msgid ""
+"Failed to change the cursor theme:\n"
+"%s\n"
+"You can use the Mouse configuration application to change the setting."
+msgstr ""
+"Fallito il cambio di tema del cursore:\n"
+"%s\n"
+"Usare l'applicazione «Mouse» per cambiare le impostazioni."
+
 #: wm.c:79
 msgid ""
 "Your window manager has crashed (or quit). Please restart it, or choose "
@@ -312,7 +331,6 @@ msgstr ""
 "Fallita l'impostazione della mappa della tastiera:\n"
 "%s\n"
 "Usare l'applicazione «Keyboard» per cambiare le impostazioni."
-
 
 #: xkb.c:113
 msgid "Failed to set auto repeat rate/interval"
@@ -487,7 +505,9 @@ msgstr ""
 
 #: AutoStart.py:13
 msgid "Symlink any applications you want run on login into this directory"
-msgstr "Mettere in questa directory i collegamenti simbolici alle applicazioni che si vogliono eseguire all'accesso al sistema"
+msgstr ""
+"Mettere in questa directory i collegamenti simbolici alle applicazioni che "
+"si vogliono eseguire all'accesso al sistema"
 
 #: logout.py:66
 msgid "_Halt"
@@ -533,15 +553,16 @@ msgstr "Impostazioni di sessione"
 msgid "Logout"
 msgstr "Esci"
 
-#: setup.py:24
+#: setup.py:25
 msgid ""
 "Tried to make a backup of your old '%s' file, but the backup file ('%s') "
-"already exists."
+"already exists.\n"
+"If you want to keep it, move it somewhere safe. Otherwise, delete it."
 msgstr ""
 "Si è tentato di fare un backup del vecchio file «%s», ma il backup («%s») "
-"esiste già."
+"esiste già.\n"
 
-#: setup.py:35
+#: setup.py:37
 msgid ""
 "Do you want to make ROX a choice on your login screen (affects all users and "
 "requires the root password), or do you just want to set the session for your "
@@ -557,15 +578,15 @@ msgstr ""
 "Se non si conosce la password di root o se non si usa un gestore grafico "
 "come gdm o kdm, è meglio scegliere «Solo per l'utente»."
 
-#: setup.py:43
+#: setup.py:45
 msgid "Setup for user"
 msgstr "Solo per l'utente"
 
-#: setup.py:44
+#: setup.py:46
 msgid "Add to login"
 msgstr "Aggiungi"
 
-#: setup.py:115
+#: setup.py:122
 msgid ""
 "OK, now logout by your usual method and when you log in again, I should be "
 "your session manager.\n"
@@ -577,7 +598,7 @@ msgstr ""
 "Nota: potrebbe essere necessario selezionare «Default» come tipo di desktop "
 "alla schermata di accesso al sistema."
 
-#: setup.py:129
+#: setup.py:137
 msgid ""
 "I wanted to install a rox.desktop file in your session directory, but I "
 "couldn't find one! I tried these places (defaults for gdm2, at least):\n"
@@ -588,7 +609,7 @@ msgstr ""
 "i predefiniti per gdm2):\n"
 "\n"
 
-#: setup.py:134
+#: setup.py:142
 msgid ""
 "/usr/local/sbin directory is missing! I want to install the rox-session "
 "script there... Please create it and try again."
@@ -596,7 +617,7 @@ msgstr ""
 "Manca la directory «/usr/local/sbin». È necessario installare lo script di "
 "rox-session lì, quindi si deve creare la directory e riprovare."
 
-#: setup.py:152
+#: setup.py:184
 msgid ""
 "OK, now logout by your usual method, and choose ROX from the session menu on "
 "your login screen just after entering your user name (but before entering "
@@ -606,7 +627,7 @@ msgstr ""
 "sessione, dopo aver inserito il nome utente (ma prima di inserire la "
 "password)."
 
-#: setup.py:165
+#: setup.py:201
 msgid ""
 "OK, I don't know what the problem is. Please ask on the rox-users mailing "
 "list. When we know what the problem is, we can add an extra check here to "
@@ -622,7 +643,7 @@ msgstr ""
 "http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
 "(è possibile copiare e incollare l'indirizzo nel browser web)"
 
-#: setup.py:176
+#: setup.py:212
 msgid ""
 "ROX-Session does not appear to be managing your session. Would you like to "
 "set it up now?\n"
@@ -633,27 +654,11 @@ msgstr ""
 "\n"
 "Nel caso si pensi che sia già impostato, cliccare su «Aiuto»."
 
-#: setup.py:181
+#: setup.py:217
 msgid "Set up ROX"
 msgstr "Imposta ROX"
 
-#: setup.py:184
+#: setup.py:220
 msgid "Set up ROX-Session"
 msgstr "Imposta ROX-Session"
-
-#: setup.py:196
-msgid ""
-"Please enter the root password when prompted. I will attempt to create the "
-"files '%s' and '%s'."
-msgstr ""
-"Inserire la password di root quando richiesto. Serve per creare il file «%s» "
-"e «%s»."
-
-#: setup.py:204
-msgid "Error trying to run xterm to ask for the root password."
-msgstr "Errore durante l'esecuzione di xterm per chiedere la password di root"
-
-#: setup.py:206 setup.py:208
-msgid "Failed to create '%s'"
-msgstr "Fallita la creazione di «%s»"
 
