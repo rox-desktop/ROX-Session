@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+06-Sep-2004
+~~~~~~~~~~~
+Use new ROX-Lib system for getting root access (Thomas Leonard).
+[ Note: requires ROX-Lib CVS ]
+
 30-Aug-2004
 ~~~~~~~~~~~
 Added support for changing Xcursor theme and size (Guido Schimmels; code from

@@ -1,5 +1,6 @@
+from __future__ import generators
 import rox
-from rox import g, processes
+from rox import g, processes, su, tasks
 import os
 
 def add_button(dialog, stock_icon, action, response):
@@ -52,14 +53,20 @@ def setup():
 	if resp == 1:
 		setup_home()
 	elif resp == 2:
-		setup_login()
+		tasks.Task(setup_login())
+		rox.toplevel_ref()
+		rox.mainloop()
 
 def create_session_script(path):
 	"""Create login script at 'path' and make it executable."""
 	if os.path.exists(path):
 		if not rox.confirm("File '%s' already exists; overwrite?" % path):
 			raise SystemExit()
-	file(path, 'w').write("""#!/bin/sh
+	file(path, 'w').write(get_session_script())
+	os.chmod(path, 0755)
+
+def get_session_script():
+	return """#!/bin/sh
 # This file was created by ROX-Session.
 
 if [ -d "$HOME/bin" ]; then
@@ -101,8 +108,7 @@ Good luck!
 END
 rox &
 exec xterm
-""" % (rox.app_dir, rox.app_dir, rox.app_dir))
-	os.chmod(path, 0755)
+""" % (rox.app_dir, rox.app_dir, rox.app_dir)
 
 def setup_home():
 	xsession = os.path.expanduser('~/.xsession')
@@ -120,39 +126,73 @@ def setup_home():
 		"login screen."))
 
 def setup_login():
-	session_dirs = ['/etc/X11/sessions', '/etc/dm/Sessions',
-			'/etc/X11/dm/Sessions', '/usr/share/xsessions']
-	for d in session_dirs:
-		if os.path.isdir(d):
-			session_dir = d
-			break
-	else:
-		rox.croak(_('I wanted to install a rox.desktop file in your '
-			"session directory, but I couldn't find one! I tried "
-			"these places (defaults for gdm2, at least):\n\n") +
-			'\n'.join(session_dirs))
-	if not os.path.isdir('/usr/local/sbin'):
-		rox.croak(_('/usr/local/sbin directory is missing! I want to '
-			'install the rox-session script there... Please create it '
-			'and try again.'))
-	import tempfile
-	desktop = tempfile.mktemp('-rox-session')
-	file(desktop, 'w').write("""[Desktop Entry]\n
-Encoding=UTF-8
-Name=ROX
-Comment=This session logs you into the ROX desktop
-Exec=/usr/local/sbin/rox-session
-Type=Application
-""")
-	script = tempfile.mktemp('-rox-session')
-	create_session_script(script)
-	install_as_root(desktop, os.path.join(session_dir, 'rox.desktop'),
-			 script, '/usr/local/sbin/rox-session')
-	os.unlink(desktop)
-	os.unlink(script)
-	rox.info(_("OK, now logout by your usual method, and choose ROX from "
-		"the session menu on your login screen just after entering your "
-		"user name (but before entering your password)."))
+	try:
+		session_dirs = ['/etc/X11/sessions', '/etc/dm/Sessions',
+				'/etc/X11/dm/Sessions', '/usr/share/xsessions']
+		for d in session_dirs:
+			if os.path.isdir(d):
+				session_dir = d
+				break
+		else:
+			rox.croak(_('I wanted to install a rox.desktop file in your '
+				"session directory, but I couldn't find one! I tried "
+				"these places (defaults for gdm2, at least):\n\n") +
+				'\n'.join(session_dirs))
+		if not os.path.isdir('/usr/local/sbin'):
+			rox.croak(_('/usr/local/sbin directory is missing! I want to '
+				'install the rox-session script there... Please create it '
+				'and try again.'))
+
+		desktop_path = os.path.join(session_dir, 'rox.desktop')
+		session_path = '/usr/local/sbin/rox-session'
+
+		proxy = su.create_su_proxy('I need permission to create these files:\n' +
+					   desktop_path + '\n' +
+					   session_path)
+		root = proxy.root
+		
+		q = root.open(desktop_path, 'w')
+		yield q.blocker
+
+		stream = q.dequeue_last()
+		
+		q = root.write(stream, """[Desktop Entry]\n
+	Encoding=UTF-8
+	Name=ROX
+	Comment=This session logs you into the ROX desktop
+	Exec=/usr/local/sbin/rox-session
+	Type=Application
+	""")
+		yield q.blocker
+		q.dequeue_last()
+
+		q = root.close(stream)
+		yield q.blocker
+		q.dequeue_last()
+
+		q = root.open(session_path, 'w')
+		yield q.blocker
+		stream = q.dequeue_last()
+
+		q = root.write(stream, get_session_script())
+		yield q.blocker
+		q.dequeue_last()
+
+		q = root.close(stream)
+		yield q.blocker
+		q.dequeue_last()
+
+		q = root.chmod(session_path, 0755)
+		yield q.blocker
+		q.dequeue_last()
+		
+		rox.info(_("OK, now logout by your usual method, and choose ROX from "
+			"the session menu on your login screen just after entering your "
+			"user name (but before entering your password)."))
+		rox.toplevel_unref()
+	except:
+		rox.toplevel_unref()
+		raise
 
 def troubleshoot():
 	if not rox.confirm("Did you select 'ROX' from the login screen after "
@@ -192,19 +232,3 @@ def setup_with_confirm():
 		setup()
 	elif resp == g.RESPONSE_HELP:
 		troubleshoot()
-
-def install_as_root(d_src, d_dest, s_src, s_dest):
-	rox.info(_('Please enter the root password when prompted. I will '
-		"attempt to create the files '%s' and '%s'.") % (d_dest, s_dest))
-	os.environ['SRC1'] = s_src
-	os.environ['DST1'] = s_dest
-	os.environ['SRC2'] = d_src
-	os.environ['DST2'] = d_dest
-	if os.spawnlp(os.P_WAIT, 'xterm', 'xterm', '-e', 'su', '-c',
-			os.path.join(rox.app_dir, 'install-root.sh')):
-		rox.croak(_("Error trying to run xterm to ask for the root password."))
-	if not os.path.exists(d_dest):
-		rox.croak(_("Failed to create '%s'") % d_dest)
-	if not os.path.exists(s_dest):
-		rox.croak(_("Failed to create '%s'") % s_dest)
-	#rox.info('Please copy %s as %s. Ta' % (src, dest))
