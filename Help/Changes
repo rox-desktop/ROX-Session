@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+25-Feb-2003
+~~~~~~~~~~~
+Added Russian translation (Alexey Lubimov).
+
 13-Feb-2003
 ~~~~~~~~~~~
 Added DnD threshold and GTK theme XSettings. Updated to new Options code
