@@ -22,7 +22,10 @@ OBJECTS = main.o
 
 ############ Things to keep the same
 
-${EXEC}: ${OBJECTS}
+${PLATFORM_DIR}:
+	mkdir ${PLATFORM_DIR}
+
+${EXEC}: ${PLATFORM_DIR} ${OBJECTS}
 	${CC} -o ${EXEC} ${OBJECTS} ${LDFLAGS}
 
 clean:
