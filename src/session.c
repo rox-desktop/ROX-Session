@@ -101,9 +101,10 @@ static void show_session_options(void)
 				"will have no immediate effect...");
 	options_show();
 }
+
 void show_main_window(void)
 {
-	GtkWidget *window, *align, *button, *label, *hbox, *image;
+	GtkWidget *window, *button;
 	
 	window = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
 			 GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
@@ -118,21 +119,8 @@ void show_main_window(void)
 			GTK_STOCK_CANCEL, GTK_RESPONSE_DELETE_EVENT,
 			NULL);
 
-	button = gtk_button_new();
-	label = gtk_label_new_with_mnemonic("_Logout");
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), button);
-
-	image = gtk_image_new_from_stock(GTK_STOCK_QUIT, GTK_ICON_SIZE_BUTTON);
-	hbox = gtk_hbox_new(FALSE, 2);
-
-	align = gtk_alignment_new(0.5, 0.5, 0.0, 0.0);
-
-	gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, FALSE, 0);
-	gtk_box_pack_end(GTK_BOX(hbox), label, FALSE, FALSE, 0);
-
-	gtk_container_add(GTK_CONTAINER(button), align);
-	gtk_container_add(GTK_CONTAINER(align), hbox);
-	gtk_widget_show_all(button);
+	button = button_new_mixed(GTK_STOCK_QUIT, "_Logout");
+	gtk_widget_show(button);
 
 	gtk_dialog_add_action_widget(GTK_DIALOG(window),
 			button, GTK_RESPONSE_YES);

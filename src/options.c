@@ -1,8 +1,8 @@
 /*
  * $Id$
  *
- * ROX-Filer, filer for the ROX desktop project
- * Copyright (C) 2002, the ROX-Filer team.
+ * ROX-Session, a very simple session manager
+ * Copyright (C) 2002, Thomas Leonard, <tal197@users.sourceforge.net>.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -166,12 +166,12 @@ void options_init(void)
 }
 
 /* When parsing the XML file, process an element named 'name' by
- * calling 'builder(ui, xml_node, label)'.
+ * calling 'builder(option, xml_node, label)'.
  * builder returns the new widgets to add to the options box.
  * 'name' should be a static string. Call 'option_check_widget' when
  * the widget's value is modified.
  *
- * Functions to set or get the widget's state can be stored in 'ui'.
+ * Functions to set or get the widget's state can be stored in 'option'.
  * If the option doesn't have a name attribute in Options.xml then
  * ui will be NULL on entry (this is used for buttons).
  */
@@ -496,6 +496,7 @@ static void build_widget(xmlNode *widget, GtkWidget *box)
 
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 1);
 		gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
+		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 		gtk_box_pack_start(GTK_BOX(box), label, FALSE, TRUE, 0);
 		return;
 	}
@@ -620,7 +621,7 @@ static void build_sections(xmlNode *options, GtkWidget *sections_box)
 	}
 }
 
-/* Parse ROX-Filer/Options.xml to create the options window.
+/* Parse <app_dir>/Options.xml to create the options window.
  * Sets the global 'window' variable.
  */
 static void build_options_window(void)
@@ -685,11 +686,11 @@ static GtkWidget *build_frame(void)
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_title(GTK_WINDOW(window), _("ROX-Filer options"));
+	gtk_window_set_title(GTK_WINDOW(window), _("Options"));
 	gtk_signal_connect(GTK_OBJECT(window), "destroy",
 			GTK_SIGNAL_FUNC(options_destroyed), NULL);
 	gtk_container_set_border_width(GTK_CONTAINER(window), 4);
-	gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
+	gtk_window_set_default_size(GTK_WINDOW(window), -1, 300);
 
 	tl_vbox = gtk_vbox_new(FALSE, 4);
 	gtk_container_add(GTK_CONTAINER(window), tl_vbox);
@@ -719,7 +720,7 @@ static GtkWidget *build_frame(void)
 		gtk_box_pack_start(GTK_BOX(hbox), actions, TRUE, TRUE, 0);
 	}
 	
-	button = gtk_button_new_with_label(_("Revert"));
+	button = button_new_mixed(GTK_STOCK_UNDO, "_Revert");
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_box_pack_start(GTK_BOX(actions), button, FALSE, TRUE, 0);
 	gtk_signal_connect(GTK_OBJECT(button), "clicked",
@@ -728,7 +729,7 @@ static GtkWidget *build_frame(void)
 			_("Restore all choices to how they were when the "
 			  "Options box was opened."), NULL);
 
-	button = gtk_button_new_with_label(_("OK"));
+	button = button_new_mixed(GTK_STOCK_APPLY, "_OK");
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_box_pack_start(GTK_BOX(actions), button, FALSE, TRUE, 0);
 	gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
@@ -736,7 +737,7 @@ static GtkWidget *build_frame(void)
 
 	if (save_path)
 	{
-		button = gtk_button_new_with_label(_("Save"));
+		button = gtk_button_new_from_stock(GTK_STOCK_SAVE);
 		gtk_box_pack_start(GTK_BOX(actions), button, FALSE, TRUE, 0);
 		gtk_signal_connect(GTK_OBJECT(button), "clicked",
 			GTK_SIGNAL_FUNC(save_options), NULL);
@@ -955,7 +956,7 @@ static void update_cb(gpointer key, gpointer value, gpointer data)
 	updating_widgets++;
 	
 	if (option->update_widget)
-		option->update_widget(option, option->value);
+		option->update_widget(option);
 
 	updating_widgets--;
 }
@@ -972,39 +973,39 @@ static void update_option_widgets(void)
  * value of the option.
  */
 
-static void update_toggle(Option *option, guchar *value)
+static void update_toggle(Option *option)
 {
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(option->widget),
-			atoi(value));
+			option->int_value);
 }
 
-static void update_entry(Option *option, guchar *value)
+static void update_entry(Option *option)
 {
-	gtk_entry_set_text(GTK_ENTRY(option->widget), value);
+	gtk_entry_set_text(GTK_ENTRY(option->widget), option->value);
 }
 
-static void update_radio_group(Option *option, guchar *value)
+static void update_radio_group(Option *option)
 {
-	radio_group_set_value(GTK_RADIO_BUTTON(option->widget), value);
+	radio_group_set_value(GTK_RADIO_BUTTON(option->widget), option->value);
 }
 
-static void update_slider(Option *option, guchar *value)
+static void update_slider(Option *option)
 {
 	gtk_adjustment_set_value(
 			gtk_range_get_adjustment(GTK_RANGE(option->widget)),
-			atoi(value));
+			option->int_value);
 }
 
-static void update_menu(Option *option, guchar *value)
+static void update_menu(Option *option)
 {
-	option_menu_set(GTK_OPTION_MENU(option->widget), value);
+	option_menu_set(GTK_OPTION_MENU(option->widget), option->value);
 }
 
-static void update_colour(Option *option, guchar *value)
+static void update_colour(Option *option)
 {
 	GdkColor colour;
 
-	gdk_color_parse(value, &colour);
+	gdk_color_parse(option->value, &colour);
 	button_patch_set_colour(option->widget, &colour);
 }
 

@@ -10,6 +10,7 @@
 
 #include <gtk/gtk.h>
 
+GtkWidget *button_new_mixed(char *stock, char *label);
 void report_error(char *message, ...);
 int get_choice(char *title,
 	       char *message,

@@ -39,7 +39,7 @@
 #include "log.h"
 
 #define MARGIN 10
-#define TIME_SHOWN 8	/* Seconds that a message is displayed for */
+#define TIME_SHOWN 5	/* Seconds that a message is displayed for */
 
 static GtkWidget *log_window = NULL;
 static GtkWidget *label = NULL;	/* Contains the log messages */
@@ -102,6 +102,7 @@ void log_init(void)
 		g_warning("fcntl(): %s\n", g_strerror(errno));
 
 	log_window = gtk_window_new(GTK_WINDOW_POPUP);
+	gtk_window_set_resizable(GTK_WINDOW(log_window), FALSE);
 	gtk_widget_set_name(log_window, "log_window");
 	gtk_widget_realize(log_window);
 	gdk_window_set_override_redirect(log_window->window, TRUE);
@@ -198,8 +199,7 @@ static void show(void)
 		gtk_widget_set_uposition(log_window, MARGIN, y);
 		gtk_widget_set_usize(log_window, req.width, req.height);
 		gtk_widget_show(log_window);
-		gdk_window_move_resize(log_window->window, MARGIN, y,
-				req.width, req.height);
+		gdk_window_move(log_window->window, MARGIN, y);
 		gdk_window_raise(log_window->window);
 	}
 	else

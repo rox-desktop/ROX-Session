@@ -50,7 +50,7 @@
 #include "options.h"
 
 #define COPYING								\
-	     N_("Copyright (C) 2000 Thomas Leonard.\n"			\
+	     N_("Copyright (C) 2002 Thomas Leonard.\n"			\
 		"ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"	\
 		"to the extent permitted by law.\n"			\
 		"You may redistribute copies of ROX-Session\n"		\
@@ -275,7 +275,8 @@ int main(int argc, char **argv)
 
 	if (test_mode)
 	{
-		show_main_window();
+		start_window_manager();
+		/* show_main_window(); */
 		/* system("rox -n&"); */
 	}
 	else
@@ -368,7 +369,7 @@ static int become_default_session(void)
 	switch (child)
 	{
 		case -1:
-			report_error(_("fork() failed: giving up!"));
+			report_error(_("fork() failed: %s"), g_strerror(errno));
 			return EXIT_FAILURE;
 		case 0:
 			/* We're the child... */
