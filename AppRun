@@ -27,7 +27,8 @@ DEBUGGER=""
 
 case $1 in
 	--debug) shift ; DEBUGGER=gdb ;;
-	--valgrind) shift ; DEBUGGER=valgrind ;;
+	--valgrind) shift ; DEBUGGER="valgrind --num-callers=8";;
+	--leaks) shift ; DEBUGGER="valgrind --num-callers=8 --leak-check=yes";;
 	--setup) exec $APP_DIR/AutoStart.py ;;
 	--options) dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.Control.ShowOptions > /dev/null; exit 0;;
 	--messages) dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.Control.ShowMessages > /dev/null; exit 0;;
