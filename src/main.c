@@ -301,8 +301,8 @@ static int become_default_session(void)
 
 	if (waitpid(child, &status, 0) != child)
 	{
-		g_error("waitpid(%d) failed: %s\n",
-				child, g_strerror(errno));
+		g_error("waitpid(%ld) failed: %s\n",
+				(long) child, g_strerror(errno));
 	}
 
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
@@ -355,8 +355,8 @@ static void run_login_script(void)
 
 	if (waitpid(child, &status, 0) != child)
 	{
-		error = g_strdup_printf(_("waitpid(%d) failed: %s"),
-					child, g_strerror(errno));
+		error = g_strdup_printf(_("waitpid(%ld) failed: %s"),
+					(long) child, g_strerror(errno));
 	}
 	else if ((!WIFEXITED(status)) || WEXITSTATUS(status) != 0)
 	{
