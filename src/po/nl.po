@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-03 08:48+0200\n"
+"POT-Creation-Date: 2003-10-26 12:35+0000\n"
 "PO-Revision-Date: 2002-12-28 09:12+0100\n"
 "Last-Translator: Jan Wagemakers <janw@easynet.be>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,19 +137,19 @@ msgstr ""
 "Merk op dat je uw instellingen moet bewaren, uitloggen en terug inloggen "
 "alvorens deze nieuwe instellingen volledig effekt zullen hebben."
 
-#: log.c:364
+#: log.c:366
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: schrijven naar stderr mislukt!\n"
 
-#: log.c:388
+#: log.c:390
 msgid "ROX-Session: read(stderr) failed!\n"
 msgstr "ROX-Session: read(stderr) mislukt!\n"
 
-#: log.c:412
+#: log.c:414
 msgid "ROX-Session message log"
 msgstr "ROX-Session berichten log"
 
-#: log.c:466
+#: log.c:468
 msgid "Show message log"
 msgstr "Toon berichten log"
 
@@ -269,7 +269,7 @@ msgstr "Driedubbele klik!!!"
 msgid "Double-click here to test mouse"
 msgstr "Hier dubbel klikken om de muis te testen"
 
-#: session.c:594
+#: session.c:601
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
@@ -277,26 +277,26 @@ msgstr ""
 "ROX-Session beheert XSettings niet, hierdoor zullen aanpassingen geen "
 "onmiddelijk effekt hebben..."
 
-#: session.c:681
+#: session.c:688
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
 msgstr ""
 "ROX-Filer is afgesloten (ge-crashed?). Het is waarschijnlijk het beste om "
 "ROX-Filer te herstarten."
 
-#: session.c:683
+#: session.c:690
 msgid "Do nothing"
 msgstr "Doe niets"
 
-#: session.c:684
+#: session.c:691
 msgid "Run Xterm"
 msgstr "Start Xterm"
 
-#: session.c:685
+#: session.c:692
 msgid "_Restart"
 msgstr "_Herstarten"
 
-#: session.c:711
+#: session.c:718
 #, c-format
 msgid ""
 "Failed to run '%s':\n"
@@ -400,38 +400,43 @@ msgid "Italian"
 msgstr "Italiaans"
 
 #: tips:12
+#, fuzzy
+msgid "Spanish"
+msgstr "Deens"
+
+#: tips:13
 msgid "Japanese"
 msgstr "Japans"
 
-#: tips:13
+#: tips:14
 msgid "Russian"
 msgstr "Russisch"
 
-#: tips:14
+#: tips:15
 msgid "Use the LANG environment variable"
 msgstr "Gebruik de LANG variabele"
 
-#: tips:15
+#: tips:16
 msgid "Display"
 msgstr "Beeld"
 
-#: tips:16
+#: tips:17
 msgid "Text"
 msgstr "Tekst"
 
-#: tips:17
+#: tips:18
 msgid "Default font"
 msgstr "Standaard lettertype"
 
-#: tips:18 tips:19
+#: tips:19 tips:20
 msgid "The font used by Gtk+-2.0 applications"
 msgstr "Het lettertype dat door Gtk+-2.0 programma's gebruikt wordt"
 
-#: tips:20
+#: tips:21
 msgid "Desktop background"
 msgstr "Desktop achtergrond"
 
-#: tips:21 tips:22
+#: tips:22 tips:23
 msgid ""
 "Bring up the menu over the desktop background to set the backdrop image or "
 "change the pinboard options."
@@ -439,27 +444,27 @@ msgstr ""
 "Roep het menu via de desktop achtergrond op om zo de achtergrond afbeelding "
 "of de prikbord opties te veranderen."
 
-#: tips:23
+#: tips:24
 msgid "Theme"
 msgstr "Thema"
 
-#: tips:24
+#: tips:25
 msgid "GTK theme"
 msgstr "GTK thema"
 
-#: tips:25
+#: tips:26
 msgid "Mouse"
 msgstr "Muis"
 
-#: tips:26
+#: tips:27
 msgid "Motion"
 msgstr "Tempo"
 
-#: tips:27
+#: tips:28
 msgid "Acceleration threshold"
 msgstr "Versnellings drempel"
 
-#: tips:28
+#: tips:29
 msgid ""
 "Controls how fast you have to move the pointer before the acceleration "
 "(below) kicks in."
@@ -467,15 +472,15 @@ msgstr ""
 "Bepaalt de snelheid waarmee de muis bewogen moet worden alvorens de "
 "versnelling (zie beneden) intreedt."
 
-#: tips:29
+#: tips:30
 msgid "Acceleration (none)"
 msgstr "Versnelling (geen)"
 
-#: tips:30
+#: tips:31
 msgid "(10x)"
 msgstr "(10x)"
 
-#: tips:31
+#: tips:32
 msgid ""
 "When the pointer is moved quickly more than the threshold number of pixels, "
 "its speed is multiplied by this number."
@@ -483,11 +488,11 @@ msgstr ""
 "Wanneer de muis snel bewogen wordt met een waarde hoger dan de drempel "
 "instelling, dan wordt de snelheid vermenigvuldigd met dit getal."
 
-#: tips:32
+#: tips:33
 msgid "DnD Drag Threshold"
 msgstr "DnD Sleep Drempel"
 
-#: tips:33 tips:34
+#: tips:34 tips:35
 msgid ""
 "Controls how far you have to drag the mouse to start a drag-and-drop "
 "operation.\n"
@@ -497,19 +502,19 @@ msgstr ""
 "operatie gestart wordt.\n"
 "Zet dit hoger indien het slepen per ongeluk gestart wordt."
 
-#: tips:35
+#: tips:36
 msgid "Buttons"
 msgstr "Knoppen"
 
-#: tips:36
+#: tips:37
 msgid "Double-click speed: (fast)"
 msgstr "Dubbele-klik snelheid: (snel)"
 
-#: tips:37 tips:43
+#: tips:38 tips:44
 msgid "(slow)"
 msgstr "(traag)"
 
-#: tips:38
+#: tips:39
 msgid ""
 "Time allowed between the two clicks that make up a double click. Make this "
 "bigger if you have trouble double-clicking fast enough; set it smaller if "
@@ -519,36 +524,36 @@ msgstr ""
 "groter als je moeilijkheden ondervind om snel genoeg te dubbel-klikken; "
 "kleiner als twee enkele-klikken soms als een dubbele klik behandeld worden."
 
-#: tips:39
+#: tips:40
 msgid "Keyboard"
 msgstr "Toetsenbord"
 
-#: tips:40
+#: tips:41
 msgid "Cursor"
 msgstr "Cursor"
 
-#: tips:41
+#: tips:42
 msgid "Blinking cursor"
 msgstr "Knipperende cursor"
 
-#: tips:42
+#: tips:43
 msgid "Speed: (fast)"
 msgstr "Snelheid: (snel)"
 
-#: tips:44 tips:45
+#: tips:45 tips:46
 msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
 msgstr "Snelheid waarmee de tekst cursor knippert (als knipperen aan staat)."
 
-#: tips:46
+#: tips:47
 msgid "Shortcuts"
 msgstr "Afkortingen"
 
-#: tips:47
+#: tips:48
 msgid "Allow keybindings to be changed from menus"
 msgstr ""
 "Sta toe dat toestenbord-bindingen vanuit de menus aangepast kunnen worden"
 
-#: tips:48
+#: tips:49
 msgid ""
 "When this is on, you can set up a short-cut for a menu item by holding to "
 "pointer over the menu item and pressing the key. If off, short-cuts cannot "
@@ -558,7 +563,7 @@ msgstr ""
 "het menu item te gaan staan en de gewenste toets in te drukken. Als dit uit "
 "staat, kunnen afkortingen niet aangepast worden."
 
-#: tips:49 tips:50 tips:51
+#: tips:50 tips:51 tips:52
 msgid ""
 "You can set global shortcuts (which work from any\n"
 "application) by assigning them to icons on a ROX-Filer pinboard or panel."
@@ -566,11 +571,11 @@ msgstr ""
 "Je kan globale afkortingen zetten (die werken vanuit elke toepassing)\n"
 "door ze toe te kennen aan de ikonen op een ROX-Filer prikbord of paneel."
 
-#: tips:52
+#: tips:53
 msgid "Messages"
 msgstr "Berichten"
 
-#: tips:53
+#: tips:54
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
@@ -582,11 +587,11 @@ msgstr ""
 "en elk programma dat het start. Het toont alle berichten die het op deze "
 "manier verzamelt kort op het scherm."
 
-#: tips:54
+#: tips:55
 msgid "On-screen message log"
 msgstr "'Op het scherm' berichten log"
 
-#: tips:55
+#: tips:56
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
@@ -594,23 +599,38 @@ msgstr ""
 "Je kan via muisknop 3 klikken op een foutmelding om over te gaan naar het "
 "log venster, of onderstaande knop gebruiken:"
 
-#: tips:56
+#: tips:57
 msgid "Show messages for:"
 msgstr "Toon berichten gedurende:"
 
-#: tips:57
+#: tips:58
 msgid "seconds"
 msgstr "seconden"
 
-#: tips:58 tips:59 tips:60
+#: tips:59
 msgid "Number of seconds to display each message for"
 msgstr "Aantal seconden dat elk bericht getoond wordt"
 
-#: tips:61 tips:62
+#: tips:60
+msgid "Max area for popup display:"
+msgstr ""
+
+#: tips:61
+msgid "%"
+msgstr ""
+
+#: tips:62 tips:63 tips:64
+msgid ""
+"Normally, messages are shown overlayed on the screen for a few seconds. If "
+"there are a large number of messages (more than this amount of the screen is "
+"covered) then the view switches to the window style."
+msgstr ""
+
+#: tips:65 tips:66
 msgid "Power"
 msgstr "Stroom"
 
-#: tips:63
+#: tips:67
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -623,27 +643,27 @@ msgstr ""
 "commando kan nodig zijn als uw systeem normale gebruikers geen toestemming "
 "geeft om het systeem af te sluiten."
 
-#: tips:64
+#: tips:68
 msgid "Halt command:"
 msgstr "Stop commando:"
 
-#: tips:65
+#: tips:69
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr "Mogelijke stop commando's zijn 'halt' en 'shutdown -t now'"
 
-#: tips:66
+#: tips:70
 msgid "Reboot command:"
 msgstr "Herstart commando:"
 
-#: tips:67
+#: tips:71
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "Mogelijke herstart commando's zijn 'reboot' and 'shutdown -t now -r'"
 
-#: tips:68
+#: tips:72
 msgid "Suspend command:"
 msgstr "Slaap commando:"
 
-#: tips:69 tips:70 tips:71 tips:72
+#: tips:73 tips:74 tips:75 tips:76
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
