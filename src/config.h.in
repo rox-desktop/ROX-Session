@@ -1,7 +1,7 @@
 /* The configure script will auto-generate config.h from config.h.in */
 
 #define PROJECT "ROX-Session"
-#define VERSION "0.1.9"
+#define VERSION "0.1.10"
 
 #undef STDC_HEADERS
 #undef HAVE_GETOPT_LONG
