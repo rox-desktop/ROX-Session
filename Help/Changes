@@ -9,6 +9,7 @@ TODO: Get sawfish's iconize animation to go into the middle of the screen
 ~~~~~~~~~~~
 Using the new XFT font system is now the default (edit ROX-Session/AppRun
 if you want it off).
+Added xfwm and xfwm4 to window manager list.
 
 30-Apr-2002
 ~~~~~~~~~~~
