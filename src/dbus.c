@@ -161,10 +161,16 @@ static DBusHandlerResult message_handler(DBusConnection *connection,
 
 static DBusMessage *session_handler(DBusMessage *message, DBusError *error)
 {
-	if (dbus_message_is_method_call(message, ROX_CONTROL_NS, "ShowOptions")) {
+	if (dbus_message_is_method_call(message, ROX_CONTROL_NS, "ShowOptions"))
+	{
 		if (!dbus_message_get_args(message, error, DBUS_TYPE_INVALID))
 			return NULL;
 		show_session_options();
+		return dbus_message_new_method_return(message);
+	} else if (dbus_message_is_method_call(message, ROX_CONTROL_NS,
+						"LogoutWithoutConfirm"))
+	{
+		gtk_main_quit();
 		return dbus_message_new_method_return(message);
 	}
 
