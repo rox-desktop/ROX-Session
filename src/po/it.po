@@ -1,14 +1,14 @@
 # ROX-Session Italian Translation.
-# Copyright @ 2003 Free Software Foundation, Inc.
-# Current translator: Yuri Bongiorno http://yuri.webhop.org, 2004.
+# Copyright @ 2005 Free Software Foundation, Inc.
+# Current translator: Yuri Bongiorno http://yuri.webhop.org, 2005.
 # 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ROX-Session 0.1.23\n"
+"Project-Id-Version: ROX-Session 0.1.25\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-14 21:43+0200\n"
-"PO-Revision-Date: 2004-07-31 10:47+0200\n"
+"POT-Creation-Date: 2004-11-19 22:03+0100\n"
+"PO-Revision-Date: 2005-02-01 10:47+0200\n"
 "Last-Translator: Yuri Bongiorno http://yuri.webhop.org <>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -116,11 +116,14 @@ msgstr ""
 
 #: dbus.c:362
 msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
-msgstr "Fallita l'apertura di libdbus-1.so.0. Il supporto a D-BUS è disabilitato."
+msgstr ""
+"Fallita l'apertura di libdbus-1.so.0. Il supporto a D-BUS è disabilitato."
 
 #: dbus.c:369
 msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
-msgstr "Fallita l'apertura di libdbus-glib-1.so.0. Il supporto a D-BUS è disabilitato."
+msgstr ""
+"Fallita l'apertura di libdbus-glib-1.so.0. Il supporto a D-BUS è "
+"disabilitato."
 
 #: dbus.c:392
 #, c-format
@@ -223,7 +226,7 @@ msgstr ""
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(salvataggio disabilitato da CHOICESPATH)"
 
-#: options.c:1093 settings.c:411
+#: options.c:1093 settings.c:415
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Errore durante il salvataggio di %s: %s"
@@ -273,7 +276,7 @@ msgstr ""
 "Fallita l'esecuzione di «%s»:\n"
 "%s"
 
-#: settings.c:308
+#: settings.c:312
 #, c-format
 msgid ""
 "Failed to change the cursor theme:\n"
@@ -561,6 +564,7 @@ msgid ""
 msgstr ""
 "Si è tentato di fare un backup del vecchio file «%s», ma il backup («%s») "
 "esiste già.\n"
+"Se si desidera conservarlo, è meglio spostarlo in un luogo sicuro, altrimenti va cancellato."
 
 #: setup.py:37
 msgid ""
@@ -661,4 +665,3 @@ msgstr "Imposta ROX"
 #: setup.py:220
 msgid "Set up ROX-Session"
 msgstr "Imposta ROX-Session"
-
