@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-24 14:13+0100\n"
+"POT-Creation-Date: 2002-06-21 14:47+0100\n"
 "PO-Revision-Date: 2002-04-10 17:59+0100\n"
 "Last-Translator: Christian Storgaard <cybolic@goth.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,11 +82,11 @@ msgstr ""
 "ROX-Session kontrollerer allerede din session - kan ikke kontrollere den to "
 "gange!"
 
-#: main.c:304
+#: main.c:316
 msgid "Would you like to make ROX-Session your session manager?"
 msgstr "Vil du gøre ROX-Session til din session manager?"
 
-#: main.c:323
+#: main.c:335
 #, c-format
 msgid ""
 "Oh dear; it didn't work and I don't know why!\n"
@@ -101,7 +101,7 @@ msgstr ""
 "Sørg for at dine .xsession og .xinitrc filer er OK, raporter derefter "
 "problemet til tal197@users.sourceforge.net - tak"
 
-#: main.c:335
+#: main.c:347
 msgid ""
 "OK, now logout by your usual method and when you log in again, I should be "
 "your session manager.\n"
@@ -111,17 +111,17 @@ msgstr ""
 "gerne være din session manager.\n"
 "Du kan redigere din .xsession fil for at indstille ting..."
 
-#: main.c:358
+#: main.c:370
 #, c-format
 msgid "Your login script (%s) died"
 msgstr "Dit login skript (%s) døde"
 
-#: main.c:361
+#: main.c:373
 #, c-format
 msgid "Your login script (%s) exited with exit status %d"
 msgstr "Dit login skript (%s) afsluttede med slut status %d."
 
-#: main.c:366
+#: main.c:378
 msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
@@ -129,13 +129,22 @@ msgstr ""
 ". Jeg giver dig en xterm så du kan forsøge at løse problemet. Selve ROX-"
 "Session kører dog fint - kør mig en til gang for at logge ud"
 
-#: log.c:277
+#: log.c:311
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: skrivning til stderr mislykkedes!\n"
 
-#: log.c:304
+#: log.c:338
 msgid "ROX-Session: read(stderr) failed!\n"
 msgstr "ROX-Session: read(stderr) mislykkedes!\n"
+
+#: log.c:365
+#, fuzzy
+msgid "ROX-Session message log"
+msgstr "ROX-Session"
+
+#: log.c:419
+msgid "Show message log"
+msgstr ""
 
 #: options.c:825
 msgid "Options"
@@ -179,7 +188,7 @@ msgstr "Ugyldig .gmo oversættelses-fil (for kort): %s"
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr "Ugyldig .gmo oversættelses-fil (GNU magic number ikke fundet): %s"
 
-#: session.c:180
+#: session.c:181
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
@@ -187,7 +196,7 @@ msgstr ""
 "ROX-Session kontrollerer ikke XSettings, så ændringer vil ikke have nogen "
 "åjeblikkelig effekt..."
 
-#: session.c:191
+#: session.c:192
 msgid ""
 "\n"
 "Really logout?\n"
@@ -195,11 +204,11 @@ msgstr ""
 "\n"
 "Vil du virkelig logge ud?\n"
 
-#: session.c:202
+#: session.c:203
 msgid "_Logout"
 msgstr "_Log ud"
 
-#: session.c:250
+#: session.c:251
 #, c-format
 msgid ""
 "Failed to run login script:\n"
@@ -398,7 +407,7 @@ msgstr ""
 msgid "Show messages for:"
 msgstr ""
 
-#: tips:35 tips:36 tips:37 tips:38
+#: tips:35
 msgid "Number of seconds to display each message for"
 msgstr ""
 
@@ -447,9 +456,6 @@ msgstr ""
 
 #~ msgid "Login"
 #~ msgstr "log ind"
-
-#~ msgid "ROX-Session"
-#~ msgstr "ROX-Session"
 
 #~ msgid "exec(%s) failed: %s\n"
 #~ msgstr "exec(%s) mislykkedes: %s\n"

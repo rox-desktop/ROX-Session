@@ -4,7 +4,7 @@
 # Copy this file as <Choices>/ROX-Session/WindowMans before editing it.
 
 sawfish
-sawmill
+kwin
 enlightenment
 wmaker
 icewm
@@ -13,7 +13,7 @@ fluxbox
 metacity
 xfwm4
 xfwm
-kwin
+sawmill
 kwm
 fvwm2
 fvwm

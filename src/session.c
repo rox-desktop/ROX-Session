@@ -195,15 +195,17 @@ void show_main_window(void)
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 
-	gtk_dialog_add_buttons(GTK_DIALOG(window),
-			GTK_STOCK_PREFERENCES, 1,
-			GTK_STOCK_CANCEL, GTK_RESPONSE_DELETE_EVENT,
-			NULL);
+	button = button_new_mixed(GTK_STOCK_PREFERENCES,
+				_("Session _Settings"));
+	gtk_widget_show(button);
+	gtk_dialog_add_action_widget(GTK_DIALOG(window), button, 1);
+
+	gtk_dialog_add_button(GTK_DIALOG(window),
+			GTK_STOCK_CANCEL, GTK_RESPONSE_DELETE_EVENT);
 
 	button = button_new_mixed(GTK_STOCK_QUIT, _("_Logout"));
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_widget_show(button);
-
 	gtk_dialog_add_action_widget(GTK_DIALOG(window),
 			button, GTK_RESPONSE_YES);
 

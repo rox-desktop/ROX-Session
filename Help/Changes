@@ -5,7 +5,18 @@
 TODO: Get sawfish's iconize animation to go into the middle of the screen
       so people stop blaming us for hiding the icons under the panel...
 
-19-Jun-2002
+      makedist to put in subdir...
+
+      WM should be a command, not a program name (krjw).
+
+      Time-stamp log messages
+
+19-Jul-2002
+~~~~~~~~~~~
+Change 'Preferences' to 'Session Settings' in logout box, to make it more
+obvious what it does.
+
+19-Jun-2002 (Release 0.1.16)
 ~~~~~~~~~~~
 Added message window so you can see errors after the popup has hidden itself.
 
