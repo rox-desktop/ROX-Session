@@ -2,13 +2,21 @@
 			A very simple session manager
 			by Thomas Leonard
 
+18-Mar-2001
+~~~~~~~~~~~
+When first loaded, ROX-Session will ask you which window manager you want
+to use. If the window manager you run dies (or is quit), ROX-Session will
+ask again.
+Errors from child processes are copied to standard error, as well as being
+displayed in the log window.
+
 13-Mar-2001
 ~~~~~~~~~~~
 'which' doesn't work on some systems. Try using 'twm' even if we think we
 can't find it (Stephen Watson).
 
 10-Mar-2001 (Release 0.1.11)
-~~~~~~~~~~~ 
+~~~~~~~~~~~
 ROX-Session will now compile automatically the first time it is run.
 
 09-Mar-2001

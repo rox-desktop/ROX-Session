@@ -31,7 +31,8 @@ Please report any bugs to me, <tal197@users.sourceforge.net>.
 
 Instructions
 ~~~~~~~~~~~~
-First, compile ROX-Session, like this (from a directory containing ROX-Session):
+First, compile ROX-Session, like this (from a directory containing
+ROX-Session):
 
 	$ ROX-Session/AppRun --compile
 
@@ -39,10 +40,21 @@ Then, run it, like this (or click on it in a filer window):
 
 	$ ROX-Session/AppRun
 
-ROX-Session will offer to manage your session in future. If you accept, it will
-create suitable .xsession and .xinitrc files for you and ask you to log out.
-When you log in again, ROX-Session will be running.
+ROX-Session will offer to manage your session in future. If you accept, it
+will create suitable .xsession and .xinitrc files for you and ask you to
+log out.  When you log in again, ROX-Session will be running.
 
+The first thing it will do is ask you to choose a window manager. Select
+one from the list provided and click on OK. If the window mananger
+crashes, or you quit it, ROX-Session will ask you to choose again. If your
+preferred window manager isn't on the list then you can enter its name
+manually.
+
+When you want to logout, simply run ROX-Session a second time.
+
+
+Customising
+~~~~~~~~~~~
 To decide what programs to run when you login, ROX-Session tries to run the
 script <Choices>/ROX-Session/Login, where <Choices> is tried as:
 
@@ -54,16 +66,11 @@ until it finds the script. You can override this by setting the CHOICESPATH
 environment variable.
 
 If no script is found then it runs the Login script inside the ROX-Session
-application directory instead. This default script will try to find a
-window manager for you and will then try to load ROX-Filer with a panel
-and a pinboard setup. It will then run all the programs in:
+application directory instead. This default script will try to load
+ROX-Filer with a panel and a pinboard setup. It will then run all the
+programs in:
 	<Choices>/ROX-Session/AutoStart
 
-When you want to logout, simply run ROX-Session a second time.
-
-
-Customising
-~~~~~~~~~~~
 If you want certain programs to be started automatically when you log in:
 
 - Menu click on ROX-Session in a filer window and choose 'Auto Start...'
@@ -114,18 +121,31 @@ ROX-Session has a number of safety measures:
 
 Message display
 ~~~~~~~~~~~~~~~
-Every process has an error stream that it can write to. All processes run by
-the Login script have their standard error output connected to ROX-Session's
-logging system.
+Every process has an error stream that it can write to. All processes run
+by the Login script have their standard error output connected to
+ROX-Session's logging system.
 
-These messages are displayed in a popup window for five seconds.
+These messages are displayed in a popup window for five seconds, as well
+as being copied to ROX-Session's own standard error (where it often ends
+up in the file ~/.xsession-errors).
 
-As well as using this for displaying error messages you can write other things
-to it too, eg...
+As well as using this for displaying error messages you can write other
+things to it too, eg...
 
 Put:
 	echo Loading Netscape... >&2
-in Netscape's AppRun file to get a message letting you know it's loading, etc.
+in Netscape's AppRun file to get a message letting you know it's loading,
+etc.
+
+
+Window manager list
+~~~~~~~~~~~~~~~~~~~
+You can edit the list of window managers that ROX-Session offers by
+copying the ROX-Session/WindowMans file as <Choices>/ROX-Session/WindowMans
+and editing it there.
+
+This is mainly useful if you're a system administrator and you want to
+set the list for all your users.
 
 
 What's a session manager?

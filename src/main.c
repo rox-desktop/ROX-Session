@@ -25,7 +25,6 @@
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
-#include <sys/types.h>
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -41,9 +40,11 @@
 #endif
 
 #include "main.h"
+#include "wm.h"
 #include "log.h"
 #include "gui_support.h"
 #include "choices.h"
+#include "wm.h"
 
 #define COPYING								\
 	     N_("Copyright (C) 2000 Thomas Leonard.\n"			\
@@ -90,7 +91,7 @@ static struct option long_opts[] =
 static GdkAtom rox_session_window;
 static GtkWidget *ipc_window;
 
-static guchar *app_dir;
+guchar *app_dir;
 
 /* The pid of the Login script. -1 if terminated. If this process
  * exits with a non-zero exit status then we assume the session went
@@ -112,7 +113,8 @@ static void run_login_script(void);
 /* This is called as a signal handler */
 static void child_died(int signum)
 {
-	int	child;
+	gboolean notify = FALSE;
+	pid_t	child;
 	int	status;
 
 	/* Find out which children exited and allow them to die */
@@ -121,7 +123,13 @@ static void child_died(int signum)
 		child = waitpid(-1, &status, WNOHANG);
 
 		if (child == 0 || child == -1)
-			return;
+			break;
+
+		if (child == wm_pid)
+		{
+			wm_pid = -2;
+			notify = TRUE;
+		}
 
 		if (child == login_child &&
 			(WIFEXITED(status) == 0 || WEXITSTATUS(status) != 0))
@@ -131,11 +139,17 @@ static void child_died(int signum)
 			 */
 			login_child = -1;
 			login_error = WIFEXITED(status) == 0
-						? -1	/* Signal death */
-						: WEXITSTATUS(status);
-			fcntl(STDERR_FILENO, O_NONBLOCK, TRUE);
-			write(STDERR_FILENO, "\n", 1);
+					? -1	/* Signal death */
+					: WEXITSTATUS(status);
+
+			notify = TRUE;
 		}
+	}
+
+	if (notify)
+	{
+		fcntl(STDERR_FILENO, O_NONBLOCK, TRUE);
+		write(STDERR_FILENO, "\n", 1);
 	}
 }
 
@@ -245,6 +259,8 @@ int main(int argc, char **argv)
 	sigaction(SIGCHLD, &act, NULL);
 
 	log_init();		/* Capture standard error */
+
+	start_window_manager();
 
 	run_login_script();
 

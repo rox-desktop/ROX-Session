@@ -8,19 +8,6 @@
 # then exit. If you want to customise it, first copy it to
 # ~/Choices/ROX-Session/Login and then edit that.
 
-# Load a window manager. Keep trying until we find one that works!
-
-wm=`which sawfish`
-if [ ! -x "$wm" ]; then wm=`which sawmill`; fi
-if [ ! -x "$wm" ]; then wm=`which enlightenment`; fi
-if [ ! -x "$wm" ]; then wm=`which kwm`; fi
-if [ ! -x "$wm" ]; then wm=`which fvwm2`; fi
-if [ ! -x "$wm" ]; then wm=`which fvwm`; fi
-if [ ! -x "$wm" ]; then wm=`which 4Dwm`; fi
-if [ ! -x "$wm" ]; then wm=`which twm`; fi
-if [ ! -x "$wm" ]; then wm=twm; fi
-$wm &
-
 # Load ROX-Filer with a panel and a pinboard set up.
 
 rox -p Default -b Default &

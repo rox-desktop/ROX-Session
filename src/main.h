@@ -9,6 +9,7 @@
 #define _MAIN_H
 
 extern int number_of_windows;
+extern guchar *app_dir;
 
 /* Prototypes */
 int main(int argc, char **argv);

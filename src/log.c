@@ -34,6 +34,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 
+#include "wm.h"
 #include "main.h"
 #include "log.h"
 
@@ -44,6 +45,8 @@ static GtkWidget *log_window = NULL;
 static GtkWidget *da = NULL;
 static gint	 input_tag;
 static gint	 line_width;	/* Chars per line */
+
+static int	real_stderr = -1;
 
 /* Static prototypes */
 static void got_log_data(gpointer data,
@@ -67,6 +70,11 @@ void log_init(void)
 		g_warning("pipe(): %s\n", g_strerror(errno));
 		return;
 	}
+
+	/* Grab a copy of stderr before we replace it.
+	 * We'll duplicate output here if it exists...
+	 */
+	real_stderr = dup(STDERR_FILENO);
 
 	/* Dup the writeable FD to stderr */
 	if (fds[1] != STDERR_FILENO)
@@ -284,6 +292,24 @@ static gboolean expose(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 	return TRUE;
 }
 
+static void write_stderr(guchar *buffer, int len)
+{
+	int	pos = 0, sent;
+
+	while (pos < len)
+	{
+		sent = write(real_stderr, buffer + pos, len - pos);
+		if (sent < 0)
+		{
+			log_msg("ROX-Session: write to stderr failed!\n", -1);
+			close(real_stderr);
+			real_stderr = -1;
+			return;
+		}
+		pos += sent;
+	}
+}
+
 #define BUFFER_SIZE 256
 
 static void got_log_data(gpointer data,
@@ -304,10 +330,18 @@ static void got_log_data(gpointer data,
 		log_msg("ROX-Session: read(stderr) failed!\n", -1);
 	}
 	else
+	{
 		log_msg(buffer, got);
+
+		if (real_stderr != -1)
+			write_stderr(buffer, got);
+	}
 
 	if (error)
 		login_failure(error);
+
+	if (wm_pid == -2)
+		wm_process_died();
 }
 
 static gint log_clicked(GtkWidget *text, GdkEventButton *bev, gpointer data)
