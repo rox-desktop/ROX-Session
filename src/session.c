@@ -29,6 +29,8 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
+#include "global.h"
+
 #include "session.h"
 #include "gui_support.h"
 #include "options.h"

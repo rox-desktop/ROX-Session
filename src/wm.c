@@ -30,6 +30,8 @@
 
 #include <gtk/gtk.h>
 
+#include "global.h"
+
 #include "main.h"
 #include "session.h"
 #include "wm.h"

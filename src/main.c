@@ -37,6 +37,8 @@
 #  include <getopt.h>
 #endif
 
+#include "global.h"
+
 #include "main.h"
 #include "wm.h"
 #include "log.h"
@@ -220,7 +222,7 @@ int main(int argc, char **argv)
 	if (test_mode)
 	{
 		show_main_window();
-		/* system("rox -n&"); */
+		system("rox -n&");
 	}
 
 	gtk_main();

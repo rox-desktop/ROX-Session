@@ -1,17 +1,14 @@
 /*
  * $Id$
  *
- * ROX-Session, a very simple session manager
+ * ROX-Filer, filer for the ROX desktop project
  * By Thomas Leonard, <tal197@users.sourceforge.net>.
  */
 
 #ifndef _OPTIONS_H
 #define _OPTIONS_H
 
-typedef struct _Option Option;
-
 #include <gtk/gtk.h>
-#include <libxml/parser.h>
 
 typedef void OptionNotify(void);
 typedef GList * (*OptionBuildFn)(Option *option, xmlNode *node, guchar *label);

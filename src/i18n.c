@@ -27,6 +27,8 @@
 #include <errno.h>
 #include <string.h>
 
+#include "global.h"
+
 #include "choices.h"
 #include "options.h"
 #include "i18n.h"

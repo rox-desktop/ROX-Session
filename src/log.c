@@ -34,12 +34,16 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 
+#include "global.h"
+
 #include "wm.h"
 #include "main.h"
 #include "log.h"
+#include "options.h"
 
 #define MARGIN 10
-#define TIME_SHOWN 5	/* Seconds that a message is displayed for */
+
+static Option o_time_shown;
 
 static GtkWidget *log_window = NULL;
 static GtkWidget *label = NULL;	/* Contains the log messages */
@@ -70,6 +74,8 @@ void log_init(void)
 {
 
 	int fds[2];
+
+	option_add_int(&o_time_shown, "log_time_shown", 5);
 
 	if (pipe(fds))
 	{
@@ -213,7 +219,7 @@ static gboolean prune(gpointer data)
 	gboolean did_prune = FALSE;
 	time_t	prune_time;
 
-	prune_time = time(NULL) - TIME_SHOWN;
+	prune_time = time(NULL) - o_time_shown.int_value;
 
 	while (chunks)
 	{

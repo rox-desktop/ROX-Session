@@ -60,10 +60,11 @@
  * - All notify callbacks are called. Use the Option->has_changed field
  *   to see what changed.
  *
- * When Save is clicked:
+ * When OK is clicked:
  *
- * - All the options are written to the filesystem and the saver_callbacks are
- *   called.
+ * - If anything changed then:
+ *   - All the options are written to the filesystem
+ *   - The saver_callbacks are called.
  */
 
 #include "config.h"
@@ -75,6 +76,8 @@
 #include <ctype.h>
 #include <gtk/gtk.h>
 #include <libxml/parser.h>
+
+#include "global.h"
 
 #include "choices.h"
 #include "options.h"
@@ -117,8 +120,10 @@ static GList *saver_callbacks = NULL;
 
 static int updating_widgets = 0;	/* Ignore change signals when set */
 
+static GtkWidget *revert_widget = NULL;
+
 /* Static prototypes */
-static void save_options(gpointer unused);
+static void save_options(void);
 static void revert_options(GtkWidget *widget, gpointer data);
 static void build_options_window(void);
 static GtkWidget *build_window_frame(GtkTreeView **tree_view);
@@ -127,6 +132,7 @@ static void button_patch_set_colour(GtkWidget *button, GdkColor *color);
 static void option_add(Option *option, const gchar *key);
 static void set_not_changed(gpointer key, gpointer value, gpointer data);
 static void load_options(xmlDoc *doc);
+static gboolean check_anything_changed(void);
 
 static GList *build_label(Option *option, xmlNode *node, guchar *label);
 static GList *build_spacer(Option *option, xmlNode *node, guchar *label);
@@ -248,6 +254,10 @@ void options_notify(void)
 
 		cb();
 	}
+
+	if (revert_widget)
+		gtk_widget_set_sensitive(revert_widget,
+					 check_anything_changed());
 }
 
 /* Store values used by Revert */
@@ -482,6 +492,7 @@ static void may_add_tip(GtkWidget *widget, xmlNode *element)
 	g_free(tip);
 }
 
+/* Returns zero if attribute is not present */
 static int get_int(xmlNode *node, guchar *attr)
 {
 	guchar *txt;
@@ -749,6 +760,11 @@ static void options_destroyed(GtkWidget *widget, gpointer data)
 		gtk_widget_destroy(GTK_WIDGET(current_csel_box));
 	if (current_fontsel_box)
 		gtk_widget_destroy(GTK_WIDGET(current_fontsel_box));
+
+	revert_widget = NULL;
+
+	if (check_anything_changed())
+		save_options();
 	
 	if (widget == window)
 	{
@@ -853,51 +869,38 @@ static GtkWidget *build_window_frame(GtkTreeView **tree_view)
 				  GTK_BUTTONBOX_END);
 	gtk_box_set_spacing(GTK_BOX(actions), 10);
 
-	save_path = choices_find_path_save("...", PROJECT, FALSE);
-	if (save_path)
-		gtk_box_pack_start(GTK_BOX(tl_vbox), actions, FALSE, TRUE, 0);
-	else
-	{
-		GtkWidget *hbox;
-
-		hbox = gtk_hbox_new(FALSE, 0);
-		gtk_box_pack_start(GTK_BOX(tl_vbox), hbox, FALSE, TRUE, 0);
-		gtk_box_pack_start(GTK_BOX(hbox),
-			gtk_label_new(_("(saving disabled by CHOICESPATH)")),
-			FALSE, FALSE, 0);
-		gtk_box_pack_start(GTK_BOX(hbox), actions, TRUE, TRUE, 0);
-	}
+	gtk_box_pack_start(GTK_BOX(tl_vbox), actions, FALSE, TRUE, 0);
 	
-	button = button_new_mixed(GTK_STOCK_UNDO, _("_Revert"));
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	gtk_box_pack_start(GTK_BOX(actions), button, FALSE, TRUE, 0);
-	g_signal_connect(button, "clicked", G_CALLBACK(revert_options), NULL);
-	gtk_tooltips_set_tip(option_tooltips, button,
+	revert_widget = button_new_mixed(GTK_STOCK_UNDO, _("_Revert"));
+	GTK_WIDGET_SET_FLAGS(revert_widget, GTK_CAN_DEFAULT);
+	gtk_box_pack_start(GTK_BOX(actions), revert_widget, FALSE, TRUE, 0);
+	g_signal_connect(revert_widget, "clicked",
+			 G_CALLBACK(revert_options), NULL);
+	gtk_tooltips_set_tip(option_tooltips, revert_widget,
 			_("Restore all choices to how they were when the "
 			  "Options box was opened."), NULL);
+	gtk_widget_set_sensitive(revert_widget, check_anything_changed());
 
-	button = button_new_mixed(GTK_STOCK_APPLY, _("_OK"));
+	button = gtk_button_new_from_stock(GTK_STOCK_OK);
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_box_pack_start(GTK_BOX(actions), button, FALSE, TRUE, 0);
 	g_signal_connect_swapped(button, "clicked",
 				G_CALLBACK(gtk_widget_destroy), window);
+	gtk_widget_grab_default(button);
+	gtk_widget_grab_focus(button);
 
+	save_path = choices_find_path_save("...", PROJECT, FALSE);
 	if (save_path)
 	{
-		button = gtk_button_new_from_stock(GTK_STOCK_SAVE);
-		gtk_box_pack_start(GTK_BOX(actions), button, FALSE, TRUE, 0);
-		g_signal_connect_swapped(button, "clicked",
-					 G_CALLBACK(save_options), NULL);
-
 		string = g_strdup_printf(_("Choices will be saved as:\n%s"),
 					save_path);
 		gtk_tooltips_set_tip(option_tooltips, button, string, NULL);
-		g_free(save_path);
 		g_free(string);
-		GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-		gtk_widget_grab_default(button);
-		gtk_widget_grab_focus(button);
+		g_free(save_path);
 	}
+	else
+		gtk_tooltips_set_tip(option_tooltips, button,
+				_("(saving disabled by CHOICESPATH)"), NULL);
 
 	if (tree_view)
 		*tree_view = GTK_TREE_VIEW(tv);
@@ -1018,6 +1021,29 @@ static void revert_options(GtkWidget *widget, gpointer data)
 	update_option_widgets();
 }
 
+static void check_changed_cb(gpointer key, gpointer value, gpointer data)
+{
+	Option *option = (Option *) value;
+	gboolean *changed = (gboolean *) data;
+
+	g_return_if_fail(option->backup != NULL);
+
+	if (*changed)
+		return;
+
+	if (strcmp(option->value, option->backup) != 0)
+		*changed = TRUE;
+}
+
+static gboolean check_anything_changed(void)
+{
+	gboolean retval = FALSE;
+	
+	g_hash_table_foreach(option_hash, check_changed_cb, &retval);
+
+	return retval;
+}
+
 static void write_option(gpointer key, gpointer value, gpointer data)
 {
 	xmlNodePtr doc = (xmlNodePtr) data;
@@ -1050,7 +1076,7 @@ static int save_xml_file(xmlDocPtr doc, gchar *filename)
 	return 0;
 }
 
-static void save_options(gpointer unused)
+static void save_options(void)
 {
 	xmlDoc	*doc;
 	GList	*next;
@@ -1058,12 +1084,7 @@ static void save_options(gpointer unused)
 
 	save = choices_find_path_save("Options", PROJECT, TRUE);
 	if (!save)
-	{
-		report_error(_("Could not save options: %s"),
-				_("Choices saving is disabled by "
-					"CHOICESPATH variable"));
-		return;
-	}
+		goto out;
 
 	save_new = g_strconcat(save, ".new", NULL);
 
@@ -1086,6 +1107,7 @@ static void save_options(gpointer unused)
 		cb();
 	}
 
+out:
 	if (window)
 		gtk_widget_destroy(window);
 }
@@ -1183,13 +1205,13 @@ static guchar *read_entry(Option *option)
 
 static guchar *read_numentry(Option *option)
 {
-	return g_strdup_printf("%f",
+	return g_strdup_printf("%d", (int)
 		gtk_spin_button_get_value(GTK_SPIN_BUTTON(option->widget)));
 }
 
 static guchar *read_slider(Option *option)
 {
-	return g_strdup_printf("%f",
+	return g_strdup_printf("%d", (int)
 		gtk_range_get_adjustment(GTK_RANGE(option->widget))->value);
 }
 
@@ -1427,6 +1449,7 @@ static GList *build_numentry(Option *option, xmlNode *node, guchar *label)
 	GtkWidget	*hbox;
 	GtkWidget	*spin;
 	GtkWidget	*label_wid;
+	guchar		*unit;
 	int		min, max, step, width;
 
 	g_return_val_if_fail(option != NULL, NULL);
@@ -1435,6 +1458,7 @@ static GList *build_numentry(Option *option, xmlNode *node, guchar *label)
 	max = get_int(node, "max");
 	step = get_int(node, "step");
 	width = get_int(node, "width");
+	unit = xmlGetProp(node, "unit");
 	
 	hbox = gtk_hbox_new(FALSE, 4);
 
@@ -1451,6 +1475,13 @@ static GList *build_numentry(Option *option, xmlNode *node, guchar *label)
 	gtk_box_pack_start(GTK_BOX(hbox), spin, FALSE, TRUE, 0);
 	may_add_tip(spin, node);
 
+	if (unit)
+	{
+		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_(unit)),
+				FALSE, TRUE, 0);
+		g_free(unit);
+	}
+
 	option->update_widget = update_numentry;
 	option->read_widget = read_numentry;
 	option->widget = spin;
@@ -1466,6 +1497,7 @@ static GList *build_radio_group(Option *option, xmlNode *node, guchar *label)
 	GList		*list = NULL;
 	GtkWidget	*button = NULL;
 	xmlNode		*rn;
+	int		cols;
 
 	g_return_val_if_fail(option != NULL, NULL);
 
@@ -1483,6 +1515,36 @@ static GList *build_radio_group(Option *option, xmlNode *node, guchar *label)
 	option->update_widget = update_radio_group;
 	option->read_widget = read_radio_group;
 	option->widget = button;
+
+	cols = get_int(node, "columns");
+	if (cols > 1)
+	{
+		GtkWidget *table;
+		GList	*next;
+		int	i, n;
+		int	rows;
+
+		n = g_list_length(list);
+		rows = (n + cols - 1) / cols;
+
+		table = gtk_table_new(rows, cols, FALSE);
+
+		i = 0;
+		for (next = list; next; next = next->next)
+		{
+			GtkWidget *button = GTK_WIDGET(next->data);
+			int left = i / rows;
+			int top = i % rows;
+
+			gtk_table_attach_defaults(GTK_TABLE(table), button,
+					left, left + 1, top, top + 1);
+
+			i++;
+		}
+
+		g_list_free(list);
+		list = g_list_prepend(NULL, table);
+	}
 
 	return list;
 }
