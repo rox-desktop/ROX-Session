@@ -74,81 +74,16 @@ static Option mouse_accel_factor;
 
 #define N_SETTINGS (sizeof(settings) / sizeof(*settings))
 
-/* Also called for mouse settings... */
-static void xsettings_changed(void)
-{
-	int i;
+/* Static prototypes */
+static GList *build_mouse_tester(Option *option, xmlNode *node, guchar *label);
+static void child_died(int signum);
+static void terminate_xsettings(void *data);
+static void xsettings_changed(void);
+static void show_session_options(void);
 
-	XChangePointerControl(GDK_DISPLAY(), True, True,
-				mouse_accel_factor.int_value, 10,
-				mouse_accel_threshold.int_value);
-
-	if (!manager)
-		return;
-
-	for (i = 0; i < N_SETTINGS; i++)
-	{
-		if (isdigit(settings[i].default_value[0]))
-			xsettings_manager_set_int(manager,
-					settings[i].name,
-					settings[i].option.int_value);
-		else
-			xsettings_manager_set_string(manager,
-					settings[i].name,
-					settings[i].option.value);
-	}
-
-	xsettings_manager_notify(manager);
-}
-
-static void terminate_xsettings(void *data)
-{
-	g_warning("ROX-Session is no longer the XSETTINGS manager!");
-}
-
-/* This is called as a signal handler.
- * Don't do the waitpid here, because this might get called before
- * the assignment in child = fork() completes!
- */
-static void child_died(int signum)
-{
-	fcntl(STDERR_FILENO, O_NONBLOCK, TRUE);
-	write(STDERR_FILENO, "\n", 1);
-	call_child_died = TRUE;
-}
-
-/* Called from the mainloop sometime after child_died executes */
-void child_died_callback(void)
-{
-	pid_t	child;
-	int	status;
-
-	call_child_died = FALSE;
-
-	/* Find out which children exited and allow them to die */
-	while (1)
-	{
-		child = waitpid(-1, &status, WNOHANG);
-
-		if (child == 0 || child == -1)
-			break;
-
-		if (child == wm_pid)
-		{
-			wm_pid = -1;
-			wm_process_died();
-		}
-
-		if (child == login_child &&
-			(WIFEXITED(status) == 0 || WEXITSTATUS(status) != 0))
-		{
-			login_child = -1;
-			login_failure(WIFEXITED(status) == 0
-					? -1	/* Signal death */
-					: WEXITSTATUS(status));
-		}
-	}
-}
+/****************************************************************
+ *			EXTERNAL INTERFACE			*
+ ****************************************************************/
 
 void session_init(void)
 {
@@ -182,17 +117,44 @@ void session_init(void)
 	option_add_int(&mouse_accel_threshold, "accel_threshold", 10);
 	option_add_int(&mouse_accel_factor, "accel_factor", 20);
 
+	option_register_widget("mouse-tester", build_mouse_tester);
+
 	option_add_notify(xsettings_changed);
 
 	xsettings_changed();
 }
 
-static void show_session_options(void)
+/* Called from the mainloop sometime after child_died executes */
+void child_died_callback(void)
 {
-	if (!manager)
-		report_error(_("ROX-Session not managing XSettings, so changes "
-				"will have no immediate effect..."));
-	options_show();
+	pid_t	child;
+	int	status;
+
+	call_child_died = FALSE;
+
+	/* Find out which children exited and allow them to die */
+	while (1)
+	{
+		child = waitpid(-1, &status, WNOHANG);
+
+		if (child == 0 || child == -1)
+			break;
+
+		if (child == wm_pid)
+		{
+			wm_pid = -1;
+			wm_process_died();
+		}
+
+		if (child == login_child &&
+			(WIFEXITED(status) == 0 || WEXITSTATUS(status) != 0))
+		{
+			login_child = -1;
+			login_failure(WIFEXITED(status) == 0
+					? -1	/* Signal death */
+					: WEXITSTATUS(status));
+		}
+	}
 }
 
 void show_main_window(void)
@@ -278,3 +240,96 @@ void run_login_script(void)
 	else
 		login_child = pid;
 }
+
+/****************************************************************
+ *			INTERNAL FUNCTIONS			*
+ ****************************************************************/
+
+/* Also called for mouse settings... */
+static void xsettings_changed(void)
+{
+	int i;
+
+	XChangePointerControl(GDK_DISPLAY(), True, True,
+				mouse_accel_factor.int_value, 10,
+				mouse_accel_threshold.int_value);
+
+	if (!manager)
+		return;
+
+	for (i = 0; i < N_SETTINGS; i++)
+	{
+		if (isdigit(settings[i].default_value[0]))
+			xsettings_manager_set_int(manager,
+					settings[i].name,
+					settings[i].option.int_value);
+		else
+			xsettings_manager_set_string(manager,
+					settings[i].name,
+					settings[i].option.value);
+	}
+
+	xsettings_manager_notify(manager);
+}
+
+static void terminate_xsettings(void *data)
+{
+	g_warning("ROX-Session is no longer the XSETTINGS manager!");
+}
+
+/* This is called as a signal handler.
+ * Don't do the waitpid here, because this might get called before
+ * the assignment in child = fork() completes!
+ */
+static void child_died(int signum)
+{
+	fcntl(STDERR_FILENO, O_NONBLOCK, TRUE);
+	write(STDERR_FILENO, "\n", 1);
+	call_child_died = TRUE;
+}
+
+static gboolean tester_clicked(GtkBin *button, GdkEventButton *event)
+{
+	GtkLabel *label = GTK_LABEL(button->child);
+
+	if (event->type == GDK_BUTTON_PRESS)
+		gtk_label_set_text(label, _("Single click"));
+	else if (event->type == GDK_2BUTTON_PRESS)
+		gtk_label_set_text(label, _("Double click!"));
+	
+	return 1;
+}
+
+static gboolean reset_tester(GtkBin *button)
+{
+	GtkLabel *label = GTK_LABEL(button->child);
+
+	gtk_label_set_text(label, _("Double-click here to test mouse"));
+	return 0;
+}
+
+static GList *build_mouse_tester(Option *option, xmlNode *node, guchar *label)
+{
+	GtkWidget *widget;
+
+	g_return_val_if_fail(option == NULL, NULL);
+	g_return_val_if_fail(label == NULL, NULL);
+
+	widget = gtk_button_new_with_label("");
+	g_signal_connect(widget, "button-press-event",
+			 G_CALLBACK(tester_clicked), NULL);
+	g_signal_connect(widget, "leave-notify-event",
+			 G_CALLBACK(reset_tester), NULL);
+	reset_tester(GTK_BIN(widget));
+
+	return g_list_prepend(NULL, widget);
+}
+
+static void show_session_options(void)
+{
+	if (!manager)
+		report_error(_("ROX-Session not managing XSettings, so changes "
+				"will have no immediate effect..."));
+	options_show();
+}
+

@@ -38,6 +38,8 @@
 When the pointer is moved quickly more than the threshold number of pixels, its speed is multiplied by this number.
       </slider>
     </frame>
+    <spacer/>
+    <mouse-tester/>
   </section>
   
   <section title='Keyboard'>

@@ -2,6 +2,10 @@
 			A very simple session manager
 			by Thomas Leonard
 
+25-Nov-2002
+~~~~~~~~~~~
+Added widget to test mouse double-click speed (suggested by Tony Houghton).
+
 05-Nov-2002
 ~~~~~~~~~~~
 Added OpenBox to list of window managers.

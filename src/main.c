@@ -100,7 +100,7 @@ static GtkWidget *ipc_window;
 guchar *app_dir;
 
 /* Static prototypes */
-static GdkWindow *get_existing_session();
+static GdkWindow *get_existing_session(void);
 static gboolean get_session(GdkWindow *window, Window *r_xid);
 static void touch(GdkWindow *window);
 static gboolean session_prop_touched(GtkWidget *window,
@@ -233,7 +233,7 @@ int main(int argc, char **argv)
 	return EXIT_SUCCESS;
 }
 
-static GdkWindow *get_existing_session()
+static GdkWindow *get_existing_session(void)
 {
 	Window		xid, xid_confirm;
 	GdkWindow	*window;

@@ -52,12 +52,12 @@ dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_MAKE_SET
 
-dnl Use -Wall if possible
+dnl Use -Wall, etc if possible
 [
 if test "x$GCC" = "xyes"; then
   case " $CFLAGS " in
   *[\ \	]-Wall[\ \	]*) ;;
-  *) CFLAGS="$CFLAGS -Wall" ;;
+  *) CFLAGS="$CFLAGS -Wall -Wstrict-prototypes -Wmissing-prototypes" ;;
   esac
 fi
 ]
