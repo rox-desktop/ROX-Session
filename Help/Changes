@@ -2,7 +2,7 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
-14-Aug-2004
+14-Aug-2004 (Release 0.1.24)
 ~~~~~~~~~~~
 Added support for D-BUS 0.22; 0.20 and 0.21 are still supported (Thomas
 Leonard).
