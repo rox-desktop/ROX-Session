@@ -238,7 +238,10 @@ static void store_backup(gpointer key, gpointer value, gpointer data)
 	option->backup = g_strdup(option->value);
 }
 
-void options_show(void)
+/* Allow the user to edit the options. Returns the window widget (you don't
+ * normally need this). NULL if already open.
+ */
+GtkWidget *options_show(void)
 {
 	if (!option_tooltips)
 		option_tooltips = gtk_tooltips_new();
@@ -250,7 +253,10 @@ void options_show(void)
 	}
 
 	if (window)
-		gtk_widget_destroy(window);
+	{
+		gtk_window_present(GTK_WINDOW(window));
+		return NULL;
+	}
 
 	g_hash_table_foreach(option_hash, store_backup, NULL);
 			
@@ -259,6 +265,8 @@ void options_show(void)
 	update_option_widgets();
 	
 	gtk_widget_show_all(window);
+
+	return window;
 }
 
 /* Initialise and register a new integer option */

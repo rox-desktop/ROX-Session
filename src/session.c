@@ -22,6 +22,8 @@
 #include "config.h"
 
 #include <errno.h>
+#include <sys/wait.h>
+#include <fcntl.h>
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
@@ -29,6 +31,18 @@
 #include "session.h"
 #include "gui_support.h"
 #include "options.h"
+#include "choices.h"
+#include "main.h"
+#include "wm.h"
+
+
+/* The pid of the Login script. -1 if terminated. If this process
+ * exits with a non-zero exit status then we assume the session went
+ * wrong and try to fix it.
+ */
+pid_t		login_child = -1;
+int		login_error = 0;	/* Non-zero => error */
+
 
 /* See http://www.freedesktop.org/standards/xsettings/xsettings.html */
 XSettingsManager *manager = NULL;
@@ -68,9 +82,59 @@ static void terminate_xsettings(void *data)
 	g_warning("ROX-Session is no longer the XSETTINGS manager!");
 }
 
+/* This is called as a signal handler */
+static void child_died(int signum)
+{
+	gboolean notify = FALSE;
+	pid_t	child;
+	int	status;
+
+	/* Find out which children exited and allow them to die */
+	while (1)
+	{
+		child = waitpid(-1, &status, WNOHANG);
+
+		if (child == 0 || child == -1)
+			break;
+
+		if (child == wm_pid)
+		{
+			wm_pid = -2;
+			notify = TRUE;
+		}
+
+		if (child == login_child &&
+			(WIFEXITED(status) == 0 || WEXITSTATUS(status) != 0))
+		{
+			/* Wake up! Use non-blocking I/O in case the pipe is
+			 * already full (if so, we'll catch the flag later).
+			 */
+			login_child = -1;
+			login_error = WIFEXITED(status) == 0
+					? -1	/* Signal death */
+					: WEXITSTATUS(status);
+
+			notify = TRUE;
+		}
+	}
+
+	if (notify)
+	{
+		fcntl(STDERR_FILENO, O_NONBLOCK, TRUE);
+		write(STDERR_FILENO, "\n", 1);
+	}
+}
+
 void session_init(void)
 {
+	struct sigaction	act;
 	int i;
+
+	/* Let child processes die */
+	act.sa_handler = child_died;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_NOCLDSTOP;
+	sigaction(SIGCHLD, &act, NULL);
 
 	if (xsettings_manager_check_running(gdk_display,
 					    DefaultScreen(gdk_display)))
@@ -138,4 +202,36 @@ void show_main_window(void)
 	}
 
 	gtk_widget_destroy(window);
+}
+
+void run_login_script(void)
+{
+	static gboolean logged_in = FALSE;
+	GError	*error = NULL;
+	gchar	*argv[2];
+	gint	pid;
+
+	if (logged_in)
+		return;
+	logged_in = TRUE;
+
+	argv[0] = choices_find_path_load("Login", "ROX-Session");
+	if (!argv[0])
+		argv[0] = g_strconcat(app_dir, "/Login", NULL);
+
+	argv[1] = NULL;
+	g_spawn_async(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD,
+			NULL, NULL, &pid, &error);
+	g_free(argv[0]);
+
+	if (error)
+	{
+		login_child = -1;
+	
+		report_error("Failed to run login script:\n%s", error->message);
+		
+		g_error_free(error);
+	}
+	else
+		login_child = pid;
 }

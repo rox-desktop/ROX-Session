@@ -25,8 +25,6 @@
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
-#include <sys/wait.h>
-#include <fcntl.h>
 #include <errno.h>
 
 #include <gdk/gdkx.h>
@@ -96,13 +94,6 @@ static GtkWidget *ipc_window;
 
 guchar *app_dir;
 
-/* The pid of the Login script. -1 if terminated. If this process
- * exits with a non-zero exit status then we assume the session went
- * wrong and try to fix it.
- */
-static pid_t	login_child = -1;
-int		login_error = 0;	/* Non-zero => error */
-
 /* Static prototypes */
 static GdkWindow *get_existing_session();
 static gboolean get_session(GdkWindow *window, Window *r_xid);
@@ -111,57 +102,12 @@ static gboolean session_prop_touched(GtkWidget *window,
 				     GdkEventProperty *event,
 				     gpointer data);
 static int become_default_session(void);
-static void run_login_script(void);
-
-/* This is called as a signal handler */
-static void child_died(int signum)
-{
-	gboolean notify = FALSE;
-	pid_t	child;
-	int	status;
-
-	/* Find out which children exited and allow them to die */
-	while (1)
-	{
-		child = waitpid(-1, &status, WNOHANG);
-
-		if (child == 0 || child == -1)
-			break;
-
-		if (child == wm_pid)
-		{
-			wm_pid = -2;
-			notify = TRUE;
-		}
-
-		if (child == login_child &&
-			(WIFEXITED(status) == 0 || WEXITSTATUS(status) != 0))
-		{
-			/* Wake up! Use non-blocking I/O in case the pipe is
-			 * already full (if so, we'll catch the flag later).
-			 */
-			login_child = -1;
-			login_error = WIFEXITED(status) == 0
-					? -1	/* Signal death */
-					: WEXITSTATUS(status);
-
-			notify = TRUE;
-		}
-	}
-
-	if (notify)
-	{
-		fcntl(STDERR_FILENO, O_NONBLOCK, TRUE);
-		write(STDERR_FILENO, "\n", 1);
-	}
-}
 
 int main(int argc, char **argv)
 {
 	Window			xwindow;
 	GdkWindow		*window;
 	GdkWindow		*existing_session_window;
-	struct sigaction	act;
 	gboolean		wait_mode = FALSE;
 	gboolean		test_mode = FALSE;
 	guchar			*rc_file;
@@ -263,12 +209,6 @@ int main(int argc, char **argv)
 			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
 			GDK_PROP_MODE_REPLACE, (guchar *) &xwindow, 1);
 
-	/* Let child processes die */
-	act.sa_handler = child_died;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_NOCLDSTOP;
-	sigaction(SIGCHLD, &act, NULL);
-
 	session_init();
 
 	log_init();		/* Capture standard error */
@@ -282,8 +222,6 @@ int main(int argc, char **argv)
 	else
 	{
 		start_window_manager();
-
-		run_login_script();
 	}
 
 	gtk_main();
@@ -355,56 +293,41 @@ static gboolean session_prop_touched(GtkWidget *window,
 
 static int become_default_session(void)
 {
+	char	*argv[3];
 	int	status;
-	pid_t	child;
-	guchar	*path;
+	GError	*error = NULL;
 
 	if (get_choice(PROJECT,
 		_("Would you like to make ROX-Session your session "
-		  "manager?"), 2, _("Yes"), _("No")) != 0)
+		  "manager?"), 2, _("No"), _("Yes")) != 1)
 		return EXIT_SUCCESS;
 
-	child = fork();
+	argv[0] = g_strconcat(app_dir, "/", "MakeDefault.sh", NULL);
+	argv[1] = app_dir;
+	argv[2] = NULL;
 
-	switch (child)
-	{
-		case -1:
-			report_error(_("fork() failed: %s"), g_strerror(errno));
-			return EXIT_FAILURE;
-		case 0:
-			/* We're the child... */
-			path = g_strconcat(app_dir, "/",
-					   "MakeDefault.sh", NULL);
-			execl(path, path, app_dir, NULL);
-			fprintf(stderr, "execl(%s) failed: %s\n", path,
-					g_strerror(errno));
-			fflush(stderr);
-			_exit(1);
-	}
+	g_spawn_sync(NULL, argv, NULL, 0, NULL, NULL,
+				NULL, NULL, &status, &error);
 
-	if (waitpid(child, &status, 0) != child)
-	{
-		g_error("waitpid(%ld) failed: %s\n",
-				(long) child, g_strerror(errno));
-	}
+	g_free(argv[0]);
 
-	if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
-	{
-		report_error( _("OK, now logout by your usual method and when "
-			"you log in again, I should be your session manager.\n"
-			"You can edit your .xsession file to customise "
-			"things..."));
-	}
-	else
+	if (error)
 	{
 		report_error(
 			_("Oh dear; it didn't work and I don't know why!\n"
+			"Error was:\n%s\n"
 			"Make sure your .xsession and .xinitrc files are OK, "
 			"then report the problem to "
-			"tal197@users.sourceforge.net - thanks"));
-
-		return EXIT_FAILURE;
+			"tal197@users.sourceforge.net - thanks"),
+			error->message);
+		g_error_free(error);
+		return EXIT_SUCCESS;
 	}
+
+	report_error(_("OK, now logout by your usual method and when "
+		"you log in again, I should be your session manager.\n"
+		"You can edit your .xsession file to customise "
+		"things..."));
 
 	return EXIT_SUCCESS;
 }
@@ -440,29 +363,3 @@ void login_failure(int error)
 	system("xterm&");
 }
 
-static void run_login_script(void)
-{
-	guchar	*login;
-	guchar	*error = NULL;
-
-	login = choices_find_path_load("Login", "ROX-Session");
-	if (!login)
-		login = g_strconcat(app_dir, "/Login", NULL);
-
-	login_child = fork();
-
-	switch (login_child)
-	{
-		case -1:
-			error = g_strdup(
-				_("fork() failed - can't run Login script!"));
-			break;
-		case 0:
-			execl(login, login, NULL);
-			g_warning("exec(%s) failed: %s\n",
-					login, g_strerror(errno));
-			_exit(1);
-	}
-
-	g_free(login);
-}

@@ -42,6 +42,6 @@ void options_notify(void);
 void option_add_notify(OptionNotify *callback);
 void option_add_saver(OptionNotify *callback);
 
-void options_show(void);
+GtkWidget *options_show(void);
 
 #endif /* _OPTIONS_H */

@@ -18,5 +18,6 @@ extern XSettingsManager *manager;
 /* Prototypes */
 void session_init(void);
 void show_main_window(void);
+void run_login_script(void);
 
 #endif /* _SESSION_H */

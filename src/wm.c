@@ -31,10 +31,13 @@
 #include <gtk/gtk.h>
 
 #include "main.h"
+#include "session.h"
 #include "wm.h"
 #include "choices.h"
 #include "options.h"
 #include "gui_support.h"
+
+#define DEFAULT_WM "sawfish"
 
 pid_t	wm_pid = -1;
 
@@ -45,6 +48,7 @@ static GList *load_wm_list(void);
 static void run_wm(void);
 static GList *start_wm_button(Option *option, xmlNode *node, guchar *label);
 static GList *wm_combo(Option *option, xmlNode *node, guchar *label);
+static void choose_wm(void);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -66,15 +70,26 @@ void wm_process_died(void)
 {
 	wm_pid = -1;
 
-	report_error(_("Your chosen window manager ('%s') crashed (or quit). "
+	report_error(_("Your window manager has crashed (or quit). "
 		       "Please restart it, or choose another window manager."),
 			o_default_wm.value);
-	options_show();
+	choose_wm();
 }
 
 /****************************************************************
  *			INTERNAL FUNCTIONS			*
  ****************************************************************/
+
+static void choose_wm(void)
+{
+	GtkWidget *window;
+	
+	window = options_show();
+
+	if (window)
+		gtk_signal_connect_object(GTK_OBJECT(window), "destroy",
+				GTK_SIGNAL_FUNC(run_login_script), NULL);
+}
 
 static GList *load_wm_list(void)
 {
@@ -120,20 +135,28 @@ static GList *load_wm_list(void)
 	return g_list_reverse(wms);
 }
 
-/* Run this default WM. When it dies, show the WM choices box again. */
+/* Run this default WM. When it dies, show the WM choices box again.
+ * Also runs the login scrip the first time.
+ */
 static void run_wm(void)
 {
 	GError	*error = NULL;
 	gint	pid;
 	char	*argv[2];
 
-	g_return_if_fail(wm_pid == -1);
+	if (wm_pid != -1)
+	{
+		report_error(_("The window manager which ROX-Session "
+				"started for you is still running. Quit it "
+				"before starting a new one."));
+		return;
+	}
 
 	if (!*o_default_wm.value)
 	{
 		report_error(_("No window manager is currently selected.\n"
 			       "Please choose a window manager now."));
-		options_show();
+		choose_wm();
 		return;
 	}
 
@@ -153,15 +176,25 @@ static void run_wm(void)
 
 		g_error_free(error);
 
-		options_show();
+		choose_wm();
 	}
 	else
+	{
 		wm_pid = pid;
+
+		run_login_script();
+	}
 }
 
 static void update_combo(Option *option)
 {
-	gtk_entry_set_text(GTK_ENTRY(option->widget), option->value);
+	if (*option->value)
+		gtk_entry_set_text(GTK_ENTRY(option->widget), option->value);
+	else
+	{
+		gtk_entry_set_text(GTK_ENTRY(option->widget), DEFAULT_WM);
+		option_check_widget(option);
+	}
 }
 
 static guchar *read_combo(Option *option)
