@@ -32,6 +32,9 @@
     <Homepage label="Sitio web"/>
   </About>
   <AppMenu>
+    <Item option='--install'>
+      <Label xml:lang="en">Install...</Label>
+    </Item>
     <Item option='--options'>
       <Label xml:lang="en">Session Settings...</Label>
     </Item>

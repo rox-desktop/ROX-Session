@@ -8,6 +8,11 @@ import os.path
 
 __builtins__._ = rox.i18n.translation(os.path.join(rox.app_dir, 'Messages'))
 
+if len(sys.argv) == 2 and sys.argv[1] == '--install':
+	import setup
+	setup.setup()
+	raise SystemExit()
+
 try:
 	import dbus
 except ImportError:

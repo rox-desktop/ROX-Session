@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$#" = 0 ]; then
+if [ "$#" = 0 -o "x$1" = "x--install" ]; then
   exec `dirname $0`/interactive.py "$@"
 fi
 
