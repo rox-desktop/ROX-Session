@@ -5,10 +5,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ROX-Session 0.1.22\n"
+"Project-Id-Version: ROX-Session 0.1.23\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-20 16:45+0100\n"
-"PO-Revision-Date: 2004-04-23 10:27+0200\n"
+"POT-Creation-Date: 2004-07-31 10:42+0200\n"
+"PO-Revision-Date: 2004-07-31 10:47+0200\n"
 "Last-Translator: Yuri Bongiorno http://yuri.webhop.org <>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,7 @@ msgid ""
 msgstr ""
 "Nota: questo sistema non supporta le opzioni lunghe,\n"
 "è necessario usare quelle corte.\n"
+"\n"
 
 #: main.c:78
 msgid ""
@@ -98,7 +99,7 @@ msgstr ""
 "ROX-Session sia in esecuzione correttamente, lo si esegua di nuovo per "
 "uscire."
 
-#: dbus.c:105
+#: dbus.c:95
 msgid ""
 "ROX-Session lost its connection to the D-BUS session bus.\n"
 "You should save your work and logout as soon as possible (many things won't "
@@ -108,20 +109,12 @@ msgstr ""
 "Salvare i documenti e disconnettersi al più presto possibile (molte cose non "
 "funzionano correttamente senza il bus e questo è l'unico modo di riavviarlo)."
 
-#: dbus.c:303
+#: dbus.c:226
 msgid "ROX-Session is already running. Can't manage your session twice!"
 msgstr ""
 "ROX-Session è già in esecuzione: non si può gestire la sessione due volte."
 
-#: dbus.c:362
-msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
-msgstr ""
-
-#: dbus.c:369
-msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
-msgstr ""
-
-#: dbus.c:392
+#: dbus.c:298
 #, c-format
 msgid ""
 "%s\n"
@@ -136,31 +129,31 @@ msgstr ""
 
 #: dpms.c:35
 msgid "DPMS extension not supported"
-msgstr ""
+msgstr "Estensione DPMS non supportata"
 
 #: dpms.c:40
 msgid "Display not capable of DPMS"
-msgstr ""
+msgstr "Il display non gestisce il DPMS"
 
 #: dpms.c:55
 msgid "DPMS timeout under 10 seconds, rounding up"
-msgstr ""
+msgstr "Il timeout del DPMS è inferiore ai 10 secondi, arrotondo."
 
 #: dpms.c:62
 msgid "Unable to read previous DPMS timeouts"
-msgstr ""
+msgstr "Impossibile leggere i precedenti timeout del DPMS"
 
 #: dpms.c:68
 msgid "Unable to set DPMS timeouts"
-msgstr ""
+msgstr "Impossibile impostare i timeout del DPMS"
 
 #: dpms.c:81
 msgid "Unable to get DPMS state"
-msgstr ""
+msgstr "Impossibile ottenere lo stato del DPMS"
 
 #: dpms.c:87
 msgid "Unable to set DPMS state"
-msgstr ""
+msgstr "Impossibile impostare lo stato del DPMS"
 
 #: i18n.c:38
 msgid ""
@@ -222,7 +215,7 @@ msgstr ""
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(salvataggio disabilitato da CHOICESPATH)"
 
-#: options.c:1093 settings.c:279
+#: options.c:1093 settings.c:240
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Errore durante il salvataggio di %s: %s"
@@ -287,6 +280,8 @@ msgid ""
 "Would you like to quit your current window manager and start the new one "
 "right now?"
 msgstr ""
+"Il window manager predefinito ora è «%s».\n"
+"Uscire adesso dal window manager corrente e caricare quello nuovo?"
 
 #: wm.c:172
 msgid ""
@@ -314,10 +309,14 @@ msgid ""
 "%s\n"
 "You can use the Keyboard configuration application to change the setting."
 msgstr ""
+"Fallita l'impostazione della mappa della tastiera:\n"
+"%s\n"
+"Usare l'applicazione «Keyboard» per cambiare le impostazioni."
+
 
 #: xkb.c:113
 msgid "Failed to set auto repeat rate/interval"
-msgstr ""
+msgstr "Fallita l'impostazione della frequenza di autoripetizione"
 
 #: tips:1
 msgid "Translation"
@@ -341,7 +340,7 @@ msgstr "Inglese (nessuna traduzione)"
 
 #: tips:6
 msgid "French"
-msgstr ""
+msgstr "Francese"
 
 #: tips:7
 msgid "German"
@@ -488,7 +487,7 @@ msgstr ""
 
 #: AutoStart.py:13
 msgid "Symlink any applications you want run on login into this directory"
-msgstr ""
+msgstr "Mettere in questa directory i collegamenti simbolici alle applicazioni che si vogliono eseguire all'accesso al sistema"
 
 #: logout.py:66
 msgid "_Halt"
@@ -658,34 +657,3 @@ msgstr "Errore durante l'esecuzione di xterm per chiedere la password di root"
 msgid "Failed to create '%s'"
 msgstr "Fallita la creazione di «%s»"
 
-#~ msgid ""
-#~ "Error loading window manager list '%s':\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Errore di caricamento dell'elenco «%s» dei window manager:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "No window manager is currently selected.\n"
-#~ "Please choose a window manager now."
-#~ msgstr ""
-#~ "Non è stato selezionato alcun window manager.\n"
-#~ "Sceglierne uno adesso."
-
-#~ msgid "Start window manager"
-#~ msgstr "Avvia il window manager"
-
-#~ msgid "Window manager"
-#~ msgstr "Window manager"
-
-#~ msgid ""
-#~ "The window manager is a program which puts title bars and frames on "
-#~ "windows. It allows you to move windows around, resize them, close them "
-#~ "and so on."
-#~ msgstr ""
-#~ "Il window manager è un programma che disegna sulle finestre le barre dei "
-#~ "titoli e le cornici. Permette di muovere le finestre, di ridimensionarle, "
-#~ "di chiuderle e altro ancora."
-
-#~ msgid "Default window manager"
-#~ msgstr "Window manager predefinito"
