@@ -151,8 +151,8 @@ void session_init(void)
 	if (xsettings_manager_check_running(gdk_display,
 					    DefaultScreen(gdk_display)))
 	{
-		g_warning("An XSETTINGS manager is already running. "
-				"Not taking control of XSETTINGS...");
+		g_printerr("An XSETTINGS manager is already running. "
+				"Not taking control of XSETTINGS...\n");
 	}
 	else
 		manager = xsettings_manager_new(gdk_display,
