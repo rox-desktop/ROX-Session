@@ -12,7 +12,7 @@ blackbox
 openbox
 fluxbox
 metacity
-xfwm4
+xfwm4 --nodaemon
 xfwm
 sawmill
 kwm

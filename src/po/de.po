@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ROX-Session 0.1.18 PREVIEW\n"
-"POT-Creation-Date: 2002-12-04 17:15+0000\n"
+"POT-Creation-Date: 2002-12-29 15:27+0000\n"
 "PO-Revision-Date: 2002-12-04 13:13+0100\n"
 "Last-Translator: Guido Schimmels <guido.schimmels@freenet.de>\n"
 "Language-Team: \n"
@@ -129,6 +129,14 @@ msgstr ""
 ". Ich öffne ihnen ein Terminal zur Reparatur. ROX-Session selber "
 "funktioniert aber - starte mich ein zweites mal zum Abmelden."
 
+#: i18n.c:38
+msgid ""
+"Note that you must save your choices, logout and log back in again before "
+"the new settings will take full effect."
+msgstr ""
+"Beachten Sie, dass geänderte Einstellungen\n"
+"erst nach erneutem Anmelden voll wirksam werden."
+
 #: log.c:361
 msgid "ROX-Session: write to stderr failed!\n"
 msgstr "ROX-Session: Fehler beim Schreiben auf Fehlerausgabe!\n"
@@ -186,31 +194,31 @@ msgid "Invalid .gmo translation file (GNU magic number not found): %s"
 msgstr ""
 "Fehlerhafte .gmo Übersetzungsdatei ('GNU magic number' nicht gefunden): %s"
 
-#: session.c:246
+#: session.c:259
 msgid "_Halt"
 msgstr "_Abschalten"
 
-#: session.c:247
+#: session.c:260
 msgid "Attempting to halt the system..."
 msgstr "Versuche den Rechner runterzufahren..."
 
-#: session.c:249
+#: session.c:262
 msgid "_Reboot"
 msgstr "_Neustart"
 
-#: session.c:250
+#: session.c:263
 msgid "Attempting to restart the system..."
 msgstr "Versuche Rechner neu zu starten..."
 
-#: session.c:252
+#: session.c:265
 msgid "_Sleep"
 msgstr "_Schlafen"
 
-#: session.c:253
+#: session.c:266
 msgid "Attempting to enter suspend mode..."
 msgstr "Versuche in den Schlafmodus zu gelangen..."
 
-#: session.c:257
+#: session.c:270
 msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
@@ -218,15 +226,15 @@ msgstr ""
 "Wirklich abmelden?\n"
 "(nicht gespeicherte Daten gehen verloren)"
 
-#: session.c:267
+#: session.c:280
 msgid "Session Settings"
 msgstr "Sitzungseinstellungen"
 
-#: session.c:274
+#: session.c:287
 msgid "Logout"
 msgstr "Abmelden"
 
-#: session.c:324
+#: session.c:340
 #, c-format
 msgid ""
 "Failed to run login script:\n"
@@ -235,29 +243,56 @@ msgstr ""
 "Anmeldeskript konnte nicht augeführt werden:\n"
 "%s"
 
-#: session.c:385
+#: session.c:401
 msgid "Single click!"
 msgstr "Einfachklick!"
 
-#: session.c:387
+#: session.c:403
 msgid "Double click!!"
 msgstr "Doppelklick!!"
 
-#: session.c:389
+#: session.c:405
 msgid "Triple click!!!"
 msgstr "Dreifachklick!!!"
 
-#: session.c:398
+#: session.c:414
 msgid "Double-click here to test mouse"
 msgstr "Hier doppelklicken um Maus zu testen"
 
-#: session.c:422
+#: session.c:438
 msgid ""
 "ROX-Session not managing XSettings, so changes will have no immediate "
 "effect..."
 msgstr ""
 "ROX-Session verwalten nicht die XSettings, Änderungen zeigen daher nicht "
 "sofort Wirkung..."
+
+#: session.c:514
+msgid ""
+"ROX-Filer has terminated (crashed?).You should probably try to restart it."
+msgstr ""
+
+#: session.c:516
+msgid "Do nothing"
+msgstr ""
+
+#: session.c:517
+msgid "Run Xterm"
+msgstr ""
+
+#: session.c:518
+#, fuzzy
+msgid "_Restart"
+msgstr "_Rückgängig"
+
+#: session.c:543
+#, fuzzy, c-format
+msgid ""
+"Failed to run '%s':\n"
+"%s"
+msgstr ""
+"Anmeldeskript konnte nicht augeführt werden:\n"
+"%s"
 
 #: wm.c:74
 msgid ""
@@ -307,7 +342,7 @@ msgstr ""
 msgid "Start window manager"
 msgstr "Starte Fenstermanager"
 
-#: tips:1
+#: tips:1 tips:3
 msgid "Window manager"
 msgstr "Fenstermanager"
 
@@ -320,83 +355,116 @@ msgstr ""
 "der Fenster zuständig. Er ermöglicht die Fenster zu\n"
 "bewegen, in der Größe zu ändern und zu schliessen."
 
-#: tips:3
+#: tips:4
 msgid "Default window manager"
 msgstr "Vorgewählter Fenstermanager"
 
-#: tips:4
+#: tips:5
 msgid "Translation"
 msgstr "Übersetzung"
 
-#: tips:5
+#: tips:6
 msgid "Language"
 msgstr "Sprache"
 
-#: tips:6
+#: tips:7
 msgid "Danish"
 msgstr "Dänish"
 
-#: tips:7
+#: tips:8
 msgid "Dutch"
 msgstr "Niederländisch"
 
-#: tips:8
+#: tips:9
 msgid "English (no translation)"
 msgstr "Englisch (nicht übersetzen)"
 
-#: tips:9
+#: tips:10
 msgid "German"
 msgstr "Deutsch"
 
-#: tips:10
+#: tips:11
 msgid "Use the LANG environment variable"
 msgstr "Die Systemeinstellung verwenden"
 
-#: tips:11 tips:12
-msgid ""
-"Note that you must save your choices, logout and log back in again before "
-"the new settings will take full effect."
-msgstr ""
-"Beachten Sie, dass geänderte Einstellungen\n"
-"erst nach erneutem Anmelden voll wirksam werden."
-
-#: tips:13
+#: tips:12
 msgid "Display"
 msgstr "Anzeige"
 
-#: tips:14
-msgid "Fonts"
-msgstr "Zeichensätze (Fonts)"
-
-#: tips:15
-msgid ""
-"This setting affects all Gtk+-2 applications, but most other applications "
-"will ignore it."
+#: tips:13
+msgid "Text"
 msgstr ""
-"Diese Einstellungen betreffen alle Gtk+-2 Programme, die meisten anderen "
-"Programme werden sie ignorieren."
 
-#: tips:16
-msgid "Default Gtk font"
+#: tips:14
+#, fuzzy
+msgid "Default font"
 msgstr "Standarzeichensatz für Gtk"
 
-#: tips:17 tips:18 tips:19
-msgid "The font used by Gtk+ applications"
+#: tips:15 tips:16
+#, fuzzy
+msgid "The font used by Gtk+-2.0 applications"
 msgstr "Der Zeichensatz für Gtk+ Programme"
 
-#: tips:20 tips:21
+#: tips:17
+msgid "Desktop background"
+msgstr ""
+
+#: tips:18 tips:19 tips:20
+msgid ""
+"Bring up the menu over the desktop background to set the backdrop image or "
+"change the pinboard options."
+msgstr ""
+
+#: tips:21
 msgid "Mouse"
 msgstr "Maus"
 
 #: tips:22
+#, fuzzy
+msgid "Motion"
+msgstr "Optionen"
+
+#: tips:23
+msgid "Acceleration threshold"
+msgstr "Beschleunigungsgrenze"
+
+#: tips:24
+msgid ""
+"Controls how fast you have to move the pointer before the acceleration "
+"(below) kicks in."
+msgstr ""
+"Regelt, wie schnell die Maus bewegt werden muss, bevor die Beschleunigung "
+"(siehe unten) einsetzt."
+
+#: tips:25
+msgid "Acceleration (none)"
+msgstr "Beschleunigung (keine)"
+
+#: tips:26
+msgid "(10x)"
+msgstr "(10x)"
+
+#: tips:27 tips:28
+msgid ""
+"When the pointer is moved quickly more than the threshold number of pixels, "
+"its speed is multiplied by this number."
+msgstr ""
+"Wenn die Maus schneller bewegt wird als im Grenzwert eingestellt, wird der "
+"Mauszeiger um diesen Wert beschleunigt."
+
+#: tips:29
+msgid "Buttons"
+msgstr ""
+
+#: tips:30
 msgid "Double-click speed: (fast)"
 msgstr "Klickabstand: (kurz)"
 
-#: tips:23 tips:35
+#: tips:31 tips:37
 msgid "(slow)"
 msgstr "(lang)"
 
-#: tips:24
+#: tips:32
 msgid ""
 "Time allowed between the two clicks that make up a double click. Make this "
 "bigger if you have trouble double-clicking fast enough; set it smaller if "
@@ -406,65 +474,37 @@ msgstr ""
 "Sie ihn, wenn Sie zu schnell klicken müssen; verkleinern Sie ihn, wenn "
 "einzelne Klicks gelegentlich als Doppelklick gewertet werden."
 
-#: tips:25
-msgid "Acceleration threshold"
-msgstr "Beschleunigungsgrenze"
-
-#: tips:26
-msgid ""
-"Controls how fast you have to move the pointer before the acceleration "
-"(below) kicks in."
-msgstr ""
-"Regelt, wie schnell die Maus bewegt werden muss, bevor die Beschleunigung "
-"(siehe unten) einsetzt."
-
-#: tips:27
-msgid "Acceleration (none)"
-msgstr "Beschleunigung (keine)"
-
-#: tips:28
-msgid "(10x)"
-msgstr "(10x)"
-
-#: tips:29 tips:30
-msgid ""
-"When the pointer is moved quickly more than the threshold number of pixels, "
-"its speed is multiplied by this number."
-msgstr ""
-"Wenn die Maus schneller bewegt wird als im Grenzwert eingestellt, wird der "
-"Mauszeiger um diesen Wert beschleunigt."
-
-#: tips:31
+#: tips:33
 msgid "Keyboard"
 msgstr "Tastatur"
 
-#: tips:32
+#: tips:34
 msgid "Cursor"
 msgstr "Cursor"
 
-#: tips:33
+#: tips:35
 msgid "Blinking cursor"
 msgstr "Blinkender Cursor"
 
-#: tips:34
+#: tips:36
 msgid "Speed: (fast)"
 msgstr "Geschwindigkeit: (schnell)"
 
-#: tips:36 tips:37
+#: tips:38 tips:39
 msgid "Speed at which the text entry cursor flashes (if flashing is enabled)."
 msgstr ""
 "Geschwindigkeit mit der der Eingabecursor blinkt (wenn Blinken eingeschaltet "
 "ist)."
 
-#: tips:38
+#: tips:40
 msgid "Shortcuts"
 msgstr "Tastaturkürzel"
 
-#: tips:39
+#: tips:41
 msgid "Allow keybindings to be changed from menus"
 msgstr "Menüpunkte dürfen mit eigenen Tasten belegt werden"
 
-#: tips:40
+#: tips:42
 msgid ""
 "When this is on, you can set up a short-cut for a menu item by holding to "
 "pointer over the menu item and pressing the key. If off, short-cuts cannot "
@@ -474,7 +514,7 @@ msgstr ""
 "mit Tasten belegen, indem Sie beim Anwählen eines Menüpunktes die "
 "gewünschten Tasten drücken. "
 
-#: tips:41 tips:42 tips:43
+#: tips:43 tips:44 tips:45
 msgid ""
 "You can set global shortcuts (which work from any\n"
 "application) by assigning them to icons on a ROX-Filer pinboard or panel."
@@ -482,11 +522,11 @@ msgstr ""
 "Definieren Sie allgemeingültige Kürzel (die in allen Programmen\n"
 "funktionieren), durch Zuweisung zu Icons auf Pinwand oder Panel. "
 
-#: tips:44
+#: tips:46
 msgid "Messages"
 msgstr "Meldungen"
 
-#: tips:45
+#: tips:47
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
@@ -498,23 +538,11 @@ msgstr ""
 "Verbindung zum Fehlerkanal her. Es zeigt alle gesammelten Meldungen kurz auf "
 "dem Schirm an."
 
-#: tips:46
+#: tips:48
 msgid "On-screen message log"
 msgstr "Aufzeichung der Bildschirmmeldungen"
 
-#: tips:47
-msgid "Show messages for:"
-msgstr "Zeige Meldungen für:"
-
-#: tips:48
-msgid "seconds"
-msgstr "Sekunden"
-
 #: tips:49
-msgid "Number of seconds to display each message for"
-msgstr "Sekundendauer, für die Meldungen angezeigt werden"
-
-#: tips:50
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
@@ -522,11 +550,23 @@ msgstr ""
 "Sie können zum Aufzeichnungsfenster wechseln, indem Sie über einer Meldung "
 "die 3. Maustaste drücken, oder diesen Schalter betätigen:"
 
-#: tips:51 tips:52
+#: tips:50
+msgid "Show messages for:"
+msgstr "Zeige Meldungen für:"
+
+#: tips:51
+msgid "seconds"
+msgstr "Sekunden"
+
+#: tips:52 tips:53 tips:54
+msgid "Number of seconds to display each message for"
+msgstr "Sekundendauer, für die Meldungen angezeigt werden"
+
+#: tips:55 tips:56
 msgid "Power"
 msgstr "Beenden, Neustarten, Schlafen"
 
-#: tips:53
+#: tips:57
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -538,27 +578,27 @@ msgstr ""
 "oder sudo voranstellen, wenn Ihr System normalen Benutzern das Abschalten "
 "des Systems nicht erlaubt."
 
-#: tips:54
+#: tips:58
 msgid "Halt command:"
 msgstr "Befehl für Beenden:"
 
-#: tips:55
+#: tips:59
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr "Üblicherweise lauten die Befehle 'halt' und 'shutdown -t now'"
 
-#: tips:56
+#: tips:60
 msgid "Reboot command:"
 msgstr "Befehl für Neustart:"
 
-#: tips:57
+#: tips:61
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "Üblicherweise lauten die Befehle 'reboot' und 'shutdown -t now -r'"
 
-#: tips:58
+#: tips:62
 msgid "Suspend command:"
 msgstr "Befehl für Schlafen:"
 
-#: tips:59 tips:60 tips:61 tips:62
+#: tips:63 tips:64 tips:65 tips:66
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
@@ -567,3 +607,13 @@ msgstr ""
 "Wenn Ihr System APM Power Management verwendet, versuchen Sie 'apm -s'. "
 "ACPI- Benutzer können 'xset dpms force off; echo 1 > /proc/acpi/sleep' "
 "versuchen. Sie benötigen einen Kernel mit passendem System einkompiliert."
+
+#~ msgid "Fonts"
+#~ msgstr "Zeichensätze (Fonts)"
+
+#~ msgid ""
+#~ "This setting affects all Gtk+-2 applications, but most other applications "
+#~ "will ignore it."
+#~ msgstr ""
+#~ "Diese Einstellungen betreffen alle Gtk+-2 Programme, die meisten anderen "
+#~ "Programme werden sie ignorieren."
