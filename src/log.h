@@ -11,5 +11,6 @@
 /* Prototypes */
 
 void log_init(void);
+void show_message_log(void);
 
 #endif /* _LOG_H */

@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <signal.h>
 #include <unistd.h>
 #include <errno.h>
@@ -83,7 +84,7 @@
        "\thttp://rox.sourceforge.net\n"					\
        "\nReport bugs to <tal197@users.sourceforge.net>.\n")
 
-#define SHORT_OPS "htvw"
+#define SHORT_OPS "htvwm"
 
 gboolean test_mode = FALSE;
 
@@ -93,11 +94,13 @@ static struct option long_opts[] =
 	{"help", 0, NULL, 'h'},
 	{"version", 0, NULL, 'v'},
 	{"wait", 0, NULL, 'w'},
+	{"messages", 0, NULL, 'm'},
 	{NULL, 0, NULL, 0},
 };
 #endif
 
 static GdkAtom rox_session_window;
+static GdkAtom rox_message_window;
 static GtkWidget *ipc_window;
 
 guchar *app_dir;
@@ -105,7 +108,7 @@ guchar *app_dir;
 /* Static prototypes */
 static GdkWindow *get_existing_session(void);
 static gboolean get_session(GdkWindow *window, Window *r_xid);
-static void touch(GdkWindow *window);
+static void touch(GdkWindow *window, int is_message);
 static gboolean session_prop_touched(GtkWidget *window,
 				     GdkEventProperty *event,
 				     gpointer data);
@@ -117,6 +120,7 @@ int main(int argc, char **argv)
 	GdkWindow		*window;
 	GdkWindow		*existing_session_window;
 	gboolean		wait_mode = FALSE;
+	gboolean		messages = FALSE;
 	guchar			*rc_file;
 
 	app_dir = g_strdup(getenv("APP_DIR"));
@@ -182,6 +186,9 @@ int main(int argc, char **argv)
 			case 'w':
 				wait_mode = TRUE;
 				break;
+			case 'm':
+				messages = TRUE;
+				break;
 			default:
 				fputs(_(USAGE), stderr);
 				return EXIT_FAILURE;
@@ -195,6 +202,8 @@ int main(int argc, char **argv)
 	rox_session_window = gdk_atom_intern(
 			test_mode ? "_ROX_SESSION_TEST"
 				  : "_ROX_SESSION_WINDOW2", FALSE);
+	rox_message_window = gdk_atom_intern("_ROX_SESSION_MESSAGE_WINDOW",
+					     FALSE);
 
 	existing_session_window = get_existing_session();
 	if (existing_session_window)
@@ -208,8 +217,8 @@ int main(int argc, char **argv)
 			return EXIT_FAILURE;
 		}
 
-		/* Tell it to logout  */
-		touch(existing_session_window);
+		/* Get it to respond  */
+		touch(existing_session_window, messages);
 		return EXIT_SUCCESS;
 	}
 
@@ -289,9 +298,10 @@ static gboolean get_session(GdkWindow *window, Window *r_xid)
 	return retval;
 }
 
-static void touch(GdkWindow *window)
+static void touch(GdkWindow *window, int is_message)
 {
-	gdk_property_change(window, rox_session_window,
+	gdk_property_change(window,
+			    is_message? rox_message_window: rox_session_window,
 			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
 			GDK_PROP_MODE_APPEND, "", 0);
 	gdk_flush();
@@ -303,7 +313,8 @@ static gboolean session_prop_touched(GtkWidget *window,
 {
 	static gboolean first_time = TRUE;
 
-	if (event->atom != rox_session_window)
+	if (event->atom != rox_session_window &&
+	    event->atom != rox_message_window)
 		return FALSE;
 
 	if (first_time)
@@ -316,8 +327,12 @@ static gboolean session_prop_touched(GtkWidget *window,
 		return FALSE;
 	}
 
-	show_main_window();
-		
+
+	if(event->atom == rox_message_window)
+		show_message_log();
+	else
+		show_main_window();
+
 	return TRUE;
 }
 

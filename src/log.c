@@ -76,7 +76,7 @@ static void got_log_data(gpointer data,
 static gint log_clicked(GtkWidget *text, GdkEventButton *bev, gpointer data);
 static void log_msg(const gchar *text, gint len);
 static GList *show_log(Option *option, xmlNode *node, guchar *label);
-static void show_message_log(void);
+void show_message_log(void);
 static void log_own_errors(const gchar *log_domain,
 			   GLogLevelFlags log_level,
 			   const gchar *message,
@@ -401,7 +401,7 @@ static void got_log_data(gpointer data,
 		child_died_callback();
 }
 
-static void show_message_log(void)
+void show_message_log(void)
 {
 	GtkWidget *view, *hbox, *bar, *dialog, *frame;
 
