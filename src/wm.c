@@ -117,9 +117,23 @@ static GList *load_wm_list(void)
 		for (i = 0; lines[i]; i++)
 		{
 			gchar *line = lines[i];
+			gchar *path;
+			gchar **argv = NULL;
 			
-			if (line[0] && line[0] != '#')
+			if (line[0] == '\0' || line[0] == '#')
+				continue;
+
+			if (!g_shell_parse_argv(line, NULL, &argv, NULL))
+				continue;
+
+			path = argv[0] ? g_find_program_in_path(argv[0]) : NULL;
+			g_strfreev(argv);
+
+			if (path)
+			{
+				g_free(path);
 				wms = g_list_prepend(wms, g_strdup(line));
+			}
 		}
 
 		g_strfreev(lines);
