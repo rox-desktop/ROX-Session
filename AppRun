@@ -10,6 +10,7 @@ PLATFORM=`uname -s`-`uname -m`
 DEBUGGER=""
 case $1 in
 	--debug) shift ; DEBUGGER=gdb ;;
+	--setup) exec $APP_DIR/Setup ;;
 	--compile)
 		if [ ! -d $APP_DIR/src ] ; then
 			echo "ERROR from $0:" >&2

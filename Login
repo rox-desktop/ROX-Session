@@ -23,3 +23,24 @@ $wm &
 # Load ROX-Filer with a panel and a pinboard set up.
 
 rox -p Default -b Default &
+
+# Run any other stuff the user wants by searching all the
+# Choices/ROX-Session/AutoStart directories...
+
+if [ ! -n "$CHOICESPATH" ]; then
+	CHOICESPATH=${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices
+fi
+IFS=":"
+MYCHOICES=""
+for DIR in $CHOICESPATH; do
+  if [ -n "$DIR" ]; then
+    AS="$DIR/ROX-Session/AutoStart"
+    for PROG in $AS/*; do
+      if [ -d "$PROG" ]; then
+    	  $PROG/AppRun &
+      elif [ -x "$PROG" ]; then
+	$PROG &
+      fi
+    done
+  fi
+done

@@ -2,6 +2,15 @@
 			A very simple session manager
 			by Thomas Leonard
 
+09-Mar-2001
+~~~~~~~~~~~
+The default login script now runs everything it finds in
+`Choices/ROX-Session/AutoStart'. Symlink your applications into here to
+get them starting automatically!
+
+Added an AppMenu with 'Auto start...' which creates and opens the user's
+AutoStart directory.
+
 13-Jan-2001
 ~~~~~~~~~~~
 Bugfix: A extra copy of the error pipe was being passed to child processes,

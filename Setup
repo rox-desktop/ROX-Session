@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# This is called when the user chooses 'Auto start...' from the app menu...
+
+die() {
+	echo "$*" >&2
+	echo "Aborting..." >&2
+	exit 1
+}
+
+# Create the directory if it doesn't exist. Exit if it can't be created.
+endir() {
+	if [ ! -d "$1" ]; then
+		mkdir "$1" || die "Can't create $1 directory!"
+	fi
+}
+
+# Find Choices directory...
+if [ ! -n "$CHOICESPATH" ]; then
+	CHOICESPATH=${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices
+fi
+IFS=":"
+WARN="  *** Warning : CHOICESPATH is set, but empty! ***\n"
+MYCHOICES=""
+for DIR in $CHOICESPATH; do
+  if [ -n "$DIR" ]; then
+    WARN=""
+    if [ ! -n "$MYCHOICES" ]; then
+      MYCHOICES="$DIR"
+    fi
+  fi
+done
+printf "$WARN" >&2
+if [ ! -n "$MYCHOICES" ]; then
+  MYCHOICES="${HOME}/Choices"
+fi
+
+endir "$MYCHOICES"
+endir "$MYCHOICES/ROX-Session"
+endir "$MYCHOICES/ROX-Session/AutoStart"
+
+rox "$MYCHOICES/ROX-Session/AutoStart"
