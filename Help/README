@@ -102,7 +102,7 @@ Halt
 
 Reboot
 	A command to reboot the computer. This can be simple 'reboot' or
-	'shutdown -t now -r'. sudo and xsu may need to be used, as above.
+	'shutdown -t now -r'. sudo or xsu may need to be used, as above.
 
 Suspend
 	A command to put the computer into power saving mode. The default
@@ -209,7 +209,7 @@ Click the left mouse button on the messages to hide them (until the next
 message is produced). Click the right mouse button to open a window showing
 recent messages (new messages appear here instead of being shown directly on
 the screen). You can also open this window by running ROX-Session again and
-using 'Session Settings to show the Options window. There is a 'Show message
+using 'Session Settings' to show the Options window. There is a 'Show message
 log' button in the Messages section.
 
 As well as using this for displaying error messages, you can write other
