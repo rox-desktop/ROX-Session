@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ROX-Session 0.1.20\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-07-21 16:40+0200\n"
-"PO-Revision-Date: 2003-07-21 16:40+0200\n"
+"PO-Revision-Date: 2003-07-27 16:40+0200\n"
 "Last-Translator: Yuri Bongiorno <yuri.bongiorno AT libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -80,7 +80,7 @@ msgstr ""
 
 #: main.c:206
 msgid "ROX-Session is already managing your session - can't manage it twice!"
-msgstr "ROX-Session sta già gestendo la sessione: non può farlo due volte!"
+msgstr "ROX-Session sta già gestendo la sessione: non può farlo due volte."
 
 #: main.c:333
 msgid "Would you like to make ROX-Session your session manager?"
@@ -95,11 +95,11 @@ msgid ""
 "Make sure your .xsession and .xinitrc files are OK, then report the problem "
 "to tal197@users.sourceforge.net - thanks"
 msgstr ""
-"Accidenti, non funziona e il motivo è sconosciuto!\n"
+"Non funziona e il motivo è sconosciuto.\n"
 "L'errore era:\n"
 "%s\n"
 "Assicurarsi che i file .xsession e .xinitrc siano corretti, poi segnalare il "
-"problema a tal197@users.sourceforge.net. Grazie"
+"problema a tal197@users.sourceforge.net."
 
 #: main.c:364
 msgid ""
@@ -108,8 +108,8 @@ msgid ""
 "You can edit your .xsession file to customise things..."
 msgstr ""
 "Uscire adesso con la solita procedura e al prossimo accesso al sistema, ROX-"
-"Session sarà il gestore di sessione predefinito. È possibile modificare ."
-"xsession per personalizzare il tutto..."
+"Session dovrebbe essere il gestore di sessione predefinito. È possibile "
+"modificare .xsession per personalizzare il tutto..."
 
 #: main.c:387
 #, c-format
@@ -127,7 +127,7 @@ msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
 msgstr ""
-". Verrà eseguito un xterm per cercare di risolvere il problema. Sebbene ROX-"
+". Viene ora eseguito un xterm per cercare di risolvere il problema. Sebbene ROX-"
 "Session sia in esecuzione correttamente, lo si esegua nuovamente per uscire."
 
 #: i18n.c:38
@@ -135,16 +135,16 @@ msgid ""
 "Note that you must save your choices, logout and log back in again before "
 "the new settings will take full effect."
 msgstr ""
-"Affinché le nuove impostazioni abbiano effetto, bisogna salvare le "
+"Affinché le nuove impostazioni abbiano effetto, è necessario salvare le "
 "preferenze, uscire e accedere di nuovo al sistema."
 
 #: log.c:364
 msgid "ROX-Session: write to stderr failed!\n"
-msgstr "ROX-Session: scrittura su stderr fallita!\n"
+msgstr "ROX-Session: scrittura su stderr fallita.\n"
 
 #: log.c:388
 msgid "ROX-Session: read(stderr) failed!\n"
-msgstr "ROX-Session: read(stderr) fallita!\n"
+msgstr "ROX-Session: read(stderr) fallita.\n"
 
 #: log.c:412
 msgid "ROX-Session message log"
@@ -183,7 +183,7 @@ msgid ""
 "Choices will be saved as:\n"
 "%s"
 msgstr ""
-"Le preferenze saranno salvate come:\n"
+"Le preferenze vengono salvate come:\n"
 "%s"
 
 #: options.c:920
@@ -235,7 +235,7 @@ msgid ""
 "(unsaved data will be lost)"
 msgstr ""
 "Uscire veramente?\n"
-"(i dati non salvati andranno persi)"
+"(si perdono i dati non salvati)"
 
 #: session.c:300
 msgid "Session Settings"
@@ -256,15 +256,15 @@ msgstr ""
 
 #: session.c:428
 msgid "Single click!"
-msgstr "Singolo clic!"
+msgstr "Singolo clic"
 
 #: session.c:430
 msgid "Double click!!"
-msgstr "Doppio clic!!"
+msgstr "Doppio clic"
 
 #: session.c:432
 msgid "Triple click!!!"
-msgstr "Triplo clic!!!"
+msgstr "Triplo clic"
 
 #: session.c:441
 msgid "Double-click here to test mouse"
@@ -589,7 +589,7 @@ msgid ""
 "display, or use this button:"
 msgstr ""
 "Si deve cliccare con il tasto 3 del mouse sul messaggio di errore per "
-"passare alla finestra di visualizzazione dei log, o premere questo pulsante:"
+"passare alla finestra di visualizzazione dei log o premere questo pulsante:"
 
 #: tips:56
 msgid "Show messages for:"
