@@ -174,7 +174,7 @@ In the .xsession script, before ROX-Session is started, ~/bin is added to
 the front of your PATH (if the ~/bin directory exists).
 
 There are also a couple of lines in ROX-Session/AppRun to turn on anti-aliased
-font support. You may need to comment out these lines to turn support off (if
+font support. You may need to edit these lines to turn support off (if
 it doesn't work on your system, or you want the nasty old font system back).
 
 
