@@ -34,10 +34,8 @@ system "cd ROX-Session/src; autoconf";
 system "mv ROX-Session/* .";
 rmdir "ROX-Session";
 
-system "find -name '.cvsignore' | xargs rm";
-
 chdir "..";
-system "tar czf ROX-Session-$a.$b.$c.tgz rox-$a.$b.$c";
+system "tar czf ROX-Session-$a.$b.$c.tgz ROX-Session-$a.$b.$c";
 system "rm -r ROX-Session-$a.$b.$c";
 
 print "OK, done\n";
