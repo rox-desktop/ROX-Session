@@ -254,14 +254,14 @@ int main(int argc, char **argv)
 	window = ipc_window->window;
 	xwindow = GDK_WINDOW_XWINDOW(window);
 	gdk_property_change(ipc_window->window, rox_session_window,
-			XA_WINDOW, 32, GDK_PROP_MODE_REPLACE,
-			(guchar *) &xwindow, 1);
+			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
+			GDK_PROP_MODE_REPLACE, (guchar *) &xwindow, 1);
 	gtk_widget_add_events(ipc_window, GDK_PROPERTY_CHANGE_MASK);
 	gtk_signal_connect(GTK_OBJECT(ipc_window), "property-notify-event",
 			GTK_SIGNAL_FUNC(session_prop_touched), NULL);
 	gdk_property_change(GDK_ROOT_PARENT(), rox_session_window,
-			XA_WINDOW, 32, GDK_PROP_MODE_REPLACE,
-			(guchar *) &xwindow, 1);
+			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
+			GDK_PROP_MODE_REPLACE, (guchar *) &xwindow, 1);
 
 	/* Let child processes die */
 	act.sa_handler = child_died;
@@ -271,12 +271,15 @@ int main(int argc, char **argv)
 
 	session_init();
 
+	log_init();		/* Capture standard error */
+
 	if (test_mode)
+	{
 		show_main_window();
+		system("rox -n&");
+	}
 	else
 	{
-		log_init();		/* Capture standard error */
-
 		start_window_manager();
 
 		run_login_script();
@@ -314,7 +317,8 @@ static gboolean get_session(GdkWindow *window, Window *r_xid)
 	gint		format, length;
 	gboolean	retval = FALSE;
 	
-	if (gdk_property_get(window, rox_session_window, XA_WINDOW, 0, 4,
+	if (gdk_property_get(window, rox_session_window,
+				gdk_x11_xatom_to_atom(XA_WINDOW), 0, 4,
 			FALSE, NULL, &format, &length, &data) && data)
 	{
 		if (format == 32 && length == 4)
@@ -330,7 +334,8 @@ static gboolean get_session(GdkWindow *window, Window *r_xid)
 
 static void touch(GdkWindow *window)
 {
-	gdk_property_change(window, rox_session_window, XA_WINDOW, 32,
+	gdk_property_change(window, rox_session_window,
+			gdk_x11_xatom_to_atom(XA_WINDOW), 32,
 			GDK_PROP_MODE_APPEND, "", 0);
 }
 

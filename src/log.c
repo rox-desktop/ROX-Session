@@ -39,21 +39,28 @@
 #include "log.h"
 
 #define MARGIN 10
-#define TIME_SHOWN 4	/* Seconds that a message is displayed for */
+#define TIME_SHOWN 8	/* Seconds that a message is displayed for */
 
 static GtkWidget *log_window = NULL;
-static GtkWidget *da = NULL;
+static GtkWidget *label = NULL;	/* Contains the log messages */
 static gint	 input_tag;
-static gint	 line_width;	/* Chars per line */
 
 static int	real_stderr = -1;
+
+/* Concat all the chunks together to get the current message... */
+typedef struct _Chunk Chunk;
+struct _Chunk {
+	time_t time;
+	gchar  *text;
+};
+static GList	*chunks = NULL;
 
 /* Static prototypes */
 static void got_log_data(gpointer data,
 			 gint source,
 			 GdkInputCondition condition);
 static gint log_clicked(GtkWidget *text, GdkEventButton *bev, gpointer data);
-static gboolean expose(GtkWidget *widget, GdkEventExpose *event, gpointer data);
+static void log_msg(guchar *text, gint len);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -61,7 +68,6 @@ static gboolean expose(GtkWidget *widget, GdkEventExpose *event, gpointer data);
 
 void log_init(void)
 {
-	GdkFont	*font;
 
 	int fds[2];
 
@@ -96,24 +102,18 @@ void log_init(void)
 		g_warning("fcntl(): %s\n", g_strerror(errno));
 
 	log_window = gtk_window_new(GTK_WINDOW_POPUP);
+	gtk_widget_set_name(log_window, "log_window");
 	gtk_widget_realize(log_window);
 	gdk_window_set_override_redirect(log_window->window, TRUE);
-
-	/* We could use a GtkText widget, but it seems to be very broken... */
-	da = gtk_drawing_area_new();
-	gtk_widget_add_events(da, GDK_BUTTON_PRESS_MASK);
-	gtk_signal_connect(GTK_OBJECT(da), "button_press_event",
+	gtk_widget_add_events(log_window, GDK_BUTTON_PRESS_MASK);
+	gtk_signal_connect(GTK_OBJECT(log_window), "button_press_event",
 			GTK_SIGNAL_FUNC(log_clicked), NULL);
-	gtk_signal_connect(GTK_OBJECT(da), "expose-event",
-			GTK_SIGNAL_FUNC(expose), NULL);
 
-	gtk_container_add(GTK_CONTAINER(log_window), da);
-
-	gtk_widget_show(da);
-
-	font = da->style->font;
-	line_width = (gdk_screen_width() - 2 * MARGIN) /
-			gdk_string_width(font, "m");	/* Fixed font */
+	label = gtk_label_new(NULL);
+	gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+	gtk_widget_add_events(label, GDK_BUTTON_PRESS_MASK);
+	gtk_container_add(GTK_CONTAINER(log_window), label);
+	gtk_widget_show(label);
 
 	input_tag = gdk_input_add(fds[0], GDK_INPUT_READ, got_log_data, NULL);
 }
@@ -122,33 +122,16 @@ void log_init(void)
  *			INTERNAL FUNCTIONS			*
  ****************************************************************/
 
-/* Keep these three in sync! */
-static GList	*lines = NULL;		/* List of (guchar *) lines of text. */
-static GList	*line_times = NULL;	/* time() of insertion */
-static guint	nlines = 0;
-
-/* Return the data for the first list element and remove the element */
-static gpointer shift(GList **list)
-{
-	GList	*first = *list;
-	gpointer retval;
-
-	*list = g_list_remove_link(first, first);
-
-	retval = first->data;
-	g_list_free(first);
-
-	return retval;
-}
-
+/* Chunks has changed. Update the label (or hide if nothing to show). */
 static void show(void)
 {
 	static gboolean top;
-	GdkFont	*font = da->style->font;
-	int	font_height = font->ascent + font->descent;
 	int	h, y;
+	GString *text;
+	GList	*next;
+	int	last_non_space = -1;
 
-	if (nlines == 0)
+	if (!chunks)
 	{
 		gtk_widget_hide(log_window);
 		return;
@@ -162,58 +145,94 @@ static void show(void)
 		top = 2 * y > h;
 	}
 
-	if (top)
-		y = MARGIN;
+	text = g_string_new(NULL);
+	for (next = chunks; next; next = next->next)
+	{
+		Chunk   *chunk = (Chunk *) next->data;
+
+		g_string_append(text, chunk->text);
+	}
+
+	{
+		gboolean nl = TRUE;
+		int i;
+
+		for (i = 0; i < text->len; i++)
+		{
+			if (text->str[i] == '\n')
+			{
+				if (nl)
+					g_string_erase(text, i, 1);
+				nl = TRUE;
+			}
+			else
+			{
+				last_non_space = i;
+				nl = FALSE;
+			}
+		}
+	}
+
+	g_string_truncate(text, last_non_space + 1);
+
+	gtk_label_set_text(GTK_LABEL(label), text->str);
+
+	g_string_free(text, TRUE);
+
+	if (text->len)
+	{
+		GtkRequisition req;
+		int	max_h;
+
+		gtk_widget_size_request(label, &req);
+		max_h = gdk_screen_height() / 3;
+		req.height = MIN(req.height, max_h);
+
+		if (top)
+			y = MARGIN;
+		else
+			y = h - MARGIN - req.height;
+
+		req.width = gdk_screen_width() - 2 * MARGIN;
+
+		gtk_widget_set_uposition(log_window, MARGIN, y);
+		gtk_widget_set_usize(log_window, req.width, req.height);
+		gtk_widget_show(log_window);
+		gdk_window_move_resize(log_window->window, MARGIN, y,
+				req.width, req.height);
+		gdk_window_raise(log_window->window);
+	}
 	else
-		y = h - MARGIN - nlines * font_height;
-
-	gtk_widget_set_uposition(log_window, MARGIN, y);
-	gdk_window_move_resize(log_window->window, MARGIN, y,
-			gdk_screen_width() - 2 * MARGIN,
-			nlines * font_height);
-	gtk_widget_show(log_window);
-
-	gdk_window_raise(log_window->window);
-
-	expose(da, NULL, NULL);
+		gtk_widget_hide(log_window);
 }
 
 /* Remove old entries */
 static gboolean prune(gpointer data)
 {
 	static  gint prune_timeout = 0;
-
-	GdkFont	*font = da->style->font;
-	int	font_height = font->ascent + font->descent;
 	gboolean did_prune = FALSE;
 	time_t	prune_time;
 
 	prune_time = time(NULL) - TIME_SHOWN;
 
-	while (nlines)
+	while (chunks)
 	{
-		if (nlines * font_height < gdk_screen_height() / 3)
-		{
-			time_t	*then = (time_t *) line_times->data;
-			
-			if (*then > prune_time)
-				break;
-		}
-			
-		nlines--;
-		g_free(shift(&lines));
-		g_free(shift(&line_times));
+		Chunk *first = (Chunk *) chunks->data;
+
+		if (first->time > prune_time)
+			break;		/* Still want to show this */
+
+		chunks = g_list_remove(chunks, first);
+		g_free(first->text);
+		g_free(first);
 
 		did_prune = TRUE;
 	}
 
 	if (did_prune)
-	{
-		gdk_window_clear(da->window);
 		show();
-	}
 
-	if (nlines)
+	if (chunks)
 	{
 		if (prune_timeout)
 			gtk_timeout_remove(prune_timeout);
@@ -225,71 +244,19 @@ static gboolean prune(gpointer data)
 
 static void log_msg(guchar *text, gint len)
 {
-	static GString *buffer = NULL;
-	gboolean added = FALSE;
-	gchar	*nl;
-	time_t	now;
+	Chunk   *new;
 
-	time(&now);
-
-	if (!buffer)
-		buffer = g_string_new(NULL);
-	
 	if (len < 0)
-		g_string_append(buffer, text);
-	else
-	{
-		guchar	*tmp;
+		len = strlen(text);
 
-		tmp = g_strndup(text, len);
-		g_string_append(buffer, tmp);
-		g_free(tmp);
-	}
+	new = g_new(Chunk, 1);
 
-	while ((nl = strchr(buffer->str, '\n')) || buffer->len >= line_width)
-	{
-		/* Are we breaking on a \n or on line_width? */
-		gboolean got_nl = nl && nl - buffer->str <= line_width;
-		int	len = got_nl ? nl - buffer->str : line_width;
+	time(&new->time);
+	new->text = g_strndup(text, len);
+	chunks = g_list_append(chunks, new);
 
-		if (len > 0)
-		{
-			added = TRUE;
-			lines = g_list_append(lines,
-					g_strndup(buffer->str, len));
-			line_times = g_list_append(line_times,
-					g_memdup(&now, sizeof(now)));
-			nlines++;
-		}
-
-		g_string_erase(buffer, 0, got_nl ? len + 1 : len);
-	}
-
-	if (added)
-	{
-		prune(NULL);
-		show();
-	}
-}
-
-static gboolean expose(GtkWidget *widget, GdkEventExpose *event, gpointer data)
-{
-	GdkFont	*font = widget->style->font;
-	GdkWindow *win = widget->window;
-	GdkGC	*gc = widget->style->fg_gc[GTK_STATE_NORMAL];
-	GList	*next;
-	int	y = font->ascent;
-
-	for (next = lines; next; next = next->next)
-	{
-		guchar	*line = (guchar *) next->data;
-
-		gdk_draw_string(win, font, gc, 0, y, line);
-
-		y += font->ascent + font->descent;
-	}
-
-	return TRUE;
+	prune(NULL);
+	show();
 }
 
 static void write_stderr(guchar *buffer, int len)

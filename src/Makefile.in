@@ -1,17 +1,13 @@
-GTK_CFLAGS = @GTK_CFLAGS@
-GTK_LIBS = @GTK_LIBS@
-XML_CONFIG = @XML_CONFIG@
 SHELL = @SHELL@
 srcdir = @srcdir@
 PLATFORM = @with_platform@
 PLATFORM_DIR = ../${PLATFORM}
-LIBS = @LIBS@ `@{XML_CONFIG} --libs`
 .SUFFIXES:
 .SUFFIXES: .c .o
 
 CC = @CC@
-CFLAGS = @CFLAGS@ `${GTK_CFLAGS}` `${XML_CONFIG} --cflags` -I.
-LDFLAGS = @LDFLAGS@ `${GTK_LIBS}` `${XML_CONFIG} --libs`
+CFLAGS = @CFLAGS@ `pkg-config --cflags gtk+-2.0 libxml-2.0` -I.
+LDFLAGS = @LDFLAGS@ `pkg-config --libs gtk+-2.0 libxml-2.0` -I.
 EXEC = ${PLATFORM_DIR}/${PROG}
 
 ############ Things to change for different programs

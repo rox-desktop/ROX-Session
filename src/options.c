@@ -68,7 +68,6 @@
 #include <errno.h>
 #include <ctype.h>
 #include <gtk/gtk.h>
-#include <parser.h>
 
 #include "gui_support.h"
 #include "choices.h"
@@ -710,7 +709,7 @@ static GtkWidget *build_frame(void)
 	GtkWidget	*actions, *button;
 	char		*string, *save_path;
 
-	window = gtk_window_new(GTK_WINDOW_DIALOG);
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_title(GTK_WINDOW(window), _("ROX-Filer options"));

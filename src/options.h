@@ -9,7 +9,7 @@
 #define _OPTIONS_H
 
 #include <gtk/gtk.h>
-#include <parser.h>
+#include <libxml/parser.h>
 
 typedef void OptionChanged(guchar *new_value); /* (also connect_object cb) */
 typedef void OptionNotify(void);

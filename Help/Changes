@@ -5,12 +5,16 @@
 TODO: Get sawfish's iconize animation to go into the middle of the screen
       so people stop blaming us for hiding the icons under the panel...
 
-20-Feb-2001
+01-Mar-2002
+~~~~~~~~~~~
+Changed over to Gtk+-2.0.
+
+20-Feb-2002
 ~~~~~~~~~~~
 Added instructions on using ROX-Session with gdm.
 XSETTINGS now supports the Gtk/CanChangeAccels setting (requires Gtk patch).
 
-03-Feb-2001
+03-Feb-2002
 ~~~~~~~~~~~
 Started adding support for XSETTINGS protocol.
 

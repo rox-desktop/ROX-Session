@@ -114,7 +114,7 @@ static void choose_wm(void)
 	if (choice_box)
 		gtk_widget_destroy(choice_box);
 
-	choice_box = gtk_window_new(GTK_WINDOW_DIALOG);
+	choice_box = gtk_window_new(GTK_WINDOW_TOPLEVEL);	/* XXX */
 	gtk_container_set_border_width(GTK_CONTAINER(choice_box), 10);
 	gtk_window_set_position(GTK_WINDOW(choice_box), GTK_WIN_POS_CENTER);
 

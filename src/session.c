@@ -134,7 +134,8 @@ void show_main_window(void)
 	gtk_signal_connect(GTK_OBJECT(button), "clicked",
 				GTK_SIGNAL_FUNC(options_show), NULL);
 	gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-				gtk_widget_destroy, GTK_OBJECT(window));
+				GTK_SIGNAL_FUNC(gtk_widget_destroy),
+				GTK_OBJECT(window));
 
 	
 	action_area = gtk_hbutton_box_new();
@@ -147,7 +148,8 @@ void show_main_window(void)
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_box_pack_end(GTK_BOX(action_area), button, FALSE, TRUE, 0);
 	gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-				gtk_widget_destroy, GTK_OBJECT(window));
+				GTK_SIGNAL_FUNC(gtk_widget_destroy),
+				GTK_OBJECT(window));
 
 	button = gtk_button_new_with_label("Logout");
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
