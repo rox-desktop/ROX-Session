@@ -5,7 +5,7 @@
   <Summary xml:lang="fr">Montre l'utilisation de la mémoire et des disques avec des diagrammes à barres</Summary>
   <About>
     <Purpose>Session Manager</Purpose>
-    <Version>0.1.18 (14-Dec-2002)</Version>
+    <Version>0.1.19 (17-Apr-2003)</Version>
     <Author>Thomas Leonard</Author>
     <License>GNU General Public License</License>
     <Homepage>http://rox.sourceforge.net</Homepage>

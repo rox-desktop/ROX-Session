@@ -125,9 +125,8 @@ until it finds the script. You can override this by setting the CHOICESPATH
 environment variable.
 
 If no script is found then it runs the Login script inside the ROX-Session
-application directory instead. This default script will try to load
-ROX-Filer with a panel and a pinboard set up. It will then run all the
-programs in:
+application directory instead. The default script will run all the programs in:
+
 	<Choices>/ROX-Session/AutoStart
 
 If you want certain programs to be started automatically when you log in:
@@ -142,6 +141,11 @@ If you want certain programs to be started automatically when you log in:
 
 If you need even more control, copy the Login file from inside ROX-Session's
 application directory into Choices/ROX-Session and edit it there.
+
+There is also a RunROX script which works in a similar way, but runs
+ROX-Filer with a panel and a pinboard set up. Unlike Login, this script should
+not exit. If it does, ROX-Session will offer to run it again. You can move
+this into Choices/ROX-Session to customise it, as with Login.
 
 The SetupPanel script is used to create a default panel if none is set up. You
 shouldn't need to edit this, since for a single user it's easier to modify the
@@ -176,6 +180,11 @@ the front of your PATH (if the ~/bin directory exists).
 There are also a couple of lines in ROX-Session/AppRun to turn on anti-aliased
 font support. You may need to edit these lines to turn support off (if
 it doesn't work on your system, or you want the nasty old font system back).
+
+Note: In GTK+-2.2, the new font system became the default. In GTK-2.4 it
+is likely that the old font system will no longer be available. Therefore,
+it would be better to fix any problems with the new font system now rather
+than just use the old one.
 
 
 Errors
