@@ -11,6 +11,11 @@ TODO: Get sawfish's iconize animation to go into the middle of the screen
 
       Time-stamp log messages
 
+22-Jul-2002
+~~~~~~~~~~~
+Send errors from ROX-Session itself to stdout, rather than trying to display
+them in the window and possibly deadlocking (reported by krjw).
+
 19-Jul-2002
 ~~~~~~~~~~~
 Change 'Preferences' to 'Session Settings' in logout box, to make it more

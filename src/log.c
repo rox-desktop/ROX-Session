@@ -74,6 +74,10 @@ static void got_log_data(gpointer data,
 static gint log_clicked(GtkWidget *text, GdkEventButton *bev, gpointer data);
 static void log_msg(const gchar *text, gint len);
 static GList *show_log(Option *option, xmlNode *node, guchar *label);
+static void log_own_errors(const gchar *log_domain,
+			   GLogLevelFlags log_level,
+			   const gchar *message,
+			   gpointer user_data);
 
 /****************************************************************
  *			EXTERNAL INTERFACE			*
@@ -95,6 +99,16 @@ void log_init(void)
 		g_warning("pipe(): %s\n", g_strerror(errno));
 		return;
 	}
+
+	/* Since writing to stderr will block until we're ready to
+	 * read it, it's a good idea to get our own errors some other
+	 * way (ROX-Session may deadlock due because it can't write the
+	 * error until it's ready to read previous errors, and can't read
+	 * previous errors until it's written the new one).
+	 * Pango likes to spew errors if it can't find its fonts...
+	 */
+	g_log_set_handler("", G_LOG_LEVEL_WARNING | G_LOG_FLAG_FATAL
+                     | G_LOG_FLAG_RECURSION, log_own_errors, NULL);
 
 	/* Grab a copy of stderr before we replace it.
 	 * We'll duplicate output here if it exists...
@@ -297,6 +311,14 @@ static void log_msg(const gchar *text, gint len)
 
 	prune(NULL);
 	show();
+}
+
+static void log_own_errors(const gchar *log_domain,
+			   GLogLevelFlags log_level,
+			   const gchar *message,
+			   gpointer user_data)
+{
+	g_print("%s\n", message);
 }
 
 static void write_stderr(guchar *buffer, int len)
