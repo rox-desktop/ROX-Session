@@ -20,27 +20,39 @@
   </section>
 
   <section title='Display'>
-    <label help='1'>This setting affects all Gtk+-2 applications, but many applications will ignore it.</label>
-    <font name='Gtk/FontName' label='Default Gtk font'>The font used by Gtk+ applications</font>
+    <frame label='Fonts'>
+      <label help='1'>This setting affects all Gtk+-2 applications, but most other applications will ignore it.</label>
+      <font name='Gtk/FontName' label='Default Gtk font'>The font used by Gtk+ applications</font>
+    </frame>
   </section>
 
   <section title='Mouse'>
-    <slider name='Net/DoubleClickTime' label='Double-click speed: (fast)' end='(slow)'
+    <frame label='Mouse'>
+      <slider name='Net/DoubleClickTime' label='Double-click speed: (fast)' end='(slow)'
 	    min='100' max='2000'>Time allowed between the two clicks that make up a double click. Make this bigger if you have trouble double-clicking fast enough; set it smaller if two single-clicks sometimes get treated as a double click.
-    </slider>
-    <spacer/>
-    <slider name='accel_threshold' label='Acceleration threshold' min='0' max='20'>Controls how fast you have to move the pointer before the acceleration (below) kicks in.</slider>
-    <slider name='accel_factor' label='Acceleration (none)' end='(10x)'
+      </slider>
+      <spacer/>
+      <slider name='accel_threshold' label='Acceleration threshold' min='0' max='20'>Controls how fast you have to move the pointer before the acceleration (below) kicks in.</slider>
+      <slider name='accel_factor' label='Acceleration (none)' end='(10x)'
     	    min='10' max='100'>
-      When the pointer is moved quickly more than the threshold number of pixels, its speed is multiplied by this number.
-    </slider>
+When the pointer is moved quickly more than the threshold number of pixels, its speed is multiplied by this number.
+      </slider>
+    </frame>
   </section>
   
   <section title='Keyboard'>
-    <toggle label='Blinking cursor' name='Net/CursorBlink'/>
-    <slider label='Speed: (fast)' end='(slow)' name='Net/CursorBlinkTime' fixed='0' min='100' max='2000'>Speed at which the text entry cursor flashes (if flashing is enabled).</slider>
-    <toggle name='Gtk/CanChangeAccels'
+    <frame label='Cursor'>
+      <toggle label='Blinking cursor' name='Net/CursorBlink'/>
+      <slider label='Speed: (fast)' end='(slow)' name='Net/CursorBlinkTime' fixed='0' min='100' max='2000'>Speed at which the text entry cursor flashes (if flashing is enabled).</slider>
+    </frame>
+    
+    <frame label='Shortcuts'>
+      <toggle name='Gtk/CanChangeAccels'
     	    label='Allow keybindings to be changed from menus'>When this is on, you can set up a short-cut for a menu item by holding to pointer over the menu item and pressing the key. If off, short-cuts cannot be changed.</toggle>
+      <spacer/>
+      <label help='1'>You can set global shortcuts (which work from any
+application) by assigning them to icons on a ROX-Filer pinboard or panel.</label>
+    </frame>
   </section>
 
   <section title='Messages'>
