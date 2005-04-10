@@ -2,6 +2,10 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+10-Apr-2005
+~~~~~~~~~~~
+Provide a way to set up a user's environment in general (Stephen Watson).
+
 04-Mar-2005
 ~~~~~~~~~~~
 Set $BROWSER to ROX-Session/browser on login. This is a script that runs your

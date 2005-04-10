@@ -23,6 +23,39 @@ if [ "x$PLATFORM" = x ]; then
 	PLATFORM=`uname -s`-"$ARCH" export PLATFORM
 fi
 
+if [ -z "$CHOICESPATH" ]; then
+  CHOICESPATH="${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices"
+fi
+if [ -d /uri/0install/rox.sourceforge.net ]; then
+  CHOICESPATH="$CHOICESPATH":/uri/0install/rox.sourceforge.net/lib/DefaultChoices
+fi
+export CHOICESPATH
+
+if [ "x$BROWSER" = x ]; then
+    BROWSER="$APP_DIR/browser"
+    export BROWSER
+fi
+
+if [ "x$ROX_SESSION_ENVIRONMENT" = x ]; then
+    env=
+    oldIFS="$IFS"
+
+    IFS=:
+    for ch in $CHOICESPATH ; do
+	if [ "x$env" = x -a -f "$ch/ROX-Session/Environment" ]; then
+	    env="$ch/ROX-Session/Environment"
+	fi
+    done
+    if [ "x$env" = x ]; then
+	env="$APP_DIR/ROX-Session/Environment"
+    fi
+
+    . "$env"
+
+    IFS="$oldIFS"
+    ROX_SESSION_ENVIRONMENT="$env" export ROX_SESSION_ENVIRONMENT
+fi
+
 DEBUGGER=""
 
 case $1 in
@@ -61,17 +94,6 @@ if [ -z "$XDG_DATA_DIRS" -a -d /uri/0install/zero-install.sourceforge.net ]; the
   XDG_DATA_DIRS=/usr/local/share/:/usr/share/:/uri/0install/zero-install.sourceforge.net/share
   export XDG_DATA_DIRS
 fi
-
-if [ -z "$CHOICESPATH" ]; then
-  CHOICESPATH="${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices"
-fi
-if [ -d /uri/0install/rox.sourceforge.net ]; then
-  CHOICESPATH="$CHOICESPATH":/uri/0install/rox.sourceforge.net/lib/DefaultChoices
-fi
-export CHOICESPATH
-
-BROWSER="$APP_DIR/browser"
-export BROWSER
 
 BIN="$APP_DIR/$PLATFORM/$PROG"
 

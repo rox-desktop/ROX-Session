@@ -206,7 +206,7 @@ int main(int argc, char **argv)
 	{
 		/* show_main_window(); */
 		system("echo $DBUS_SESSION_BUS_ADDRESS");
-		system("echo foo > &2");
+		system("echo foo >&2");
 	}
 
 	gtk_main();

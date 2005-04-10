@@ -1,0 +1,22 @@
+# This gets run before ROX-Session is loaded, while the session environment
+# is being set up.
+#
+# Set and export any environment variables you wish to have propagate
+# to all the programs in your session.
+#
+# CHOICESPATH is set, but may be modified here.  Also set are:
+# APP_DIR
+# PROG
+# PLATFORM
+# BROWSER
+#
+# If you want to modify this file, you should first copy it as
+# <Choices>/ROX-Session/Environment so that upgrading ROX-Session will not 
+# overwrite your changes. This also allows per-user modifications.
+
+# SSH set up
+if [ -d "$HOME/.ssh" ]; then
+    if [ "x$SSH_AGENT_PID" = x ]; then
+	eval `ssh-agent -s`
+    fi
+fi
