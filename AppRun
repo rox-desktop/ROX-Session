@@ -47,10 +47,12 @@ if [ "x$ROX_SESSION_ENVIRONMENT" = x ]; then
 	fi
     done
     if [ "x$env" = x ]; then
-	env="$APP_DIR/ROX-Session/Environment"
+	env="$APP_DIR/Environment"
     fi
 
-    . "$env"
+    if [ -f "$env" ]; then
+      . "$env"
+    fi
 
     IFS="$oldIFS"
     ROX_SESSION_ENVIRONMENT="$env" export ROX_SESSION_ENVIRONMENT

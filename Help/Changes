@@ -5,6 +5,8 @@
 30-Apr-2005
 ~~~~~~~~~~~
 Added Brazilian Portuguese translation (Jose Carlos).
+Bugfix: Don't refuse to start if the new Environment file doesn't exist
+	(Thomas Leonard).
 
 10-Apr-2005
 ~~~~~~~~~~~
