@@ -1,0 +1,631 @@
+# Brazilian Portuguese messages for ROX-Session.
+# Copyright (C) 2005 Jose Carlos Medeiros <debian@psabs.com.br>
+# Jose Carlos Medeiros <debian@psabs.com.br>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.25\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-28 16:44-0300\n"
+"PO-Revision-Date: 2005-04-28 19:00-0300\n"
+"Last-Translator: Jose Carlos Medeiros <debian@psabs.com.br>\n"
+"Language-Team: ROX Mailing list <rox-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: main.c:60
+msgid ""
+"Copyright (C) 2002 Thomas Leonard.\n"
+"ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
+"to the extent permitted by law.\n"
+"You may redistribute copies of ROX-Session\n"
+"under the terms of the GNU General Public License.\n"
+"For more information about these matters, see the file named COPYING.\n"
+msgstr ""
+"Copyright (C) 2002 Thomas Leonard.\n"
+"ROX-Session vem com ABSOLUTAMENTE NENHUMA GARANTIA,\n"
+"à extensão permitida pela lei.\n"
+"Você pode redistribuir cópias do ROX-Session\n"
+"nos termos da GNU General Public License.\n"
+"Para maiores informações, veja o arquivo COPYING.\n"
+
+#: main.c:69
+msgid "Try `ROX-Session/AppRun --help' for more information.\n"
+msgstr "Tente `ROX-Session/AppRun --help' para maiores informações.\n"
+
+#: main.c:72
+msgid "Try `ROX-Session/AppRun -h' for more information.\n"
+msgstr "Tente `ROX-Session/AppRun -h' para maiores informações.\n"
+
+#: main.c:74
+msgid ""
+"NOTE: Your system does not support long options - \n"
+"you must use the short versions instead.\n"
+"\n"
+msgstr ""
+"NOTA: Seu sistema não suporta opções longas - \n"
+"você deve usar versões curtas.\n"
+"\n"
+
+#: main.c:78
+msgid ""
+"Usage: ROX-Session/AppRun [OPTION]...\n"
+"If ROX-Session is already managing your session then display\n"
+"the logout window. If not, offer to make ROX-Session your\n"
+"session manager for future sessions.\n"
+"\n"
+"  -h, --help\t\tdisplay this help and exit\n"
+"  -v, --version\t\tdisplay the version information and exit\n"
+"  -w, --wait\t\tsimply wait until run again (internal use)\n"
+"\n"
+"The latest version can be found at:\n"
+"\thttp://rox.sourceforge.net\n"
+"\n"
+"Report bugs to <tal197@users.sourceforge.net>.\n"
+msgstr ""
+"Uso: ROX-Session/AppRun [OPCAO]...\n"
+"Se o ROX-Session ja estiver gerenciando sua sessão então ele exibirá\n"
+"a tela de sair. Se não, oferece tornar o ROX-Session seu\n"
+"gerenciador de sessões para futuras sessões.\n"
+"\n"
+"  -h, --help\t\tmostra esta ajuda e sai\n"
+"  -v, --version\t\tmostra as informações de versão e sai\n"
+"  -w, --wait\t\tsimplesmente espera enquanto executa novamente (uso interno)\n"
+"\n"
+"A última versão pode ser encontrada em:\n"
+"\thttp://rox.sourceforge.net\n"
+"\n"
+"Reportar bugs para <tal197@users.sourceforge.net>.\n"
+
+#: main.c:232
+#, c-format
+msgid "Your login script (%s) died"
+msgstr "Seu script de login (%s) morreu"
+
+#: main.c:235
+#, c-format
+msgid "Your login script (%s) exited with exit status %d"
+msgstr "Seu script de login (%s) saiu com o status %d"
+
+#: main.c:240
+msgid ""
+". I'll give you an xterm to try and fix it. ROX-Session itself is running "
+"fine though - run me a second time to logout."
+msgstr ""
+". Eu abrirei um xterm para você tentar arrumar. ROX-Session esta sendo executado "
+"bem - execute-me novamente para sair."
+
+#: dbus.c:105
+msgid ""
+"ROX-Session lost its connection to the D-BUS session bus.\n"
+"You should save your work and logout as soon as possible (many things won't "
+"work correctly without the bus, and this is the only way to restart it)."
+msgstr ""
+"ROX-Session perdeu a conexão com o D-BUS.\n"
+"Você deve salvar seu trabalho e sair o tão breve possível (muitas coisas "
+"não funcionarão corretamente sem a conexão, e esta é a única forma de reiniciar-lo)."
+
+#: dbus.c:303
+msgid "ROX-Session is already running. Can't manage your session twice!"
+msgstr "ROX-Session ja esta sendo executado e não pode gerenciar sua sessão 2X!"
+
+#: dbus.c:362
+msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
+msgstr "Falhou ao abrir a libdbus-1.so.0. O suporte ao D-BUS esta desabilitado"
+
+#: dbus.c:369
+msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
+msgstr "Falhou ao abrir a libdbus-glib-1.so.0. O suporte ao D-BUS esta desabilitado"
+
+#: dbus.c:392
+#, c-format
+msgid ""
+"%s\n"
+"\n"
+"You can get D-BUS from freedesktop.org.\n"
+"ROX-Session will not work correctly without it!"
+msgstr ""
+"%s\n"
+"\n"
+"Você pode pegar o D-BUS em freedesktop.org.\n"
+"ROX-Session não trabalhará perfeitamente sem ele!"
+
+#: dpms.c:35
+msgid "DPMS extension not supported"
+msgstr "A extensão DPMS não é suportada"
+
+#: dpms.c:40
+msgid "Display not capable of DPMS"
+msgstr "Sistema incapaz de usar o DPMS"
+
+#: dpms.c:55
+msgid "DPMS timeout under 10 seconds, rounding up"
+msgstr "O tempo do DPMS esgotará em 10 segundos"
+
+#: dpms.c:62
+msgid "Unable to read previous DPMS timeouts"
+msgstr "Incapaz de ler antigos 'tempos esgotados' do DPMS"
+
+#: dpms.c:68
+msgid "Unable to set DPMS timeouts"
+msgstr "Incapaz de ajustar os 'tempos esgotados' do DPMS"
+
+#: dpms.c:81
+msgid "Unable to get DPMS state"
+msgstr "Incapaz de saber o estado do DPMS"
+
+#: dpms.c:87
+msgid "Unable to set DPMS state"
+msgstr "Incapaz de ajustar o estado do DPMS"
+
+#: i18n.c:38
+msgid ""
+"Note that you must save your choices, logout and log back in again before "
+"the new settings will take full effect."
+msgstr ""
+"Note que você deve salvar sua configuração, sair e entrar novamente antes "
+"que suas novas configurações tenham efeito."
+
+#: log.c:378
+msgid "ROX-Session: write to stderr failed!\n"
+msgstr "ROX-Session: escreveu na stderr que falhou!\n"
+
+#: log.c:402
+msgid "ROX-Session: read(stderr) failed!\n"
+msgstr "ROX-Session: leu na stderr que falhou!\n"
+
+#: log.c:448
+msgid "ROX-Session message log"
+msgstr "Histórico de mensagens do ROX-Session"
+
+#: log.c:502
+msgid "Show message log"
+msgstr "Exibir histórico das mensagens"
+
+#: options.c:464 options.c:1187
+msgid "(use default)"
+msgstr "(usar padrão)"
+
+#: options.c:735
+#, c-format
+msgid "Internal error: %s unreadable"
+msgstr "Erro interno: %s ilegível"
+
+#: options.c:846
+msgid "Options"
+msgstr "Opções"
+
+#: options.c:891
+msgid "_Revert"
+msgstr "_Reverter"
+
+#: options.c:897
+msgid "Restore all choices to how they were when the Options box was opened."
+msgstr "Restaura as opções igual estavam antes de abrir a Tela de Opções."
+
+#: options.c:912
+#, c-format
+msgid ""
+"Choices will be saved as:\n"
+"%s"
+msgstr ""
+"As opções serão salvas como:\n"
+"%s"
+
+#: options.c:920
+msgid "(saving disabled by CHOICESPATH)"
+msgstr "(salvar desabilitado pelo CHOICESPATH)"
+
+#: options.c:1093 settings.c:411
+#, c-format
+msgid "Error saving %s: %s"
+msgstr "Erro salvando %s: %s"
+
+#: rox_gettext.c:93
+#, c-format
+msgid "Invalid .gmo translation file (too short): %s"
+msgstr "Arquivo de tradução .gmo inválido (muito pequeno): %s"
+
+#: rox_gettext.c:106
+#, c-format
+msgid "Invalid .gmo translation file (GNU magic number not found): %s"
+msgstr "Arquivo de tradução .gmo inválido (número mágico GNU não encontrado): %s"
+
+#: session.c:215
+#, c-format
+msgid ""
+"Failed to run login script:\n"
+"%s"
+msgstr ""
+"Falhou ao executar o script de login:\n"
+"%s"
+
+#: session.c:263
+msgid ""
+"ROX-Filer has terminated (crashed?).You should probably try to restart it."
+msgstr ""
+"ROX-Filer terminou (travou?).Você pode tentar reiniciá-lo."
+
+#: session.c:265
+msgid "Do nothing"
+msgstr "Não faz nada"
+
+#: session.c:266
+msgid "Run Xterm"
+msgstr "Executa o xterm"
+
+#: session.c:267
+msgid "_Restart"
+msgstr "_Reiniciar"
+
+#: session.c:293
+#, c-format
+msgid ""
+"Failed to run '%s':\n"
+"%s"
+msgstr ""
+"Falhou ao executar '%s':\n"
+"%s"
+
+#: settings.c:308
+#, c-format
+msgid ""
+"Failed to change the cursor theme:\n"
+"%s\n"
+"You can use the Mouse configuration application to change the setting."
+msgstr ""
+"Falhou ao mudar o tema do cursor:\n"
+"%s\n"
+"Você pode usar a Configuração do Mouse para alterar isso."
+
+#: wm.c:79
+msgid ""
+"Your window manager has crashed (or quit). Please restart it, or choose "
+"another window manager."
+msgstr ""
+"Seu Gerenciador de Janelas travou (ou saiu). Por favor reinicie-o, ou escolha "
+"outro Gerenciador de Janelas."
+
+#: wm.c:98
+#, c-format
+msgid ""
+"Your default window manager is now '%s'.\n"
+"Would you like to quit your current window manager and start the new one "
+"right now?"
+msgstr ""
+"Seu Gerenciador de Janelas padrão é '%s'.\n"
+"Você gostaria de sair dele e iniciar outro novo "
+"agora?"
+
+#: wm.c:172
+msgid ""
+"The window manager which ROX-Session started for you is still running. Quit "
+"it before starting a new one."
+msgstr ""
+"O Gerenciador de Janelas que o ROX-Session iniciou para você ainda esta sendo executado. Saia "
+"dele antes de iniciar um outro."
+
+#: wm.c:194
+#, c-format
+msgid ""
+"Failed to start window manager:\n"
+"%s\n"
+"Please choose a new window manager and try again."
+msgstr ""
+"Falhou ao iniciar o Gerenciador de Janelas:\n"
+"%s\n"
+"Por favor escolha um novo Gerenciador de Janelas e tente novamente."
+
+#: xkb.c:92
+#, c-format
+msgid ""
+"Failed to set keyboard map:\n"
+"%s\n"
+"You can use the Keyboard configuration application to change the setting."
+msgstr ""
+"Falhou ao configurar o Mapa de teclado:\n"
+"%s\n"
+"Você pode usar a Configuração de Teclado para alterar isso."
+
+#: xkb.c:113
+msgid "Failed to set auto repeat rate/interval"
+msgstr "Falhou ao alterar a tempo de auto repetimento"
+
+#: tips:1
+msgid "Translation"
+msgstr "Tradução"
+
+#: tips:2
+msgid "Language"
+msgstr "Lingua"
+
+#: tips:3
+msgid "Danish"
+msgstr "Dinamarquês"
+
+#: tips:4
+msgid "Dutch"
+msgstr "Holandês"
+
+#: tips:5
+msgid "English (no translation)"
+msgstr "Inglês (sem tradução)"
+
+#: tips:6
+msgid "French"
+msgstr "Francês"
+
+#: tips:7
+msgid "German"
+msgstr "Alemão"
+
+#: tips:8
+msgid "Italian"
+msgstr "Italiano"
+
+#: tips:9
+msgid "Lithuanian"
+msgstr "Lituano"
+
+#: tips:10
+msgid "Spanish"
+msgstr "Espanhol"
+
+#: tips:11
+msgid "Japanese"
+msgstr "Japonês"
+
+#: tips:12
+msgid "Russian"
+msgstr "Russo"
+
+#: tips:13
+msgid "Use the LANG environment variable"
+msgstr "Use a variável de ambiente LANG"
+
+#: tips:14
+msgid "Messages"
+msgstr "Mensagens"
+
+#: tips:15
+msgid ""
+"All programs have a 'standard error stream' which they can write text "
+"messages to. ROX-Session creates such a connection between itself and every "
+"program it starts. It displays all the messages it collects this way briefly "
+"on screen."
+msgstr ""
+"Todos os programas tem uma 'saída de erro' na qual eles podem escrever mensagens. "
+"O ROX-Session cria tal conexão entre ele e cada programa que inicia. "
+"Ele mostra todas as mensagens que ele coleta dessa forma resumidamente "
+"na tela."
+
+#: tips:16
+msgid "On-screen message log"
+msgstr "Histórico de mensagens na tela"
+
+#: tips:17
+msgid ""
+"You can click button-3 on an error message to switch to the log window "
+"display, or use this button:"
+msgstr ""
+"Você pode clicar no botão do meio em uma mensagem de erro para mudar para o "
+"Histórico de Mensagens, ou use este botão:"
+
+#: tips:18
+msgid "Show messages for:"
+msgstr "Mostrar mensagens para:"
+
+#: tips:19
+msgid "seconds"
+msgstr "segundos"
+
+#: tips:20
+msgid "Number of seconds to display each message for"
+msgstr "Número de segundos para mostrar cada mensagem para"
+
+#: tips:21
+msgid "Max area for popup display:"
+msgstr "Área máxima para a tela do popup:"
+
+#: tips:22
+msgid "%"
+msgstr "%"
+
+#: tips:23 tips:24 tips:25
+msgid ""
+"Normally, messages are shown overlayed on the screen for a few seconds. If "
+"there are a large number of messages (more than this amount of the screen is "
+"covered) then the view switches to the window style."
+msgstr ""
+"Normalmente as mensagens serão mostradas na tela por alguns segundos. Se "
+"houver um número grande de mensagens (mais que a quantidade que a tela pode "
+"mostrar) então a vizualização mudará para o Estilo Janela."
+
+#: tips:26 tips:27
+msgid "Power"
+msgstr "Ligar"
+
+#: tips:28
+msgid ""
+"These commands can be selected in the Logout box as alternatives to logging "
+"out. The correct settings vary between different systems. You may need to "
+"use xsu or sudo with the command if your system doesn't give normal users "
+"permission to shutdown the system."
+msgstr ""
+"Estes comando podem ser selecionados na Tela de Sair como alternativas para Sair "
+"A correta configuração varia em diferentes sistemas. Você poderá ter de usar "
+"o xsu ou o sudo com o comando se seu sistema não der aos usuários normais "
+"permissão para desligar o sistema."
+
+#: tips:29
+msgid "Halt command:"
+msgstr "Comando para desligar:"
+
+#: tips:30
+msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
+msgstr "Costumeiramente comandos para desligar são 'halt' e 'shutdown -t now'"
+
+#: tips:31
+msgid "Reboot command:"
+msgstr "Comando para reiniciar:"
+
+#: tips:32
+msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
+msgstr "Costumeiramente comandos para reiniciar são 'reboot' e 'shutdown -t now -r'"
+
+#: tips:33
+msgid "Suspend command:"
+msgstr "Comando para suspender:"
+
+#: tips:34 tips:35 tips:36
+msgid ""
+"If your system uses APM for power management, try 'apm -s' or similar. ACPI "
+"users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
+"need a kernel with the correct system compiled in and enabled."
+msgstr ""
+"Se o seu sistema usa o APM para gerenciar energia, tente 'apm -s' ou similar. Usuários"
+"do ACPI podem tentar 'xset dpms force off; echo 1 > /proc/acpi/sleep'. Você "
+"vai precisar de um kernel corretamente compilado e habilitado a usar o ACPI."
+
+#: tips:37
+msgid "Look and Feel"
+msgstr "Look and Feel"
+
+#: tips:38 tips:39 tips:40
+msgid ""
+"The mouse, keyboard and display options have moved to the new LookAndFeel "
+"application, available from http://rox.sf.net."
+msgstr ""
+"As opções do mouse, teclado e tela foram movidas para a nova aplicação de "
+"LookAndFeel, disponível em http://rox.sf.net."
+
+#: AutoStart.py:13
+msgid "Symlink any applications you want run on login into this directory"
+msgstr "Crie neste diretório os links para as aplicações que deverão iniciar no login"
+
+#: logout.py:66
+msgid "_Halt"
+msgstr "_Desligar"
+
+#: logout.py:68
+msgid "Attempting to halt the system..."
+msgstr "Tentando desligar o sistema..."
+
+#: logout.py:71
+msgid "_Reboot"
+msgstr "_Reiniciar"
+
+#: logout.py:73
+msgid "Attempting to restart the system..."
+msgstr "Tentando reiniciar o sistema..."
+
+#: logout.py:76
+msgid "_Sleep"
+msgstr "_Suspender"
+
+#: logout.py:78
+msgid "Attempting to enter suspend mode..."
+msgstr "Tentando entar no modo suspenso..."
+
+#: logout.py:82
+msgid ""
+"Really logout?\n"
+"(unsaved data will be lost)"
+msgstr ""
+"Deseja sair?\n"
+"(dados não salvos serão perdidos)"
+
+#: logout.py:87
+msgid "ROX-Session"
+msgstr "ROX-Session"
+
+#: logout.py:92
+msgid "Session Settings"
+msgstr "Configurações de Sessão"
+
+#: logout.py:98
+msgid "Logout"
+msgstr "Sair"
+
+#: setup.py:25
+msgid ""
+"Tried to make a backup of your old '%s' file, but the backup file ('%s') already exists.\n"
+"If you want to keep it, move it somewhere safe. Otherwise, delete it."
+msgstr ""
+"Tentei criar um backup do seu antigo arquivo '%s', mas o arquivo ('%s') já existe.\n"
+"Se você quiser mantê-lo, mova-o para um lugar seguro ou apague-o."
+
+#: setup.py:37
+msgid ""
+"Do you want to make ROX a choice on your login screen (affects all users and requires the root password), or do you just want to set the session for your current user?\n"
+"\n"
+"If you know the root password and use a graphical display manager such as gdm or kdm, you should probably choose that option."
+msgstr ""
+"Você gostaria de tornar o ROX sua tela de login (isso afeta todos os usuários e precisa da senha de root), ou você quer apenas configurar a sessão para o usuário atual?\n"
+"\n"
+"Se você sabe a senha do root e usa um gerenciador gráfico como o gdm ou o kdm, você provavelmente poderá escolher esta opção."
+
+#: setup.py:45
+msgid "Setup for user"
+msgstr "Configurar para o usuário"
+
+#: setup.py:46
+msgid "Add to login"
+msgstr "Adicionar ao login"
+
+#: setup.py:122
+msgid ""
+"OK, now logout by your usual method and when you log in again, I should be your session manager.\n"
+"Note: you may need to select 'Default' as your desktop type after entering your user name on the login screen."
+msgstr ""
+"OK, agora saia pelo modo normal e quando você entrar novamente, Eu serei seu gerenciador de sessões.\n"
+"Nota: você deve selecionar como 'Padrão' seu tipo de tela após entrar com o usuário e senha na tela de login."
+
+#: setup.py:137
+msgid ""
+"I wanted to install a rox.desktop file in your session directory, but I couldn't find one! I tried these places (defaults for gdm2, at least):\n"
+"\n"
+msgstr ""
+"Eu precisava instalar o arquivo rox.desktop no diretório da sua sessão, mas não pude encontrar-lo! Eu tentei estes lugares (padrão do gdm2, ao menos):\n"
+"\n"
+
+#: setup.py:142
+msgid "/usr/local/sbin directory is missing! I want to install the rox-session script there... Please create it and try again."
+msgstr "o diretório /usr/sbin esta faltando! Eu preciso instalar o programa rox-session neste local... Por favor crie-o e tente novamente."
+
+#: setup.py:184
+msgid "OK, now logout by your usual method, and choose ROX from the session menu on your login screen just after entering your user name (but before entering your password)."
+msgstr "Ok, agora saia pelo modo normal, e escolha o ROX no menu na sua tela de login apenas após entrar com seu usuário (mas antes de entrar com sua senha)."
+
+#: setup.py:201
+msgid ""
+"OK, I don't know what the problem is. Please ask on the rox-users mailing list. When we know what the problem is, we can add an extra check here to help out others in future.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(you can copy and paste that address into your browser)"
+msgstr ""
+"OK, Eu não sei que problema é esse. por favor pergunte aos usuários da lista de email do rox. Quando descobrirmos qual o problema, nós poderemos adicionar um check extra aqui para ajudar outros usuários.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(você pode copiar e colar este endereço no seu navegador)"
+
+#: setup.py:212
+msgid ""
+"ROX-Session does not appear to be managing your session. Would you like to set it up now?\n"
+"\n"
+"If you think it should already be set up, click on Help."
+msgstr ""
+"ROX-Session não parece estar gerenciando sua sessão. Você gostaria de configurá-lo agora?\n"
+"\n"
+"Se você acha que não saberá configurar, clique em Ajuda."
+
+#: setup.py:217
+msgid "Set up ROX"
+msgstr "Configurar o ROX"
+
+#: setup.py:220
+msgid "Set up ROX-Session"
+msgstr "Configurar o ROX-Session"
+

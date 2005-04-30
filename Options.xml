@@ -2,7 +2,7 @@
 <options>
   <section title='Translation'>
     <frame label='Language'>
-      <radio-group name='i18n_translation'>
+      <radio-group name='i18n_translation' columns='2'>
         <radio label='Chinese(Simplified)' value='zh_CN'/>
         <radio label='Chinese(Traditional)' value='zh_TW'/>
         <radio label='Danish' value='da'/>
@@ -12,6 +12,7 @@
 	<radio label='German' value='de'/>
 	<radio label='Italian' value='it'/>
 	<radio label='Lithuanian' value='lt'/>
+        <radio label='Portuguese (Brasil)' value='pt_BR'/>
 	<radio label='Spanish' value='es'/>
 	<radio label='Japanese' value='ja'/>
         <radio label='Russian' value='ru'/>
