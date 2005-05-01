@@ -158,9 +158,3 @@ void set_xkb_capslock(const gboolean keystate)
 {
 	toggle_xkb_state (XK_Caps_Lock, keystate);
 }
-
-void set_xkb_scrolllock(const gboolean keystate)
-{
-	toggle_xkb_state (XK_Scroll_Lock, keystate);
-}
-

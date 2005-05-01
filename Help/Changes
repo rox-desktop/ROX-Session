@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+01-May-2005
+~~~~~~~~~~~
+Removed code for setting scroll lock. Doesn't work, and nobody uses scroll
+lock anyway (Thomas Leonard).
+
 30-Apr-2005
 ~~~~~~~~~~~
 Added Brazilian Portuguese translation (Jose Carlos).

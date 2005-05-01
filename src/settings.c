@@ -64,7 +64,6 @@ static int cursor_size = 18;
 static gboolean kbd_repeat = TRUE;
 static gboolean kbd_numlock = TRUE;
 static gboolean kbd_capslock = FALSE;
-static gboolean kbd_scrolllock = FALSE;
 static int kbd_delay = 500, kbd_interval = 30;
 static int dpms_standby_time = 15 * 60;
 static int dpms_suspend_time = 20 * 60;
@@ -164,10 +163,7 @@ static void set_rox_setting(const char *name, const char *value)
 		kbd_numlock = atoi(value);
 	else if (strcmp(name, "CapsLock") == 0)
 		kbd_capslock = atoi(value);
-	else if (strcmp(name, "ScrollLock") == 0)
-		kbd_scrolllock = atoi(value);
-	else
-	if (strcmp(name, "AccelThreshold") == 0)
+	else if (strcmp(name, "AccelThreshold") == 0)
 		mouse_accel_threshold = atoi(value);
 	else if (strcmp(name, "AccelFactor") == 0)
 		mouse_accel_factor = atoi(value);
@@ -376,7 +372,6 @@ static void activate_changes(void)
 	set_xkb_repeat(kbd_repeat, kbd_delay, kbd_interval);
 	set_xkb_numlock(kbd_numlock);
 	set_xkb_capslock(kbd_capslock);
-	set_xkb_scrolllock(kbd_scrolllock);
 	dpms_set_times(GDK_DISPLAY(),
 			dpms_standby_time, dpms_suspend_time, dpms_off_time);
 }
