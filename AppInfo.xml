@@ -4,6 +4,8 @@
   <Summary xml:lang="es">Configura tu escritorio cuando ingresas y te permite salir</Summary>
   <Summary xml:lang="fr">Montre l'utilisation de la mémoire et des disques avec des diagrammes à barres</Summary>
   <Summary xml:lang="it">Configura il desktop dopo l'accesso al sistema e permette di terminare la sessione</Summary>
+  <Summary xml:lang="zh_CN">登入登出及桌面管理</Summary>
+  <Summary xml:lang="zh_TW">登入登出及桌面管理</Summary>
   <About xml:lang="en">
     <Purpose>Session Manager</Purpose>
     <Version>0.1.25 (14-Oct-2004)</Version>
