@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-24 00:32+0800\n"
-"PO-Revision-Date: 2004-12-16 23:07+0800\n"
+"POT-Creation-Date: 2005-05-04 22:44+0800\n"
+"PO-Revision-Date: 2005-05-06 23:07+0800\n"
 "Last-Translator: Babyfai Cheung <babyfai1@yahoo.com.hk>\n"
 "Language-Team: none>\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,11 @@ msgstr ""
 
 #: main.c:69
 msgid "Try `ROX-Session/AppRun --help' for more information.\n"
-msgstr "请用指令 `ROX-Session/AppRun --help'  来获得更多讯息.\n"
+msgstr "请用指令 `ROX-Session/AppRun --help' 来获得更多讯息.\n"
 
 #: main.c:72
 msgid "Try `ROX-Session/AppRun -h' for more information.\n"
-msgstr "请用指令 `ROX-Session/AppRun -h'  来获得更多讯息.\n"
+msgstr "请用指令 `ROX-Session/AppRun -h' 来获得更多讯息.\n"
 
 #: main.c:74
 msgid ""
@@ -39,8 +39,8 @@ msgid ""
 "you must use the short versions instead.\n"
 "\n"
 msgstr ""
-"NOTE: Your system does not support long options - \n"
-"you must use the short versions instead.\n"
+"注意: 阁下的系统不支援长选项 - \n"
+"请以短的版本代替.\n"
 "\n"
 
 #: main.c:78
@@ -63,19 +63,19 @@ msgstr ""
 #: main.c:232
 #, c-format
 msgid "Your login script (%s) died"
-msgstr ""
+msgstr "您的登入指令稿 (%s) 终止"
 
 #: main.c:235
 #, c-format
 msgid "Your login script (%s) exited with exit status %d"
-msgstr ""
+msgstr "您的登入指令稿 (%s) 退出其情况为 %d"
 
 #: main.c:240
 msgid ""
 ". I'll give you an xterm to try and fix it. ROX-Session itself is running "
 "fine though - run me a second time to logout."
 msgstr ""
-". xterm 将会运行,请尝试解决问题. ROX-Session 已正常 启动 - 稍后将会结出."
+". xterm 将会运行，请尝试解决问题，ROX-Session 已正常启动 - 稍后将会结出."
 
 #: dbus.c:105
 msgid ""
@@ -83,18 +83,20 @@ msgid ""
 "You should save your work and logout as soon as possible (many things won't "
 "work correctly without the bus, and this is the only way to restart it)."
 msgstr ""
+"ROX-Session 失却 D-BUS 的连线.\n"
+"请尽速储存工作及登出 (在缺少 D-BUS 下很多工作会出错，唯一解决方法是重新启动)."
 
 #: dbus.c:303
 msgid "ROX-Session is already running. Can't manage your session twice!"
-msgstr "ROX-Session 经已运行,不能再次执行此程式"
+msgstr "ROX-Session 经已运行，不能再次执行此程式"
 
 #: dbus.c:362
 msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
-msgstr "错误开启 libdbus-1.so.0. D-BUS 支援取消"
+msgstr "错误开启 libdbus-1.so.0，D-BUS 支援取消"
 
 #: dbus.c:369
 msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
-msgstr "错误开启 libdbus-glib-1.so.0. D-BUS 支援取消"
+msgstr "错误开启 libdbus-glib-1.so.0，D-BUS 支援取消"
 
 #: dbus.c:392
 #, c-format
@@ -107,7 +109,7 @@ msgstr ""
 "%s\n"
 "\n"
 "D-BUS 可在 freedesktop.org 找到.\n"
-"ROX-Session 需要此套件!"
+"ROX-Session 需要此套件！"
 
 #: dpms.c:35
 msgid "DPMS extension not supported"
@@ -115,41 +117,41 @@ msgstr "DPMS 功用不支援"
 
 #: dpms.c:40
 msgid "Display not capable of DPMS"
-msgstr "显示未能符合DPMS"
+msgstr "显示器未能符合 DPMS"
 
 #: dpms.c:55
 msgid "DPMS timeout under 10 seconds, rounding up"
-msgstr ""
+msgstr "DPMS 闲置少於十秒，忽略"
 
 #: dpms.c:62
 msgid "Unable to read previous DPMS timeouts"
-msgstr ""
+msgstr "未能读取上个 DPMS 逾时闲置"
 
 #: dpms.c:68
 msgid "Unable to set DPMS timeouts"
-msgstr ""
+msgstr "未能设定 DPMS 闲置时间"
 
 #: dpms.c:81
 msgid "Unable to get DPMS state"
-msgstr ""
+msgstr "未能读取 DPMS 状况"
 
 #: dpms.c:87
 msgid "Unable to set DPMS state"
-msgstr ""
+msgstr "未能设定 DPMS 环境"
 
 #: i18n.c:38
 msgid ""
 "Note that you must save your choices, logout and log back in again before "
 "the new settings will take full effect."
-msgstr "您必须先储存设定,登出及再次登入, 所有设定才会完全生效."
+msgstr "您必须先储存设定，登出及再次登入。所有设定才会完全生效."
 
 #: log.c:378
 msgid "ROX-Session: write to stderr failed!\n"
-msgstr ""
+msgstr "ROX-Session: 输出错误讯息失败！\n"
 
 #: log.c:402
 msgid "ROX-Session: read(stderr) failed!\n"
-msgstr ""
+msgstr "ROX-Session: 读取 (输出错误) 失败！\n"
 
 #: log.c:448
 msgid "ROX-Session message log"
@@ -166,7 +168,7 @@ msgstr "(套用缺省值)"
 #: options.c:735
 #, c-format
 msgid "Internal error: %s unreadable"
-msgstr "内部错误: %s不可读的"
+msgstr "内部错误：%s 不可读取"
 
 #: options.c:846
 msgid "Options"
@@ -178,7 +180,7 @@ msgstr "恢复(_R)"
 
 #: options.c:897
 msgid "Restore all choices to how they were when the Options box was opened."
-msgstr "回复开启时设置"
+msgstr "回复开启时的选择设置"
 
 #: options.c:912
 #, c-format
@@ -186,14 +188,14 @@ msgid ""
 "Choices will be saved as:\n"
 "%s"
 msgstr ""
-"选择会被储存为:\n"
+"选择设置会被储存为：\n"
 "%s"
 
 #: options.c:920
 msgid "(saving disabled by CHOICESPATH)"
-msgstr "(储存被取消,因应 CHOICESPATH)"
+msgstr "(储存被取消，因应 CHOICESPATH 路径)"
 
-#: options.c:1093 settings.c:415
+#: options.c:1093 settings.c:426
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "错误储存 %s: %s"
@@ -201,12 +203,12 @@ msgstr "错误储存 %s: %s"
 #: rox_gettext.c:93
 #, c-format
 msgid "Invalid .gmo translation file (too short): %s"
-msgstr ""
+msgstr "非法的 .gmo 翻译档(过短)：%s"
 
 #: rox_gettext.c:106
 #, c-format
 msgid "Invalid .gmo translation file (GNU magic number not found): %s"
-msgstr ""
+msgstr "非法的 .gmo 翻译档 (GNU magic number 找不到)：%s"
 
 #: session.c:215
 #, c-format
@@ -214,11 +216,13 @@ msgid ""
 "Failed to run login script:\n"
 "%s"
 msgstr ""
+"未能执行登入指令稿：\n"
+"%s"
 
 #: session.c:263
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
-msgstr "ROX-Filer 终止(崩溃?).请尝试重新开启"
+msgstr "ROX-Filer 终止(崩溃？)，请尝试重新开启"
 
 #: session.c:265
 msgid "Do nothing"
@@ -241,7 +245,7 @@ msgstr ""
 "失败执行 '%s':\n"
 "%s"
 
-#: settings.c:312
+#: settings.c:321
 #, c-format
 msgid ""
 "Failed to change the cursor theme:\n"
@@ -256,7 +260,7 @@ msgstr ""
 msgid ""
 "Your window manager has crashed (or quit). Please restart it, or choose "
 "another window manager."
-msgstr " 窗口管理员已崩溃(或退出). 请重新启动, 或另选其他的窗口管理员."
+msgstr " 窗口管理员已崩溃(或退出)，请重新启动；或另选其他的窗口管理员."
 
 #: wm.c:98
 #, c-format
@@ -266,13 +270,13 @@ msgid ""
 "right now?"
 msgstr ""
 "您现在的缺省窗口管理员是 '%s'.\n"
-"是否要退出当前的窗口管理员而套用 您所选择的?"
+"是否要退出当前的窗口管理员而套用您所选择的？"
 
 #: wm.c:172
 msgid ""
 "The window manager which ROX-Session started for you is still running. Quit "
 "it before starting a new one."
-msgstr "ROX-Session 启动时载入的窗口管理员仍然运行. 在执行新的时请先行退出."
+msgstr "ROX-Session 启动时载入的窗口管理员仍然运行，在执行新的时请先行退出."
 
 #: wm.c:194
 #, c-format
@@ -281,24 +285,32 @@ msgid ""
 "%s\n"
 "Please choose a new window manager and try again."
 msgstr ""
-"未能启动窗口管理员:\n"
+"未能启动窗口管理员：\n"
 "%s\n"
 "请再尝试或另选其他的窗口管理员."
 
-#: xkb.c:92
+#: xkb.c:94
 #, c-format
 msgid ""
 "Failed to set keyboard map:\n"
 "%s\n"
 "You can use the Keyboard configuration application to change the setting."
 msgstr ""
-"未能设定键盘布局:\n"
+"未能设定键盘布局：\n"
 "%s\n"
 "请在键盘设置程式内进行设定."
 
-#: xkb.c:113
+#: xkb.c:115
 msgid "Failed to set auto repeat rate/interval"
 msgstr "未能设置自动重复 速率/间距"
+
+#: xkb.c:134
+msgid "error in reading keyboard indicator states"
+msgstr "错误读取键盘指示灯状况"
+
+#: xkb.c:148
+msgid "error while sending fake key events"
+msgstr "送出伪按键事件时错误"
 
 #: tips:1
 msgid "Translation"
@@ -309,164 +321,168 @@ msgid "Language"
 msgstr "语言"
 
 #: tips:3
-msgid "Danish"
-msgstr "丹麦"
-
-#: tips:4
-msgid "Dutch"
-msgstr "荷兰"
-
-#: tips:5
-msgid "English (no translation)"
-msgstr "英语(不翻译)"
-
-#: tips:6
-msgid "French"
-msgstr "法语"
-
-#: tips:7
-msgid "German"
-msgstr "德语"
-
-#: tips:8
-msgid "Italian"
-msgstr "意大利"
-
-#: tips:9
-msgid "Lithuanian"
-msgstr "立陶宛"
-
-#: tips:10
-msgid "Spanish"
-msgstr "西班牙"
-
-#: tips:11
-msgid "Japanese"
-msgstr "日语"
-
-#: tips:12
-msgid "Russian"
-msgstr "俄语"
-
-#: tips:13
 msgid "Chinese(Simplified)"
 msgstr "中文(简体)"
 
-#: tips:14
+#: tips:4
 msgid "Chinese(Traditional)"
 msgstr "中文(繁体)"
 
+#: tips:5
+msgid "Danish"
+msgstr "丹麦"
+
+#: tips:6
+msgid "Dutch"
+msgstr "荷兰"
+
+#: tips:7
+msgid "English (no translation)"
+msgstr "英语(不翻译)"
+
+#: tips:8
+msgid "French"
+msgstr "法语"
+
+#: tips:9
+msgid "German"
+msgstr "德语"
+
+#: tips:10
+msgid "Italian"
+msgstr "意大利"
+
+#: tips:11
+msgid "Lithuanian"
+msgstr "立陶宛"
+
+#: tips:12
+msgid "Portuguese (Brasil)"
+msgstr "葡萄牙(巴西)"
+
+#: tips:13
+msgid "Spanish"
+msgstr "西班牙"
+
+#: tips:14
+msgid "Japanese"
+msgstr "日语"
+
 #: tips:15
+msgid "Russian"
+msgstr "俄语"
+
+#: tips:16
 msgid "Use the LANG environment variable"
 msgstr "系统缺省"
 
-#: tips:16
+#: tips:17
 msgid "Messages"
 msgstr "讯息"
 
-#: tips:17
+#: tips:18
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
 "program it starts. It displays all the messages it collects this way briefly "
 "on screen."
 msgstr ""
-"所有程式均有一个'标准错误流情' ,并会藉其以文字方式将错误讯息输出. ROX-"
-"Session 会监视每个程式 及会将其收集到的错误讯息,详细显示到屏幕上. "
+"所有程式均有一个'标准错误流情'，并会藉其以文字方式将错误讯息输出，ROX-"
+"Session 会监视每个程式，及会将其收集到的错误讯息详细显示到屏幕上. "
 
-#: tips:18
+#: tips:19
 msgid "On-screen message log"
 msgstr "屏幕讯息日志"
 
-#: tips:19
+#: tips:20
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
-msgstr "您可在讯息上单击按钮-3来切换到窗口显示模式, 亦可点击下面的按钮:"
-
-#: tips:20
-msgid "Show messages for:"
-msgstr "显示讯息:"
+msgstr "您可在讯息上单击按钮-3 来切换到窗口显示模式，亦可点击下面的按钮："
 
 #: tips:21
+msgid "Show messages for:"
+msgstr "显示讯息："
+
+#: tips:22
 msgid "seconds"
 msgstr "秒"
 
-#: tips:22
+#: tips:23
 msgid "Number of seconds to display each message for"
 msgstr "显示每句讯息的停留秒数"
 
-#: tips:23
-msgid "Max area for popup display:"
-msgstr "弹出显示所占的最大位置"
-
 #: tips:24
+msgid "Max area for popup display:"
+msgstr "弹出显示所占的最大位置："
+
+#: tips:25
 msgid "%"
 msgstr ""
 
-#: tips:25 tips:26 tips:27
+#: tips:26 tips:27 tips:28
 msgid ""
 "Normally, messages are shown overlayed on the screen for a few seconds. If "
 "there are a large number of messages (more than this amount of the screen is "
 "covered) then the view switches to the window style."
 msgstr ""
-"通常,讯息会停留在屏幕上数秒. 但假如讯息太多 (超过屏幕所覆盖) 便会改以窗口模式"
-"显示."
+"通常，讯息会停留在屏幕上数秒，但假如讯息太多 (超过屏幕所覆盖) 便会改以窗口模"
+"式显示."
 
-#: tips:28 tips:29
+#: tips:29 tips:30
 msgid "Power"
 msgstr "电源"
 
-#: tips:30
+#: tips:31
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
 "use xsu or sudo with the command if your system doesn't give normal users "
 "permission to shutdown the system."
 msgstr ""
-"此等指令会在登出时在讯息盒中显示. 在不同的系统中,可能有不同的设定和指令. 假如"
-"您的系统不赋予一般用户执行关机这类指令,您可能要运用 xsu 或 sudo 来执行. "
-
-#: tips:31
-msgid "Halt command:"
-msgstr "停机指令:"
+"此等指令会在登出时在讯息盒中显示，在不同的系统中，可能有不同的设定和指令。假"
+"如您的系统不赋予一般用户执行关机这类指令，您可能要运用 xsu 或 sudo 来执行. "
 
 #: tips:32
+msgid "Halt command:"
+msgstr "停机指令："
+
+#: tips:33
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr "用以停止指令如 'halt' and 'shutdown -t now' "
 
-#: tips:33
-msgid "Reboot command:"
-msgstr "重启机器指令:"
-
 #: tips:34
+msgid "Reboot command:"
+msgstr "重启机器指令："
+
+#: tips:35
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "用以重新启动指令如 'reboot' and 'shutdown -t now -r"
 
-#: tips:35
+#: tips:36
 msgid "Suspend command:"
-msgstr "待机指令:"
+msgstr "待机指令："
 
-#: tips:36 tips:37 tips:38
+#: tips:37 tips:38 tips:39
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
 "need a kernel with the correct system compiled in and enabled."
 msgstr ""
-"如系统是用 APM 来作电源管理, 请尝试这个指令 'apm -s' . ACPI 的可用这个 'xset "
+"如系统是用 APM 来作电源管理，请尝试这个指令 'apm -s'。ACPI 的可用这个 'xset "
 "dpms force off; echo 1 > /proc/acpi/sleep'.  您的系统核心亦必须要支援电源管理"
 "这功能."
 
-#: tips:39
+#: tips:40
 msgid "Look and Feel"
 msgstr ""
 
-#: tips:40 tips:41 tips:42
+#: tips:41 tips:42 tips:43
 msgid ""
 "The mouse, keyboard and display options have moved to the new LookAndFeel "
 "application, available from http://rox.sf.net."
 msgstr ""
-"滑鼠,键盘及显示选项,已移植到另一新程式 'LookAndFeel' 上.  详情可浏览 http://"
+"滑鼠,键盘及显示选项,已移植到另一新程式 'LookAndFeel' 上，详情可浏览 http://"
 "rox.sf.net."
 
 #: AutoStart.py:13
@@ -523,8 +539,8 @@ msgid ""
 "already exists.\n"
 "If you want to keep it, move it somewhere safe. Otherwise, delete it."
 msgstr ""
-"尝试备份文件为 '%s' 时错误, 因这个名为 ('%s') 的文件已存在.\n"
-"如要保留,请将其移到别处. 否则,请将他删除."
+"尝试备份文件为 '%s' 时错误，因这个名为 ('%s') 的文件已存在.\n"
+"如要保留，请将其移到别处。否则，请将他删除."
 
 #: setup.py:37
 msgid ""
@@ -535,10 +551,10 @@ msgid ""
 "If you know the root password and use a graphical display manager such as "
 "gdm or kdm, you should probably choose that option."
 msgstr ""
-"您是否要 ROX  成为登入画面中的一个选项(对应所有用户并需要'root' 的口令), 又或"
-"只对应当前用户进行设定?\n"
+"您是否要 ROX  成为登入画面中的一个选择(对应所有用户并需要'root' 的密码)，又或"
+"只对应当前用户进行设定？\n"
 "\n"
-"首要是,您必须知道'root' 的口令及以一个图型登入管理员如 'gdm' 或 'kdm',  您才"
+"首要是，您必须知道'root' 的密码及以一个图型登入管理员如 'gdm' 或 'kdm'，您才"
 "可运用此选项."
 
 #: setup.py:45
@@ -556,8 +572,8 @@ msgid ""
 "Note: you may need to select 'Default' as your desktop type after entering "
 "your user name on the login screen."
 msgstr ""
-"完成,请登出后再登入,这便成为您的 session manager 了.\n"
-"注意: 在图型登入视窗中选择 'Default'  ,然后 开始登入."
+"完成，请登出后再登入；这便成为您的 session manager 了.\n"
+"注意：在图型登入视窗中选择 'Default'，然后开始登入."
 
 #: setup.py:137
 msgid ""
@@ -565,8 +581,8 @@ msgid ""
 "couldn't find one! I tried these places (defaults for gdm2, at least):\n"
 "\n"
 msgstr ""
-"尝试安装 rox.desktop 文件到您的 session 目录失败, 目录不存在! 改为安装到这处 "
-"( 缺省是gdm2, 最少也要):\n"
+"尝试安装 rox.desktop 文件到您的 session 目录失败，目录不存在！改为安装到这处"
+"( 缺省是gdm2, 最少也要)：\n"
 "\n"
 
 #: setup.py:142
@@ -574,7 +590,7 @@ msgid ""
 "/usr/local/sbin directory is missing! I want to install the rox-session "
 "script there... Please create it and try again."
 msgstr ""
-"/usr/local/sbin 目录不存在! rox-session 的程序档需要他... 请建立后再试."
+"/usr/local/sbin 目录不存在！rox-session 的程序档需要他... 请建立后再试."
 
 #: setup.py:184
 msgid ""
@@ -582,8 +598,7 @@ msgid ""
 "your login screen just after entering your user name (but before entering "
 "your password)."
 msgstr ""
-"完成, 现在请登出再在图型登入视窗中, 输入您的名字,然后选 ROX   (随后是您 用户"
-"口令)."
+"完成，现在请登出再在图型登入视窗中；输入您的名字然后选 ROX  (随后是您的密码)."
 
 #: setup.py:201
 msgid ""
@@ -594,7 +609,7 @@ msgid ""
 "http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
 "(you can copy and paste that address into your browser)"
 msgstr ""
-"发生未明的错误. 请询问 rox-users mailing list. 我们会尝试找出原因 并尽快解"
+"发生未明的错误，请询问 rox-users mailing list；我们会尝试找出原因并尽快解"
 "决.\n"
 "\n"
 "http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
@@ -607,9 +622,9 @@ msgid ""
 "\n"
 "If you think it should already be set up, click on Help."
 msgstr ""
-"ROX-Session 还未成功设立. 现在安装设立?\n"
+"ROX-Session 还未成功设立，现在安装设立？\n"
 "\n"
-"如已经安装,请点击说明档."
+"如已经安装，请点击说明档."
 
 #: setup.py:217
 msgid "Set up ROX"
