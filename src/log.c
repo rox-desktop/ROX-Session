@@ -403,7 +403,18 @@ static void got_log_data(gpointer data,
 	}
 	else
 	{
-		log_msg(buffer, got);
+		if (g_utf8_validate(buffer, got, NULL)) {
+			log_msg(buffer, got);
+		} else {
+			char *fixed;
+
+			fixed = g_convert_with_fallback(buffer, got,
+					"utf-8", "iso-8859-1",
+					"?", NULL, NULL, NULL);
+			log_msg(fixed, -1);
+			log_msg("(invalid UTF-8)\n", -1);
+			g_free(fixed);
+		}
 
 		if (real_stderr != -1)
 			write_stderr(buffer, got);

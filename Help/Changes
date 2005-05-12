@@ -2,6 +2,10 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+12-May-2005
+~~~~~~~~~~~
+Bugfix: Make sure messages are valid UTF-8 before logging (Thomas Leonard).
+
 01-May-2005
 ~~~~~~~~~~~
 Removed code for setting scroll lock. Doesn't work, and nobody uses scroll
