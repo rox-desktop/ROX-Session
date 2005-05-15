@@ -4,6 +4,10 @@
 
 12-May-2005
 ~~~~~~~~~~~
+Updated Chinese translation (Babyfai Cheung).
+
+12-May-2005
+~~~~~~~~~~~
 Bugfix: Make sure messages are valid UTF-8 before logging (Thomas Leonard).
 
 01-May-2005
