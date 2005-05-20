@@ -39,8 +39,8 @@ fi
 
 # Try to run it though Zero Install...
 if [ -d /uri/0install/rox.sourceforge.net ]; then
-	exec 0run "rox.sourceforge.net/rox 2003-10-07" -n -p Default -b Default
+	exec 0run "rox.sourceforge.net/rox 2003-10-07" -S
 fi
 
 # Fallback to a manual installation
-exec rox -n -p Default -b Default
+exec rox -S
