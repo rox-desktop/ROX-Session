@@ -50,6 +50,14 @@ ROX_REQUIRE(libxml-2.0, 2.0.0)
 ROX_REQUIRE(dbus-1, 0.20)
 ROX_REQUIRE(dbus-glib-1, 0.20)
 
+AC_MSG_CHECKING(whether DBUS is version 0.30 or later)
+if pkg-config --atleast-version=0.30 dbus-1 ; then
+  AC_MSG_RESULT(yes)
+  AC_DEFINE(DBUS_03)
+else
+  AC_MSG_RESULT(no)
+fi
+
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_MAKE_SET

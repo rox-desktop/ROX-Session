@@ -12,6 +12,10 @@
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
 
+#ifdef DBUS_03
+#include <dbus/dbus-glib-lowlevel.h>
+#endif
+
 #define ROX_SESSION_ERROR "net.sf.rox.Session.Error"
 
 typedef DBusMessage *(*MessageHandler)(DBusMessage *message, DBusError *error);

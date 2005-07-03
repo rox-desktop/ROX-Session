@@ -76,6 +76,10 @@ fi
 
 # Step 1: Try to run ROX-Session. If it works, stop right here.
 
+if [ -x "`which 0launch`" ]; then
+	exec 0launch http://rox.sourceforge.net/2005/interfaces/ROX-Session -w
+fi
+
 if [ -x "%s/AppRun" ]; then
 	exec "%s/AppRun" -w
 fi
