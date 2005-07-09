@@ -59,8 +59,9 @@ try:
 			session_control = rox_session.get_object('/Session',
 						'net.sf.rox.Session.Control')
 		else:
-			session_control = bus.get_object('net.sf.rox.Session',
-						'net.sf.rox.Session.Control')
+			session_control = dbus.Interface(
+				bus.get_object('net.sf.rox.Session', '/Session'),
+				'net.sf.rox.Session.Control')
 
 		logout.show_logout_box(session_control)
 	else:
