@@ -18,7 +18,7 @@ sys.modules['dbus.services'] = dbus_compat
 
 try:
 	import dbus
-	if dbus.version >= (0, 40, 0):
+	if hasattr(dbus, 'version') and dbus.version >= (0, 40, 0):
 		DBusException = dbus.DBusException
 	else:
 		DBusException = dbus.dbus_bindings.DBusException
