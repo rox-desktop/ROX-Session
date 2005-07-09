@@ -13,8 +13,16 @@ if len(sys.argv) == 2 and sys.argv[1] == '--install':
 	setup.setup()
 	raise SystemExit()
 
+import dbus_compat
+sys.modules['dbus.services'] = dbus_compat
+
 try:
 	import dbus
+	if dbus.version >= (0, 40, 0):
+		DBusException = dbus.DBusException
+	else:
+		DBusException = dbus.dbus_bindings.DBusException
+	# Else, using D-BUS 0.2
 except ImportError:
 	rox.alert("Failed to import dbus module. You probably need "
 		"to install a package with a name like 'python2.3-dbus'.\n\n"
@@ -26,11 +34,18 @@ except ImportError:
 
 try:
 	bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
-	dbus_service = bus.get_service('org.freedesktop.DBus')
-	dbus_object = dbus_service.get_object('/org/freedesktop/DBus',
+	if hasattr(bus, 'get_service'):
+		dbus_service = bus.get_service('org.freedesktop.DBus')
+		dbus_object = dbus_service.get_object('/org/freedesktop/DBus',
 						   'org.freedesktop.DBus')
-	rox_session_running = 'net.sf.rox.Session' in dbus_object.ListServices()
-except dbus.dbus_bindings.DBusException:
+		dbus_services = dbus_object.ListServices()
+	else:
+		dbus_object = bus.get_object('org.freedesktop.DBus',
+					    '/org/freedesktop/DBus')
+		dbus_services = dbus_object.ListNames()
+	rox_session_running = 'net.sf.rox.Session' in dbus_services
+except DBusException, ex:
+	print ex
 	rox_session_running = False
 except:
 	rox.report_exception()
@@ -39,8 +54,15 @@ except:
 try:
 	if rox_session_running:
 		import logout
-		rox_session = bus.get_service('net.sf.rox.Session')
-		logout.show_logout_box(rox_session)
+		if hasattr(bus, 'get_service'):
+			rox_session = bus.get_service('net.sf.rox.Session')
+			session_control = rox_session.get_object('/Session',
+						'net.sf.rox.Session.Control')
+		else:
+			session_control = bus.get_object('net.sf.rox.Session',
+						'net.sf.rox.Session.Control')
+
+		logout.show_logout_box(session_control)
 	else:
 		import setup
 		setup.setup_with_confirm()

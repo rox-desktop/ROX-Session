@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+09-Jul-2005
+~~~~~~~~~~~
+Work-around for problem with D-BUS 0.3 Python bindings which prevented them
+working with Python 2.3 (Thomas Leonard, reported by Marcus).
+
 03-Jul-2005
 ~~~~~~~~~~~
 Allow ROX-Session to compile with DBUS 0.3x (Tony Houghton and Thomas Leonard).

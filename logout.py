@@ -102,10 +102,7 @@ class LogoutBox(rox.Dialog):
 
 		self.set_default_response(g.RESPONSE_YES)
 
-def show_logout_box(rox_session):
-	session_control = rox_session.get_object('/Session',
-					'net.sf.rox.Session.Control')
-
+def show_logout_box(session_control):
 	box = LogoutBox()
 	resp = box.run()
 	if resp == g.RESPONSE_YES:
