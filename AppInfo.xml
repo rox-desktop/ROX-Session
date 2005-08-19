@@ -2,7 +2,7 @@
 <AppInfo>
   <Summary xml:lang="en">Sets up your desktop when you log in, and lets you log out again</Summary>
   <Summary xml:lang="es">Configura tu escritorio cuando ingresas y te permite salir</Summary>
-  <Summary xml:lang="fr">Montre l'utilisation de la mémoire et des disques avec des diagrammes à barres</Summary>
+  <Summary xml:lang="fr">Met en place le bureau quand vous vous connectez, et permet de vous déconnecter</Summary>
   <Summary xml:lang="it">Configura il desktop dopo l'accesso al sistema e permette di terminare la sessione</Summary>
   <Summary xml:lang="zh_CN">登入登出及桌面管理</Summary>
   <Summary xml:lang="zh_TW">登入登出及桌面管理</Summary>
@@ -14,7 +14,7 @@
     <Homepage>http://rox.sourceforge.net</Homepage>
   </About>
   <About xml:lang="fr">
-    <Purpose label="Fonction">Moniteur système</Purpose>
+    <Purpose label="Fonction">Gestionnaire de sessions</Purpose>
     <Author label="Auteur"/>
     <License label="Licence"/>
     <Homepage label="Page web"/>
@@ -50,18 +50,21 @@
   <AppMenu>
     <Item option='--install'>
       <Label xml:lang="en">Install...</Label>
+      <Label xml:lang="fr">Installer...</Label>
       <Label xml:lang='it'>Installa...</Label>
       <Label xml:lang="zh_CN">安装....</Label>
       <Label xml:lang="zh_TW">安裝...</Label>
     </Item>
     <Item option='--options'>
       <Label xml:lang="en">Session Settings...</Label>
+      <Label xml:lang="fr">Options de session...</Label>
       <Label xml:lang='it'>Impostazioni di sessione...</Label>
       <Label xml:lang="zh_CN">Session 设定...</Label>
       <Label xml:lang="zh_TW">Session 設定...</Label>
     </Item>
     <Item option='--setup'>
       <Label xml:lang="en">Auto Start...</Label>
+      <Label xml:lang="fr">Démarrage automatique...</Label>
       <Label xml:lang='es'>Iniciar Autom&#x00E1;ticamente...</Label>
       <Label xml:lang='it'>Esecuzione automatica...</Label>
       <Label xml:lang="zh_CN">自动执行...</Label>
@@ -69,6 +72,7 @@
     </Item>
     <Item option='--messages'>
       <Label xml:lang="en">Message Log...</Label>
+      <Label xml:lang="fr">Journal...</Label>
       <Label xml:lang='it'>Messaggi di log...</Label>
       <Label xml:lang="zh_CN">讯息日志...</Label>
       <Label xml:lang="zh_TW">訊息日誌...</Label>            
