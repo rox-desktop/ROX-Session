@@ -10,32 +10,35 @@ while (<VER>) {
 }
 close(VER);
 
-/(\d+)\.(\d+)\.(\d+)$/;
+/(\d+(\.\d+)*)$/;
 
-($a, $b, $c) = ($1, $2, $3);
+$version = $1;
+$_=$1;
+s/\./_/g;
+$dash = $_;
 
 print "Check the manual is up-to-date!\n";
-print "Version $a.$b.$c --- OK?\n";
+print "Version $version ($dash) --- OK?\n";
 
 <STDIN> =~ /^[yY]/ or die "OK, fix the version number!\n";
 
-system "cvs tag -F Release-$a-$b-$c";
-system "cd src/po; ./update-po; ./dist";
+system "cvs tag -F Release-$dash";
+system "cd ROX-Session/src/po; ./update-po; ./dist";
 
 chdir;
 
-mkdir "ROX-Session-$a.$b.$c", 0775 or warn "mkdir() failed: $!\n";
-chdir "ROX-Session-$a.$b.$c";
+mkdir "ROX-Session-$version", 0775 or warn "mkdir() failed: $!\n";
+chdir "ROX-Session-$version";
 
+system "cvs -d:ext:tal197\@cvs.sourceforge.net:/cvsroot/rox export -r Release-$dash ROX-Session";
 #system "cvs -d:pserver:anonymous\@cvs.rox.sourceforge.net:/cvsroot/rox export -r Release-$a-$b-$c ROX-Session";
-system "cvs -d:ext:tal197\@cvs.sourceforge.net:/cvsroot/rox export -r Release-$a-$b-$c ROX-Session";
 
 system "cd ROX-Session/src; autoconf";
 mkdir "ROX-Session/Messages";
-system "cp -r ~/Projects/ROX-Session/Messages/*.gmo ROX-Session/Messages";
+system "cp ~/Projects/ROX-Session/Messages/*.gmo ROX-Session/Messages";
 
 chdir "..";
-system "tar czf ROX-Session-$a.$b.$c.tgz ROX-Session-$a.$b.$c";
-system "rm -r ROX-Session-$a.$b.$c";
+system "tar czf ROX-Session-$version.tgz ROX-Session-$version";
+system "rm -r ROX-Session-$version";
 
 print "OK, done\n";
