@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<interface xmlns='http://zero-install.sourceforge.net/2004/injector/interface'
+	   uri='http://rox.sourceforge.net/2005/interfaces/ROX-Session'
+	   main='ROX-Session/AppRun'>
+  <name>ROX-Session</name>
+  <summary>sets up a ROX desktop session</summary>
+  <description>
+ROX-Session sets up your desktop when you log in, and starts any
+applications you ask it to. It allows you to set various settings, such as
+the default font, cursor blinking and mouse behaviour (through a separate
+applications applets).
+
+It also allows you to choose a window manager, and change between window
+managers without logging out.
+  </description>
+  <icon type='image/png' href='http://rox.sourceforge.net/Icons/ROX-Session.png'/>
+  <group>
+    <requires interface="http://rox.sourceforge.net/2005/interfaces/ROX-Lib">
+      <environment insert="ROX-Lib2/python" name="PYTHONPATH"/>
+    </requires>
+
+    <implementation version="0.26" stability='testing' id=".."/>
+  </group>
+</interface>

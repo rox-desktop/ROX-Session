@@ -2,10 +2,12 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
-28-Aug-2005
+28-Aug-2005 (Release 0.26)
 ~~~~~~~~~~~
 Updated build system to match ROX-Filer: generated files go in the 'build'
-directory and the platform guessing has been removed (Thomas Leonard).
+directory, the platform guessing has been removed, and the translation building
+system has been updated. Also upgraded to the latest findrox and added
+ROX-Session.xml for 0launch (Thomas Leonard).
 
 09-Jul-2005
 ~~~~~~~~~~~
