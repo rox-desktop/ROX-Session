@@ -9,7 +9,7 @@ if [ -z "$MYCHOICES" ]; then
   exit 1
 fi
 
-PANEL="$MYCHOICES/ROX-Filer/pan_Default"
+PANEL="$MYCHOICES/rox.sourceforge.net/ROX-Filer/pan_Default"
 
 if [ -f "$PANEL" ]; then
   echo "SetupPanel -- $PANEL already exists!" >&2
@@ -17,7 +17,8 @@ if [ -f "$PANEL" ]; then
 fi
 
 mkdir "$MYCHOICES" 2> /dev/null
-mkdir "$MYCHOICES/ROX-Filer" 2> /dev/null
+mkdir "$MYCHOICES/rox.sourceforge.net" 2> /dev/null
+mkdir "$MYCHOICES/rox.sourceforge.net/ROX-Filer" 2> /dev/null
 DRIVES=""
 if [ -d "/mnt" ]; then
 for DRIVE in /floppy /cdrom /zip /mnt/*; do
@@ -40,12 +41,9 @@ cat > "$PANEL" << EOF
 <panel>
 <start>
 <icon label="Home">~</icon>
-<icon label="Apps">$APPS</icon>
 $DRIVES
 </start>
 <end>
-<icon label="Session" shortcut="Control+Shift+F12">$1</icon>
-<icon label="Guide">$1/Help/Guide</icon>
 $EDIT
 </end>
 </panel>

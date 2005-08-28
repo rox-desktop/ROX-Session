@@ -8,6 +8,7 @@ Updated build system to match ROX-Filer: generated files go in the 'build'
 directory, the platform guessing has been removed, and the translation building
 system has been updated. Also upgraded to the latest findrox and added
 ROX-Session.xml for 0launch (Thomas Leonard).
+RunROX and SetUp panel scripts use freedesktop.org basedir spec.
 
 09-Jul-2005
 ~~~~~~~~~~~

@@ -12,33 +12,31 @@
 # <Choices>/ROX-Session/RunROX so that upgrading ROX-Session will not overwrite
 # your changes. This also allows per-user modifications.
 
-if [ ! -n "$CHOICESPATH" ]; then
-	CHOICESPATH=${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices
+if [ ! -n "$XDG_CONFIG_DIRS" ]; then
+	XDG_CONFIG_DIRS=/etc/xdg
+fi
+if [ ! -n "$XDG_CONFIG_HOME" ]; then
+	XDG_CONFIG_HOME="$HOME/.config"
 fi
 IFS=":"
 
 # Load ROX-Filer with a panel and a pinboard set up.
-MYCHOICES="(none)"
-for DIR in $CHOICESPATH; do
-  if [ "$MYCHOICES" = "(none)" ]; then
-    MYCHOICES="$DIR"
-  fi
-  PANEL="$DIR/ROX-Filer/pan_Default"
+for DIR in $XDG_CONFIG_HOME $XDG_CONFIG_DIRS; do
+  PANEL="$DIR/rox.sourceforge.net/ROX-Filer/pan_Default"
   if [ -f "$PANEL" ]; then
     break;
   fi;
   PANEL="";
 done
 
-if [ -z "$PANEL" -a -n "$MYCHOICES" ]; then
-  "$1/SetupPanel" "$1" "$MYCHOICES"
+if [ -z "$PANEL" ]; then
+  "$1/SetupPanel" "$1" "$XDG_CONFIG_HOME"
 fi
 
-# The -n is needed to stop the filer going into the background, causing
-# ROX-Session to offer to restart it...
+# -n is needed to stop the filer going into the background, causing
+# ROX-Session to offer to restart it... (-S turns on -n automatically)
 
 # Try to run it though Zero Install...
-
 if [ -x "`which 0launch`" ]; then
     exec 0launch http://rox.sourceforge.net/2005/interfaces/ROX-Filer -S
 fi
