@@ -22,12 +22,12 @@ print "Version $version ($dash) --- OK?\n";
 
 <STDIN> =~ /^[yY]/ or die "OK, fix the version number!\n";
 
-system "cvs tag -F Release-$dash";
-system "cd ROX-Session/src/po; ./update-po; ./dist";
+system "cvs tag -F Release-$dash" and die "$!";
+system "cd src/po; ./update-po; ./dist" and die "$!";
 
 chdir;
 
-mkdir "ROX-Session-$version", 0775 or warn "mkdir() failed: $!\n";
+mkdir "ROX-Session-$version", 0775 or die "mkdir() failed: $!\n";
 chdir "ROX-Session-$version";
 
 system "cvs -d:ext:tal197\@cvs.sourceforge.net:/cvsroot/rox export -r Release-$dash ROX-Session";

@@ -38,8 +38,9 @@ fi
 # ROX-Session to offer to restart it...
 
 # Try to run it though Zero Install...
-if [ -d /uri/0install/rox.sourceforge.net ]; then
-	exec 0run "rox.sourceforge.net/rox 2003-10-07" -S
+
+if [ -x "`which 0launch`" ]; then
+    exec 0launch http://rox.sourceforge.net/2005/interfaces/ROX-Filer -S
 fi
 
 # Fallback to a manual installation
