@@ -14,15 +14,6 @@ PROG=ROX-Session
 APP_DIR=`dirname "$0"`
 APP_DIR=`cd "$APP_DIR";pwd`; export APP_DIR
 
-if [ "x$PLATFORM" = x ]; then
-	ARCH=`uname -m`
-	case "$ARCH" in
-		i?86) ARCH=ix86 ;;
-	esac
-
-	PLATFORM=`uname -s`-"$ARCH" export PLATFORM
-fi
-
 if [ -z "$CHOICESPATH" ]; then
   CHOICESPATH="${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices"
 fi
@@ -79,10 +70,11 @@ case $1 in
 		  echo "No 'configure' script! Trying to run autoconf..."
 		  (cd "$APP_DIR/src"; autoconf)
 		fi
-		rm -f "$APP_DIR/src/config.cache"
-		cd "$APP_DIR/src" && ./configure --enable-rox	    \
-					--with-platform="$PLATFORM" \
-					"$@" \
+		BUILDDIR="$APP_DIR/build"
+		[ ! -d "$BUILDDIR" ] && mkdir "$BUILDDIR"
+		rm -f "$BUILDDIR/config.cache"
+		rm -f "$APP_DIR/src/config.h"	# (for upgrading)
+		cd "$BUILDDIR" && "$APP_DIR/src/configure" "$@" \
 			&& make clean && make && echo Done >&2 && exit 0
 		echo Compile failed >&2
 		echo Press Return... >&2
@@ -97,14 +89,14 @@ if [ -z "$XDG_DATA_DIRS" -a -d /uri/0install/zero-install.sourceforge.net ]; the
   export XDG_DATA_DIRS
 fi
 
-BIN="$APP_DIR/$PLATFORM/$PROG"
+BIN="$APP_DIR/$PROG"
 
 if [ -x "$BIN" ]; then
   exec $DEBUGGER "$BIN" "$@"
 else
-  echo "Message from $0:"
-  echo "I cannot find an executable file for your host type ($PLATFORM)."
-  echo "Trying to compile..."
+  echo "Message from $0:" >&2
+  echo "I cannot find an executable binary." >&2
+  echo "Trying to compile..." >&2
   if [ -n "$DISPLAY" ]; then
     xterm -e "$0" --compile
   else

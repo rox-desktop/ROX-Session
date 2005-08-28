@@ -2,28 +2,24 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT(main.c)
 AC_CONFIG_HEADER(config.h)
 
-AC_ARG_WITH(platform,
-[  --with-platform	  platform name, as detected by AppRun],
-[AC_SUBST(with_platform)],
-[
-AC_MSG_ERROR([
+[ if [ -f configure ]; then ]
+	AC_MSG_ERROR([Please run configure from the build directory (try ../AppRun --compile)])
+	exit 1
+fi
 
-Please do not run 'configure' manually - instead, run the AppRun script with
-the --compile option, like this:
-	$ ROX-Session/AppRun --compile
-
-Thank you.
-])
-])
+if test -z "$PKG_CONFIG"; then
+  PKG_CONFIG=pkg-config
+fi
+AC_SUBST(PKG_CONFIG)
 
 AC_MSG_CHECKING(that pkg-config runs)
-if pkg-config --version > /dev/null 2>&1 ; then
+if "$PKG_CONFIG" --version > /dev/null 2>&1 ; then
   AC_MSG_RESULT(yes)
 else
   AC_MSG_RESULT(no)
   AC_MSG_ERROR([*** pkg-config missing ***
 
-'pkg-config --version' failed to run - make sure it is inside one of the
+\'$PKG_CONFIG --version\' failed to run - make sure it is inside one of the
 directories in your PATH environment variable!
 
 pkg-config comes with the developement packages for GTK+-2.0, available at:
@@ -33,12 +29,12 @@ fi
 
 AC_DEFUN(ROX_REQUIRE, [
 AC_MSG_CHECKING(that $1 (version >= $2) is installed)
-if pkg-config --atleast-version=$2 $1 ; then
+if "$PKG_CONFIG" --atleast-version=$2 $1 ; then
   AC_MSG_RESULT(yes)
 else
   AC_MSG_RESULT(no)
-  if pkg-config --exists $1 ; then
-    AC_MSG_ERROR(Current version is only `pkg-config $1 --modversion`)
+  if "$PKG_CONFIG" --exists $1 ; then
+    AC_MSG_ERROR(Current version is only `"$PKG_CONFIG" $1 --modversion`)
   else
     AC_MSG_ERROR(Package is not installed)
   fi
@@ -51,7 +47,7 @@ ROX_REQUIRE(dbus-1, 0.20)
 ROX_REQUIRE(dbus-glib-1, 0.20)
 
 AC_MSG_CHECKING(whether DBUS is version 0.30 or later)
-if pkg-config --atleast-version=0.30 dbus-1 ; then
+if "$PKG_CONFIG" --atleast-version=0.30 dbus-1 ; then
   AC_MSG_RESULT(yes)
   AC_DEFINE(DBUS_03)
 else
@@ -67,14 +63,19 @@ AC_C_CONST
 AC_C_INLINE
 
 dnl Use -Wall, etc if possible
+dnl Note: GTK uses func(), so can't use -Wstrict-prototypes 
 [
 if test "x$GCC" = "xyes"; then
-  case " $CFLAGS " in
-  *[\ \	]-Wall[\ \	]*) ;;
-  *) CFLAGS="$CFLAGS -Wall -Wmissing-prototypes" ;;
-  esac
-fi
+  CFLAGS="$CFLAGS -Wall -Wmissing-prototypes"
 ]
+  AC_MSG_CHECKING(for GCC version 4)
+[ if $CC --version | grep "(GCC) 4" > /dev/null; then ]
+    AC_MSG_RESULT(yes)
+    [ CFLAGS="$CFLAGS -Wno-pointer-sign" ]
+  else
+    AC_MSG_RESULT(no)
+  fi
+fi
 
 dnl Find the X libraries
 AC_PATH_XTRA

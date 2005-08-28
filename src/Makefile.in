@@ -1,16 +1,17 @@
 SHELL = @SHELL@
 srcdir = @srcdir@
-PLATFORM = @with_platform@
-PLATFORM_DIR = ../${PLATFORM}
+VPATH = @srcdir@
+PLATFORM_DIR = $(srcdir)/..
+CC = @CC@
 .SUFFIXES:
 .SUFFIXES: .c .o
 
-CC = @CC@
+PKG_CONFIG = @PKG_CONFIG@
 LIBS = @LIBS@ -lXtst
 
-CFLAGS = @CFLAGS@ `pkg-config --cflags gtk+-2.0 libxml-2.0 dbus-1 dbus-glib-1` -I.
-LDFLAGS = @LDFLAGS@ `pkg-config --libs gtk+-2.0 libxml-2.0 dbus-1 dbus-glib-1` -I. ${LIBS}
-EXEC = ${PLATFORM_DIR}/${PROG}
+CFLAGS = -I. -I${srcdir} @CFLAGS@ \
+	`${PKG_CONFIG} --cflags gtk+-2.0 libxml-2.0 dbus-1 dbus-glib-1`
+LDFLAGS = @LDFLAGS@ `${PKG_CONFIG} --libs gtk+-2.0 libxml-2.0 dbus-1 dbus-glib-1` ${LIBS}
 
 ############ Things to change for different programs
 
@@ -26,17 +27,19 @@ OBJECTS = main.o choices.o dbus.o dpms.o gui_support.o i18n.o log.o options.o \
 
 ############ Things to keep the same
 
-${EXEC}: ${PLATFORM_DIR} ${OBJECTS}
-	${CC} -o ${EXEC} ${OBJECTS} ${LDFLAGS}
-
-${PLATFORM_DIR}:
-	mkdir ${PLATFORM_DIR}
+${PROG}: ${OBJECTS}
+	${CC} -o "${PROG}" ${OBJECTS} ${LDFLAGS}
+	mv "${PROG}" "${PLATFORM_DIR}"
+	-(cd "${PLATFORM_DIR}" && \
+	 objcopy --only-keep-debug ROX-Session ROX-Session.dbg && \
+	 strip ROX-Session && \
+	 objcopy --add-gnu-debuglink=ROX-Session.dbg ROX-Session)
 
 clean:
 	rm -f *.o Makefile.bak
 
 depend:
-	makedepend -- $(CFLAGS) -- $(SRCS)
+	makedepend -- ${CFLAGS} -- ${SRCS}
 
 Makefile: Makefile.in config.status
 	./config.status
@@ -45,12 +48,7 @@ config.h: config.h.in
 	./config.status
 
 config.status: configure
-	./configure --with-platform="${PLATFORM}" --enable-rox
+	APP_DIR="$(srcdir)/.." $(srcdir)/configure
 
 configure: configure.in
-	autoconf
-
-messages.pot: ${SRCS} ../Options.xml ../*.py
-	python po/tips.py
-	xgettext --keyword=_ --keyword=N_ --output=$@ ${SRCS} tips
-	(cd ..; pygettext -o - *.py | sed -n '/^$$/,$$p') >> "$@"
+	cd $(srcdir) && autoconf
