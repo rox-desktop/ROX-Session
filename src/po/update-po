@@ -5,6 +5,7 @@ echo
 
 (cd ..; python po/tips.py;
  xgettext --keyword=_ --keyword=N_ --output=messages.pot *.c tips)
+(cd ../..; pygettext -o - *.py | sed -n '/^$/,$p') >> messages.pot
 
 echo
 

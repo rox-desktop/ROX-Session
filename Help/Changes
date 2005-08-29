@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+29-Aug-2005
+~~~~~~~~~~~
+Fixed update-po to include Python strings (Thomas Leonard; reported by babyfai
+Cheung).
+
 28-Aug-2005 (Release 0.26)
 ~~~~~~~~~~~
 Updated build system to match ROX-Filer: generated files go in the 'build'
