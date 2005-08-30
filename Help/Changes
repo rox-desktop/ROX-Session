@@ -2,10 +2,16 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+30-Aug-2005
+~~~~~~~~~~~
+Generate Python messages.pot in the right place (Babyfai Cheung).
+
 29-Aug-2005
 ~~~~~~~~~~~
 Fixed update-po to include Python strings (Thomas Leonard; reported by babyfai
 Cheung).
+Make NumLock default to off, as on some laptops it makes the letter keys
+produce numbers! (reported by Matthew Weier O'Phinney).
 
 28-Aug-2005 (Release 0.26)
 ~~~~~~~~~~~

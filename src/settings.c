@@ -62,7 +62,7 @@ static int mouse_left_handed = 0;
 static gchar *cursor_theme = NULL;
 static int cursor_size = 18;
 static gboolean kbd_repeat = TRUE;
-static gboolean kbd_numlock = TRUE;
+static gboolean kbd_numlock = FALSE;
 static gboolean kbd_capslock = FALSE;
 static int kbd_delay = 500, kbd_interval = 30;
 static int dpms_standby_time = 15 * 60;
