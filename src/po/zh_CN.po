@@ -7,13 +7,97 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-04 22:44+0800\n"
-"PO-Revision-Date: 2005-05-06 23:07+0800\n"
+"POT-Creation-Date: 2005-08-31 11:46+0800\n"
+"PO-Revision-Date: 2005-08-31 12:07+0800\n"
 "Last-Translator: Babyfai Cheung <babyfai1@yahoo.com.hk>\n"
 "Language-Team: none>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: dbus.c:108
+msgid ""
+"ROX-Session lost its connection to the D-BUS session bus.\n"
+"You should save your work and logout as soon as possible (many things won't "
+"work correctly without the bus, and this is the only way to restart it)."
+msgstr ""
+"ROX-Session 失却 D-BUS 的连线.\n"
+"请尽速储存工作及登出 (在缺少 D-BUS 下很多工作会出错，唯一解决方法是重新启动)."
+
+#: dbus.c:324
+msgid "ROX-Session is already running. Can't manage your session twice!"
+msgstr "ROX-Session 经已运行，不能再次执行此程式"
+
+#: dbus.c:398
+msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
+msgstr "错误开启 libdbus-1.so.0，D-BUS 支援取消"
+
+#: dbus.c:405
+msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
+msgstr "错误开启 libdbus-glib-1.so.0，D-BUS 支援取消"
+
+#: dbus.c:429
+#, c-format
+msgid ""
+"%s\n"
+"\n"
+"You can get D-BUS from freedesktop.org.\n"
+"ROX-Session will not work correctly without it!"
+msgstr ""
+"%s\n"
+"\n"
+"D-BUS 可在 freedesktop.org 找到.\n"
+"ROX-Session 需要此套件！"
+
+#: dpms.c:35
+msgid "DPMS extension not supported"
+msgstr "DPMS 功用不支援"
+
+#: dpms.c:40
+msgid "Display not capable of DPMS"
+msgstr "显示器未能符合 DPMS"
+
+#: dpms.c:55
+msgid "DPMS timeout under 10 seconds, rounding up"
+msgstr "DPMS 闲置少於十秒，忽略"
+
+#: dpms.c:62
+msgid "Unable to read previous DPMS timeouts"
+msgstr "未能读取上个 DPMS 逾时闲置"
+
+#: dpms.c:68
+msgid "Unable to set DPMS timeouts"
+msgstr "未能设定 DPMS 闲置时间"
+
+#: dpms.c:81
+msgid "Unable to get DPMS state"
+msgstr "未能读取 DPMS 状况"
+
+#: dpms.c:87
+msgid "Unable to set DPMS state"
+msgstr "未能设定 DPMS 环境"
+
+#: i18n.c:38
+msgid ""
+"Note that you must save your choices, logout and log back in again before "
+"the new settings will take full effect."
+msgstr "您必须先储存设定，登出及再次登入。所有设定才会完全生效."
+
+#: log.c:378
+msgid "ROX-Session: write to stderr failed!\n"
+msgstr "ROX-Session: 输出错误讯息失败！\n"
+
+#: log.c:402
+msgid "ROX-Session: read(stderr) failed!\n"
+msgstr "ROX-Session: 读取 (输出错误) 失败！\n"
+
+#: log.c:459
+msgid "ROX-Session message log"
+msgstr "ROX-Session 讯息日志"
+
+#: log.c:513
+msgid "Show message log"
+msgstr "显示讯息日志"
 
 #: main.c:60
 msgid ""
@@ -76,90 +160,6 @@ msgid ""
 "fine though - run me a second time to logout."
 msgstr ""
 ". xterm 将会运行，请尝试解决问题，ROX-Session 已正常启动 - 稍后将会结出."
-
-#: dbus.c:105
-msgid ""
-"ROX-Session lost its connection to the D-BUS session bus.\n"
-"You should save your work and logout as soon as possible (many things won't "
-"work correctly without the bus, and this is the only way to restart it)."
-msgstr ""
-"ROX-Session 失却 D-BUS 的连线.\n"
-"请尽速储存工作及登出 (在缺少 D-BUS 下很多工作会出错，唯一解决方法是重新启动)."
-
-#: dbus.c:303
-msgid "ROX-Session is already running. Can't manage your session twice!"
-msgstr "ROX-Session 经已运行，不能再次执行此程式"
-
-#: dbus.c:362
-msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
-msgstr "错误开启 libdbus-1.so.0，D-BUS 支援取消"
-
-#: dbus.c:369
-msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
-msgstr "错误开启 libdbus-glib-1.so.0，D-BUS 支援取消"
-
-#: dbus.c:392
-#, c-format
-msgid ""
-"%s\n"
-"\n"
-"You can get D-BUS from freedesktop.org.\n"
-"ROX-Session will not work correctly without it!"
-msgstr ""
-"%s\n"
-"\n"
-"D-BUS 可在 freedesktop.org 找到.\n"
-"ROX-Session 需要此套件！"
-
-#: dpms.c:35
-msgid "DPMS extension not supported"
-msgstr "DPMS 功用不支援"
-
-#: dpms.c:40
-msgid "Display not capable of DPMS"
-msgstr "显示器未能符合 DPMS"
-
-#: dpms.c:55
-msgid "DPMS timeout under 10 seconds, rounding up"
-msgstr "DPMS 闲置少於十秒，忽略"
-
-#: dpms.c:62
-msgid "Unable to read previous DPMS timeouts"
-msgstr "未能读取上个 DPMS 逾时闲置"
-
-#: dpms.c:68
-msgid "Unable to set DPMS timeouts"
-msgstr "未能设定 DPMS 闲置时间"
-
-#: dpms.c:81
-msgid "Unable to get DPMS state"
-msgstr "未能读取 DPMS 状况"
-
-#: dpms.c:87
-msgid "Unable to set DPMS state"
-msgstr "未能设定 DPMS 环境"
-
-#: i18n.c:38
-msgid ""
-"Note that you must save your choices, logout and log back in again before "
-"the new settings will take full effect."
-msgstr "您必须先储存设定，登出及再次登入。所有设定才会完全生效."
-
-#: log.c:378
-msgid "ROX-Session: write to stderr failed!\n"
-msgstr "ROX-Session: 输出错误讯息失败！\n"
-
-#: log.c:402
-msgid "ROX-Session: read(stderr) failed!\n"
-msgstr "ROX-Session: 读取 (输出错误) 失败！\n"
-
-#: log.c:448
-msgid "ROX-Session message log"
-msgstr "ROX-Session 讯息日志"
-
-#: log.c:502
-msgid "Show message log"
-msgstr "显示讯息日志"
 
 #: options.c:464 options.c:1187
 msgid "(use default)"
@@ -420,7 +420,7 @@ msgstr "弹出显示所占的最大位置："
 msgid "%"
 msgstr ""
 
-#: tips:26 tips:27 tips:28
+#: tips:26
 msgid ""
 "Normally, messages are shown overlayed on the screen for a few seconds. If "
 "there are a large number of messages (more than this amount of the screen is "
@@ -429,11 +429,11 @@ msgstr ""
 "通常，讯息会停留在屏幕上数秒，但假如讯息太多 (超过屏幕所覆盖) 便会改以窗口模"
 "式显示."
 
-#: tips:29 tips:30
+#: tips:27 tips:28
 msgid "Power"
 msgstr "电源"
 
-#: tips:31
+#: tips:29
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -443,27 +443,27 @@ msgstr ""
 "此等指令会在登出时在讯息盒中显示，在不同的系统中，可能有不同的设定和指令。假"
 "如您的系统不赋予一般用户执行关机这类指令，您可能要运用 xsu 或 sudo 来执行. "
 
-#: tips:32
+#: tips:30
 msgid "Halt command:"
-msgstr "停机指令："
+msgstr "关机指令："
+
+#: tips:31
+msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
+msgstr "用以关闭机器指令如 'halt' and 'shutdown -t now' "
+
+#: tips:32
+msgid "Reboot command:"
+msgstr "重开机器指令："
 
 #: tips:33
-msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
-msgstr "用以停止指令如 'halt' and 'shutdown -t now' "
-
-#: tips:34
-msgid "Reboot command:"
-msgstr "重启机器指令："
-
-#: tips:35
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "用以重新启动指令如 'reboot' and 'shutdown -t now -r"
 
-#: tips:36
+#: tips:34
 msgid "Suspend command:"
 msgstr "待机指令："
 
-#: tips:37 tips:38 tips:39
+#: tips:35
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
@@ -473,11 +473,11 @@ msgstr ""
 "dpms force off; echo 1 > /proc/acpi/sleep'.  您的系统核心亦必须要支援电源管理"
 "这功能."
 
-#: tips:40
+#: tips:36
 msgid "Look and Feel"
 msgstr ""
 
-#: tips:41 tips:42 tips:43
+#: tips:37
 msgid ""
 "The mouse, keyboard and display options have moved to the new LookAndFeel "
 "application, available from http://rox.sf.net."
@@ -485,35 +485,35 @@ msgstr ""
 "滑鼠,键盘及显示选项,已移植到另一新程式 'LookAndFeel' 上，详情可浏览 http://"
 "rox.sf.net."
 
-#: AutoStart.py:13
+#: ../AutoStart.py:13
 msgid "Symlink any applications you want run on login into this directory"
 msgstr "连结您想在登入时要启动的程式"
 
-#: logout.py:66
+#: ../logout.py:66
 msgid "_Halt"
-msgstr "关闭(_H)"
+msgstr "关机(_H)"
 
-#: logout.py:68
+#: ../logout.py:68
 msgid "Attempting to halt the system..."
-msgstr "尝试关闭系统中..."
+msgstr "尝试关闭机器中..."
 
-#: logout.py:71
+#: ../logout.py:71
 msgid "_Reboot"
-msgstr "重启(_R)"
+msgstr "重开机(_R)"
 
-#: logout.py:73
+#: ../logout.py:73
 msgid "Attempting to restart the system..."
 msgstr "尝试重新启动系统中..."
 
-#: logout.py:76
+#: ../logout.py:76
 msgid "_Sleep"
 msgstr "休眠(_S)"
 
-#: logout.py:78
+#: ../logout.py:78
 msgid "Attempting to enter suspend mode..."
-msgstr "尝试进入停止状态..."
+msgstr "尝试进入待机状态..."
 
-#: logout.py:82
+#: ../logout.py:82
 msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
@@ -521,19 +521,19 @@ msgstr ""
 "确认登出?\n"
 "(资料若未储存将会遗失)"
 
-#: logout.py:87
+#: ../logout.py:87
 msgid "ROX-Session"
 msgstr ""
 
-#: logout.py:92
+#: ../logout.py:92
 msgid "Session Settings"
 msgstr "设定"
 
-#: logout.py:98
+#: ../logout.py:98
 msgid "Logout"
 msgstr "登出"
 
-#: setup.py:25
+#: ../setup.py:25
 msgid ""
 "Tried to make a backup of your old '%s' file, but the backup file ('%s') "
 "already exists.\n"
@@ -542,7 +542,7 @@ msgstr ""
 "尝试备份文件为 '%s' 时错误，因这个名为 ('%s') 的文件已存在.\n"
 "如要保留，请将其移到别处。否则，请将他删除."
 
-#: setup.py:37
+#: ../setup.py:37
 msgid ""
 "Do you want to make ROX a choice on your login screen (affects all users and "
 "requires the root password), or do you just want to set the session for your "
@@ -557,15 +557,15 @@ msgstr ""
 "首要是，您必须知道'root' 的密码及以一个图型登入管理员如 'gdm' 或 'kdm'，您才"
 "可运用此选项."
 
-#: setup.py:45
+#: ../setup.py:45
 msgid "Setup for user"
 msgstr "对用户设置"
 
-#: setup.py:46
+#: ../setup.py:46
 msgid "Add to login"
 msgstr "加进登入"
 
-#: setup.py:122
+#: ../setup.py:126
 msgid ""
 "OK, now logout by your usual method and when you log in again, I should be "
 "your session manager.\n"
@@ -575,7 +575,7 @@ msgstr ""
 "完成，请登出后再登入；这便成为您的 session manager 了.\n"
 "注意：在图型登入视窗中选择 'Default'，然后开始登入."
 
-#: setup.py:137
+#: ../setup.py:141
 msgid ""
 "I wanted to install a rox.desktop file in your session directory, but I "
 "couldn't find one! I tried these places (defaults for gdm2, at least):\n"
@@ -585,14 +585,14 @@ msgstr ""
 "( 缺省是gdm2, 最少也要)：\n"
 "\n"
 
-#: setup.py:142
+#: ../setup.py:146
 msgid ""
 "/usr/local/sbin directory is missing! I want to install the rox-session "
 "script there... Please create it and try again."
 msgstr ""
 "/usr/local/sbin 目录不存在！rox-session 的程序档需要他... 请建立后再试."
 
-#: setup.py:184
+#: ../setup.py:188
 msgid ""
 "OK, now logout by your usual method, and choose ROX from the session menu on "
 "your login screen just after entering your user name (but before entering "
@@ -600,7 +600,7 @@ msgid ""
 msgstr ""
 "完成，现在请登出再在图型登入视窗中；输入您的名字然后选 ROX  (随后是您的密码)."
 
-#: setup.py:201
+#: ../setup.py:205
 msgid ""
 "OK, I don't know what the problem is. Please ask on the rox-users mailing "
 "list. When we know what the problem is, we can add an extra check here to "
@@ -615,7 +615,7 @@ msgstr ""
 "http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
 "(您可复制及贴上到浏览器上)"
 
-#: setup.py:212
+#: ../setup.py:216
 msgid ""
 "ROX-Session does not appear to be managing your session. Would you like to "
 "set it up now?\n"
@@ -626,10 +626,10 @@ msgstr ""
 "\n"
 "如已经安装，请点击说明档."
 
-#: setup.py:217
+#: ../setup.py:221
 msgid "Set up ROX"
 msgstr "安装设立 ROX "
 
-#: setup.py:220
+#: ../setup.py:224
 msgid "Set up ROX-Session"
 msgstr "安装设立 ROX -Session"
