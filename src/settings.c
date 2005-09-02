@@ -65,6 +65,9 @@ static gboolean kbd_repeat = TRUE;
 static gboolean kbd_numlock = FALSE;
 static gboolean kbd_capslock = FALSE;
 static int kbd_delay = 500, kbd_interval = 30;
+static gboolean manage_screensaver = FALSE;
+static int blank_time = 10 * 60;
+static gboolean dpms_enabled = TRUE;
 static int dpms_standby_time = 15 * 60;
 static int dpms_suspend_time = 20 * 60;
 static int dpms_off_time = 30 * 60;
@@ -158,7 +161,6 @@ void settings_set_string(const char *name, char *value)
 
 static void set_rox_setting(const char *name, const char *value)
 {
-
 	if (strcmp(name, "NumLock") == 0)
 		kbd_numlock = atoi(value);
 	else if (strcmp(name, "CapsLock") == 0)
@@ -186,8 +188,12 @@ static void set_rox_setting(const char *name, const char *value)
 		kbd_delay = atoi(value);
 	else if (strcmp(name, "KbdInterval") == 0)
 		kbd_interval = atoi(value);
+	else if (strcmp(name, "ManageScreensaver") == 0)
+		manage_screensaver = atoi(value);
+	else if (strcmp(name, "BlankTime") == 0)
+		blank_time = 60 * atoi(value);
 	else if (strcmp(name, "DPMSEnable") == 0)
-		dpms_set_enabled(GDK_DISPLAY(), atoi(value));
+		dpms_enabled = atoi(value);
 	else if (strcmp(name, "DPMSStandby") == 0)
 		dpms_standby_time = 60 * atoi(value);
 	else if (strcmp(name, "DPMSSuspend") == 0)
@@ -372,8 +378,14 @@ static void activate_changes(void)
 	set_xkb_repeat(kbd_repeat, kbd_delay, kbd_interval);
 	set_xkb_numlock(kbd_numlock);
 	set_xkb_capslock(kbd_capslock);
-	dpms_set_times(GDK_DISPLAY(),
+	if (manage_screensaver)
+	{
+		XSetScreenSaver(GDK_DISPLAY(), blank_time, blank_time,
+				1, DefaultExposures);
+		dpms_set_enabled(GDK_DISPLAY(), dpms_enabled);
+		dpms_set_times(GDK_DISPLAY(),
 			dpms_standby_time, dpms_suspend_time, dpms_off_time);
+	}
 }
 
 /* Find the setting element in settings_doc, or create a new one. */

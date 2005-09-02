@@ -2,6 +2,10 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+02-Sep-2005
+~~~~~~~~~~~
+Added options for screen blanking with DPMS (Tony Houghton).
+
 31-Aug-2005
 ~~~~~~~~~~~
 Updated Chinese translations (Babyfai Cheung).
