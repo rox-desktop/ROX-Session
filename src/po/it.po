@@ -5,15 +5,106 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ROX-Session 0.1.25\n"
+"Project-Id-Version: ROX-Session 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-19 22:03+0100\n"
+"POT-Creation-Date: 2005-10-01 18:51+0200\n"
 "PO-Revision-Date: 2005-02-01 10:47+0200\n"
 "Last-Translator: Yuri Bongiorno http://yuri.webhop.org <>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: dbus.c:108
+msgid ""
+"ROX-Session lost its connection to the D-BUS session bus.\n"
+"You should save your work and logout as soon as possible (many things won't "
+"work correctly without the bus, and this is the only way to restart it)."
+msgstr ""
+"ROX-Session ha perso la connessione con D-BUS.\n"
+"Salvare i documenti e disconnettersi al più presto possibile (molte cose non "
+"funzionano correttamente senza il bus e questo è l'unico modo di riavviarlo)."
+
+#: dbus.c:324
+msgid "ROX-Session is already running. Can't manage your session twice!"
+msgstr ""
+"ROX-Session è già in esecuzione: non si può gestire la sessione due volte."
+
+#: dbus.c:398
+msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
+msgstr ""
+"Fallita l'apertura di libdbus-1.so.0. Il supporto a D-BUS è disabilitato."
+
+#: dbus.c:405
+msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
+msgstr ""
+"Fallita l'apertura di libdbus-glib-1.so.0. Il supporto a D-BUS è "
+"disabilitato."
+
+#: dbus.c:429
+#, c-format
+msgid ""
+"%s\n"
+"\n"
+"You can get D-BUS from freedesktop.org.\n"
+"ROX-Session will not work correctly without it!"
+msgstr ""
+"%s\n"
+"\n"
+"Procurarsi D-BUS su freedesktop.org:\n"
+"ROX-Session non funziona correttamente senza."
+
+#: dpms.c:35
+msgid "DPMS extension not supported"
+msgstr "Estensione DPMS non supportata"
+
+#: dpms.c:40
+msgid "Display not capable of DPMS"
+msgstr "Il display non gestisce il DPMS"
+
+#: dpms.c:55
+msgid "DPMS timeout under 10 seconds, rounding up"
+msgstr "Il timeout del DPMS è inferiore ai 10 secondi, arrotondo."
+
+#: dpms.c:62
+msgid "Unable to read previous DPMS timeouts"
+msgstr "Impossibile leggere i precedenti timeout del DPMS"
+
+#: dpms.c:68
+msgid "Unable to set DPMS timeouts"
+msgstr "Impossibile impostare i timeout del DPMS"
+
+#: dpms.c:81
+msgid "Unable to get DPMS state"
+msgstr "Impossibile ottenere lo stato del DPMS"
+
+#: dpms.c:87
+msgid "Unable to set DPMS state"
+msgstr "Impossibile impostare lo stato del DPMS"
+
+#: i18n.c:38
+msgid ""
+"Note that you must save your choices, logout and log back in again before "
+"the new settings will take full effect."
+msgstr ""
+"Affinché le nuove impostazioni abbiano effetto, è necessario salvare le "
+"preferenze, uscire e accedere di nuovo al sistema."
+
+#: log.c:378
+msgid "ROX-Session: write to stderr failed!\n"
+msgstr "ROX-Session: scrittura su stderr fallita.\n"
+
+#: log.c:402
+msgid "ROX-Session: read(stderr) failed!\n"
+msgstr "ROX-Session: read(stderr) fallita.\n"
+
+#: log.c:459
+msgid "ROX-Session message log"
+msgstr "Messaggi di log di ROX-Session"
+
+#: log.c:513
+msgid "Show message log"
+msgstr "Mostra i messaggi di log"
 
 #: main.c:60
 msgid ""
@@ -99,97 +190,6 @@ msgstr ""
 "ROX-Session sia in esecuzione correttamente, lo si esegua di nuovo per "
 "uscire."
 
-#: dbus.c:105
-msgid ""
-"ROX-Session lost its connection to the D-BUS session bus.\n"
-"You should save your work and logout as soon as possible (many things won't "
-"work correctly without the bus, and this is the only way to restart it)."
-msgstr ""
-"ROX-Session ha perso la connessione con D-BUS.\n"
-"Salvare i documenti e disconnettersi al più presto possibile (molte cose non "
-"funzionano correttamente senza il bus e questo è l'unico modo di riavviarlo)."
-
-#: dbus.c:303
-msgid "ROX-Session is already running. Can't manage your session twice!"
-msgstr ""
-"ROX-Session è già in esecuzione: non si può gestire la sessione due volte."
-
-#: dbus.c:362
-msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
-msgstr ""
-"Fallita l'apertura di libdbus-1.so.0. Il supporto a D-BUS è disabilitato."
-
-#: dbus.c:369
-msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
-msgstr ""
-"Fallita l'apertura di libdbus-glib-1.so.0. Il supporto a D-BUS è "
-"disabilitato."
-
-#: dbus.c:392
-#, c-format
-msgid ""
-"%s\n"
-"\n"
-"You can get D-BUS from freedesktop.org.\n"
-"ROX-Session will not work correctly without it!"
-msgstr ""
-"%s\n"
-"\n"
-"Procurarsi D-BUS su freedesktop.org:\n"
-"ROX-Session non funziona correttamente senza."
-
-#: dpms.c:35
-msgid "DPMS extension not supported"
-msgstr "Estensione DPMS non supportata"
-
-#: dpms.c:40
-msgid "Display not capable of DPMS"
-msgstr "Il display non gestisce il DPMS"
-
-#: dpms.c:55
-msgid "DPMS timeout under 10 seconds, rounding up"
-msgstr "Il timeout del DPMS è inferiore ai 10 secondi, arrotondo."
-
-#: dpms.c:62
-msgid "Unable to read previous DPMS timeouts"
-msgstr "Impossibile leggere i precedenti timeout del DPMS"
-
-#: dpms.c:68
-msgid "Unable to set DPMS timeouts"
-msgstr "Impossibile impostare i timeout del DPMS"
-
-#: dpms.c:81
-msgid "Unable to get DPMS state"
-msgstr "Impossibile ottenere lo stato del DPMS"
-
-#: dpms.c:87
-msgid "Unable to set DPMS state"
-msgstr "Impossibile impostare lo stato del DPMS"
-
-#: i18n.c:38
-msgid ""
-"Note that you must save your choices, logout and log back in again before "
-"the new settings will take full effect."
-msgstr ""
-"Affinché le nuove impostazioni abbiano effetto, è necessario salvare le "
-"preferenze, uscire e accedere di nuovo al sistema."
-
-#: log.c:378
-msgid "ROX-Session: write to stderr failed!\n"
-msgstr "ROX-Session: scrittura su stderr fallita.\n"
-
-#: log.c:402
-msgid "ROX-Session: read(stderr) failed!\n"
-msgstr "ROX-Session: read(stderr) fallita.\n"
-
-#: log.c:448
-msgid "ROX-Session message log"
-msgstr "Messaggi di log di ROX-Session"
-
-#: log.c:502
-msgid "Show message log"
-msgstr "Mostra i messaggi di log"
-
 #: options.c:464 options.c:1187
 msgid "(use default)"
 msgstr "(usa il predefinito)"
@@ -226,7 +226,7 @@ msgstr ""
 msgid "(saving disabled by CHOICESPATH)"
 msgstr "(salvataggio disabilitato da CHOICESPATH)"
 
-#: options.c:1093 settings.c:415
+#: options.c:1093 settings.c:426
 #, c-format
 msgid "Error saving %s: %s"
 msgstr "Errore durante il salvataggio di %s: %s"
@@ -276,7 +276,7 @@ msgstr ""
 "Fallita l'esecuzione di «%s»:\n"
 "%s"
 
-#: settings.c:312
+#: settings.c:321
 #, c-format
 msgid ""
 "Failed to change the cursor theme:\n"
@@ -324,7 +324,7 @@ msgstr ""
 "%s\n"
 "Scegliere un nuovo window manager e riprovare."
 
-#: xkb.c:92
+#: xkb.c:94
 #, c-format
 msgid ""
 "Failed to set keyboard map:\n"
@@ -335,9 +335,17 @@ msgstr ""
 "%s\n"
 "Usare l'applicazione «Keyboard» per cambiare le impostazioni."
 
-#: xkb.c:113
+#: xkb.c:115
 msgid "Failed to set auto repeat rate/interval"
 msgstr "Fallita l'impostazione della frequenza di autoripetizione"
+
+#: xkb.c:134
+msgid "error in reading keyboard indicator states"
+msgstr "error in reading keyboard indicator states"
+
+#: xkb.c:148
+msgid "error while sending fake key events"
+msgstr "error while sending fake key events"
 
 #: tips:1
 msgid "Translation"
@@ -348,54 +356,66 @@ msgid "Language"
 msgstr "Lingua"
 
 #: tips:3
+msgid "Chinese(Simplified)"
+msgstr "Cinese (semplificato)"
+
+#: tips:4
+msgid "Chinese(Traditional)"
+msgstr "Cinese (tradizionale)"
+
+#: tips:5
 msgid "Danish"
 msgstr "Danese"
 
-#: tips:4
+#: tips:6
 msgid "Dutch"
 msgstr "Olandese"
 
-#: tips:5
+#: tips:7
 msgid "English (no translation)"
 msgstr "Inglese (nessuna traduzione)"
 
-#: tips:6
+#: tips:8
 msgid "French"
 msgstr "Francese"
 
-#: tips:7
+#: tips:9
 msgid "German"
 msgstr "Tedesco"
 
-#: tips:8
+#: tips:10
 msgid "Italian"
 msgstr "Italiano"
 
-#: tips:9
+#: tips:11
 msgid "Lithuanian"
 msgstr "Lituano"
 
-#: tips:10
+#: tips:12
+msgid "Portuguese (Brasil)"
+msgstr "Portoghese (Brasile)"
+
+#: tips:13
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: tips:11
+#: tips:14
 msgid "Japanese"
 msgstr "Giapponese"
 
-#: tips:12
+#: tips:15
 msgid "Russian"
 msgstr "Russo"
 
-#: tips:13
+#: tips:16
 msgid "Use the LANG environment variable"
 msgstr "Usa la variabile d'ambiente LANG"
 
-#: tips:14
+#: tips:17
 msgid "Messages"
 msgstr "Messaggi"
 
-#: tips:15
+#: tips:18
 msgid ""
 "All programs have a 'standard error stream' which they can write text "
 "messages to. ROX-Session creates such a connection between itself and every "
@@ -406,11 +426,11 @@ msgstr ""
 "testo. ROX-Session crea una connessione tra sé e ogni programma che avvia e "
 "visualizza brevemente sullo schermo tutti questi messaggi."
 
-#: tips:16
+#: tips:19
 msgid "On-screen message log"
 msgstr "Messaggi di log sullo schermo"
 
-#: tips:17
+#: tips:20
 msgid ""
 "You can click button-3 on an error message to switch to the log window "
 "display, or use this button:"
@@ -418,27 +438,27 @@ msgstr ""
 "Si deve fare clic con il tasto 3 del mouse sul messaggio di errore per "
 "passare alla finestra di visualizzazione dei log o premere questo pulsante:"
 
-#: tips:18
+#: tips:21
 msgid "Show messages for:"
 msgstr "Mostra i messaggi per:"
 
-#: tips:19
+#: tips:22
 msgid "seconds"
 msgstr "secondi"
 
-#: tips:20
+#: tips:23
 msgid "Number of seconds to display each message for"
 msgstr "Numero di secondi durante i quali visualizzare ogni messaggio"
 
-#: tips:21
+#: tips:24
 msgid "Max area for popup display:"
 msgstr "Area massima per i messaggi a comparsa:"
 
-#: tips:22
+#: tips:25
 msgid "%"
 msgstr "%"
 
-#: tips:23 tips:24 tips:25
+#: tips:26
 msgid ""
 "Normally, messages are shown overlayed on the screen for a few seconds. If "
 "there are a large number of messages (more than this amount of the screen is "
@@ -448,11 +468,11 @@ msgstr ""
 "però ce ne sono molti (se coprono un'area dello schermo superiore a questa "
 "percentuale), allora vengono mostrati dentro una finestra."
 
-#: tips:26 tips:27
+#: tips:27 tips:28
 msgid "Power"
 msgstr "Fine sessione"
 
-#: tips:28
+#: tips:29
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -464,27 +484,27 @@ msgstr ""
 "seconda dei sistemi. Può essere necessario l'uso di «xsu» o di «sudo» se gli "
 "utenti normali non hanno i permessi di arrestare o riavviare il computer."
 
-#: tips:29
+#: tips:30
 msgid "Halt command:"
 msgstr "Comando per spegnere:"
 
-#: tips:30
+#: tips:31
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr "Alcuni comandi per spegnere sono «halt» e «shutdown -t now»"
 
-#: tips:31
+#: tips:32
 msgid "Reboot command:"
 msgstr "Comando per riavviare:"
 
-#: tips:32
+#: tips:33
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "Alcuni comandi per riavviare sono «reboot» e «shutdown -t now -r»"
 
-#: tips:33
+#: tips:34
 msgid "Suspend command:"
 msgstr "Comando di sospensione:"
 
-#: tips:34 tips:35 tips:36
+#: tips:35
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
@@ -494,11 +514,11 @@ msgstr ""
 "simili. Gli utenti con ACPI possono provare «xset dpms force off; echo 1 > /"
 "proc/acpi/sleep». È necessario un kernel opportunamente compilato."
 
-#: tips:37
+#: tips:36
 msgid "Look and Feel"
 msgstr "Aspetto"
 
-#: tips:38 tips:39 tips:40
+#: tips:37
 msgid ""
 "The mouse, keyboard and display options have moved to the new LookAndFeel "
 "application, available from http://rox.sf.net."
@@ -506,37 +526,37 @@ msgstr ""
 "Le opzioni di visualizzazione, del mouse e della tastiera si trovano ora "
 "nell'applicazione «LookAndFeel», disponibile su http://rox.sf.net."
 
-#: AutoStart.py:13
+#: ../AutoStart.py:13
 msgid "Symlink any applications you want run on login into this directory"
 msgstr ""
 "Mettere in questa directory i collegamenti simbolici alle applicazioni che "
 "si vogliono eseguire all'accesso al sistema"
 
-#: logout.py:66
+#: ../logout.py:66
 msgid "_Halt"
 msgstr "_Arresta il sistema"
 
-#: logout.py:68
+#: ../logout.py:68
 msgid "Attempting to halt the system..."
 msgstr "Arresto del sistema in corso..."
 
-#: logout.py:71
+#: ../logout.py:71
 msgid "_Reboot"
 msgstr "_Riavvia il computer"
 
-#: logout.py:73
+#: ../logout.py:73
 msgid "Attempting to restart the system..."
 msgstr "Riavvio del computer in corso..."
 
-#: logout.py:76
+#: ../logout.py:76
 msgid "_Sleep"
 msgstr "_Sospendi"
 
-#: logout.py:78
+#: ../logout.py:78
 msgid "Attempting to enter suspend mode..."
 msgstr "Sospensione del computer in corso..."
 
-#: logout.py:82
+#: ../logout.py:82
 msgid ""
 "Really logout?\n"
 "(unsaved data will be lost)"
@@ -544,19 +564,20 @@ msgstr ""
 "Uscire veramente?\n"
 "(si perdono i dati non salvati)"
 
-#: logout.py:87
+#: ../logout.py:87
 msgid "ROX-Session"
 msgstr "ROX-Session"
 
-#: logout.py:92
+#: ../logout.py:92
 msgid "Session Settings"
 msgstr "Impostazioni di sessione"
 
-#: logout.py:98
+#: ../logout.py:98
 msgid "Logout"
 msgstr "Esci"
 
-#: setup.py:25
+#: ../setup.py:25
+#, python-format
 msgid ""
 "Tried to make a backup of your old '%s' file, but the backup file ('%s') "
 "already exists.\n"
@@ -564,9 +585,10 @@ msgid ""
 msgstr ""
 "Si è tentato di fare un backup del vecchio file «%s», ma il backup («%s») "
 "esiste già.\n"
-"Se si desidera conservarlo, è meglio spostarlo in un luogo sicuro, altrimenti va cancellato."
+"Se si desidera conservarlo, è meglio spostarlo in un luogo sicuro, "
+"altrimenti va cancellato."
 
-#: setup.py:37
+#: ../setup.py:37
 msgid ""
 "Do you want to make ROX a choice on your login screen (affects all users and "
 "requires the root password), or do you just want to set the session for your "
@@ -582,15 +604,15 @@ msgstr ""
 "Se non si conosce la password di root o se non si usa un gestore grafico "
 "come gdm o kdm, è meglio scegliere «Solo per l'utente»."
 
-#: setup.py:45
+#: ../setup.py:45
 msgid "Setup for user"
 msgstr "Solo per l'utente"
 
-#: setup.py:46
+#: ../setup.py:46
 msgid "Add to login"
 msgstr "Aggiungi"
 
-#: setup.py:122
+#: ../setup.py:126
 msgid ""
 "OK, now logout by your usual method and when you log in again, I should be "
 "your session manager.\n"
@@ -602,7 +624,7 @@ msgstr ""
 "Nota: potrebbe essere necessario selezionare «Default» come tipo di desktop "
 "alla schermata di accesso al sistema."
 
-#: setup.py:137
+#: ../setup.py:141
 msgid ""
 "I wanted to install a rox.desktop file in your session directory, but I "
 "couldn't find one! I tried these places (defaults for gdm2, at least):\n"
@@ -613,7 +635,7 @@ msgstr ""
 "i predefiniti per gdm2):\n"
 "\n"
 
-#: setup.py:142
+#: ../setup.py:146
 msgid ""
 "/usr/local/sbin directory is missing! I want to install the rox-session "
 "script there... Please create it and try again."
@@ -621,7 +643,7 @@ msgstr ""
 "Manca la directory «/usr/local/sbin». È necessario installare lo script di "
 "rox-session lì, quindi si deve creare la directory e riprovare."
 
-#: setup.py:184
+#: ../setup.py:188
 msgid ""
 "OK, now logout by your usual method, and choose ROX from the session menu on "
 "your login screen just after entering your user name (but before entering "
@@ -631,7 +653,7 @@ msgstr ""
 "sessione, dopo aver inserito il nome utente (ma prima di inserire la "
 "password)."
 
-#: setup.py:201
+#: ../setup.py:205
 msgid ""
 "OK, I don't know what the problem is. Please ask on the rox-users mailing "
 "list. When we know what the problem is, we can add an extra check here to "
@@ -647,7 +669,7 @@ msgstr ""
 "http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
 "(è possibile copiare e incollare l'indirizzo nel browser web)"
 
-#: setup.py:212
+#: ../setup.py:216
 msgid ""
 "ROX-Session does not appear to be managing your session. Would you like to "
 "set it up now?\n"
@@ -658,10 +680,10 @@ msgstr ""
 "\n"
 "Nel caso si pensi che sia già impostato, fare clic su «Aiuto»."
 
-#: setup.py:217
+#: ../setup.py:221
 msgid "Set up ROX"
 msgstr "Imposta ROX"
 
-#: setup.py:220
+#: ../setup.py:224
 msgid "Set up ROX-Session"
 msgstr "Imposta ROX-Session"
