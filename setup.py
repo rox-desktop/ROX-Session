@@ -132,7 +132,10 @@ def setup_home():
 def setup_login():
 	try:
 		session_dirs = ['/etc/X11/sessions', '/etc/dm/Sessions',
-				'/etc/X11/dm/Sessions', '/usr/share/xsessions']
+				'/etc/X11/dm/Sessions', '/usr/share/xsessions',
+				'/opt/kde3/share/apps/kdm/sessions']
+		# TODO: more guesses about where KDE is installed, /opt/kde3
+		# works for SuSE 9.2
 		for d in session_dirs:
 			if os.path.isdir(d):
 				session_dir = d
@@ -142,6 +145,8 @@ def setup_login():
 				"session directory, but I couldn't find one! I tried "
 				"these places (defaults for gdm2, at least):\n\n") +
 				'\n'.join(session_dirs))
+		iskde=(session_dir.find('kde')>=0)
+		
 		if not os.path.isdir('/usr/local/sbin'):
 			rox.croak(_('/usr/local/sbin directory is missing! I want to '
 				'install the rox-session script there... Please create it '
@@ -159,14 +164,19 @@ def setup_login():
 		q = root.open(desktop_path, 'w')
 		yield q
 		stream = q.result
+
+		if iskde:
+			dtype='XSession'
+		else:
+			dtype='Application'
 		
 		q = root.write(stream, """[Desktop Entry]\n
-	Encoding=UTF-8
-	Name=ROX
-	Comment=This session logs you into the ROX desktop
-	Exec=/usr/local/sbin/rox-session
-	Type=Application
-	""")
+Encoding=UTF-8
+Name=ROX
+Comment=This session logs you into the ROX desktop
+Exec=/usr/local/sbin/rox-session
+Type=%s
+""" % dtype)
 		yield q
 
 		q = root.close(stream)
