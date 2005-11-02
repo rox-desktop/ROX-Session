@@ -8,7 +8,7 @@
 #undef HAVE_UNSETENV
 #undef HAVE_LOCALE_H
 #undef HAVE_APSYMBOLS_H
-#undef DBUS_03
+#undef ROX_DBUS_VERSION
 
 #ifdef HAVE_APSYMBOLS_H
 # include <apsymbols.h>

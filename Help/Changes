@@ -6,6 +6,11 @@
 ~~~~~~~~~~~
 Support KDM when doing "Add to login" (Stephen Watson).
 
+04-Oct-2005
+~~~~~~~~~~~
+Fixed C code for dbus 0.36: part of a previous patch was missing, and a
+workaround was needed for dbus bug 4637 (Tony Houghton).
+
 02-Sep-2005
 ~~~~~~~~~~~
 Added options for screen blanking with DPMS (Tony Houghton).

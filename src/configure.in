@@ -46,14 +46,6 @@ ROX_REQUIRE(libxml-2.0, 2.0.0)
 ROX_REQUIRE(dbus-1, 0.20)
 ROX_REQUIRE(dbus-glib-1, 0.20)
 
-AC_MSG_CHECKING(whether DBUS is version 0.30 or later)
-if "$PKG_CONFIG" --atleast-version=0.30 dbus-1 ; then
-  AC_MSG_RESULT(yes)
-  AC_DEFINE(DBUS_03)
-else
-  AC_MSG_RESULT(no)
-fi
-
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_MAKE_SET
@@ -86,12 +78,26 @@ LIBS="$LIBS $X_LIBS -lX11 -lXext $X_EXTRA_LIBS"
 CFLAGS="$CFLAGS $X_CFLAGS"
 
 dnl Extract version info from AppInfo.xml
-AC_MSG_CHECKING(extracting version information)
+AC_MSG_CHECKING(AppInfo version information)
 [
-VERSION=`sed -n 's/^.*<Version>\([.0-9]*\).*<\/Version>.*$/\1/p' ../AppInfo.xml`
+VERSION=`sed -n 's/^.*<Version>\(@<:@.0-9@:>@*\).*<\/Version>.*$/\1/p' ../AppInfo.xml`
 ]
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
-AC_MSG_RESULT(version $VERSION)
+AC_MSG_RESULT($VERSION)
+
+# Convert dbus version x.y or x.y.z into (x * 1000000 + y * 1000 + z).
+AC_MSG_CHECKING(decimalised dbus version number)
+ROX_DBUS_VERSION=`pkg-config --modversion dbus-1`
+majver=`echo $ROX_DBUS_VERSION | sed 's/\..*//'`
+minver=`echo $ROX_DBUS_VERSION | sed 's/^@<:@0-9@:>@*\.\(@<:@0-9@:>@*\)@<:@^0-9@:>@*.*/\1/'`
+nanver=`echo $ROX_DBUS_VERSION | sed 's/^@<:@0-9@:>@*\.@<:@0-9@:>@*\.*\(@<:@0-9@:>@*\)@<:@^0-9@:>@*.*/\1/'`
+if test x$nanver = x
+then
+    nanver=0
+fi
+let ROX_DBUS_VERSION=${majver}*1000000+${minver}*1000+${nanver}
+AC_MSG_RESULT($ROX_DBUS_VERSION)
+AC_DEFINE_UNQUOTED(ROX_DBUS_VERSION, $ROX_DBUS_VERSION)
 
 dnl Checks for header files.
 AC_PATH_X

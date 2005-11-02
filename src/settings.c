@@ -53,6 +53,12 @@
 
 #define MISSING_SETTING_ERROR "net.sf.rox.Session.MissingSetting"
 
+#if ROX_DBUS_VERSION >= 30000
+#define DBUS_APPENDABLE_ARG(a) &a
+#else
+#define DBUS_APPENDABLE_ARG(a) a
+#endif
+
 XSettingsManager *xsettings_manager = NULL;
 
 static xmlDoc *settings_doc = NULL;
@@ -89,7 +95,7 @@ void settings_init(void)
 {
 	char *path;
 
-	register_object_path("/Settings", xsettings_handler);
+	register_object_path(ROX_DBUS_PATH "/Settings", xsettings_handler);
 
 	if (xsettings_manager_check_running(gdk_display,
 					    DefaultScreen(gdk_display)))
@@ -511,7 +517,9 @@ static DBusMessage *xsettings_handler(DBusMessage *message, DBusError *error)
 			return NULL;
 
 		node = get_node(name, FALSE);
-		g_free(name);
+#if ROX_DBUS_VERSION < 30000
+		dbus_free(name);
+#endif
 
 		if (!node)
 			return dbus_message_new_error(message, MISSING_SETTING_ERROR,
@@ -523,8 +531,8 @@ static DBusMessage *xsettings_handler(DBusMessage *message, DBusError *error)
 		{
 			reply = dbus_message_new_method_return(message);
 			if (!dbus_message_append_args(reply,
-							DBUS_TYPE_STRING, type,
-							DBUS_TYPE_STRING, value,
+							DBUS_TYPE_STRING, DBUS_APPENDABLE_ARG(type),
+							DBUS_TYPE_STRING, DBUS_APPENDABLE_ARG(value),
 							DBUS_TYPE_INVALID)) {
 				dbus_message_unref(reply);
 				reply = dbus_message_new_error(message, ROX_SESSION_ERROR,

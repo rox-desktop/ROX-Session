@@ -32,8 +32,6 @@
 #include <signal.h>
 #include <gtk/gtk.h>
 
-#include <dlfcn.h>		/* For dlopen() */
-
 #include "global.h"
 
 #include "dbus.h"
@@ -42,19 +40,22 @@
 #include "log.h"
 #include "main.h"
 
+/* I don't think this was broken in early 0.3x versions, but I don't know
+ * when the bug <https://bugs.freedesktop.org/show_bug.cgi?id=4637> appeared,
+ * so play safe. It's been acknowledged so will probably be fixed in the 
+ * next release after 0.50, but we can't safely assume that */
+#if ROX_DBUS_VERSION >= 30000
+#define ROX_DBUS_PROXY_BROKEN
+#else
+#undef ROX_DBUS_PROXY_BROKEN
+#endif
+
 static gint dbus_pid = -1;
 
-static void *dbus_connection_glib = NULL;	/* For D-BUS 0.22 and later */
-static DBusConnection *dbus_connection = NULL;
-
-#ifndef DBUS_03
-static DBusGProxy *(*_dbus_gproxy_new_for_peer)
-		(DBusConnection *, const char *, const char *) = NULL;
-/* We dlopen libdbus-1.so to avoid binary compatibility problems. */
-static void *libdbus = NULL;
-static void *libdbus_glib = NULL;
-static int dbus_version = -1;	/* The minor part of the version number (20 or 22) */
+#if ROX_DBUS_VERSION >= 22000
+static void *dbus_connection_glib = NULL;
 #endif
+static DBusConnection *dbus_connection = NULL;
 
 /* Read one line from fd and store in DBUS_SESSION_BUS_ADDRESS. */
 static void read_address(gint fd)
@@ -101,6 +102,7 @@ static void kill_dbus(void)
 	dbus_pid = -1;
 }
 
+#ifndef ROX_DBUS_PROXY_BROKEN
 static void lost_connection(void) {
 	dbus_connection_unref(dbus_connection);
 	dbus_connection = NULL;
@@ -110,6 +112,7 @@ static void lost_connection(void) {
 		"possible (many things won't work correctly without the bus, "
 		"and this is the only way to restart it)."));
 }
+#endif
 
 /* If we didn't generate any reply (error or OK), try to guess what the problem
  * was... (NULL => OOM)
@@ -162,7 +165,9 @@ static DBusHandlerResult message_handler(DBusConnection *connection,
 		dbus_error_free(&error);
 	}
 	else if (!reply)
+	{
 		reply = create_error_reply(message);
+	}
 
 	if (!reply)
 		g_warning("Out of memory");
@@ -203,9 +208,6 @@ static DBusMessage *session_handler(DBusMessage *message, DBusError *error)
  */
 gboolean register_object_path(const char *path, MessageHandler handler)
 {
-#ifndef DBUS_03
-	void *reg;
-#endif
 	DBusObjectPathVTable vtable = {
 		NULL,
 		message_handler,
@@ -215,33 +217,15 @@ gboolean register_object_path(const char *path, MessageHandler handler)
 	g_return_val_if_fail(strchr(path + 1, '/') == NULL, FALSE);
 	g_return_val_if_fail(dbus_connection != NULL, FALSE);
 
-#ifdef DBUS_03
+#if ROX_DBUS_VERSION >= 22000
 	if (!dbus_connection_register_object_path(dbus_connection, path, &vtable, handler))
 		goto oom;
 #else
-	reg = dlsym(libdbus, "dbus_connection_register_object_path");
-	g_return_val_if_fail(reg != NULL, FALSE);
-
-	if (dbus_version == 20)
 	{
 		const char *pathv[] = {NULL, NULL};
-		dbus_bool_t (*dbus_register)(DBusConnection *, const char **,
-					  DBusObjectPathVTable *, void *);
-
-		dbus_register = reg;
 
 		pathv[0] = path + 1;
-		if (!dbus_register(dbus_connection, pathv, &vtable, handler))
-			goto oom;
-	}
-	else
-	{
-		dbus_bool_t (*dbus_register)(DBusConnection *, const char *,
-					  DBusObjectPathVTable *, void *);
-
-		dbus_register = reg;
-
-		if (!dbus_register(dbus_connection, path, &vtable, handler))
+		if (!dbus_connection_register_object_path(dbus_connection, pathv, &vtable, handler))
 			goto oom;
 	}
 #endif
@@ -253,48 +237,14 @@ oom:
 	return FALSE;
 }
 
-/* Also sets dbus_version and _dbus_gproxy_new_for_peer */
 static DBusConnection *_dbus_wrapper_get_session_bus(GError **error)
 {
-#ifdef DBUS_03
-	g_print("Using D-BUS 0.3 interface.\n");
+#if ROX_DBUS_VERSION >= 22000
 	dbus_connection_glib = dbus_g_bus_get(DBUS_BUS_SESSION, error);
 	g_return_val_if_fail(dbus_connection_glib != NULL, NULL);
 	return (DBusConnection *) dbus_g_connection_get_connection(dbus_connection_glib);
 #else
-	void *(*bus_get)(int, GError **);
-	
-	bus_get = dlsym(libdbus_glib, "dbus_g_bus_get");
-	if (bus_get)
-	{
-		DBusConnection *(*get_dbus_con)(void *);
-
-		g_print("Using D-BUS 0.22 interface.\n");
-		_dbus_gproxy_new_for_peer = dlsym(libdbus_glib,
-							"dbus_g_proxy_new_for_peer");
-		g_return_val_if_fail(_dbus_gproxy_new_for_peer != NULL, NULL);
-		
-		dbus_version = 22;	/* 0.22 or later */
-		dbus_connection_glib = bus_get(DBUS_BUS_SESSION, error);
-		g_return_val_if_fail(dbus_connection_glib != NULL, NULL);
-		
-		get_dbus_con = dlsym(libdbus_glib, "dbus_g_connection_get_connection");
-		g_return_val_if_fail(get_dbus_con != NULL, NULL);
-
-		return (DBusConnection *) get_dbus_con(dbus_connection_glib);
-	}
-	else
-	{
-		g_print("Using D-BUS 0.20 interface.\n");
-		_dbus_gproxy_new_for_peer = dlsym(libdbus_glib,
-							"dbus_gproxy_new_for_peer");
-		g_return_val_if_fail(_dbus_gproxy_new_for_peer != NULL, NULL);
-
-		bus_get = dlsym(libdbus_glib, "dbus_bus_get_with_g_main");
-		g_return_val_if_fail(bus_get != NULL, NULL);
-		dbus_version = 20; 		/* 0.20 or 0.21 */
-		return bus_get(DBUS_BUS_SESSION, error);
-	}
+	return dbus_bus_get_with_g_main(DBUS_BUS_SESSION, error);
 #endif
 }
 
@@ -303,7 +253,9 @@ static gboolean connect_to_bus(void)
 {
 	GError *error = NULL;
 	DBusError derror;
+#ifndef ROX_DBUS_PROXY_BROKEN
 	DBusGProxy *local = NULL;
+#endif
 
 	dbus_error_init(&derror);
 
@@ -312,14 +264,17 @@ static gboolean connect_to_bus(void)
 		goto err;
 	dbus_connection_set_exit_on_disconnect(dbus_connection, FALSE);
 
-#ifdef DBUS_03
+#if ROX_DBUS_VERSION >= 30000
 	if (dbus_bus_name_has_owner(dbus_connection,
-#else
-	if (dbus_bus_service_exists(dbus_connection,
-#endif
 				test_mode ? ROX_SESSION_DBUS_SERVICE_TEST
 					  : ROX_SESSION_DBUS_SERVICE,
 				&derror))
+#else
+	if (dbus_bus_service_exists(dbus_connection,
+				test_mode ? ROX_SESSION_DBUS_SERVICE_TEST
+					  : ROX_SESSION_DBUS_SERVICE,
+				&derror))
+#endif
 	{
 		report_error(_("ROX-Session is already running. Can't manage "
 				"your session twice!"));
@@ -329,35 +284,46 @@ static gboolean connect_to_bus(void)
 	if (error)
 		goto err;
 	
-#ifdef DBUS_03
+#if ROX_DBUS_VERSION >= 30000
 	dbus_bus_request_name(dbus_connection,
-#else
-	dbus_bus_acquire_service(dbus_connection,
-#endif
 			test_mode ? ROX_SESSION_DBUS_SERVICE_TEST
 				  : ROX_SESSION_DBUS_SERVICE,
 			0,
 			&derror);
+#else
+	dbus_bus_acquire_service(dbus_connection,
+			test_mode ? ROX_SESSION_DBUS_SERVICE_TEST
+				  : ROX_SESSION_DBUS_SERVICE,
+			0,
+			&derror);
+#endif
 
 	if (dbus_error_is_set(&derror))
 		goto err;
 
-	register_object_path("/Session", session_handler);
+	register_object_path(ROX_DBUS_PATH "/Session", session_handler);
 
+#ifndef ROX_DBUS_PROXY_BROKEN
 	/* Get notified when the bus dies */
-#ifdef DBUS_03
+#if ROX_DBUS_VERSION >= 30000
 	local = dbus_g_proxy_new_for_peer(
 			dbus_connection_glib,
 			DBUS_PATH_LOCAL, DBUS_INTERFACE_LOCAL);
+#elif ROX_DBUS_VERSION >= 22000
+	local = dbus_g_proxy_new_for_peer(
+			dbus_connection_glib,
+			DBUS_PATH_ORG_FREEDESKTOP_LOCAL,
+			DBUS_INTERFACE_ORG_FREEDESKTOP_LOCAL);
 #else
-	local = _dbus_gproxy_new_for_peer(
-			dbus_connection_glib ? dbus_connection_glib : dbus_connection,
+	local = dbus_gproxy_new_for_peer(
+			dbus_connection,
 			DBUS_PATH_ORG_FREEDESKTOP_LOCAL,
 			DBUS_INTERFACE_ORG_FREEDESKTOP_LOCAL);
 #endif
 	g_return_val_if_fail(local != NULL, FALSE);
 	g_signal_connect(G_OBJECT(local), "destroy",
 			G_CALLBACK(lost_connection), NULL);
+#endif /* ROX_DBUS_PROXY_BROKEN */
 
 	return TRUE;
 err:
@@ -385,27 +351,10 @@ void dbus_init(void)
 {
 	GError *error = NULL;
 	gint stdout_pipe = -1;
-#ifdef DBUS_03
+#if ROX_DBUS_VERSION >= 30000
 	gchar *argv[] = {"dbus-daemon", "--session", "--print-address", NULL};
 #else
 	gchar *argv[] = {"dbus-daemon-1", "--session", "--print-address", NULL};
-#endif
-
-#ifndef DBUS_03
-	libdbus = dlopen("libdbus-1.so.0", RTLD_LAZY | RTLD_NOLOAD);
-	if (!libdbus)
-	{
-		g_warning(_("Failed to open libdbus-1.so.0. "
-			    "D-BUS support disabled."));
-		return;
-	}
-	libdbus_glib = dlopen("libdbus-glib-1.so.0", RTLD_LAZY | RTLD_NOLOAD);
-	if (!libdbus_glib)
-	{
-		g_warning(_("Failed to open libdbus-glib-1.so.0. "
-			    "D-BUS support disabled."));
-		return;
-	}
 #endif
 
 	if (getenv("DBUS_SESSION_BUS_ADDRESS") != NULL)
