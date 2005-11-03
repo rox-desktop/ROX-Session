@@ -1,17 +1,9 @@
-#!/usr/bin/env python
 import sys
 
-import findrox; findrox.version(1, 9, 16)
 import rox
 from rox import g
 import os.path
-
-__builtins__._ = rox.i18n.translation(os.path.join(rox.app_dir, 'Messages'))
-
-if len(sys.argv) == 2 and sys.argv[1] == '--install':
-	import setup
-	setup.setup()
-	raise SystemExit()
+import constants
 
 import dbus_compat
 sys.modules['dbus.services'] = dbus_compat
@@ -43,7 +35,7 @@ try:
 		dbus_object = bus.get_object('org.freedesktop.DBus',
 					    '/org/freedesktop/DBus')
 		dbus_services = dbus_object.ListNames()
-	rox_session_running = 'net.sf.rox.Session' in dbus_services
+	rox_session_running = constants.session_service in dbus_services
 except DBusException, ex:
 	print ex
 	rox_session_running = False
@@ -55,7 +47,7 @@ try:
 	if rox_session_running:
 		import logout
 		if hasattr(bus, 'get_service'):
-			rox_session = bus.get_service('net.sf.rox.Session')
+			rox_session = bus.get_service(constants.session_service)
 			session_control = rox_session.get_object('/Session',
 						'net.sf.rox.Session.Control')
 		else:

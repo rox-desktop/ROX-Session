@@ -3,13 +3,7 @@ from rox import g
 from rox.options import Option
 import os, sys
 
-rox.setup_app_options('ROX-Session', 'Options')
-
-halt_command = Option('halt_command', 'halt')
-reboot_command = Option('reboot_command', 'reboot')
-suspend_command = Option('suspend_command', 'xset dpms force off')
-
-rox.app_options.notify()
+import session
 
 # Load icons
 factory = g.IconFactory()
@@ -64,17 +58,17 @@ class LogoutBox(rox.Dialog):
 		vbox.pack_start(hbox, False, True, 0)
 
 		button = op_button(_('_Halt'), 'rox-halt',
-			halt_command.value,
+			session.o_halt.value,
 			_('Attempting to halt the system...'))
 		hbox.pack_end(button, False, True, 0)
 
 		button = op_button(_('_Reboot'), g.STOCK_REFRESH,
-			reboot_command.value,
+			session.o_reboot.value,
 			_('Attempting to restart the system...'))
 		hbox.pack_end(button, False, True, 0)
 		
 		button = op_button(_('_Sleep'), 'rox-suspend',
-			suspend_command.value,
+			session.o_suspend.value,
 			_('Attempting to enter suspend mode...'))
 		hbox.pack_end(button, False, True, 0)
 

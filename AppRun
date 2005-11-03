@@ -1,109 +1,88 @@
-#!/bin/sh
+#!/usr/bin/env python
+import sys, os, logging
+import getopt		# (optparse is only in Python 2.3)
+import findrox; findrox.version(2, 0, 0)
+import rox
+from rox import choices
+import constants
+choices.migrate('ROX-Session', constants.site)
 
-if [ "$#" = 0 -o "x$1" = "x--install" ]; then
-  exec `dirname "$0"`/interactive.py "$@"
-fi
+rox.setup_app_options('ROX-Session', 'Options', constants.site)
 
-# Use 0 in the next 2 lines if you want anti-aliased fonts turned off,
-# or 1 to turn them on.
-GDK_USE_XFT=1; export GDK_USE_XFT
-QT_XFT=1; export QT_XFT
+import logout
+import log
+import session
 
-PROG=ROX-Session
+rox.app_options.notify()
 
-APP_DIR=`dirname "$0"`
-APP_DIR=`cd "$APP_DIR";pwd`; export APP_DIR
+__builtins__._ = rox.i18n.translation(os.path.join(rox.app_dir, 'Messages'))
 
-if [ -z "$CHOICESPATH" ]; then
-  CHOICESPATH="${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices"
-fi
-if [ -d /uri/0install/rox.sourceforge.net ]; then
-  CHOICESPATH="$CHOICESPATH":/uri/0install/rox.sourceforge.net/lib/DefaultChoices
-fi
-export CHOICESPATH
+log_level = None
 
-if [ "x$BROWSER" = x ]; then
-    BROWSER="$APP_DIR/browser"
-    export BROWSER
-fi
+usage = _("Usage: ROX-Session/AppRun [OPTION]...\n"	\
+       "If ROX-Session is already managing your session then display\n" \
+       "the logout window. If not, offer to make ROX-Session your\n"	\
+       "session manager for future sessions.\n\n"			\
+       "  -h, --help		display this help and exit\n"		\
+       "      --install		make ROX-Session your session manager\n"  \
+       "      --options		show options dialog\n"			\
+       "      --setup		configure initial environment and apps\n" \
+       "  -v, --version		display the version information and exit\n"   \
+       "  -w, --wait		simply wait until run again (internal use)\n" \
+       "\nThe latest version can be found at:\n"			\
+       "\thttp://rox.sourceforge.net\n"					\
+       "\nReport bugs to <tal197@users.sourceforge.net>.")
 
-if [ "x$ROX_SESSION_ENVIRONMENT" = x ]; then
-    env=
-    oldIFS="$IFS"
+version = _("ROX-Session 0.27\n"
+	    "Copyright (C) 2005 Thomas Leonard.\n"
+	    "ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
+	    "to the extent permitted by law.\n"
+	    "You may redistribute copies of ROX-Session\n"
+	    "under the terms of the GNU General Public License.\n"
+	    "For more information about these matters, see the file named COPYING.")
 
-    IFS=:
-    for ch in $CHOICESPATH ; do
-	if [ "x$env" = x -a -f "$ch/ROX-Session/Environment" ]; then
-	    env="$ch/ROX-Session/Environment"
-	fi
-    done
-    if [ "x$env" = x ]; then
-	env="$APP_DIR/Environment"
-    fi
+try:
+	options, args = getopt.getopt(sys.argv[1:], 'htvVwm',
+			['help', 'install', 'messages', 'options', 'setup', 'verbose', 'version', 'wait'])
+	if args:
+		raise getopt.GetoptError('Unexpected arguments: ' + str(args))
+except getopt.GetoptError, ex:
+	print >>sys.stderr, "Error:", str(ex)
+	print >>sys.stderr, usage
+	sys.exit(1)
 
-    if [ -f "$env" ]; then
-      . "$env"
-    fi
+for opt, value in options:
+	if opt in ('-h', '--help'):
+		print usage
+		sys.exit(0)
+	elif opt in ('-V', '--version'):
+		print version
+		sys.exit(0)
+	elif opt in ('-w', '--wait'):
+		import main
+		main.manage_session()
+		sys.exit(0)
+	elif opt == '--install':
+		import setup
+		setup.setup()
+		sys.exit(0)
+	elif opt == '--setup':
+		import AutoStart
+		sys.exit(0)
+	elif opt == '--options':
+		pass
+		#dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.Control.ShowOptions > /dev/null; exit 0;;
+	elif opt == '--messages':
+		pass
+		#dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.Control.ShowMessages > /dev/null; exit 0;;
+	elif opt in ('-v', '--verbose'):
+		logger = logging.getLogger()
+		if log_level == logging.INFO:
+			log_level = logging.DEBUG
+		else:
+			log_level = logging.INFO
+		logger.setLevel(log_level)
+	else:
+		raise Exception('Unknown option %s', opt)
 
-    IFS="$oldIFS"
-    ROX_SESSION_ENVIRONMENT="$env" export ROX_SESSION_ENVIRONMENT
-fi
-
-DEBUGGER=""
-
-case $1 in
-	--debug) shift ; DEBUGGER=gdb ;;
-	--valgrind) shift ; DEBUGGER="valgrind --num-callers=8";;
-	--leaks) shift ; DEBUGGER="valgrind --num-callers=8 --leak-check=yes";;
-	--setup) exec $APP_DIR/AutoStart.py ;;
-	--options) dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.Control.ShowOptions > /dev/null; exit 0;;
-	--messages) dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.Control.ShowMessages > /dev/null; exit 0;;
-	--compile)
-		shift
-		if [ ! -d "$APP_DIR/src" ] ; then
-			echo "ERROR from $0:" >&2
-			echo "Cannot compile - source code is missing!" >&2
-			exit 1
-		fi
-		echo "Compiling $APP_DIR... please wait..." >&2
-		if [ ! -x "$APP_DIR/src/configure" ]; then
-		  echo "No 'configure' script! Trying to run autoconf..."
-		  (cd "$APP_DIR/src"; autoconf)
-		fi
-		BUILDDIR="$APP_DIR/build"
-		[ ! -d "$BUILDDIR" ] && mkdir "$BUILDDIR"
-		rm -f "$BUILDDIR/config.cache"
-		rm -f "$APP_DIR/src/config.h"	# (for upgrading)
-		cd "$BUILDDIR" && "$APP_DIR/src/configure" "$@" \
-			&& make clean && make && echo Done >&2 && exit 0
-		echo Compile failed >&2
-		echo Press Return... >&2
-		read WAIT
-		exit 1
-esac
-
-if [ -z "$XDG_DATA_DIRS" -a -d /uri/0install/zero-install.sourceforge.net ]; then
-  # Try to get MIME database through Zero Install, if possible
-  0refresh zero-install.sourceforge.net/share/mime 2003-08-07
-  XDG_DATA_DIRS=/usr/local/share/:/usr/share/:/uri/0install/zero-install.sourceforge.net/share
-  export XDG_DATA_DIRS
-fi
-
-BIN="$APP_DIR/$PROG"
-
-if [ -x "$BIN" ]; then
-  exec $DEBUGGER "$BIN" "$@"
-else
-  echo "Message from $0:" >&2
-  echo "I cannot find an executable binary." >&2
-  echo "Trying to compile..." >&2
-  if [ -n "$DISPLAY" ]; then
-    xterm -e "$0" --compile
-  else
-    "$0" --compile
-  fi
-  if [ -x "$BIN" ]; then
-    exec "$BIN" "$@"
-  fi
-  exit 1
-fi
+import interactive

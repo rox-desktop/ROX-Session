@@ -2,6 +2,10 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+03-Nov-2005
+~~~~~~~~~~~
+Started rewriting in Python (Thomas Leonard).
+
 23-Oct-2005
 ~~~~~~~~~~~
 Support KDM when doing "Add to login" (Stephen Watson).
