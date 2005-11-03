@@ -9,11 +9,6 @@ def add_button(dialog, stock_icon, action, response):
 	button.show()
 	dialog.add_action_widget(button, response)
 
-def test_rox_session():
-	apprun = os.path.join(rox.app_dir, 'AppRun')
-	proc = processes.PipeThroughCommand([apprun, '-v'], None, None)
-	proc.wait()
-
 def backup(old, backup):
 	"""Move 'old' as 'backup'"""
 	if os.path.islink(old):
@@ -29,8 +24,6 @@ def backup(old, backup):
 	os.rename(old, backup)
 
 def setup():
-	test_rox_session()
-
 	box = g.MessageDialog(None, g.DIALOG_MODAL,
 			g.MESSAGE_QUESTION,
 			g.BUTTONS_CANCEL,
