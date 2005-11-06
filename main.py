@@ -1,5 +1,3 @@
-test_mode = True
-
 import os
 import logging
 import children
@@ -11,25 +9,27 @@ import constants
 import session, wm, settings
 import session_dbus
 import dbus
+import log
 
-def manage_session():
+def manage_session(test_mode):
+	log.init()
+
 	set_up_environment()
-
 	session.init()
 	children.init()
 	session_dbus.init()
 	settings.init()
-	#import log
 
 	service = dbus.Service(constants.session_service, bus = session_dbus.session_bus)
 	SessionObject(service)
 
 	try:
-		wm.start()
 		if test_mode:
 			print "Test mode!"
-			print "Started", os.spawnlp(os.P_NOWAIT, "sleep", "sleep", "2")
+			print "Started", os.system("ls >&2 &")
 			print "OK"
+		else:
+			wm.start()
 
 		g.main()
 	finally:
@@ -69,8 +69,8 @@ class SessionObject(dbus.Object):
 	def LogoutWithoutConfirm(self, message):
 		g.main_quit()
 	
-	def ShowOptions(self):
-		raise Exception('ShowOptions')
+	def ShowOptions(self, message):
+		rox.edit_options()
 	
-	def ShowMessages(self):
+	def ShowMessages(self, message):
 		raise Exception('ShowMessages')

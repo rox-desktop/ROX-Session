@@ -24,42 +24,51 @@ except ImportError:
 		"try moving them to /usr/lib/python... (without the 'local')")
 	raise
 
-try:
-	bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
-	if hasattr(bus, 'get_service'):
-		dbus_service = bus.get_service('org.freedesktop.DBus')
-		dbus_object = dbus_service.get_object('/org/freedesktop/DBus',
-						   'org.freedesktop.DBus')
-		dbus_services = dbus_object.ListServices()
-	else:
-		dbus_object = bus.get_object('org.freedesktop.DBus',
-					    '/org/freedesktop/DBus')
-		dbus_services = dbus_object.ListNames()
-	rox_session_running = constants.session_service in dbus_services
-except DBusException, ex:
-	print ex
-	rox_session_running = False
-except:
-	rox.report_exception()
-	raise SystemExit()
+bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
 
-try:
+def get_object(service, path, interface):
+	# D-BUS version independant way to get an object
+	if hasattr(bus, 'get_service'):
+		service_object = bus.get_service(service)
+		return service_object.get_object(path, interface)
+	else:
+		return dbus.Interface(bus.get_object(service, path),
+			interface)
+
+def setup_or_logout():
+	try:
+		if hasattr(bus, 'get_service'):
+			dbus_service = bus.get_service('org.freedesktop.DBus')
+			dbus_object = dbus_service.get_object('/org/freedesktop/DBus',
+							   'org.freedesktop.DBus')
+			dbus_services = dbus_object.ListServices()
+		else:
+			dbus_object = bus.get_object('org.freedesktop.DBus',
+						    '/org/freedesktop/DBus')
+			dbus_services = dbus_object.ListNames()
+		rox_session_running = constants.session_service in dbus_services
+	except DBusException, ex:
+		print ex
+		rox_session_running = False
 	if rox_session_running:
 		import logout
-		if hasattr(bus, 'get_service'):
-			rox_session = bus.get_service(constants.session_service)
-			session_control = rox_session.get_object('/Session',
+		session_control = get_object(constants.session_service,
+						'/Session',
 						'net.sf.rox.Session.Control')
-		else:
-			session_control = dbus.Interface(
-				bus.get_object('net.sf.rox.Session', '/Session'),
-				'net.sf.rox.Session.Control')
 
 		logout.show_logout_box(session_control)
 	else:
 		import setup
 		setup.setup_with_confirm()
-except SystemExit:
-	pass
-except:
-	rox.report_exception()
+
+def show_options():
+	session_control = get_object(constants.session_service,
+						'/Session',
+						'net.sf.rox.Session.Control')
+	session_control.ShowOptions()
+
+def show_messages():
+	session_control = get_object(constants.session_service,
+						'/Session',
+						'net.sf.rox.Session.Control')
+	session_control.ShowMessages()

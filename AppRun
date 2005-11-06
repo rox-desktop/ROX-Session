@@ -18,6 +18,7 @@ rox.app_options.notify()
 __builtins__._ = rox.i18n.translation(os.path.join(rox.app_dir, 'Messages'))
 
 log_level = None
+test_mode = False
 
 usage = _("Usage: ROX-Session/AppRun [OPTION]...\n"	\
        "If ROX-Session is already managing your session then display\n" \
@@ -51,38 +52,49 @@ except getopt.GetoptError, ex:
 	print >>sys.stderr, usage
 	sys.exit(1)
 
-for opt, value in options:
-	if opt in ('-h', '--help'):
-		print usage
-		sys.exit(0)
-	elif opt in ('-V', '--version'):
-		print version
-		sys.exit(0)
-	elif opt in ('-w', '--wait'):
-		import main
-		main.manage_session()
-		sys.exit(0)
-	elif opt == '--install':
-		import setup
-		setup.setup()
-		sys.exit(0)
-	elif opt == '--setup':
-		import AutoStart
-		sys.exit(0)
-	elif opt == '--options':
-		pass
-		#dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.Control.ShowOptions > /dev/null; exit 0;;
-	elif opt == '--messages':
-		pass
-		#dbus-send --print-reply --type=method_call --dest=net.sf.rox.Session /Session net.sf.rox.Session.Control.ShowMessages > /dev/null; exit 0;;
-	elif opt in ('-v', '--verbose'):
-		logger = logging.getLogger()
-		if log_level == logging.INFO:
-			log_level = logging.DEBUG
+try:
+	for opt, value in options:
+		if opt in ('-h', '--help'):
+			print usage
+			sys.exit(0)
+		elif opt in ('-V', '--version'):
+			print version
+			sys.exit(0)
+		elif opt in ('-t', '--test'):
+			test_mode = True
+		elif opt in ('-w', '--wait'):
+			import main
+			main.manage_session(test_mode)
+			sys.exit(0)
+		elif opt == '--install':
+			import setup
+			setup.setup()
+			sys.exit(0)
+		elif opt == '--setup':
+			import AutoStart
+			sys.exit(0)
+		elif opt == '--options':
+			import interactive
+			interactive.show_options()
+			sys.exit(0)
+		elif opt == '--messages':
+			import interactive
+			interactive.show_messages()
+			sys.exit(0)
+		elif opt in ('-v', '--verbose'):
+			logger = logging.getLogger()
+			if log_level == logging.INFO:
+				log_level = logging.DEBUG
+			else:
+				log_level = logging.INFO
+			logger.setLevel(log_level)
 		else:
-			log_level = logging.INFO
-		logger.setLevel(log_level)
-	else:
-		raise Exception('Unknown option %s', opt)
-
-import interactive
+			raise Exception('Unknown option %s', opt)
+	import interactive
+	interactive.setup_or_logout()
+except SystemExit:
+	pass
+except KeyboardInterrupt:
+	raise
+except:
+	rox.report_exception()

@@ -54,6 +54,12 @@ def init():
 		os.environ['DBUS_SESSION_BUS_ADDRESS'] = addr
 	else:
 		info("A D-BUS session bus is already running. Using that.")
-	session_bus = dbus.SessionBus()
+	get_session_bus()
 
 	# XXX: kill dbus on exit
+
+def get_session_bus():
+	global session_bus
+	if not session_bus:
+		session_bus = dbus.SessionBus()
+	return session_bus
