@@ -108,10 +108,9 @@ class Log:
 			self.log(message)
 
 	def log(self, message):
-		print "Log", message
 		end = self.buffer.get_end_iter()
 		self.buffer.insert_with_tags_by_name(end, time.ctime() + '\n', 'time')
-		self.buffer.insert(end, message)
+		self.buffer.insert(end, message + '\n')
 		
 		# TODO: remove stuff from...
 
@@ -164,6 +163,10 @@ class LogWindow(g.Dialog):
 		def resp(box, r):
 			self.hide()
 		self.connect('response', resp)
+
+		def delete(box, dev):
+			return True
+		self.connect('delete-event', delete)
 	
 	def show(self):
 		cursor = self.buffer.get_mark('insert')
@@ -198,7 +201,6 @@ class Popup(g.Window):
 			return
 
 		screen = g.gdk.screen_get_default()
-		print "Got", screen
 
 class Chunk:
 	def __init__(self, message, timestamp):
