@@ -10,7 +10,9 @@ from_utf8 = codecs.getdecoder('utf-8')
 from_latin1 = codecs.getdecoder('iso-8859-1')
 
 o_time_shown = Option('log_time_shown', 5)
-Option('log_percent_shown', 30)
+o_percent_switch = Option('log_percent_shown', 30)
+
+MARGIN = 4
 
 real_stderr = None
 
@@ -93,10 +95,16 @@ class Log:
 
 	def log_raw(self, data):
 		self.raw_input_buffer += data
-		while True:
+		try:
+			message = from_utf8(self.raw_input_buffer)[0]
+			self.raw_input_buffer = ''
+		except UnicodeDecodeError:
+			# Not valid UTF-8. Maybe we're part way through a
+			# multi-byte sequence. Just go up to newline.
 			nl = self.raw_input_buffer.rfind('\n')
 			if nl == -1:
-				return
+				return	# No newline. Wait for more input.
+
 			chunk = self.raw_input_buffer[:nl]
 			self.raw_input_buffer = self.raw_input_buffer[nl + 1:]
 			
@@ -104,8 +112,9 @@ class Log:
 			try:
 				message = from_utf8(chunk)[0]
 			except UnicodeDecodeError:
+				# Still not valid. Try latin1, so we can print something.
 				message = from_latin1(chunk, 'replace')[0] + ' (invalid UTF-8)'
-			self.log(message)
+		self.log(message)
 
 	def log(self, message):
 		end = self.buffer.get_end_iter()
@@ -115,12 +124,16 @@ class Log:
 		# TODO: remove stuff from...
 
 		self.chunks.append(Chunk(message, time.time()))
-		self.show_log_window()
-		#self.show_popup()
+		if self.log_window and self.log_window.flags() & g.VISIBLE:
+			# Full log window already open
+			self.show_log_window()
+		else:
+			# Otherwise try the popup
+			self.show_popup()
 	
 	def show_popup(self):
 		if self.popup is None:
-			self.popup = Popup(self.chunks)
+			self.popup = Popup(self)
 		self.popup.show()
 	
 	def show_log_window(self):
@@ -177,7 +190,7 @@ class LogWindow(g.Dialog):
 		print bev
 
 class Popup(g.Window):
-	def __init__(self, buffer):
+	def __init__(self, log):
 		g.Window.__init__(self, g.WINDOW_POPUP)
 		#self.set_resizable(False)
 		self.set_name('log_window')
@@ -185,22 +198,54 @@ class Popup(g.Window):
 		self.add_events(g.gdk.BUTTON_PRESS_MASK)
 		self.connect('button-press-event', self.clicked)
 
-		tv = g.TextView(buffer)
-		self.add(tv)
+		self.log = log
+		self.label = g.Label(buffer)
+		self.label.set_alignment(0.0, 0.0)
+		self.add(self.label)
 		#label.add_events(g.gdk.BUTTON_PRESS_MASK)
-		tv.show()
+		self.label.show()
 	
 	def clicked(self, win, bev):
 		print bev
+		self.hide()
+		if bev.button != 1:
+			self.log.show_log_window()
 	
-	def display(self):
-		if self.message_window or not self.chunks or not o_time_shown.int_value:
-			# We have the scrolling window open, there is nothing
-			# to show, or no time to show it. Hide the popup window.
-			self.hide()
-			return
+	def show(self):
+		message = ''
+		for c in self.log.chunks:
+			message += c.message
+		# Remove blank lines
+		message = '\n'.join([m for m in message.split('\n') if m.strip()])
+		self.label.set_text(message)
 
 		screen = g.gdk.screen_get_default()
+		mx, my, mask = g.gdk.get_default_root_window().get_pointer()
+		monitor = screen.get_monitor_at_point(mx, my)
+		geometry = screen.get_monitor_geometry(monitor)
+
+		req_width, req_height = self.label.size_request()
+		max_h = o_percent_switch.int_value * geometry.height / 100
+
+		top = 2 * my > geometry.height + geometry.y
+
+		if req_height > max_h:
+			self.hide()
+			self.log.show_log_window()
+			return
+
+		if top:
+			y = geometry.y + MARGIN
+		else:
+			y = geometry.y + geometry.height - MARGIN - req_height
+
+		req_width = geometry.width - 2 * MARGIN
+
+		#self.set_uposition(geometry.x + MARGIN, y)
+		self.set_size_request(req_width, req_height)
+		g.Window.show(self)
+		self.window.move(MARGIN, y)
+		self.window.raise_()
 
 class Chunk:
 	def __init__(self, message, timestamp):
