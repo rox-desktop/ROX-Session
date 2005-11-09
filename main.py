@@ -26,7 +26,7 @@ def manage_session(test_mode):
 	try:
 		if test_mode:
 			print "Test mode!"
-			print "Started", os.system("(/bin/echo hi >&2; sleep 5; ls >&2)&")
+			print "Started", os.system("(/bin/echo hi >&2; sleep 4; date >&2)&")
 			print "OK"
 		else:
 			wm.start()

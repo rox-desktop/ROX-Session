@@ -1,6 +1,6 @@
 from rox import g
 from rox.options import Option
-import time, os, sys
+import time, os, sys, gobject
 import fcntl
 import codecs
 
@@ -76,14 +76,13 @@ def init():
 
 	input_tag = g.input_add(log_r, g.gdk.INPUT_READ, got_log_data)
 
-	print "DONE"
-
 class Log:
 	raw_input_buffer = ''
 	buffer = None		# GtkTextBuffer
 	popup = None
 	log_window = None
 	chunks = []
+	chunks_cleanup = None
 
 	def __init__(self):
 		self.buffer = g.TextBuffer()
@@ -123,12 +122,13 @@ class Log:
 		
 		# TODO: remove stuff from...
 
-		self.chunks.append(Chunk(message, time.time()))
 		if self.log_window and self.log_window.flags() & g.VISIBLE:
 			# Full log window already open
 			self.show_log_window()
 		else:
 			# Otherwise try the popup
+			self.chunks.append(Chunk(message, time.time()))
+			self.schedule_chunks_cleanup()
 			self.show_popup()
 	
 	def show_popup(self):
@@ -139,7 +139,34 @@ class Log:
 	def show_log_window(self):
 		if self.log_window is None:
 			self.log_window = LogWindow(self.buffer)
+		self.chunks = []
 		self.log_window.show()
+	
+	def schedule_chunks_cleanup(self):
+		if self.chunks_cleanup is not None:
+			gobject.source_remove(self.chunks_cleanup)
+			self.chunks_cleanup = None
+		self.expire_chunks()
+		if not self.chunks:
+			return
+		delay = self.chunks[0].timestamp + o_time_shown.int_value - time.time()
+		def expire():
+			self.chunks_cleanup = None
+			self.schedule_chunks_cleanup()
+			return False
+		self.chunks_cleanup = gobject.timeout_add(int(max(delay * 1000, 0)) + 1, expire)
+	
+	def expire_chunks(self):
+		earliest_to_keep = time.time() - o_time_shown.int_value
+		changed = False
+		while self.chunks and self.chunks[0].timestamp < earliest_to_keep:
+			del self.chunks[0]
+			changed = True
+		if changed:
+			if self.chunks:
+				self.show_popup()
+			elif self.popup:
+				self.popup.hide()
 
 class LogWindow(g.Dialog):
 	buffer = None
@@ -186,9 +213,6 @@ class LogWindow(g.Dialog):
 		self.tv.scroll_to_mark(cursor, 0)
 		g.Dialog.show(self)
 	
-	def clicked(self, win, bev):
-		print bev
-
 class Popup(g.Window):
 	def __init__(self, log):
 		g.Window.__init__(self, g.WINDOW_POPUP)
@@ -206,7 +230,6 @@ class Popup(g.Window):
 		self.label.show()
 	
 	def clicked(self, win, bev):
-		print bev
 		self.hide()
 		if bev.button != 1:
 			self.log.show_log_window()
@@ -244,7 +267,7 @@ class Popup(g.Window):
 		#self.set_uposition(geometry.x + MARGIN, y)
 		self.set_size_request(req_width, req_height)
 		g.Window.show(self)
-		self.window.move(MARGIN, y)
+		self.window.move_resize(MARGIN, y, req_width, req_height)
 		self.window.raise_()
 
 class Chunk:
