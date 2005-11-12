@@ -3,7 +3,7 @@ import sys, os, logging
 import getopt		# (optparse is only in Python 2.3)
 import findrox; findrox.version(2, 0, 0)
 import rox
-from rox import choices
+from rox import choices, options
 import constants
 choices.migrate('ROX-Session', constants.site)
 
@@ -13,9 +13,16 @@ import logout
 import log
 import session
 
+o_i18n_translation = options.Option('i18n_translation', 'None')
+
 rox.app_options.notify()
 
-__builtins__._ = rox.i18n.translation(os.path.join(rox.app_dir, 'Messages'))
+if o_i18n_translation.value == 'None':
+	langs = None
+else:
+	langs = [o_i18n_translation.value]
+
+__builtins__._ = rox.i18n.translation(os.path.join(rox.app_dir, 'Messages'), languages = langs)
 
 log_level = None
 test_mode = False

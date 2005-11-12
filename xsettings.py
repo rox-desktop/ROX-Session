@@ -1,10 +1,27 @@
 import os, sys
-from logging import info
+from logging import info, warn
 from xml.dom import Node, minidom
 
 import rox
 from rox import g, basedir
 import constants
+
+def get_n_buttons():
+	stream = os.popen('xmodmap -pp', 'r')
+	mapping = stream.read()
+	stream.close()
+	for line in mapping.split('\n'):
+		for word in line.split(' '):
+			if word[0].isdigit():
+				return int(word)
+	warn("No numbers in output from xmodmap -pp!")
+	return 5
+		
+try:
+	n_buttons = get_n_buttons()
+except Exception, ex:
+	warn("Failed to read number of buttons", ex)
+	n_buttons = 5
 
 def manager_check_running(screen):
 	return _get_manager(screen) is not None
@@ -104,7 +121,6 @@ class Manager:
 				name = str(o.getAttribute('name'))
 				value = o.getAttribute('value')
 				type = o.getAttribute('type')
-				print name, type, value
 				if type == 'string':
 					self.set(name, str(value))
 				elif type == 'int':
@@ -156,11 +172,18 @@ class Manager:
 	def notify(self):
 		"""Push settings to other apps"""
 		# Note: we always use little-endian values
+		buffer = ''
+		n_xsettings = 0
+		for s in self._settings:
+			if s.startswith('ROX/'): continue
+			setting = self._settings[s]
+			buffer += setting.serialise(s)
+			n_xsettings += 1
+
 		buffer = ('\0\0\0\0' +
 			 intToLittleEndian32(self.serial) +
-			 intToLittleEndian32(len(self._settings)))
-		for s in self._settings:
-			buffer += self._settings[s].serialise(s)
+			 intToLittleEndian32(n_xsettings) +
+			 buffer)
 
 		self.serial += 1
 
@@ -170,6 +193,25 @@ class Manager:
 						   self.xsettings_atom, 8,
 						   g.gdk.PROP_MODE_REPLACE,
 						   buffer)
+
+		# ROX/ settings are not sent via XSettings
+		def intv(name): return str(self._settings[name].value)
+		if os.spawnlp(os.P_WAIT, 'xset', 'xset',
+			'm', intv('ROX/AccelFactor') + '/10',
+			     intv('ROX/AccelThreshold')):
+			warn('xset failed')
+
+		buttons = range(1, n_buttons + 1)
+		if self._settings['ROX/LeftHanded'].value:
+			right_button = min(3, n_buttons)
+			buttons[0] = right_button
+			buttons[right_button - 1] = 1
+		buttons = ' '.join(map(str, buttons))
+
+		if os.spawnlp(os.P_WAIT, 'xmodmap', 'xmodmap', '-e',
+					'pointer = ' + buttons):
+			warn('xmodmap failed')
+
 
 	def save(self):
 		doc = minidom.parseString("<Settings/>")
@@ -199,9 +241,9 @@ class Manager:
 		'ROX/DPMSSuspend': IntXSetting(20 * 60),
 		'ROX/DPMSOff': IntXSetting(30 * 60),
 
-		'mouse_accel_factor': IntXSetting(20),
-		'mouse_accel_threshold': IntXSetting(10),
-		'mouse_left_handed': IntXSetting(0),
+		'ROX/AccelFactor': IntXSetting(20),
+		'ROX/AccelThreshold': IntXSetting(10),
+		'ROX/LeftHanded': IntXSetting(0),
 
 		'cursor_theme': StrXSetting(''),
 		'cursor_size': IntXSetting(18),

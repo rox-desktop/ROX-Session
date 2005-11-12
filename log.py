@@ -10,7 +10,7 @@ from_utf8 = codecs.getdecoder('utf-8')
 from_latin1 = codecs.getdecoder('iso-8859-1')
 
 o_time_shown = Option('log_time_shown', 5)
-o_percent_switch = Option('log_percent_shown', 30)
+o_percent_switch = Option('log_percent_switch', 30)
 
 MARGIN = 4
 
