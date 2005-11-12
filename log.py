@@ -22,7 +22,7 @@ def close_on_exec(fd, close):
 	fcntl.fcntl(fd, fcntl.F_SETFD, close)
 
 def init():
-	global real_stderr
+	global real_stderr, log
 	log_r, log_w = os.pipe()
 
 	# Since writing to stderr will block until we're ready to
@@ -164,6 +164,8 @@ class Log(object):
 		self.popup.show()
 	
 	def show_log_window(self):
+		if self.popup and self.popup.flags() & g.VISIBLE:
+			self.popup.hide()
 		if self.log_window is None:
 			self.log_window = LogWindow(self.buffer)
 		self.chunks = []

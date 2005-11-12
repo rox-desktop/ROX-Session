@@ -73,4 +73,4 @@ class SessionObject(dbus.Object):
 		rox.edit_options()
 	
 	def ShowMessages(self, message):
-		raise Exception('ShowMessages')
+		log.log.show_log_window()
