@@ -16,6 +16,8 @@ MARGIN = 4
 
 real_stderr = None
 
+MAX_LOG_SIZE = 100000	# If complete message log exceeds this many characters, trim it (100K)
+
 def close_on_exec(fd, close):
 	fcntl.fcntl(fd, fcntl.F_SETFD, close)
 
@@ -76,21 +78,25 @@ def init():
 
 	input_tag = g.input_add(log_r, g.gdk.INPUT_READ, got_log_data)
 
-class Log:
+class Log(object):
 	raw_input_buffer = ''
 	buffer = None		# GtkTextBuffer
 	popup = None
 	log_window = None
 	chunks = []
 	chunks_cleanup = None
+	last_timestamp_logged = None
 
 	def __init__(self):
 		self.buffer = g.TextBuffer()
 		self.buffer.create_tag('time', foreground = 'blue')
 
+		self.last_timestamp_logged = time.time()
+
 		end = self.buffer.get_end_iter()
 		self.buffer.insert(end, "ROX-Session started: ")
-		self.buffer.insert_with_tags_by_name(end, time.ctime() + '\n', "time")
+		now = time.ctime(self.last_timestamp_logged)
+		self.buffer.insert_with_tags_by_name(end, now + '\n', "time")
 
 	def log_raw(self, data):
 		self.raw_input_buffer += data
@@ -116,11 +122,21 @@ class Log:
 		self.log(message)
 
 	def log(self, message):
+		# Remove blank lines and trailing spaces
+		lines = [line.lstrip() for line in message.split('\n')]
+		message = '\n'.join(filter(None, lines))
+
 		end = self.buffer.get_end_iter()
-		self.buffer.insert_with_tags_by_name(end, time.ctime() + '\n', 'time')
+
+		# Log the time, but only if it hasn't been too long (30
+		# seconds) since the last timestamp.
+		now = time.time()
+		if now > self.last_timestamp_logged + 30:
+			self.buffer.insert_with_tags_by_name(end, time.ctime(now) + '\n', 'time')
+			self.last_timestamp_logged = now
 		self.buffer.insert(end, message + '\n')
 		
-		# TODO: remove stuff from...
+		self.prune()
 
 		if self.log_window and self.log_window.flags() & g.VISIBLE:
 			# Full log window already open
@@ -130,6 +146,17 @@ class Log:
 			self.chunks.append(Chunk(message, time.time()))
 			self.schedule_chunks_cleanup()
 			self.show_popup()
+	
+	def prune(self):
+		"""If self.buffer is too long, remove lines from the start."""
+		chars = self.buffer.get_char_count()
+		if chars <= MAX_LOG_SIZE:
+			return
+		start = self.buffer.get_start_iter()
+		end = self.buffer.get_start_iter()
+		end.forward_chars(chars - MAX_LOG_SIZE)
+		end.forward_line()		# Remove complete lines only
+		self.buffer.delete(start, end)
 	
 	def show_popup(self):
 		if self.popup is None:
