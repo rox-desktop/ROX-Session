@@ -196,6 +196,7 @@ class Manager:
 
 		# ROX/ settings are not sent via XSettings
 		def intv(name): return str(self._settings[name].value)
+
 		if os.spawnlp(os.P_WAIT, 'xset', 'xset',
 			'm', intv('ROX/AccelFactor') + '/10',
 			     intv('ROX/AccelThreshold')):
@@ -212,6 +213,23 @@ class Manager:
 					'pointer = ' + buttons):
 			warn('xmodmap failed')
 
+		cursor_theme = self._settings['ROX/CursorTheme'].value
+		xrdb = os.popen('xrdb -merge', 'w')
+  		xrdb.write('Xcursor.theme: %s\n'
+			   'Xcursor.theme_core: true\n'
+			   'Xcursor.size: %d\n' %
+			   (cursor_theme, self._settings['ROX/CursorSize'].value))
+		xrdb.close()
+
+		layout = self._settings['ROX/KeyTable'].value.split(';')
+		if len(layout):
+			args = ['-layout', layout[1], '-model', layout[2]]
+			if len(layout) > 3 and layout[3]:
+				args += ['-varient', layout[3]]
+			if len(layout) > 4 and layout[4]:
+				args += ['-option', layout[4]]
+			if os.spawnlp(os.P_WAIT, 'setxkbmap', 'setxkbmap', *args):
+				warn('setxkbmap failed')
 
 	def save(self):
 		doc = minidom.parseString("<Settings/>")
@@ -245,17 +263,18 @@ class Manager:
 		'ROX/AccelThreshold': IntXSetting(10),
 		'ROX/LeftHanded': IntXSetting(0),
 
-		'cursor_theme': StrXSetting(''),
-		'cursor_size': IntXSetting(18),
+		'ROX/CursorTheme': StrXSetting(''),
+		'ROX/CursorSize': IntXSetting(18),
 
-		'kbd_repeat': IntXSetting(1),
-		'kbd_numlock': IntXSetting(0),
-		'kbd_capslock': IntXSetting(0),
-		'kbd_delay': IntXSetting(500),
-		'kbd_interval': IntXSetting(30),
+		'ROX/NumLock': IntXSetting(0),
+		'ROX/CapsLock': IntXSetting(0),
+		'ROX/KeyTable': StrXSetting(''),
+		'ROX/KbdRepeat': IntXSetting(1),
+		'ROX/KbdDelay': IntXSetting(500),
+		'ROX/KbdInterval': IntXSetting(30),
 
-		'manage_screensaver': IntXSetting(0),
-		'blank_time': IntXSetting(10 * 60),
+		'ROX/ManageScreensaver': IntXSetting(0),
+		'ROX/BlankTime': IntXSetting(10 * 60),
 	}
 
 def padding(length):
