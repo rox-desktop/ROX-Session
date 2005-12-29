@@ -24,7 +24,11 @@ except ImportError:
 		"try moving them to /usr/lib/python... (without the 'local')")
 	raise
 
-bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
+try:
+	bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
+except DBusException, ex:
+	print >>sys.stderr, "No session bus available (%s)" % ex
+	bus = None
 
 def get_object(service, path, interface):
 	# D-BUS version independant way to get an object
@@ -37,16 +41,19 @@ def get_object(service, path, interface):
 
 def setup_or_logout():
 	try:
-		if hasattr(bus, 'get_service'):
-			dbus_service = bus.get_service('org.freedesktop.DBus')
-			dbus_object = dbus_service.get_object('/org/freedesktop/DBus',
-							   'org.freedesktop.DBus')
-			dbus_services = dbus_object.ListServices()
+		if bus is None:
+			rox_session_running = False
 		else:
-			dbus_object = bus.get_object('org.freedesktop.DBus',
-						    '/org/freedesktop/DBus')
-			dbus_services = dbus_object.ListNames()
-		rox_session_running = constants.session_service in dbus_services
+			if hasattr(bus, 'get_service'):
+				dbus_service = bus.get_service('org.freedesktop.DBus')
+				dbus_object = dbus_service.get_object('/org/freedesktop/DBus',
+								   'org.freedesktop.DBus')
+				dbus_services = dbus_object.ListServices()
+			else:
+				dbus_object = bus.get_object('org.freedesktop.DBus',
+							    '/org/freedesktop/DBus')
+				dbus_services = dbus_object.ListNames()
+			rox_session_running = constants.session_service in dbus_services
 	except DBusException, ex:
 		print ex
 		rox_session_running = False
