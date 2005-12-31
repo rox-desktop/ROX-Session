@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+31-Dec-2005
+~~~~~~~~~~~
+Fixed some problems with the new code (Thomas Leonard; reported by Babyfai
+Cheung).
+
 03-Nov-2005
 ~~~~~~~~~~~
 Started rewriting in Python (Thomas Leonard).

@@ -222,7 +222,7 @@ class Manager:
 		xrdb.close()
 
 		layout = self._settings['ROX/KeyTable'].value.split(';')
-		if len(layout):
+		if len(layout) > 2:
 			args = ['-layout', layout[1], '-model', layout[2]]
 			if len(layout) > 3 and layout[3]:
 				args += ['-varient', layout[3]]
