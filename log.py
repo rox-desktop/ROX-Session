@@ -1,4 +1,4 @@
-from rox import g
+from rox import g, OptionsBox
 from rox.options import Option
 import time, os, sys, gobject
 import fcntl
@@ -6,11 +6,22 @@ import codecs
 
 import rox
 
+log = None
+
 from_utf8 = codecs.getdecoder('utf-8')
 from_latin1 = codecs.getdecoder('iso-8859-1')
 
 o_time_shown = Option('log_time_shown', 5)
 o_percent_switch = Option('log_percent_switch', 30)
+
+def _build_show_log(box, node, label):
+	align = g.Alignment(0.5, 0.5, 0, 0)
+	button = rox.ButtonMixed(g.STOCK_YES, _("Show message log"))
+	align.add(button)
+	button.connect('clicked', lambda b: log.show_log_window())
+	return [align]
+
+OptionsBox.widget_registry['show-log'] = _build_show_log
 
 MARGIN = 4
 
