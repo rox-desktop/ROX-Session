@@ -61,7 +61,7 @@ def setup_or_logout():
 		import logout
 		session_control = get_object(constants.session_service,
 						'/Session',
-						'net.sf.rox.Session.Control')
+						constants.control_interface)
 
 		logout.show_logout_box(session_control)
 	else:
@@ -71,11 +71,11 @@ def setup_or_logout():
 def show_options():
 	session_control = get_object(constants.session_service,
 						'/Session',
-						'net.sf.rox.Session.Control')
+						constants.control_interface)
 	session_control.ShowOptions()
 
 def show_messages():
 	session_control = get_object(constants.session_service,
 						'/Session',
-						'net.sf.rox.Session.Control')
+						constants.control_interface)
 	session_control.ShowMessages()

@@ -9,6 +9,11 @@ import constants
 import session, wm, settings
 import session_dbus
 import dbus
+try:
+	import dbus.service
+	import dbus.glib
+except:
+	pass
 import log
 
 def manage_session(test_mode):
@@ -20,8 +25,15 @@ def manage_session(test_mode):
 	session_dbus.init()
 	settings.init()
 
-	service = dbus.Service(constants.session_service, bus = session_dbus.session_bus)
-	SessionObject(service)
+	if session_dbus.dbus_version == 2:
+		service = dbus.Service(constants.session_service,
+				       bus = session_dbus.session_bus)
+		SessionObject(service)
+	else:
+		import dbus.service
+		service = dbus.service.BusName(constants.session_service,
+					       bus = session_dbus.session_bus)
+		SessionObject3x(service)
 
 	try:
 		if test_mode:
@@ -59,18 +71,42 @@ def set_up_environment():
 	logging.info("Loading styles from '%s'", style)
 	g.rc_parse(style)
 
-class SessionObject(dbus.Object):
-	def __init__(self, service):
-		dbus.Object.__init__(self, "/Session", service, [
-			self.LogoutWithoutConfirm,
-			self.ShowOptions,
-			self.ShowMessages])
+if session_dbus.dbus_version == 2:
+	class SessionObject(dbus.Object):
+		def __init__(self, service):
+			dbus.Object.__init__(self, "/Session", service, [
+				self.LogoutWithoutConfirm,
+				self.ShowOptions,
+				self.ShowMessages])
 
-	def LogoutWithoutConfirm(self, message):
-		g.main_quit()
+		def LogoutWithoutConfirm(self, message):
+			g.main_quit()
 	
-	def ShowOptions(self, message):
-		rox.edit_options()
+		def ShowOptions(self, message):
+			rox.edit_options()
 	
-	def ShowMessages(self, message):
-		log.log.show_log_window()
+		def ShowMessages(self, message):
+			log.log.show_log_window()
+
+else:
+	class SessionObject3x(dbus.service.Object):
+		def __init__(self, service):
+			dbus.service.Object.__init__(self, service, "/Session")
+
+		# Prefered syntax, but requires python 2.4 or later
+		#@dbus.service.method(constants.control_interface)
+		def LogoutWithoutConfirm(self):
+			g.main_quit()
+		ShowMessages=dbus.service.method(constants.control_interface)(LogoutWithoutConfirm)
+
+	
+		def ShowOptions(self):
+			rox.edit_options()
+		ShowOptions=dbus.service.method(constants.control_interface)(ShowOptions)
+
+	
+		def ShowMessages(self):
+			log.log.show_log_window()
+		ShowMessages=dbus.service.method(constants.control_interface)(ShowMessages)
+
+		
