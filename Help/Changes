@@ -2,9 +2,13 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+17-Jan-2006
+~~~~~~~~~~~
+Use correct interface for settings (Stephen Watson).
+
 16-Jan-2006
 ~~~~~~~~~~~
-main.py and settings.py updated for DBus 0,3x, needs checking it still
+main.py and settings.py updated for DBus 0.3x, needs checking it still
 works under 0.2x (Stephen Watson).
 
 31-Dec-2005
