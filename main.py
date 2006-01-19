@@ -1,6 +1,7 @@
-import os
+import os, sys
 import logging
 import children
+import imp
 
 import rox
 from rox import basedir, g
@@ -55,6 +56,31 @@ def set_up_environment():
 		os.environ['BROWSER'] = os.path.join(rox.app_dir, 'browser')
 
 	# TODO: CHOICESPATH/ROX-Session/Environment
+	env_loaded=False
+	for d in basedir.load_config_paths('rox.sourceforge.net',
+					   'ROX-Session'):
+		fl, pathname, descr=imp.find_module('Environment', [d])
+		if fl:
+			# Make sure it is not world writable
+			st=os.stat(pathname)
+			if st.st_mode & os.path.stat.S_IWOTH:
+				fl.close()
+				continue
+
+			try:
+				mod=imp.load_module('Environment', fl,
+						    pathname, descr)
+				env_loaded=True
+			except:
+				exc=sys.exc_info()[1]
+				log.log.log('Failed to process %s: %s' % (pathname,
+								      str(exc)))
+			fl.close()
+
+	if env_loaded:
+		# XDG variables may have changed
+		reload(basedir)
+	
 
 	# Close stdin. We don't need it, and it can cause problems if
 	# a child process wants a password, etc...

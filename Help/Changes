@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+19-Jan-2006
+~~~~~~~~~~~
+Now loads session environment from Environment.py instead of Environment
+(Stephen Watson).
+
 17-Jan-2006
 ~~~~~~~~~~~
 Use correct interface for settings (Stephen Watson).
