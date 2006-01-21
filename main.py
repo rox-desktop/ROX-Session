@@ -58,8 +58,11 @@ def set_up_environment():
 	env_loaded=False
 	for d in basedir.load_config_paths('rox.sourceforge.net',
 					   'ROX-Session'):
-		fl, pathname, descr=imp.find_module('Environment', [d])
-		if fl:
+		try:
+			fl, pathname, descr=imp.find_module('Environment', [d])
+		except ImportError:
+			pass
+		else:
 			# Make sure it is not world writable
 			st=os.stat(pathname)
 			if st.st_mode & os.path.stat.S_IWOTH:
