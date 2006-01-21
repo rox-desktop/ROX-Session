@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+21-Jan-2006
+~~~~~~~~~~~
+Made DBus 0.2x support work again (Thomas Leonard).
+Offer to restart the window manager when the setting changes (Thomas Leonard).
+
 19-Jan-2006
 ~~~~~~~~~~~
 Now loads session environment from Environment.py instead of Environment

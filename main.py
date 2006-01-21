@@ -31,7 +31,6 @@ def manage_session(test_mode):
 				       bus = session_dbus.session_bus)
 		SessionObject(service)
 	else:
-		import dbus.service
 		service = dbus.service.BusName(constants.session_service,
 					       bus = session_dbus.session_bus)
 		SessionObject3x(service)

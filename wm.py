@@ -98,3 +98,18 @@ def choose_wm(message):
 		start()
 	else:
 		box.destroy()
+
+def offer_restart():
+	if wm_pid is None: return	# Not yet started
+	if rox.confirm(_("Your default window manager is now '%s'.\n"
+			"Would you like to quit your current window manager and start the new "
+			"one right now?") % get_window_manager()[0],
+			g.STOCK_REFRESH, _('Restart')):
+		global autorestart_wm
+		autorestart_wm = True
+		kill_wm()
+
+def kill_wm():
+	import signal
+	if wm_pid is not None:
+		os.kill(wm_pid, signal.SIGTERM)
