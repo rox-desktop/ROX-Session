@@ -2,6 +2,12 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+28-Jan-2006
+~~~~~~~~~~~
+Debian no longer provide Python D-BUS bindings for their default version
+of Python. Grrr. If we can't import dbus and we're on Python 2.3 or earlier,
+try running again with Python 2.4 (Thomas Leonard).
+
 21-Jan-2006
 ~~~~~~~~~~~
 Made DBus 0.2x support work again (Thomas Leonard).

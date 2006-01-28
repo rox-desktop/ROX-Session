@@ -1,15 +1,13 @@
 import sys, os
 from logging import info
 
-import dbus_compat
-sys.modules['dbus.services'] = dbus_compat
 import dbus
 import constants
 
 session_bus = None
 
 try:
-	import dbus
+	import mydbus as dbus
 	if hasattr(dbus, 'version') and dbus.version >= (0, 40, 0):
 		dbus_version = 3
 		daemon = 'dbus-daemon'

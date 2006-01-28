@@ -1,4 +1,4 @@
-import dbus
+import mydbus as dbus
 if hasattr(dbus, 'version') and dbus.version >= (0, 40, 0):
 	dbus_version = 3
 else:
