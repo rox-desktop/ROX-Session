@@ -203,10 +203,13 @@ class Manager:
 		# ROX/ settings are not sent via XSettings
 		def intv(name): return str(self._settings[name].value)
 
-		if os.spawnlp(os.P_WAIT, 'xset', 'xset',
-			'm', intv('ROX/AccelFactor') + '/10',
-			     intv('ROX/AccelThreshold')):
-			warn('xset failed')
+		try:
+			if os.spawnlp(os.P_WAIT, 'xset', 'xset',
+				      'm', intv('ROX/AccelFactor') + '/10',
+				      intv('ROX/AccelThreshold')):
+				warn('xset failed')
+		except OSError, exc:
+			warn('xset failed: %s' % exc)
 
 		buttons = range(1, n_buttons + 1)
 		if self._settings['ROX/LeftHanded'].value:
@@ -215,9 +218,13 @@ class Manager:
 			buttons[right_button - 1] = 1
 		buttons = ' '.join(map(str, buttons))
 
-		if os.spawnlp(os.P_WAIT, 'xmodmap', 'xmodmap', '-e',
-					'pointer = ' + buttons):
-			warn('xmodmap failed')
+		try:
+			if os.spawnlp(os.P_WAIT, 'xmodmap', 'xmodmap', '-e',
+				      'pointer = ' + buttons):
+				warn('xmodmap failed')
+		except OSError, exc:
+			warn('xmodmap failed: %s' % exc)
+				
 
 		cursor_theme = self._settings['ROX/CursorTheme'].value
 		xrdb = os.popen('xrdb -merge', 'w')
@@ -225,7 +232,9 @@ class Manager:
 			   'Xcursor.theme_core: true\n'
 			   'Xcursor.size: %d\n' %
 			   (cursor_theme, self._settings['ROX/CursorSize'].value))
-		xrdb.close()
+		result = xrdb.close()
+		if result:
+			warn('xrdb exited with %d' % result)
 
 		layout = self._settings['ROX/KeyTable'].value.split(';')
 		if len(layout) > 2:
