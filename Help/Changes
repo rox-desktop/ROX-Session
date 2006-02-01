@@ -2,6 +2,13 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+01-Feb-2006
+~~~~~~~~~~~
+Trap errors from commands that xsettings.py runs on start up (Stephen Watson).
+For reasons known only to itself, dtlogin start the session with stdin 
+redirected from /, which causes Python to segfault.  Have our script run
+ROX-Session with stdin from /dev/null (Stephen Watson).
+
 28-Jan-2006
 ~~~~~~~~~~~
 Debian no longer provide Python D-BUS bindings for their default version
