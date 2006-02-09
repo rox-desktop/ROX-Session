@@ -2,6 +2,10 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+09-Feb-2006
+~~~~~~~~~~~
+More work on setting up the user's environment (Stephen Watson).
+
 01-Feb-2006
 ~~~~~~~~~~~
 Trap errors from commands that xsettings.py runs on start up (Stephen Watson).
