@@ -79,7 +79,7 @@ class Manager:
 		self.window.add_events(g.gdk.PROPERTY_CHANGE_MASK)
 		self.window.connect('property-notify-event', self.property_notify)
 
-		if manager_check_running(0) and False:	# XXX
+		if manager_check_running(0):
 			print >>sys.stderr, _("An XSETTINGS manager is already running. "
 					"Not taking control of XSETTINGS...")
 			return
@@ -147,7 +147,7 @@ class Manager:
 		self.timestamp = event.time
 	
 	def terminate(self):
-		print "Terminate"
+		info("Terminate")
 		return
 	
 	def set(self, name, value):

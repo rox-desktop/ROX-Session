@@ -48,4 +48,4 @@ def real_init():
 	return settings 
 
 def destroy():
-	print "destroy settings"
+	info("destroy settings")

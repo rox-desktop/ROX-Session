@@ -47,8 +47,8 @@ def real_init():
 	service = dbus.service.BusName(constants.session_service,
 				       bus = session_bus)
 	settings = Settings(service)
-	print 'now settings=', settings
+	info('now settings=%s', settings)
 	return settings
 
 def destroy():
-	print "destroy settings"
+	info("destroy settings")

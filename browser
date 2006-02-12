@@ -16,7 +16,7 @@ search="$XDG_CONFIG_HOME:$XDG_CONFIG_DIRS"
 IFS=":"
 
 for x in $search; do
-  browser=$x/rox.sourceforge.net/handlers/BROWSER
+  browser="$x/rox.sourceforge.net/handlers/BROWSER"
   #echo Looking for $browser
   if [ -x "$browser" ]; then
     exec "$browser" "$@"
