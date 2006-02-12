@@ -8,7 +8,7 @@
   <Summary xml:lang="zh_TW">登入登出及桌面管理</Summary>
   <About xml:lang="en">
     <Purpose>Session Manager</Purpose>
-    <Version>0.26 (28-Aug-2005)</Version>
+    <Version>0.27 (12-Feb-2006)</Version>
     <Author>Thomas Leonard</Author>
     <License>GNU General Public License</License>
     <Homepage>http://rox.sourceforge.net</Homepage>

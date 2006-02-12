@@ -152,11 +152,12 @@ class Log(object):
 		if self.log_window and self.log_window.flags() & g.VISIBLE:
 			# Full log window already open
 			self.show_log_window()
-		else:
+		elif o_time_shown.int_value > 0:
 			# Otherwise try the popup
 			self.chunks.append(Chunk(message, time.time()))
 			self.schedule_chunks_cleanup()
-			self.show_popup()
+			if self.chunks:
+				self.show_popup()
 	
 	def prune(self):
 		"""If self.buffer is too long, remove lines from the start."""

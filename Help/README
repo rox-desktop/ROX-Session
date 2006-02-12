@@ -80,19 +80,29 @@ Once set up, it ask you to log out. When you log in again, ROX-Session will be
 running. If you chose to install the single-user mode, you may need to choose
 'Default' or 'Xsession' from your login screen's list of desktops. The code
 for adding ROX-Session to the session manager has only currently been tested
-with gdm2.
-
-The first time you log in, ROX-Session asks you to choose a window manager
-(except for Zero Install users; you get OroboROX by default automatically).
-Select one from the list provided and click on 'Start window manager'.
-If the window mananger crashes, or you quit it, ROX-Session will ask you to
-choose again. If your preferred window manager isn't on the list then you
-can enter its name manually. Click on 'OK' to make the chosen window
-manager the default for future sessions.
+with gdm2 and kdm.
 
 When you want to logout, simply run ROX-Session a second time to display the
 logout box. This box also contains a 'Session Settings' button which takes you
 back to the options box, and the power management buttons (see below).
+
+
+Listing ROX in gdm1
+~~~~~~~~~~~~~~~~~~~
+If you're using gdm 1 (the old GNOME display manager) then you can add ROX to
+the list of sessions like this:
+
+- Go to /etc/gdm/Sessions.
+
+- Copy the .xsession that ROX-Session created in your home directory into this
+  directory, as 'ROX'.
+
+- Run gdmconfig.
+
+- Go to Expert -> Login sessions and check that 'ROX' is listed.
+  Add it if not.
+
+ROX-Session is able to add itself to the gdm2 and kdm menus automatically.
 
 
 Halt/Reboot/Sleep
@@ -130,20 +140,76 @@ Suspend
 
 Customising
 ~~~~~~~~~~~
-To decide what programs to run when you login, ROX-Session tries to run the
-script <Choices>/ROX-Session/Login, where <Choices> is tried as:
+When you log in, ROX-Session performs these steps:
 
-	~/Choices
-	/usr/local/share/Choices
-	/usr/share/Choices
+1. Set up any custom environment settings.
+2. Run a window manager.
+3. Run ROX-Filer.
+4. Run the Login script, which runs everything in the ROX-Session/AutoStart
+   configuration directory by default.
 
-until it finds the script. You can override this by setting the CHOICESPATH
-environment variable.
+These steps are explained in the following sections.
 
-If no script is found then it runs the Login script inside the ROX-Session
-application directory instead. The default script will run all the programs in:
+
+Environment
+~~~~~~~~~~~
+In the .xsession script, before ROX-Session is started, ~/bin is added to
+the front of your PATH (if the ~/bin directory exists).
+
+If $BROWSER isn't set, ROX-Session sets it to ROX-Session/browser. This little
+script gets the configured browser and runs it. Most programs use $BROWSER when
+they want to open a web-browser.
+
+Then, ROX-Session loads and runs each Python module in
+$XDG_CONFIG_DIRS/rox.sourceforge.net/ROX-Session/Environment.py.
+
+Typically, you'll override this by creating a file called
+~/.config/rox.sourceforge.net/ROX-Session/Environment.py. A sample file
+called ROX-Session/Environment.py is provided, but is not used unless you
+copy it to a configuration directory.
+
+The first $XDG_CONFIG_DIRS/rox.sourceforge.net/ROX-Session/Styles file is
+loaded to theme ROX-Session itself. If no configuration file is found,
+the one inside ROX-Session is used. This can be used to customise the look
+of ROX-Session.
+
+
+Window manager
+~~~~~~~~~~~~~~
+The first time you log in, ROX-Session chooses a window manager for you.
+If the window mananger crashes, or you quit it, ROX-Session will ask you to
+choose another one. The chosen window manager the default for future sessions.
+You can also change window manager by clicking on the one you want (if it knows
+about ROX-Session).
+
+
+Running ROX-Filer
+~~~~~~~~~~~~~~~~~
+ROX-Session runs the first
+$XDG_CONFIG_DIRS/rox.sourceforge.net/ROX-Session/RunROX script. If no RunROX
+script is in a configuration directory, it runs the copy inside itself. This
+script runs ROX-Filer using 0launch, if available, or by running 'rox' if not.
+
+The script should exec the filer. If the process returns, ROX-Session will
+tell you that ROX-Filer crashed, and offer to run the RunROX script again.
+
+The RunROX script also runs SetupPanel if pan_Default doesn't exist. This
+script creates a default panel. You shouldn't need to edit this, since for a
+single user it's easier to modify the panel directly, and for an admin or
+distribution you can put a suitable default panel later in XDG_CONFIG_DIRS.
+
+
+AutoStart
+~~~~~~~~~
+In parallel to running the RunROX script above, ROX-Session runs the first
+$XDG_CONFIG_DIRS/rox.sourceforge.net/ROX-Session/Login script. If no Login
+script is in a configuration directory, it runs the copy inside itself.
+
+The default script will run all the programs in:
 
 	<Choices>/ROX-Session/AutoStart
+
+XXX: Should use XDG_CONFIG_DIRS, not <Choices>, like everything else!
 
 If you want certain programs to be started automatically when you log in:
 
@@ -156,53 +222,10 @@ If you want certain programs to be started automatically when you log in:
 - You can also create script files in here if you want.
 
 If you need even more control, copy the Login file from inside ROX-Session's
-application directory into Choices/ROX-Session and edit it there.
+application directory and edit it.
 
-There is also a RunROX script which works in a similar way, but runs
-ROX-Filer with a panel and a pinboard set up. Unlike Login, this script should
-not exit. If it does, ROX-Session will offer to run it again. You can move
-this into Choices/ROX-Session to customise it, as with Login.
-
-The SetupPanel script is used to create a default panel if none is set up. You
-shouldn't need to edit this, since for a single user it's easier to modify the
-panel directly, and for an admin or distribution you can put a suitable
-default in /usr/[local]/share/Choices/ROX-Filer/pan_Default.
-
-
-Listing ROX in the login box
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-If you're using gdm 1 (the old GNOME display manager) then you can add ROX to
-the list of sessions like this:
-
-- Go to /etc/gdm/Sessions.
-
-- Copy the .xsession that ROX-Session created in your home directory into this
-  directory, as 'ROX'.
-
-- Run gdmconfig.
-
-- Go to Expert -> Login sessions and check that 'ROX' is listed.
-  Add it if not.
-
-kdm users can use kcontrol to set things up in a similar way (but put the
-'ROX' script in /usr/local/bin or similar).
-
-ROX-Session is able to add itself to the gdm2 menu automatically.
-
-
-Environment
-~~~~~~~~~~~
-In the .xsession script, before ROX-Session is started, ~/bin is added to
-the front of your PATH (if the ~/bin directory exists).
-
-There are also a couple of lines in ROX-Session/AppRun to turn on anti-aliased
-font support. You may need to edit these lines to turn support off (if
-it doesn't work on your system, or you want the nasty old font system back).
-
-Note: In GTK+-2.2, the new font system became the default. In GTK-2.4 it
-is likely that the old font system will no longer be available. Therefore,
-it would be better to fix any problems with the new font system now rather
-than just use the old one.
+If the Login exits with a non-zero status, ROX-Session will warn you that it
+failed.
 
 
 Errors
@@ -213,9 +236,6 @@ ROX-Session has a number of safety measures:
 - If the .xsession script can't find ROX-Session then it will look for a
   window manager on its own, and will also try to give you an xterm.
   It will also use xmessage to explain what has happened.
-
-- If ROX-Session hasn't been compiled when you try to run it, it will
-  try to compile itself first.
 
 - If the Login script returns an error code then ROX-Session will run an
   xterm and display a suitable message. Run ROX-Session a second time to

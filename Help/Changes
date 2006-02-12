@@ -2,6 +2,12 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+12-Fed-2006 (Release 0.27)
+~~~~~~~~~~~
+Updated manual (Thomas Leonard).
+Bugfix: Log display would appear empty and never disappear if the message
+	timeout was zero (Tony Houghton).
+
 09-Feb-2006
 ~~~~~~~~~~~
 More work on setting up the user's environment (Stephen Watson).
