@@ -32,7 +32,7 @@ def manage_session(test_mode):
 		SessionObject(service)
 	else:
 		service = dbus.service.BusName(constants.session_service,
-					       bus = session_dbus.session_bus)
+					       bus = session_dbus.get_session_bus())
 		SessionObject3x(service)
 
 	try:

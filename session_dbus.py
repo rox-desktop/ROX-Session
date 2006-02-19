@@ -1,32 +1,14 @@
 import sys, os
 from logging import info
+import mydbus as dbus
+dbus_version = dbus.dbus_version
 
-import dbus
 import constants
 
-session_bus = None
-
-try:
-	import mydbus as dbus
-	if hasattr(dbus, 'version') and dbus.version >= (0, 40, 0):
-		dbus_version = 3
-		daemon = 'dbus-daemon'
-		info("D-BUS 0.3x detected")
-	else:
-		dbus_version = 2
-		daemon = 'dbus-daemon-1'
-		info("D-BUS 0.2x detected")
-except ImportError:
-	rox.alert("Failed to import dbus module. You probably need "
-		"to install a package with a name like 'python2.3-dbus'.\n\n"
-		"D-BUS can also be downloaded from http://freedesktop.org\n"
-		"(be sure to compile the python and glib bindings)\n\n"
-		"If the bindings are installed in /usr/local/lib/python...,"
-		"try moving them to /usr/lib/python... (without the 'local')")
-	raise
+_session_bus = None
 
 def init():
-	global session_bus
+	global _session_bus
 	if 'DBUS_SESSION_BUS_ADDRESS' not in os.environ:
 		info('No session bus running... attempting to start one')
 		r, w = os.pipe()
@@ -35,9 +17,10 @@ def init():
 			# We are the child
 			try:
 				os.close(r)
-				os.execlp(daemon, daemon, '--session', '--print-address=%d' % w)
+				os.execlp(dbus.dbus_daemon, dbus.dbus_daemon,
+					'--session', '--print-address=%d' % w)
 			finally:
-				print >>sys.stderr, "Failed to exec", daemon
+				print >>sys.stderr, "Failed to exec", dbus.dbus_daemon
 				sys.stderr.flush()
 				#os._exit(1)
 		os.close(w)
@@ -57,7 +40,8 @@ def init():
 	# XXX: kill dbus on exit
 
 def get_session_bus():
-	global session_bus
-	if not session_bus:
-		session_bus = dbus.SessionBus()
-	return session_bus
+	global _session_bus
+	if dbus_version == 0: return None
+	if not _session_bus:
+		_session_bus = dbus.SessionBus()
+	return _session_bus
