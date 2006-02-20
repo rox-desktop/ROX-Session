@@ -2,7 +2,13 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
-12-Fed-2006 (Release 0.27)
+20-Feb-2006
+~~~~~~~~~~~
+Pygtk bug: gdk.Event.time is treated as signed even though it is an
+           unsigned value, use gdk.Event.get_time() which returns
+           unsigned values (Stephen Watson).
+
+12-Feb-2006 (Release 0.27)
 ~~~~~~~~~~~
 Updated manual (Thomas Leonard).
 Bugfix: Log display would appear empty and never disappear if the message

@@ -144,7 +144,7 @@ class Manager:
 		return long(time)
 
 	def property_notify(self, window, event):
-		self.timestamp = event.time
+		self.timestamp = event.get_time()
 	
 	def terminate(self):
 		info("Terminate")
