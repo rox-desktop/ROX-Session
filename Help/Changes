@@ -2,6 +2,11 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+26-Feb-2006
+~~~~~~~~~~~
+Attempt to distinguish dbus 0.33 from 0.35 (new API) and 0.2x (old API)
+(Stephen Watson).
+
 20-Feb-2006
 ~~~~~~~~~~~
 Pygtk bug: gdk.Event.time is treated as signed even though it is an
