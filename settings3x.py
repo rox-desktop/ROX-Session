@@ -6,9 +6,9 @@ import dbus, dbus.service
 import xsettings
 
 class Settings(dbus.service.Object):
-	def __init__(self, service):
+	def __init__(self, service, manager):
 		dbus.service.Object.__init__(self, service, "/Settings")
-		self.xsettings_manager = xsettings.Manager(0)
+		self.xsettings_manager = manager
 
 	def SetString(self, key, value):
 		self.set(key, str(value))
@@ -42,11 +42,11 @@ class Settings(dbus.service.Object):
 	def get(self, key, default):
 		return self.xsettings_manager.get(key, default)
 
-def real_init():
+def real_init(manager):
 	session_bus = dbus.SessionBus()
 	service = dbus.service.BusName(constants.session_service,
 				       bus = session_bus)
-	settings = Settings(service)
+	settings = Settings(service, manager)
 	info('now settings=%s', settings)
 	return settings
 

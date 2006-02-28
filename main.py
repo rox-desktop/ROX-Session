@@ -7,9 +7,11 @@ import rox
 from rox import basedir, g
 import constants
 
+import xxmlrpc
+
 import session, wm, settings
 import session_dbus
-import dbus
+import mydbus as dbus
 try:
 	import dbus.service
 	import dbus.glib
@@ -23,17 +25,23 @@ def manage_session(test_mode):
 	set_up_environment()
 	session.init()
 	children.init()
-	session_dbus.init()
-	settings.init()
+	if session_dbus.dbus_version:
+		session_dbus.init()
+	xml_settings = settings.init()
 
-	if session_dbus.dbus_version == 2:
+	if dbus.dbus_version == 2:
 		service = dbus.Service(constants.session_service,
 				       bus = session_dbus.session_bus)
 		SessionObject(service)
-	else:
+	elif dbus.dbus_version == 3:
 		service = dbus.service.BusName(constants.session_service,
 					       bus = session_dbus.get_session_bus())
 		SessionObject3x(service)
+
+	# This is like the D-BUS service, except using XML-RPC-over-X
+	xml_service = xxmlrpc.XXMLRPCServer('net.sourceforge.rox.ROX-Session')
+	xml_service.add_object('/Session', XMLSessionObject())
+	xml_service.add_object('/Settings', xml_settings)
 
 	try:
 		if test_mode:
@@ -41,7 +49,10 @@ def manage_session(test_mode):
 			print "Started", os.system("(/bin/echo hi >&2; sleep 4; date >&2)&")
 			print "OK"
 		else:
-			wm.start()
+			try:
+				wm.start()
+			except:
+				rox.report_exception()
 
 		g.main()
 	finally:
@@ -116,7 +127,7 @@ if session_dbus.dbus_version == 2:
 		def ShowMessages(self, message):
 			log.log.show_log_window()
 
-else:
+elif session_dbus.dbus_version == 3:
 	class SessionObject3x(dbus.service.Object):
 		def __init__(self, service):
 			dbus.service.Object.__init__(self, service, "/Session")
@@ -138,3 +149,13 @@ else:
 		ShowMessages=dbus.service.method(constants.control_interface)(ShowMessages)
 
 		
+class XMLSessionObject:
+	allowed_methods = ('LogoutWithoutConfirm', 'ShowOptions', 'ShowMessages')
+	def LogoutWithoutConfirm(self):
+		g.main_quit()
+
+	def ShowOptions(self):
+		rox.edit_options()
+
+	def ShowMessages(self):
+		log.log.show_log_window()

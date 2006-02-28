@@ -100,8 +100,8 @@ def show_logout_box(session_control):
 	box = LogoutBox()
 	resp = box.run()
 	if resp == g.RESPONSE_YES:
-		session_control.LogoutWithoutConfirm()
+		session_control.LogoutWithoutConfirm().get_response()
 	elif resp == 1:
-		session_control.ShowOptions()
+		session_control.ShowOptions().get_response()
 
 	box.destroy()
