@@ -14,7 +14,6 @@ class XMLSettings:
 		self.set(key, int(value))
 
 	def set(self, key, value):
-		info("Setting %s = %s", key, value)
 		self.xsettings_manager.set(key, value)
 		self.xsettings_manager.notify()
 		self.xsettings_manager.save()

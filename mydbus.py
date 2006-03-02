@@ -7,7 +7,7 @@ sys.modules['dbus.services'] = dbus_compat
 dbus_version = 0
 try:
 	from dbus import *
-	if hasattr(dbus, 'version') and dbus.version >= (0, 40, 0):
+	if 'version' in globals() and version >= (0, 40, 0):
 		dbus_version = 3
 		dbus_daemon = 'dbus-daemon'
 		info("D-BUS 0.3x detected")
