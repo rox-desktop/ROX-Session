@@ -75,6 +75,7 @@ try:
 			sys.exit(0)
 		elif opt in ('-t', '--test'):
 			test_mode = True
+			constants.session_service += '-test'
 		elif opt in ('-w', '--wait'):
 			import main
 			main.manage_session(test_mode)

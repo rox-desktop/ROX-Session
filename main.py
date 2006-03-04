@@ -34,12 +34,16 @@ def manage_session(test_mode):
 				       bus = session_dbus.session_bus)
 		SessionObject(service)
 	elif dbus.dbus_version == 3:
-		service = dbus.service.BusName(constants.session_service,
-					       bus = session_dbus.get_session_bus())
+		if dbus.broken_dbus3x:
+			service = dbus.Service(constants.session_service,
+							   bus = session_dbus.get_session_bus())
+		else:
+			service = dbus.service.BusName(constants.session_service,
+							   bus = session_dbus.get_session_bus())
 		SessionObject3x(service)
 
 	# This is like the D-BUS service, except using XML-RPC-over-X
-	xml_service = xxmlrpc.XXMLRPCServer('net.sourceforge.rox.ROX-Session')
+	xml_service = xxmlrpc.XXMLRPCServer(constants.session_service)
 	xml_service.add_object('/Session', XMLSessionObject())
 	xml_service.add_object('/Settings', xml_settings)
 
@@ -126,6 +130,27 @@ if session_dbus.dbus_version == 2:
 	
 		def ShowMessages(self, message):
 			log.log.show_log_window()
+
+elif session_dbus.dbus_version == 3 and dbus.broken_dbus3x:
+	class SessionObject3x(dbus.Object):
+		def __init__(self, service):
+			dbus.Object.__init__(self, "/Session", service)
+
+		# Prefered syntax, but requires python 2.4 or later
+		#@dbus.service.method(constants.control_interface)
+		def LogoutWithoutConfirm(self):
+			g.main_quit()
+		ShowMessages=dbus.method(constants.control_interface)(LogoutWithoutConfirm)
+
+	
+		def ShowOptions(self):
+			rox.edit_options()
+		ShowOptions=dbus.method(constants.control_interface)(ShowOptions)
+
+	
+		def ShowMessages(self):
+			log.log.show_log_window()
+		ShowMessages=dbus.method(constants.control_interface)(ShowMessages)
 
 elif session_dbus.dbus_version == 3:
 	class SessionObject3x(dbus.service.Object):

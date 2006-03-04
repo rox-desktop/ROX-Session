@@ -1,19 +1,25 @@
+from logging import info
+import sys
+
+import constants
 import mydbus as dbus
 import xsettings
 
-class XMLSettings:
-	allowed_methods = ('GetSetting', 'SetInt', 'SetString')
-
-	def __init__(self):
-		self.xsettings_manager = xsettings.Manager(0)
+class Settings(dbus.Object):
+	def __init__(self, service, manager):
+		dbus.Object.__init__(self, "/Settings", service)
+		self.xsettings_manager = manager
 
 	def SetString(self, key, value):
 		self.set(key, str(value))
+	SetString=dbus.method(constants.settings_interface)(SetString)
 	
 	def SetInt(self, key, value):
 		self.set(key, int(value))
+	SetInt=dbus.method(constants.settings_interface)(SetInt)
 
 	def set(self, key, value):
+		info("Setting %s = %s", key, value)
 		self.xsettings_manager.set(key, value)
 		self.xsettings_manager.notify()
 		self.xsettings_manager.save()
@@ -30,27 +36,19 @@ class XMLSettings:
 		except Exception, ex:
 			print >>sys.stderr, ex
 			raise ex
+	GetSetting=dbus.method(constants.settings_interface)(GetSetting)
+
 
 	def get(self, key, default):
 		return self.xsettings_manager.get(key, default)
 
-if dbus.dbus_version == 2:
-	from settings2x import *
-elif dbus.dbus_version is None:
-	def real_init(manager): pass
-elif dbus.version < (0, 42, 0):
-	# XXX: when did the API break for service in the Python bindings?
-	# The NEWS file implies it was 0.35 which is (0,42,0)
-	from settings3b import *
-else:
-	from settings3x import *
-
-settings = None
-def init():
-	global settings
-	settings = XMLSettings()
-	real_init(settings.xsettings_manager)
+def real_init(manager):
+	session_bus = dbus.SessionBus()
+	service = dbus.Service(constants.session_service,
+				       bus = session_bus)
+	settings = Settings(service, manager)
+	info('now settings=%s', settings)
 	return settings
 
 def destroy():
-	print "TODO: destroy"
+	info("destroy settings")

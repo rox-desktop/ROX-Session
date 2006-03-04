@@ -2,6 +2,7 @@ import sys, os
 from logging import info
 import mydbus as dbus
 dbus_version = dbus.dbus_version
+broken_dbus3x = dbus.broken_dbus3x
 
 import constants
 

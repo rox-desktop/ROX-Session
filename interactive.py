@@ -8,7 +8,7 @@ import os.path
 import constants
 
 try:
-	rox_session = xxmlrpc.XXMLProxy('net.sourceforge.rox.ROX-Session')
+	rox_session = xxmlrpc.XXMLProxy(constants.session_service)
 	session_control = rox_session.get_object('/Session')
 except xxmlrpc.NoSuchService:
 	rox_session = None
