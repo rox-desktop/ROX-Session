@@ -54,7 +54,8 @@ def manage_session(test_mode):
 
 		g.main()
 	finally:
-		settings.destroy()
+		if mydbus.dbus_version_ok:
+			session_dbus.destroy()
 
 def set_up_environment():
 	if 'CHOICESPATH' not in os.environ:

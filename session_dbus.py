@@ -5,14 +5,16 @@ import mydbus as dbus
 import constants
 
 _session_bus = None
+_dbus_pid = None
 
 def init():
 	global _session_bus
+	global _dbus_pid
 	if 'DBUS_SESSION_BUS_ADDRESS' not in os.environ:
 		info('No session bus running... attempting to start one')
 		r, w = os.pipe()
-		child = os.fork()
-		if child == 0:
+		_dbus_pid = os.fork()
+		if _dbus_pid == 0:
 			# We are the child
 			try:
 				os.close(r)
@@ -30,7 +32,7 @@ def init():
 			addr += extra
 		addr = addr[:addr.index('\n')]
 		os.close(r)
-		info('Started bus with address: "%s"', addr)
+		info('Started bus with address: "%s", PID %d', addr, _dbus_pid)
 		os.environ['DBUS_SESSION_BUS_ADDRESS'] = addr
 	else:
 		info("A D-BUS session bus is already running. Using that.")
@@ -44,3 +46,10 @@ def get_session_bus():
 	if not _session_bus:
 		_session_bus = dbus.SessionBus()
 	return _session_bus
+
+def destroy():
+	global _dbus_pid
+	if _dbus_pid is not None:
+		info("Killing D-BUS daemon process %d", _dbus_pid)
+		os.kill(_dbus_pid)
+	_dbus_pid = None

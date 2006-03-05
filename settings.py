@@ -44,6 +44,3 @@ def init():
 		settings3x.real_init(settings.xsettings_manager)
 
 	return settings
-
-def destroy():
-	print "TODO: destroy"
