@@ -1,4 +1,3 @@
-import mydbus as dbus
 import xsettings
 
 class XMLSettings:
@@ -34,22 +33,16 @@ class XMLSettings:
 	def get(self, key, default):
 		return self.xsettings_manager.get(key, default)
 
-if dbus.dbus_version == 2:
-	from settings2x import *
-elif dbus.dbus_version is None:
-	def real_init(manager): pass
-elif dbus.version < (0, 42, 0):
-	# XXX: when did the API break for service in the Python bindings?
-	# The NEWS file implies it was 0.35 which is (0,42,0)
-	from settings3b import *
-else:
-	from settings3x import *
-
 settings = None
 def init():
 	global settings
 	settings = XMLSettings()
-	real_init(settings.xsettings_manager)
+
+	import mydbus
+	if mydbus.dbus_version_ok:
+		import settings3x
+		settings3x.real_init(settings.xsettings_manager)
+
 	return settings
 
 def destroy():

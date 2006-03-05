@@ -1,8 +1,6 @@
 import sys, os
 from logging import info
 import mydbus as dbus
-dbus_version = dbus.dbus_version
-broken_dbus3x = dbus.broken_dbus3x
 
 import constants
 
@@ -42,7 +40,7 @@ def init():
 
 def get_session_bus():
 	global _session_bus
-	if dbus_version == 0: return None
+	if not dbus.dbus_version_ok: return None
 	if not _session_bus:
 		_session_bus = dbus.SessionBus()
 	return _session_bus

@@ -102,6 +102,7 @@ try:
 			else:
 				log_level = logging.INFO
 			logger.setLevel(log_level)
+			logging.info("Set verbose logging")
 		else:
 			raise Exception('Unknown option %s', opt)
 	import interactive

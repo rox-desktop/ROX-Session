@@ -11,12 +11,14 @@ import xxmlrpc
 
 import session, wm, settings
 import session_dbus
-import mydbus as dbus
-try:
-	import dbus.service
-	import dbus.glib
-except:
-	pass
+import mydbus
+if mydbus.dbus_version_ok:
+	try:
+		import dbus
+		import dbus.service
+		import dbus.glib
+	except:
+		mydbus.dbus_version_ok = False
 import log
 
 def manage_session(test_mode):
@@ -25,21 +27,13 @@ def manage_session(test_mode):
 	set_up_environment()
 	session.init()
 	children.init()
-	if session_dbus.dbus_version:
+	if mydbus.dbus_version_ok:
 		session_dbus.init()
 	xml_settings = settings.init()
 
-	if dbus.dbus_version == 2:
-		service = dbus.Service(constants.session_service,
-				       bus = session_dbus.session_bus)
-		SessionObject(service)
-	elif dbus.dbus_version == 3:
-		if dbus.broken_dbus3x:
-			service = dbus.Service(constants.session_service,
-							   bus = session_dbus.get_session_bus())
-		else:
-			service = dbus.service.BusName(constants.session_service,
-							   bus = session_dbus.get_session_bus())
+	if mydbus.dbus_version_ok:
+		service = dbus.service.BusName(constants.session_service,
+					   bus = session_dbus.get_session_bus())
 		SessionObject3x(service)
 
 	# This is like the D-BUS service, except using XML-RPC-over-X
@@ -114,45 +108,7 @@ def set_up_environment():
 	logging.info("Loading styles from '%s'", style)
 	g.rc_parse(style)
 
-if session_dbus.dbus_version == 2:
-	class SessionObject(dbus.Object):
-		def __init__(self, service):
-			dbus.Object.__init__(self, "/Session", service, [
-				self.LogoutWithoutConfirm,
-				self.ShowOptions,
-				self.ShowMessages])
-
-		def LogoutWithoutConfirm(self, message):
-			g.main_quit()
-	
-		def ShowOptions(self, message):
-			rox.edit_options()
-	
-		def ShowMessages(self, message):
-			log.log.show_log_window()
-
-elif session_dbus.dbus_version == 3 and dbus.broken_dbus3x:
-	class SessionObject3x(dbus.Object):
-		def __init__(self, service):
-			dbus.Object.__init__(self, "/Session", service)
-
-		# Prefered syntax, but requires python 2.4 or later
-		#@dbus.service.method(constants.control_interface)
-		def LogoutWithoutConfirm(self):
-			g.main_quit()
-		ShowMessages=dbus.method(constants.control_interface)(LogoutWithoutConfirm)
-
-	
-		def ShowOptions(self):
-			rox.edit_options()
-		ShowOptions=dbus.method(constants.control_interface)(ShowOptions)
-
-	
-		def ShowMessages(self):
-			log.log.show_log_window()
-		ShowMessages=dbus.method(constants.control_interface)(ShowMessages)
-
-elif session_dbus.dbus_version == 3:
+if mydbus.dbus_version_ok:
 	class SessionObject3x(dbus.service.Object):
 		def __init__(self, service):
 			dbus.service.Object.__init__(self, service, "/Session")
