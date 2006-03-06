@@ -2,6 +2,10 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
+06-Mar-2006
+~~~~~~~~~~~
+Fix killing of dbus daemon (Stephen Watson).
+
 26-Feb-2006
 ~~~~~~~~~~~
 Attempt to distinguish dbus 0.33 from 0.35 (new API) and 0.2x (old API)

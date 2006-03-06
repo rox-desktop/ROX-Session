@@ -1,4 +1,5 @@
 import sys, os
+import signal
 from logging import info
 import mydbus as dbus
 
@@ -51,5 +52,8 @@ def destroy():
 	global _dbus_pid
 	if _dbus_pid is not None:
 		info("Killing D-BUS daemon process %d", _dbus_pid)
-		os.kill(_dbus_pid)
+		try:
+			os.kill(_dbus_pid, signal.SIGTERM)
+		except OSError, exc:
+			info("Could not kill daemon: %s", str(exc))
 	_dbus_pid = None
