@@ -2,20 +2,31 @@
 			Session manager for the ROX desktop
 			by Thomas Leonard
 
-06-Mar-2006
-~~~~~~~~~~~
-Fix killing of dbus daemon (Stephen Watson).
+Note: for a detailed changelog, use:
 
-26-Feb-2006
-~~~~~~~~~~~
-Attempt to distinguish dbus 0.33 from 0.35 (new API) and 0.2x (old API)
-(Stephen Watson).
+  svn log -v https://svn.sourceforge.net/svnroot/rox/trunk/ROX-Session
 
-20-Feb-2006
-~~~~~~~~~~~
-Pygtk bug: gdk.Event.time is treated as signed even though it is an
-           unsigned value, use gdk.Event.get_time() which returns
-           unsigned values (Stephen Watson).
+
+Changes in release 0.28 (2006-03-11):
+
+- Added support for XML-RPC-over-X as an alternative to D-BUS. If D-BUS isn't
+  found, we don't need to abort now (Thomas Leonard).
+
+- Kill the DBUS daemon on logout (Stephen Watson).
+
+- Dropped support for older versions of D-BUS. All the special-case code was
+  causing maintenence problems (Thomas Leonard).
+  
+- Attempt to distinguish dbus 0.33 from 0.35 (new API) and 0.2x (old API)
+  (Stephen Watson).
+
+- Python2.2 doesn't have the 'logging' module. Import a dummy version instead
+  in this case (Thomas Leonard).
+
+- Pygtk bug: gdk.Event.time is treated as signed even though it is an unsigned
+  value, use gdk.Event.get_time() which returns unsigned values (Stephen
+  Watson).
+
 
 12-Feb-2006 (Release 0.27)
 ~~~~~~~~~~~
