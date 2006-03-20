@@ -2,12 +2,13 @@
 
 
 # This gets run after ROX-Session is loaded and running as your session
-# manager. ROX-Session will first try to load <Choices>/ROX-Session/Login,
-# and only uses this if that is missing.
+# manager. ROX-Session will first try to load 
+# $XDG_CONFIG_HOME/rox.sourceforge.net/ROX-Session/Login, and only uses this
+# if that is missing.
 #
 # This script should run any programs you want loaded when you log in and
 # then exit. If you want to customise it, first copy it to
-# ~/Choices/ROX-Session/Login and then edit that.
+# ~/.config/rox.sourceforge.net/ROX-Session/Login and then edit that.
 #
 # See also the ROX-Session/RunROX script.
 #
@@ -16,10 +17,17 @@
 if [ ! -n "$CHOICESPATH" ]; then
 	CHOICESPATH=${HOME}/Choices:/usr/local/share/Choices:/usr/share/Choices
 fi
+if [ ! -n "$XDG_CONFIG_HOME" ]; then
+	XDG_CONFIG_HOME=${HOME}/.config
+fi
+if [ ! -n "$XDG_CONFIG_DIRS" ]; then
+	XDG_CONFIG_DIRS=/etc/xdg
+fi
 IFS=":"
 
 # If we're using Zero Install, start Zero Progress now so the user gets
 # some feedback if nothing happens for a bit (because we're downloading)
+# Do we still want this?
 if [ -d /uri/0install/zero-install.sourceforge.net ]; then
 	0run "zero-install.sourceforge.net/apps/ZeroProgress 2004-03-26" &
 fi
@@ -27,6 +35,21 @@ fi
 # Run any other stuff the user wants by searching all the
 # Choices/ROX-Session/AutoStart directories...
 
+AS=
+for DIR in $XDG_CONFIG_HOME:$XDG_CONFIG_DIRS; do
+  if [ -n "$DIR" ]; then
+    AS="$DIR/rox.sourceforge.net/ROX-Session/AutoStart"
+    for PROG in $AS/*; do
+      if [ -d "$PROG" ]; then
+    	  $PROG/AppRun &
+      elif [ -x "$PROG" ]; then
+	$PROG &
+      fi
+    done
+  fi
+done
+
+if [ -n "$AS" ] ; then
 for DIR in $CHOICESPATH; do
   if [ -n "$DIR" ]; then
     AS="$DIR/ROX-Session/AutoStart"
@@ -39,3 +62,4 @@ for DIR in $CHOICESPATH; do
     done
   fi
 done
+fi
