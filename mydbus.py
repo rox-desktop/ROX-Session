@@ -7,7 +7,6 @@ try:
 	from dbus import *
 	if version >= (0, 42, 0):
 		dbus_version_ok = True
-		dbus_daemon = 'dbus-daemon'
 		info("D-BUS 0.3x detected. OK.")
 	else:
 		dbus_version_ok = False
@@ -16,3 +15,6 @@ except ImportError:
 	# Don't really care, now we have XML-RPC support.
 	dbus_version_ok = False
 	info("Failed to import dbus. No D-BUS support.")
+
+# Try to start the session bus anyway...
+dbus_daemon = 'dbus-daemon'

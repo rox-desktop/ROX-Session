@@ -27,8 +27,7 @@ def manage_session(test_mode):
 	set_up_environment()
 	session.init()
 	children.init()
-	if mydbus.dbus_version_ok:
-		session_dbus.init()
+	session_dbus.init()  # Start even if DBus is too old, for session bus
 	xml_settings = settings.init()
 
 	if mydbus.dbus_version_ok:
@@ -54,8 +53,7 @@ def manage_session(test_mode):
 
 		g.main()
 	finally:
-		if mydbus.dbus_version_ok:
-			session_dbus.destroy()
+		session_dbus.destroy()
 
 def set_up_environment():
 	if 'CHOICESPATH' not in os.environ:

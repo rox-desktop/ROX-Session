@@ -29,12 +29,17 @@ def init():
 		addr = ''
 		while '\n' not in addr:
 			extra = os.read(r, 100)
-			if not extra: raise Exception('Failed to read D-BUS address!')
+			if not extra:
+				if not dbus.dbus_version_ok:
+					break
+				raise Exception('Failed to read D-BUS address!')
 			addr += extra
 		addr = addr[:addr.index('\n')]
 		os.close(r)
-		info('Started bus with address: "%s", PID %d', addr, _dbus_pid)
-		os.environ['DBUS_SESSION_BUS_ADDRESS'] = addr
+		if addr:
+			info('Started bus with address: "%s", PID %d', addr,
+			     _dbus_pid)
+			os.environ['DBUS_SESSION_BUS_ADDRESS'] = addr
 	else:
 		info("A D-BUS session bus is already running. Using that.")
 	get_session_bus()
