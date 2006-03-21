@@ -23,6 +23,7 @@ fi
 if [ ! -n "$XDG_CONFIG_DIRS" ]; then
 	XDG_CONFIG_DIRS=/etc/xdg
 fi
+DIRS=$XDG_CONFIG_HOME:$XDG_CONFIG_DIRS
 IFS=":"
 
 # If we're using Zero Install, start Zero Progress now so the user gets
@@ -36,7 +37,7 @@ fi
 # Choices/ROX-Session/AutoStart directories...
 
 AS=
-for DIR in $XDG_CONFIG_HOME:$XDG_CONFIG_DIRS; do
+for DIR in $DIRS; do
   if [ -n "$DIR" ]; then
     AS="$DIR/rox.sourceforge.net/ROX-Session/AutoStart"
     for PROG in $AS/*; do
