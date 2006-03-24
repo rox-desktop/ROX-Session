@@ -63,6 +63,9 @@ class XXMLRPCServer:
 	def process_requests(self, requests):
 		for xid in requests:
 			foreign = g.gdk.window_foreign_new(long(xid))
+			if foreign is None:
+				print >>sys.stderr, "XMLRPC window %x no longer exists" % xid
+				continue
 			xml = foreign.property_get(
 					_message_prop, 'XA_STRING', False)
 			if xml:
