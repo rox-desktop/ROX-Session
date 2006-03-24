@@ -26,13 +26,6 @@ fi
 DIRS=$XDG_CONFIG_HOME:$XDG_CONFIG_DIRS
 IFS=":"
 
-# If we're using Zero Install, start Zero Progress now so the user gets
-# some feedback if nothing happens for a bit (because we're downloading)
-# Do we still want this?
-if [ -d /uri/0install/zero-install.sourceforge.net ]; then
-	0run "zero-install.sourceforge.net/apps/ZeroProgress 2004-03-26" &
-fi
-
 # Run any other stuff the user wants by searching all the
 # Choices/ROX-Session/AutoStart directories...
 
