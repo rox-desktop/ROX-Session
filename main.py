@@ -90,7 +90,10 @@ def set_up_environment():
 	if env_loaded:
 		# XDG variables may have changed
 		reload(basedir)
-	
+
+	# Set a variable to indicate we are in the ROX desktop.  Helps
+	# cross-desktop scripts to identify us.
+	os.environ['ROX_SESSION']='1'
 
 	# Close stdin. We don't need it, and it can cause problems if
 	# a child process wants a password, etc...
