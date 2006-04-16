@@ -9,5 +9,3 @@ class Logger:
 getLogger = Logger
 
 DEBUG, INFO = 1, 2
-
-print "Imported"
