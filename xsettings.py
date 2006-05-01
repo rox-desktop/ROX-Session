@@ -240,7 +240,7 @@ class Manager:
 		if len(layout) > 2:
 			args = ['-layout', layout[1], '-model', layout[2]]
 			if len(layout) > 3 and layout[3]:
-				args += ['-varient', layout[3]]
+				args += ['-variant', layout[3]]
 			if len(layout) > 4 and layout[4]:
 				args += ['-option', layout[4]]
 			if os.spawnlp(os.P_WAIT, 'setxkbmap', 'setxkbmap', *args):
