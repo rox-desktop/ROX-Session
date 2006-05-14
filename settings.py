@@ -1,4 +1,5 @@
 import xsettings
+import sys
 
 class XMLSettings:
 	allowed_methods = ('GetSetting', 'SetInt', 'SetString')
