@@ -207,9 +207,7 @@ script is in a configuration directory, it runs the copy inside itself.
 
 The default script will run all the programs in:
 
-	<Choices>/ROX-Session/AutoStart
-
-XXX: Should use XDG_CONFIG_DIRS, not <Choices>, like everything else!
+	~/.config/rox.sourceforge.net/ROX-Session/AutoStart
 
 If you want certain programs to be started automatically when you log in:
 
