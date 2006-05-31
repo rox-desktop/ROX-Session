@@ -43,7 +43,7 @@ for DIR in $DIRS; do
   fi
 done
 
-if [ -n "$AS" ] ; then
+if [ -z "$AS" ] ; then
 for DIR in $CHOICESPATH; do
   if [ -n "$DIR" ]; then
     AS="$DIR/ROX-Session/AutoStart"
