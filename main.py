@@ -8,6 +8,7 @@ from rox import basedir, g
 import constants
 
 import xxmlrpc
+import rox.OptionsBox
 
 import session, wm, settings
 import session_dbus
@@ -110,6 +111,30 @@ def set_up_environment():
 	logging.info("Loading styles from '%s'", style)
 	g.rc_parse(style)
 
+def build_i18n_message(box, node, label):
+	widget=g.Label(_("""Note that you must save your choices, 
+log out and log back in for the new language
+setting to take full effect."""))
+	widget.set_alignment(0, 0.5)
+	widget.set_justify(g.JUSTIFY_LEFT)
+	widget.set_line_wrap(True)
+
+	hbox=g.HBox(False, 4)
+	image=g.image_new_from_stock(g.STOCK_DIALOG_INFO,
+				     g.ICON_SIZE_BUTTON)
+	align=g.Alignment(0, 0, 0, 0)
+
+	align.add(image)
+	hbox.pack_start(align, False, True, 0)
+	hbox.pack_start(widget, False, True, 0)
+
+	return [hbox]
+	
+rox.OptionsBox.widget_registry['i18n-message'] = build_i18n_message
+
+def edit_options():
+	rox.edit_options()
+
 if mydbus.dbus_version_ok:
 	class SessionObject3x(dbus.service.Object):
 		def __init__(self, service):
@@ -123,7 +148,7 @@ if mydbus.dbus_version_ok:
 
 	
 		def ShowOptions(self):
-			rox.edit_options()
+			edit_options()
 		ShowOptions=dbus.service.method(constants.control_interface)(ShowOptions)
 
 	
@@ -138,7 +163,7 @@ class XMLSessionObject:
 		g.main_quit()
 
 	def ShowOptions(self):
-		rox.edit_options()
+		edit_options()
 
 	def ShowMessages(self):
 		log.log.show_log_window()
