@@ -268,6 +268,8 @@ class Manager:
 		'Net/ThemeName': StrXSetting('Default'),
 		'Net/CursorBlinkTime': IntXSetting(1200),
 		'Xft/Antialias': IntXSetting(1),
+		'Gtk/CanChangeAccels': IntXSetting(1),
+		'Gtk/KeyThemeName': StrXSetting('Emacs'),	# Needed for Ctrl-U to work
 
 		'ROX/DPMSEnable': IntXSetting(1),
 		'ROX/DPMSStandby': IntXSetting(15 * 60),
