@@ -245,6 +245,18 @@ class Manager:
 				args += ['-option', layout[4]]
 			if os.spawnlp(os.P_WAIT, 'setxkbmap', 'setxkbmap', *args):
 				warn('setxkbmap failed')
+		# keyboard repeat settings...
+		try:
+			if int(intv('ROX/KbdRepeat')):
+				delay = intv('ROX/KbdDelay')
+				interval = str(1000 / int(intv('ROX/KbdInterval')))
+				params = ['r', 'rate', delay, interval]
+			else:
+				params = ['-r']
+			if os.spawnlp(os.P_WAIT, 'xset', 'xset', *params):
+				warn('xset failed')
+		except OSError, exc:
+			warn('xset failed: %s', exc)
 
 	def save(self):
 		doc = minidom.parseString("<Settings/>")
