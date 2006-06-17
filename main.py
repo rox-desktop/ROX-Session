@@ -4,7 +4,7 @@ import children
 import imp
 
 import rox
-from rox import basedir, g
+from rox import basedir, g, OptionsBox
 import constants
 
 import xxmlrpc
@@ -21,6 +21,16 @@ if mydbus.dbus_version_ok:
 	except:
 		mydbus.dbus_version_ok = False
 import log
+
+def _build_i18n_message(box, node, label):
+	assert not label
+	align = g.Alignment(0.5, 0.5, 0, 0)
+	button = g.Label(_('Note that you must logout and log back in again '
+			   'before the new settings will take full effect.'))
+	align.add(button)
+	return [align]
+
+OptionsBox.widget_registry['i18n-message'] = _build_i18n_message
 
 def manage_session(test_mode):
 	log.init()
