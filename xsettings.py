@@ -210,6 +210,32 @@ class Manager:
 				warn('xset failed')
 		except OSError, exc:
 			warn('xset failed: %s' % exc)
+		
+		if self._settings['ROX/ManageScreensaver'].value == 1:
+			def saverv(name): return str(self._settings[name].value*60)
+
+			try:
+				if os.spawnlp(os.P_WAIT, 'xset', 'xset', 's', saverv('ROX/BlankTime')):
+					warn('xset failed')
+				if self._settings['ROX/DPMSEnable'].value == 1:
+					if os.spawnlp(os.P_WAIT, 'xset', 'xset', 'dpms', saverv('ROX/DPMSStandby'), 
+								saverv('ROX/DPMSSuspend'), saverv('ROX/DPMSOff')):
+						warn('xset failed')
+				else:
+					if os.spawnlp(os.P_WAIT, 'xset', 'xset', '-dpms'):
+						warn('xset failed')
+			except OSError, exc:
+				warn('xset failed: %s' % exc)
+
+		try:
+			def gammav(name): return str(self._settings[name].value/1000.0)
+			if os.spawnlp(os.P_WAIT, 'xgamma', 'xgamma', '-q',
+				      	'-rgamma', gammav('ROX/RGamma'),
+					'-ggamma', gammav('ROX/GGamma'),
+					'-bgamma', gammav('ROX/BGamma')):
+				warn('xgamma failed')
+		except OSError, exc:
+			warn('xgamma failed: %s' % exc)
 
 		buttons = range(1, n_buttons + 1)
 		if self._settings['ROX/LeftHanded'].value:
@@ -283,14 +309,20 @@ class Manager:
 		'Gtk/CanChangeAccels': IntXSetting(1),
 		'Gtk/KeyThemeName': StrXSetting('Emacs'),	# Needed for Ctrl-U to work
 
+		'ROX/ManageScreensaver': IntXSetting(0),
+		'ROX/BlankTime': IntXSetting(10),
 		'ROX/DPMSEnable': IntXSetting(1),
-		'ROX/DPMSStandby': IntXSetting(15 * 60),
-		'ROX/DPMSSuspend': IntXSetting(20 * 60),
-		'ROX/DPMSOff': IntXSetting(30 * 60),
+		'ROX/DPMSStandby': IntXSetting(15),
+		'ROX/DPMSSuspend': IntXSetting(20),
+		'ROX/DPMSOff': IntXSetting(30),
 
 		'ROX/AccelFactor': IntXSetting(20),
 		'ROX/AccelThreshold': IntXSetting(10),
 		'ROX/LeftHanded': IntXSetting(0),
+
+		'ROX/RGamma': IntXSetting(1000),
+		'ROX/GGamma': IntXSetting(1000),
+		'ROX/BGamma': IntXSetting(1000),
 
 		'ROX/CursorTheme': StrXSetting(''),
 		'ROX/CursorSize': IntXSetting(18),
@@ -302,8 +334,7 @@ class Manager:
 		'ROX/KbdDelay': IntXSetting(500),
 		'ROX/KbdInterval': IntXSetting(30),
 
-		'ROX/ManageScreensaver': IntXSetting(0),
-		'ROX/BlankTime': IntXSetting(10 * 60),
+		
 	}
 
 def padding(length):
