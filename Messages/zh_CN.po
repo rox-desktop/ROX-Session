@@ -7,310 +7,205 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-31 11:46+0800\n"
-"PO-Revision-Date: 2005-08-31 12:07+0800\n"
+"POT-Creation-Date: 2006-06-25 21:18+HKT\n"
+"PO-Revision-Date: 2006-06-25 12:07+0800\n"
 "Last-Translator: Babyfai Cheung <babyfai1@yahoo.com.hk>\n"
 "Language-Team: none>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: dbus.c:108
-msgid ""
-"ROX-Session lost its connection to the D-BUS session bus.\n"
-"You should save your work and logout as soon as possible (many things won't "
-"work correctly without the bus, and this is the only way to restart it)."
-msgstr ""
-"ROX-Session 失却 D-BUS 的连线.\n"
-"请尽速储存工作及登出 (在缺少 D-BUS 下很多工作会出错，唯一解决方法是重新启动)."
+#: AutoStart.py:7
+msgid "Symlink any applications you want run on login into this directory"
+msgstr "连结您想在登入时要启动的程式"
 
-#: dbus.c:324
-msgid "ROX-Session is already running. Can't manage your session twice!"
-msgstr "ROX-Session 经已运行，不能再次执行此程式"
-
-#: dbus.c:398
-msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
-msgstr "错误开启 libdbus-1.so.0，D-BUS 支援取消"
-
-#: dbus.c:405
-msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
-msgstr "错误开启 libdbus-glib-1.so.0，D-BUS 支援取消"
-
-#: dbus.c:429
-#, c-format
-msgid ""
-"%s\n"
-"\n"
-"You can get D-BUS from freedesktop.org.\n"
-"ROX-Session will not work correctly without it!"
-msgstr ""
-"%s\n"
-"\n"
-"D-BUS 可在 freedesktop.org 找到.\n"
-"ROX-Session 需要此套件！"
-
-#: dpms.c:35
-msgid "DPMS extension not supported"
-msgstr "DPMS 功用不支援"
-
-#: dpms.c:40
-msgid "Display not capable of DPMS"
-msgstr "显示器未能符合 DPMS"
-
-#: dpms.c:55
-msgid "DPMS timeout under 10 seconds, rounding up"
-msgstr "DPMS 闲置少於十秒，忽略"
-
-#: dpms.c:62
-msgid "Unable to read previous DPMS timeouts"
-msgstr "未能读取上个 DPMS 逾时闲置"
-
-#: dpms.c:68
-msgid "Unable to set DPMS timeouts"
-msgstr "未能设定 DPMS 闲置时间"
-
-#: dpms.c:81
-msgid "Unable to get DPMS state"
-msgstr "未能读取 DPMS 状况"
-
-#: dpms.c:87
-msgid "Unable to set DPMS state"
-msgstr "未能设定 DPMS 环境"
-
-#: i18n.c:38
-msgid ""
-"Note that you must save your choices, logout and log back in again before "
-"the new settings will take full effect."
-msgstr "您必须先储存设定，登出及再次登入。所有设定才会完全生效."
-
-#: log.c:378
-msgid "ROX-Session: write to stderr failed!\n"
-msgstr "ROX-Session: 输出错误讯息失败！\n"
-
-#: log.c:402
-msgid "ROX-Session: read(stderr) failed!\n"
-msgstr "ROX-Session: 读取 (输出错误) 失败！\n"
-
-#: log.c:459
-msgid "ROX-Session message log"
-msgstr "ROX-Session 讯息日志"
-
-#: log.c:513
+#: log.py:19
 msgid "Show message log"
 msgstr "显示讯息日志"
 
-#: main.c:60
+#: log.py:219
+msgid "ROX-Session message log"
+msgstr "ROX-Session 讯息日志"
+
+#: logout.py:60
+msgid "_Halt"
+msgstr "关机(_H)"
+
+#: logout.py:62
+msgid "Attempting to halt the system..."
+msgstr "尝试关闭机器中..."
+
+#: logout.py:65
+msgid "_Reboot"
+msgstr "重开机(_R)"
+
+#: logout.py:67
+msgid "Attempting to restart the system..."
+msgstr "尝试重新启动系统中..."
+
+#: logout.py:70
+msgid "_Sleep"
+msgstr "休眠(_S)"
+
+#: logout.py:72
+msgid "Attempting to enter suspend mode..."
+msgstr "尝试进入待机状态..."
+
+#: logout.py:76
 msgid ""
-"Copyright (C) 2002 Thomas Leonard.\n"
-"ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
-"to the extent permitted by law.\n"
-"You may redistribute copies of ROX-Session\n"
-"under the terms of the GNU General Public License.\n"
-"For more information about these matters, see the file named COPYING.\n"
+"Really logout?\n"
+"(unsaved data will be lost)"
+msgstr ""
+"确认登出?\n"
+"(资料若未储存将会遗失)"
+
+#: logout.py:81
+msgid "ROX-Session"
 msgstr ""
 
-#: main.c:69
-msgid "Try `ROX-Session/AppRun --help' for more information.\n"
-msgstr "请用指令 `ROX-Session/AppRun --help' 来获得更多讯息.\n"
+#: logout.py:86
+msgid "Session Settings"
+msgstr "设定"
 
-#: main.c:72
-msgid "Try `ROX-Session/AppRun -h' for more information.\n"
-msgstr "请用指令 `ROX-Session/AppRun -h' 来获得更多讯息.\n"
+#: logout.py:92
+msgid "Logout"
+msgstr "登出"
 
-#: main.c:74
+#: main.py:115
 msgid ""
-"NOTE: Your system does not support long options - \n"
-"you must use the short versions instead.\n"
-"\n"
+"Note that you must save your choices, \n"
+"log out and log back in for the new language\n"
+"setting to take full effect."
 msgstr ""
-"注意: 阁下的系统不支援长选项 - \n"
-"请以短的版本代替.\n"
-"\n"
+"您必须先储存设定， \n"
+"登出及以新的语言再次登入。\n"
+"所有设定才会完全生效."
 
-#: main.c:78
+#: session.py:53
 msgid ""
-"Usage: ROX-Session/AppRun [OPTION]...\n"
-"If ROX-Session is already managing your session then display\n"
-"the logout window. If not, offer to make ROX-Session your\n"
-"session manager for future sessions.\n"
-"\n"
-"  -h, --help\t\tdisplay this help and exit\n"
-"  -v, --version\t\tdisplay the version information and exit\n"
-"  -w, --wait\t\tsimply wait until run again (internal use)\n"
-"\n"
-"The latest version can be found at:\n"
-"\thttp://rox.sourceforge.net\n"
-"\n"
-"Report bugs to <tal197@users.sourceforge.net>.\n"
+"Your login script ('%s') failed. I'll give you an xterm to try and fix it. "
+"ROX-Session itself is running fine though - run me a second time to logout."
 msgstr ""
+"登入指令稿 ('%s') 失败， xterm 将会运行，请尝试解决问题。"
+"ROX-Session 已正常启动 - 稍后将会结出."
 
-#: main.c:232
-#, c-format
-msgid "Your login script (%s) died"
-msgstr "您的登入指令稿 (%s) 终止"
-
-#: main.c:235
-#, c-format
-msgid "Your login script (%s) exited with exit status %d"
-msgstr "您的登入指令稿 (%s) 退出其情况为 %d"
-
-#: main.c:240
-msgid ""
-". I'll give you an xterm to try and fix it. ROX-Session itself is running "
-"fine though - run me a second time to logout."
-msgstr ""
-". xterm 将会运行，请尝试解决问题，ROX-Session 已正常启动 - 稍后将会结出."
-
-#: options.c:464 options.c:1187
-msgid "(use default)"
-msgstr "(套用缺省值)"
-
-#: options.c:735
-#, c-format
-msgid "Internal error: %s unreadable"
-msgstr "内部错误：%s 不可读取"
-
-#: options.c:846
-msgid "Options"
-msgstr "选项"
-
-#: options.c:891
-msgid "_Revert"
-msgstr "恢复(_R)"
-
-#: options.c:897
-msgid "Restore all choices to how they were when the Options box was opened."
-msgstr "回复开启时的选择设置"
-
-#: options.c:912
-#, c-format
-msgid ""
-"Choices will be saved as:\n"
-"%s"
-msgstr ""
-"选择设置会被储存为：\n"
-"%s"
-
-#: options.c:920
-msgid "(saving disabled by CHOICESPATH)"
-msgstr "(储存被取消，因应 CHOICESPATH 路径)"
-
-#: options.c:1093 settings.c:426
-#, c-format
-msgid "Error saving %s: %s"
-msgstr "错误储存 %s: %s"
-
-#: rox_gettext.c:93
-#, c-format
-msgid "Invalid .gmo translation file (too short): %s"
-msgstr "非法的 .gmo 翻译档(过短)：%s"
-
-#: rox_gettext.c:106
-#, c-format
-msgid "Invalid .gmo translation file (GNU magic number not found): %s"
-msgstr "非法的 .gmo 翻译档 (GNU magic number 找不到)：%s"
-
-#: session.c:215
-#, c-format
-msgid ""
-"Failed to run login script:\n"
-"%s"
-msgstr ""
-"未能执行登入指令稿：\n"
-"%s"
-
-#: session.c:263
+#: session.py:78
 msgid ""
 "ROX-Filer has terminated (crashed?).You should probably try to restart it."
 msgstr "ROX-Filer 终止(崩溃？)，请尝试重新开启"
 
-#: session.c:265
+#: session.py:82
 msgid "Do nothing"
 msgstr "没有动作"
 
-#: session.c:266
+#: session.py:83
 msgid "Run Xterm"
 msgstr "执行 Xterm"
 
-#: session.c:267
+#: session.py:84
 msgid "_Restart"
 msgstr "重新启动(_R)"
 
-#: session.c:293
-#, c-format
+#: setup.py:20
 msgid ""
-"Failed to run '%s':\n"
-"%s"
+"Tried to make a backup of your old '%s' file, but the backup file ('%s') "
+"already exists.\n"
+"If you want to keep it, move it somewhere safe. Otherwise, delete it."
 msgstr ""
-"失败执行 '%s':\n"
-"%s"
+"尝试备份文件为 '%s' 时错误，因这个名为 ('%s') 的文件已存在.\n"
+"如要保留，请将其移到别处。否则，请将他删除."
 
-#: settings.c:321
-#, c-format
+#: setup.py:30
 msgid ""
-"Failed to change the cursor theme:\n"
-"%s\n"
-"You can use the Mouse configuration application to change the setting."
+"Do you want to make ROX a choice on your login screen (affects all users and "
+"requires the root password), or do you just want to set the session for your "
+"current user?\n"
+"\n"
+"If you know the root password and use a graphical display manager such as "
+"gdm or kdm, you should probably choose that option."
 msgstr ""
-"失败更改鼠标布景:\n"
-"%s\n"
-"请在滑鼠设置程式内进行设定."
+"您是否要 ROX  成为登入画面中的一个选择(对应所有用户并需要'root' 的密码)，又或"
+"只对应当前用户进行设定？\n"
+"\n"
+"首要是，您必须知道'root' 的密码及以一个图型登入管理员如 'gdm' 或 'kdm'，您才"
+"可运用此选项."
 
-#: wm.c:79
-msgid ""
-"Your window manager has crashed (or quit). Please restart it, or choose "
-"another window manager."
-msgstr " 窗口管理员已崩溃(或退出)，请重新启动；或另选其他的窗口管理员."
+#: setup.py:38
+msgid "Setup for user"
+msgstr "对用户设置"
 
-#: wm.c:98
-#, c-format
+#: setup.py:39
+msgid "Add to login"
+msgstr "加进登入"
+
+#: setup.py:119
 msgid ""
-"Your default window manager is now '%s'.\n"
-"Would you like to quit your current window manager and start the new one "
-"right now?"
+"OK, now logout by your usual method and when you log in again, I should be "
+"your session manager.\n"
+"Note: you may need to select 'Default' as your desktop type after entering "
+"your user name on the login screen."
 msgstr ""
-"您现在的缺省窗口管理员是 '%s'.\n"
-"是否要退出当前的窗口管理员而套用您所选择的？"
+"完成，请登出后再登入；这便成为您的 session manager 了.\n"
+"注意：在图型登入视窗中选择 'Default'，然后开始登入."
 
-#: wm.c:172
+#: setup.py:137
 msgid ""
-"The window manager which ROX-Session started for you is still running. Quit "
-"it before starting a new one."
-msgstr "ROX-Session 启动时载入的窗口管理员仍然运行，在执行新的时请先行退出."
-
-#: wm.c:194
-#, c-format
-msgid ""
-"Failed to start window manager:\n"
-"%s\n"
-"Please choose a new window manager and try again."
+"I wanted to install a rox.desktop file in your session directory, but I "
+"couldn't find one! I tried these places (defaults for gdm2, at least):\n"
+"\n"
 msgstr ""
-"未能启动窗口管理员：\n"
-"%s\n"
-"请再尝试或另选其他的窗口管理员."
+"尝试安装 rox.desktop 文件到您的 session 目录失败，目录不存在！改为安装到这处"
+"( 缺省是gdm2, 最少也要)：\n"
+"\n"
 
-#: xkb.c:94
-#, c-format
+#: setup.py:144
 msgid ""
-"Failed to set keyboard map:\n"
-"%s\n"
-"You can use the Keyboard configuration application to change the setting."
+"/usr/local/sbin directory is missing! I want to install the rox-session "
+"script there... Please create it and try again."
 msgstr ""
-"未能设定键盘布局：\n"
-"%s\n"
-"请在键盘设置程式内进行设定."
+"/usr/local/sbin 目录不存在！rox-session 的程序档需要他... 请建立后再试."
 
-#: xkb.c:115
-msgid "Failed to set auto repeat rate/interval"
-msgstr "未能设置自动重复 速率/间距"
+#: setup.py:191
+msgid ""
+"OK, now logout by your usual method, and choose ROX from the session menu on "
+"your login screen just after entering your user name (but before entering "
+"your password)."
+msgstr ""
+"完成，现在请登出再在图型登入视窗中；输入您的名字然后选 ROX  (随后是您的密码)."
 
-#: xkb.c:134
-msgid "error in reading keyboard indicator states"
-msgstr "错误读取键盘指示灯状况"
+#: setup.py:208
+msgid ""
+"OK, I don't know what the problem is. Please ask on the rox-users mailing "
+"list. When we know what the problem is, we can add an extra check here to "
+"help out others in future.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(you can copy and paste that address into your browser)"
+msgstr ""
+"发生未明的错误，请询问 rox-users mailing list；我们会尝试找出原因并尽快解"
+"决.\n"
+"\n"
+"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
+"(您可复制及贴上到浏览器上)"
 
-#: xkb.c:148
-msgid "error while sending fake key events"
-msgstr "送出伪按键事件时错误"
+#: setup.py:219
+msgid ""
+"ROX-Session does not appear to be managing your session. Would you like to "
+"set it up now?\n"
+"\n"
+"If you think it should already be set up, click on Help."
+msgstr ""
+"ROX-Session 还未成功设立，现在安装设立？\n"
+"\n"
+"如已经安装，请点击说明档."
+
+#: setup.py:224
+msgid "Set up ROX"
+msgstr "安装设立 ROX "
+
+#: setup.py:227
+msgid "Set up ROX-Session"
+msgstr "安装设立 ROX -Session"
 
 #: tips:1
 msgid "Translation"
@@ -420,7 +315,7 @@ msgstr "弹出显示所占的最大位置："
 msgid "%"
 msgstr ""
 
-#: tips:26
+#: tips:26 tips:27 tips:28
 msgid ""
 "Normally, messages are shown overlayed on the screen for a few seconds. If "
 "there are a large number of messages (more than this amount of the screen is "
@@ -429,11 +324,11 @@ msgstr ""
 "通常，讯息会停留在屏幕上数秒，但假如讯息太多 (超过屏幕所覆盖) 便会改以窗口模"
 "式显示."
 
-#: tips:27 tips:28
+#: tips:29 tips:30
 msgid "Power"
 msgstr "电源"
 
-#: tips:29
+#: tips:31
 msgid ""
 "These commands can be selected in the Logout box as alternatives to logging "
 "out. The correct settings vary between different systems. You may need to "
@@ -443,27 +338,27 @@ msgstr ""
 "此等指令会在登出时在讯息盒中显示，在不同的系统中，可能有不同的设定和指令。假"
 "如您的系统不赋予一般用户执行关机这类指令，您可能要运用 xsu 或 sudo 来执行. "
 
-#: tips:30
+#: tips:32
 msgid "Halt command:"
 msgstr "关机指令："
 
-#: tips:31
+#: tips:33
 msgid "Likely commands for halting are 'halt' and 'shutdown -t now'"
 msgstr "用以关闭机器指令如 'halt' and 'shutdown -t now' "
 
-#: tips:32
+#: tips:34
 msgid "Reboot command:"
 msgstr "重开机器指令："
 
-#: tips:33
+#: tips:35
 msgid "Likely rebooting commands are 'reboot' and 'shutdown -t now -r'"
 msgstr "用以重新启动指令如 'reboot' and 'shutdown -t now -r"
 
-#: tips:34
+#: tips:36
 msgid "Suspend command:"
 msgstr "待机指令："
 
-#: tips:35
+#: tips:37 tips:38 tips:39
 msgid ""
 "If your system uses APM for power management, try 'apm -s' or similar. ACPI "
 "users could try 'xset dpms force off; echo 1 > /proc/acpi/sleep'. You'll "
@@ -473,11 +368,11 @@ msgstr ""
 "dpms force off; echo 1 > /proc/acpi/sleep'.  您的系统核心亦必须要支援电源管理"
 "这功能."
 
-#: tips:36
+#: tips:40
 msgid "Look and Feel"
 msgstr ""
 
-#: tips:37
+#: tips:41 tips:42 tips:43
 msgid ""
 "The mouse, keyboard and display options have moved to the new LookAndFeel "
 "application, available from http://rox.sf.net."
@@ -485,151 +380,194 @@ msgstr ""
 "滑鼠,键盘及显示选项,已移植到另一新程式 'LookAndFeel' 上，详情可浏览 http://"
 "rox.sf.net."
 
-#: ../AutoStart.py:13
-msgid "Symlink any applications you want run on login into this directory"
-msgstr "连结您想在登入时要启动的程式"
-
-#: ../logout.py:66
-msgid "_Halt"
-msgstr "关机(_H)"
-
-#: ../logout.py:68
-msgid "Attempting to halt the system..."
-msgstr "尝试关闭机器中..."
-
-#: ../logout.py:71
-msgid "_Reboot"
-msgstr "重开机(_R)"
-
-#: ../logout.py:73
-msgid "Attempting to restart the system..."
-msgstr "尝试重新启动系统中..."
-
-#: ../logout.py:76
-msgid "_Sleep"
-msgstr "休眠(_S)"
-
-#: ../logout.py:78
-msgid "Attempting to enter suspend mode..."
-msgstr "尝试进入待机状态..."
-
-#: ../logout.py:82
+#: wm.py:75
 msgid ""
-"Really logout?\n"
-"(unsaved data will be lost)"
-msgstr ""
-"确认登出?\n"
-"(资料若未储存将会遗失)"
+"Your window manager has crashed (or quit). Please restart it, or choose "
+"another window manager."
+msgstr " 窗口管理员已崩溃(或退出)，请重新启动；或另选其他的窗口管理员."
 
-#: ../logout.py:87
-msgid "ROX-Session"
-msgstr ""
-
-#: ../logout.py:92
-msgid "Session Settings"
-msgstr "设定"
-
-#: ../logout.py:98
-msgid "Logout"
-msgstr "登出"
-
-#: ../setup.py:25
+#: wm.py:104
 msgid ""
-"Tried to make a backup of your old '%s' file, but the backup file ('%s') "
-"already exists.\n"
-"If you want to keep it, move it somewhere safe. Otherwise, delete it."
+"Your default window manager is now '%s'.\n"
+"Would you like to quit your current window manager and start the new one "
+"right now?"
 msgstr ""
-"尝试备份文件为 '%s' 时错误，因这个名为 ('%s') 的文件已存在.\n"
-"如要保留，请将其移到别处。否则，请将他删除."
+"您现在的缺省窗口管理员是 '%s'.\n"
+"是否要退出当前的窗口管理员而套用您所选择的？"
 
-#: ../setup.py:37
+#: wm.py:107
+msgid "Restart"
+msgstr "重新启动(_R)"
+
+#: xsettings.py:83
 msgid ""
-"Do you want to make ROX a choice on your login screen (affects all users and "
-"requires the root password), or do you just want to set the session for your "
-"current user?\n"
-"\n"
-"If you know the root password and use a graphical display manager such as "
-"gdm or kdm, you should probably choose that option."
+"An XSETTINGS manager is already running. Not taking control of XSETTINGS..."
 msgstr ""
-"您是否要 ROX  成为登入画面中的一个选择(对应所有用户并需要'root' 的密码)，又或"
-"只对应当前用户进行设定？\n"
-"\n"
-"首要是，您必须知道'root' 的密码及以一个图型登入管理员如 'gdm' 或 'kdm'，您才"
-"可运用此选项."
 
-#: ../setup.py:45
-msgid "Setup for user"
-msgstr "对用户设置"
+#~ msgid ""
+#~ "ROX-Session lost its connection to the D-BUS session bus.\n"
+#~ "You should save your work and logout as soon as possible (many things "
+#~ "won't work correctly without the bus, and this is the only way to restart "
+#~ "it)."
+#~ msgstr ""
+#~ "ROX-Session 失却 D-BUS 的连线.\n"
+#~ "请尽速储存工作及登出 (在缺少 D-BUS 下很多工作会出错，唯一解决方法是重新启"
+#~ "动)."
 
-#: ../setup.py:46
-msgid "Add to login"
-msgstr "加进登入"
+#~ msgid "ROX-Session is already running. Can't manage your session twice!"
+#~ msgstr "ROX-Session 经已运行，不能再次执行此程式"
 
-#: ../setup.py:126
-msgid ""
-"OK, now logout by your usual method and when you log in again, I should be "
-"your session manager.\n"
-"Note: you may need to select 'Default' as your desktop type after entering "
-"your user name on the login screen."
-msgstr ""
-"完成，请登出后再登入；这便成为您的 session manager 了.\n"
-"注意：在图型登入视窗中选择 'Default'，然后开始登入."
+#~ msgid "Failed to open libdbus-1.so.0. D-BUS support disabled."
+#~ msgstr "错误开启 libdbus-1.so.0，D-BUS 支援取消"
 
-#: ../setup.py:141
-msgid ""
-"I wanted to install a rox.desktop file in your session directory, but I "
-"couldn't find one! I tried these places (defaults for gdm2, at least):\n"
-"\n"
-msgstr ""
-"尝试安装 rox.desktop 文件到您的 session 目录失败，目录不存在！改为安装到这处"
-"( 缺省是gdm2, 最少也要)：\n"
-"\n"
+#~ msgid "Failed to open libdbus-glib-1.so.0. D-BUS support disabled."
+#~ msgstr "错误开启 libdbus-glib-1.so.0，D-BUS 支援取消"
 
-#: ../setup.py:146
-msgid ""
-"/usr/local/sbin directory is missing! I want to install the rox-session "
-"script there... Please create it and try again."
-msgstr ""
-"/usr/local/sbin 目录不存在！rox-session 的程序档需要他... 请建立后再试."
+#~ msgid ""
+#~ "%s\n"
+#~ "\n"
+#~ "You can get D-BUS from freedesktop.org.\n"
+#~ "ROX-Session will not work correctly without it!"
+#~ msgstr ""
+#~ "%s\n"
+#~ "\n"
+#~ "D-BUS 可在 freedesktop.org 找到.\n"
+#~ "ROX-Session 需要此套件！"
 
-#: ../setup.py:188
-msgid ""
-"OK, now logout by your usual method, and choose ROX from the session menu on "
-"your login screen just after entering your user name (but before entering "
-"your password)."
-msgstr ""
-"完成，现在请登出再在图型登入视窗中；输入您的名字然后选 ROX  (随后是您的密码)."
+#~ msgid "DPMS extension not supported"
+#~ msgstr "DPMS 功用不支援"
 
-#: ../setup.py:205
-msgid ""
-"OK, I don't know what the problem is. Please ask on the rox-users mailing "
-"list. When we know what the problem is, we can add an extra check here to "
-"help out others in future.\n"
-"\n"
-"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
-"(you can copy and paste that address into your browser)"
-msgstr ""
-"发生未明的错误，请询问 rox-users mailing list；我们会尝试找出原因并尽快解"
-"决.\n"
-"\n"
-"http://rox.sourceforge.net/phpwiki/index.php/MailingLists\n"
-"(您可复制及贴上到浏览器上)"
+#~ msgid "Display not capable of DPMS"
+#~ msgstr "显示器未能符合 DPMS"
 
-#: ../setup.py:216
-msgid ""
-"ROX-Session does not appear to be managing your session. Would you like to "
-"set it up now?\n"
-"\n"
-"If you think it should already be set up, click on Help."
-msgstr ""
-"ROX-Session 还未成功设立，现在安装设立？\n"
-"\n"
-"如已经安装，请点击说明档."
+#~ msgid "DPMS timeout under 10 seconds, rounding up"
+#~ msgstr "DPMS 闲置少於十秒，忽略"
 
-#: ../setup.py:221
-msgid "Set up ROX"
-msgstr "安装设立 ROX "
+#~ msgid "Unable to read previous DPMS timeouts"
+#~ msgstr "未能读取上个 DPMS 逾时闲置"
 
-#: ../setup.py:224
-msgid "Set up ROX-Session"
-msgstr "安装设立 ROX -Session"
+#~ msgid "Unable to set DPMS timeouts"
+#~ msgstr "未能设定 DPMS 闲置时间"
+
+#~ msgid "Unable to get DPMS state"
+#~ msgstr "未能读取 DPMS 状况"
+
+#~ msgid "Unable to set DPMS state"
+#~ msgstr "未能设定 DPMS 环境"
+
+#~ msgid "ROX-Session: write to stderr failed!\n"
+#~ msgstr "ROX-Session: 输出错误讯息失败！\n"
+
+#~ msgid "ROX-Session: read(stderr) failed!\n"
+#~ msgstr "ROX-Session: 读取 (输出错误) 失败！\n"
+
+#~ msgid "Try `ROX-Session/AppRun --help' for more information.\n"
+#~ msgstr "请用指令 `ROX-Session/AppRun --help' 来获得更多讯息.\n"
+
+#~ msgid "Try `ROX-Session/AppRun -h' for more information.\n"
+#~ msgstr "请用指令 `ROX-Session/AppRun -h' 来获得更多讯息.\n"
+
+#~ msgid ""
+#~ "NOTE: Your system does not support long options - \n"
+#~ "you must use the short versions instead.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "注意: 阁下的系统不支援长选项 - \n"
+#~ "请以短的版本代替.\n"
+#~ "\n"
+
+#~ msgid "Your login script (%s) died"
+#~ msgstr "您的登入指令稿 (%s) 终止"
+
+#~ msgid "Your login script (%s) exited with exit status %d"
+#~ msgstr "您的登入指令稿 (%s) 退出其情况为 %d"
+
+#~ msgid "(use default)"
+#~ msgstr "(套用缺省值)"
+
+#~ msgid "Internal error: %s unreadable"
+#~ msgstr "内部错误：%s 不可读取"
+
+#~ msgid "Options"
+#~ msgstr "选项"
+
+#~ msgid "_Revert"
+#~ msgstr "恢复(_R)"
+
+#~ msgid ""
+#~ "Restore all choices to how they were when the Options box was opened."
+#~ msgstr "回复开启时的选择设置"
+
+#~ msgid ""
+#~ "Choices will be saved as:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "选择设置会被储存为：\n"
+#~ "%s"
+
+#~ msgid "(saving disabled by CHOICESPATH)"
+#~ msgstr "(储存被取消，因应 CHOICESPATH 路径)"
+
+#~ msgid "Error saving %s: %s"
+#~ msgstr "错误储存 %s: %s"
+
+#~ msgid "Invalid .gmo translation file (too short): %s"
+#~ msgstr "非法的 .gmo 翻译档(过短)：%s"
+
+#~ msgid "Invalid .gmo translation file (GNU magic number not found): %s"
+#~ msgstr "非法的 .gmo 翻译档 (GNU magic number 找不到)：%s"
+
+#~ msgid ""
+#~ "Failed to run login script:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "未能执行登入指令稿：\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "Failed to run '%s':\n"
+#~ "%s"
+#~ msgstr ""
+#~ "失败执行 '%s':\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "Failed to change the cursor theme:\n"
+#~ "%s\n"
+#~ "You can use the Mouse configuration application to change the setting."
+#~ msgstr ""
+#~ "失败更改鼠标布景:\n"
+#~ "%s\n"
+#~ "请在滑鼠设置程式内进行设定."
+
+#~ msgid ""
+#~ "The window manager which ROX-Session started for you is still running. "
+#~ "Quit it before starting a new one."
+#~ msgstr "ROX-Session 启动时载入的窗口管理员仍然运行，在执行新的时请先行退出."
+
+#~ msgid ""
+#~ "Failed to start window manager:\n"
+#~ "%s\n"
+#~ "Please choose a new window manager and try again."
+#~ msgstr ""
+#~ "未能启动窗口管理员：\n"
+#~ "%s\n"
+#~ "请再尝试或另选其他的窗口管理员."
+
+#~ msgid ""
+#~ "Failed to set keyboard map:\n"
+#~ "%s\n"
+#~ "You can use the Keyboard configuration application to change the setting."
+#~ msgstr ""
+#~ "未能设定键盘布局：\n"
+#~ "%s\n"
+#~ "请在键盘设置程式内进行设定."
+
+#~ msgid "Failed to set auto repeat rate/interval"
+#~ msgstr "未能设置自动重复 速率/间距"
+
+#~ msgid "error in reading keyboard indicator states"
+#~ msgstr "错误读取键盘指示灯状况"
+
+#~ msgid "error while sending fake key events"
+#~ msgstr "送出伪按键事件时错误"
