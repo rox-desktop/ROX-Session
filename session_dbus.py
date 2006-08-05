@@ -57,8 +57,10 @@ def destroy():
 	global _dbus_pid
 	if _dbus_pid is not None:
 		info("Killing D-BUS daemon process %d", _dbus_pid)
-		try:
-			os.kill(_dbus_pid, signal.SIGTERM)
-		except OSError, exc:
-			info("Could not kill daemon: %s", str(exc))
+		# Don't kill it now, arrange for it to be killed after
+		# a short delay.  Why?  If a panel applet uses D-Bus it
+		# will exit when the daemon dies and the filer will remove
+		# it from the panel.
+		os.spawnlp(os.P_NOWAIT, 'sh', 'sh', '-c',
+			   'sleep 10; kill %d' % _dbus_pid)
 	_dbus_pid = None
