@@ -5,6 +5,7 @@ try:
 except ImportError:
 	import mylogging as logging
 	sys.modules['logging'] = logging
+	print >>sys.stderr, "ROX-Session requires Python 2.3 or later!"
 
 import getopt		# (optparse is only in Python 2.3)
 import findrox; findrox.version(2, 0, 0)
@@ -65,51 +66,45 @@ except getopt.GetoptError, ex:
 	print >>sys.stderr, usage
 	sys.exit(1)
 
-try:
-	for opt, value in options:
-		if opt in ('-h', '--help'):
-			print usage
-			sys.exit(0)
-		elif opt in ('-V', '--version'):
-			print version
-			sys.exit(0)
-		elif opt in ('-t', '--test'):
-			test_mode = True
-			constants.session_service += '-test'
-		elif opt in ('-w', '--wait'):
-			import main
-			main.manage_session(test_mode)
-			sys.exit(0)
-		elif opt == '--install':
-			import setup
-			setup.setup()
-			sys.exit(0)
-		elif opt == '--setup':
-			import AutoStart
-			sys.exit(0)
-		elif opt == '--options':
-			import interactive
-			interactive.show_options()
-			sys.exit(0)
-		elif opt == '--messages':
-			import interactive
-			interactive.show_messages()
-			sys.exit(0)
-		elif opt in ('-v', '--verbose'):
-			logger = logging.getLogger()
-			if log_level == logging.INFO:
-				log_level = logging.DEBUG
-			else:
-				log_level = logging.INFO
-			logger.setLevel(log_level)
-			logging.info("Set verbose logging")
+for opt, value in options:
+	if opt in ('-h', '--help'):
+		print usage
+		sys.exit(0)
+	elif opt in ('-V', '--version'):
+		print version
+		sys.exit(0)
+	elif opt in ('-t', '--test'):
+		test_mode = True
+		constants.session_service += '-test'
+	elif opt in ('-w', '--wait'):
+		import main
+		main.manage_session(test_mode)
+		sys.exit(0)
+	elif opt == '--install':
+		import setup
+		setup.setup()
+		sys.exit(0)
+	elif opt == '--setup':
+		import AutoStart
+		sys.exit(0)
+	elif opt == '--options':
+		import interactive
+		interactive.show_options()
+		sys.exit(0)
+	elif opt == '--messages':
+		import interactive
+		interactive.show_messages()
+		sys.exit(0)
+	elif opt in ('-v', '--verbose'):
+		logger = logging.getLogger()
+		if log_level == logging.INFO:
+			log_level = logging.DEBUG
 		else:
-			raise Exception('Unknown option %s', opt)
-	import interactive
-	interactive.setup_or_logout()
-except SystemExit:
-	pass
-except KeyboardInterrupt:
-	raise
-except:
-	rox.report_exception()
+			log_level = logging.INFO
+		logger.setLevel(log_level)
+		logging.info("Set verbose logging")
+		print "Verbose"
+	else:
+		raise Exception('Unknown option %s', opt)
+import interactive
+interactive.setup_or_logout()
