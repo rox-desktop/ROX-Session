@@ -151,7 +151,7 @@ class Manager:
 		return
 	
 	def set(self, name, value):
-		self._set(name, value)
+		self._set(str(name), value)
 		if name == 'ROX/WindowManager':
 			import wm
 			wm.offer_restart()
