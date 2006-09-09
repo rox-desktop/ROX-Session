@@ -7,6 +7,61 @@ Note: for a detailed changelog, use:
   svn log -v https://svn.sourceforge.net/svnroot/rox/trunk/ROX-Session
 
 
+Changes in release 0.29 (2006-09-09):
+
+- Convert all settings names to plain strings, not unicode (Dennis Tomas).
+  Prevents an error when adding new settings.
+
+- Remove exception catching around the main code. ROX-Lib does this
+  automatically for us now (Thomas Leonard). Also warn if using an old version
+  of Python.
+
+- On exit dbus-daemon is killed after a short delay, for the benefit of D-Bus
+  using panel applets (Stephen Watson).
+
+- Updated Chinese Translations (Babyfai Cheung).
+
+- Added Gamma and Screensaver settings (Guido Schimmels).
+
+- Make keyboard repeat and delay settings work (Ken Hayber and Tony Houghton).
+
+- Added note that you must restart for language settings to take effect. Note:
+  doesn't update yet like the ROX-Filer one (Thomas Leonard; reported by
+  Babyfai Cheung).
+
+- Added missing defaults for CanChangeAccels and KeyThemeName (Thomas Leonard).
+
+- Remove the note on switching AutoStart from Choices to XDG as the XDG should
+  be working (Stephen Watson).
+
+- Fix problem where the Auto Start items could be run twice (Stephen Watson).
+
+- Missing sys module import in settings, caused error when a 'Missing setting'
+  exception was raised (Stephen Watson).
+
+- Fixed typo in an option name for setxkbmap (Christopher Arndt).
+
+- Set a variable to indicate we are in the ROX desktop. Helps cross-desktop
+  scripts to identify us. (Stephen Watson).
+
+- Removed old code which started ZeroProgress when the old version of Zero
+  Install was being used. The old version is no longer supported (Thomas
+  Leonard).
+
+- If the XML-RPC window disappears before we get a chance to read it, just
+  print a warning and continue. No need to show a full stack-trace error box
+  (Thomas Leonard).
+
+- Fix scan of XDG directories (Stephen Watson)
+
+- Use XDG directories in preference to Choices (Stephen Watson).
+
+- Try to start the DBus session bus even if the dbus bindings are missing or
+  too old (Stephen Watson).
+
+- Changed version test for an OK dbus (Stephen Watson).
+
+
 Changes in release 0.28 (2006-03-11):
 
 - Added support for XML-RPC-over-X as an alternative to D-BUS. If D-BUS isn't
