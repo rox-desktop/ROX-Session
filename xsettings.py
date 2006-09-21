@@ -276,7 +276,8 @@ class Manager:
 			if int(intv('ROX/KbdRepeat')):
 				delay = intv('ROX/KbdDelay')
 				interval = str(1000 / int(intv('ROX/KbdInterval')))
-				params = ['r', 'rate', delay, interval]
+				#params = ['r', 'rate', delay, interval]
+				params = ['r']
 			else:
 				params = ['-r']
 			if os.spawnlp(os.P_WAIT, 'xset', 'xset', *params):
