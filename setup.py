@@ -230,7 +230,7 @@ def setup_with_confirm():
 	resp = box.run()
 	box.destroy()
 
-	if resp == g.RESPONSE_OK:
+	if resp == int(g.RESPONSE_OK):
 		setup()
-	elif resp == g.RESPONSE_HELP:
+	elif resp == int(g.RESPONSE_HELP):
 		troubleshoot()

@@ -92,7 +92,7 @@ def choose_wm(message):
 
 	box.vbox.show_all()
 
-	if box.run() == g.RESPONSE_OK:
+	if box.run() == int(g.RESPONSE_OK):
 		settings.settings.set('ROX/WindowManager',  entry.get_text())
 		box.destroy()
 		start()
