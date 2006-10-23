@@ -4,6 +4,7 @@ from xml.dom import Node, minidom
 
 import rox
 from rox import g, basedir
+import gobject
 import constants
 
 def get_n_buttons():
@@ -78,6 +79,9 @@ class Manager:
 		self.window = g.Invisible()
 		self.window.add_events(g.gdk.PROPERTY_CHANGE_MASK)
 		self.window.connect('property-notify-event', self.property_notify)
+
+		# List of commands to execute at an opportune moment
+		self.to_run=[]
 
 		if manager_check_running(0):
 			print >>sys.stderr, _("An XSETTINGS manager is already running. "
@@ -203,39 +207,30 @@ class Manager:
 		# ROX/ settings are not sent via XSettings
 		def intv(name): return str(self._settings[name].value)
 
-		try:
-			if os.spawnlp(os.P_WAIT, 'xset', 'xset',
+		# Don't run xset just yet, we may get an EINTR error, instead
+		# defer until later
+		self.to_run.append(['xset',
 				      'm', intv('ROX/AccelFactor') + '/10',
-				      intv('ROX/AccelThreshold')):
-				warn('xset failed')
-		except OSError, exc:
-			warn('xset failed: %s' % exc)
+				      intv('ROX/AccelThreshold')])
 		
 		if self._settings['ROX/ManageScreensaver'].value == 1:
 			def saverv(name): return str(self._settings[name].value*60)
 
-			try:
-				if os.spawnlp(os.P_WAIT, 'xset', 'xset', 's', saverv('ROX/BlankTime')):
-					warn('xset failed')
-				if self._settings['ROX/DPMSEnable'].value == 1:
-					if os.spawnlp(os.P_WAIT, 'xset', 'xset', 'dpms', saverv('ROX/DPMSStandby'), 
-								saverv('ROX/DPMSSuspend'), saverv('ROX/DPMSOff')):
-						warn('xset failed')
-				else:
-					if os.spawnlp(os.P_WAIT, 'xset', 'xset', '-dpms'):
-						warn('xset failed')
-			except OSError, exc:
-				warn('xset failed: %s' % exc)
+			self.to_run.append(['xset', 's',
+					    saverv('ROX/BlankTime')])
+			if self._settings['ROX/DPMSEnable'].value == 1:
+				self.to_run.append(['xset', 'dpms',
+						    saverv('ROX/DPMSStandby'), 
+						    saverv('ROX/DPMSSuspend'),
+						    saverv('ROX/DPMSOff')])
+			else:
+				self.to_run.append(['xset', '-dpms'])	
 
-		try:
-			def gammav(name): return str(self._settings[name].value/1000.0)
-			if os.spawnlp(os.P_WAIT, 'xgamma', 'xgamma', '-q',
-				      	'-rgamma', gammav('ROX/RGamma'),
-					'-ggamma', gammav('ROX/GGamma'),
-					'-bgamma', gammav('ROX/BGamma')):
-				warn('xgamma failed')
-		except OSError, exc:
-			warn('xgamma failed: %s' % exc)
+		def gammav(name): return str(self._settings[name].value/1000.0)
+		self.to_run.append(['xgamma', '-q',
+				    '-rgamma', gammav('ROX/RGamma'),
+				    '-ggamma', gammav('ROX/GGamma'),
+				    '-bgamma', gammav('ROX/BGamma')])
 
 		buttons = range(1, n_buttons + 1)
 		if self._settings['ROX/LeftHanded'].value:
@@ -244,12 +239,8 @@ class Manager:
 			buttons[right_button - 1] = 1
 		buttons = ' '.join(map(str, buttons))
 
-		try:
-			if os.spawnlp(os.P_WAIT, 'xmodmap', 'xmodmap', '-e',
-				      'pointer = ' + buttons):
-				warn('xmodmap failed')
-		except OSError, exc:
-			warn('xmodmap failed: %s' % exc)
+		self.to_run.append(['xmodmap', '-e',
+				      'pointer = ' + buttons])
 				
 
 		cursor_theme = self._settings['ROX/CursorTheme'].value
@@ -264,26 +255,27 @@ class Manager:
 
 		layout = self._settings['ROX/KeyTable'].value.split(';')
 		if len(layout) > 2:
-			args = ['-layout', layout[1], '-model', layout[2]]
+			args = ['setxkbmap', '-layout', layout[1], '-model',
+				layout[2]]
 			if len(layout) > 3 and layout[3]:
 				args += ['-variant', layout[3]]
 			if len(layout) > 4 and layout[4]:
 				args += ['-option', layout[4]]
-			if os.spawnlp(os.P_WAIT, 'setxkbmap', 'setxkbmap', *args):
-				warn('setxkbmap failed')
+
+			self.to_run.append(args)
+			
 		# keyboard repeat settings...
-		try:
-			if int(intv('ROX/KbdRepeat')):
-				delay = intv('ROX/KbdDelay')
-				interval = str(1000 / int(intv('ROX/KbdInterval')))
-				#params = ['r', 'rate', delay, interval]
-				params = ['r']
-			else:
-				params = ['-r']
-			if os.spawnlp(os.P_WAIT, 'xset', 'xset', *params):
-				warn('xset failed')
-		except OSError, exc:
-			warn('xset failed: %s', exc)
+		if int(intv('ROX/KbdRepeat')):
+			delay = intv('ROX/KbdDelay')
+			interval = str(1000 / int(intv('ROX/KbdInterval')))
+			#params = ['xset', 'r', 'rate', delay, interval]
+			params = ['xset', 'r']
+		else:
+			params = ['xset', '-r']
+
+		self.to_run.append(params)
+
+		gobject.idle_add(self.possibly_run)
 
 	def save(self):
 		doc = minidom.parseString("<Settings/>")
@@ -337,6 +329,22 @@ class Manager:
 
 		
 	}
+
+	def possibly_run(self):
+		# Run the next command in the self.to_run queue.
+		
+		if len(self.to_run)<1:
+			return False
+
+		cmd=self.to_run[0]
+		try:
+			if os.spawnvp(os.P_WAIT, cmd[0], cmd):
+				warn(cmd[0]+' failed')
+		except OSError, exc:
+			warn('%s failed: %s', (cmd[0], exc))
+		del self.to_run[0]
+
+		return len(self.to_run)>0
 
 def padding(length):
 	needed = (length + 3) & ~3
