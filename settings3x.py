@@ -1,5 +1,6 @@
 from logging import info
 import sys
+import fnmatch
 
 import constants
 import dbus, dbus.service
@@ -42,6 +43,11 @@ class Settings(dbus.service.Object):
 	def get(self, key, default):
 		return self.xsettings_manager.get(key, default)
 
+	def Enumerate(self, pattern='*'):
+		keys=self.xsettings_manager.enumerate()
+		return filter(lambda x: fnmatch.fnmatchcase(x, pattern), keys)
+	Enumerate=dbus.service.method(constants.settings_interface)(Enumerate)
+	
 def real_init(manager):
 	session_bus = dbus.SessionBus()
 	service = dbus.service.BusName(constants.session_service,

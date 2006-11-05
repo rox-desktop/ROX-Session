@@ -1,8 +1,9 @@
 import xsettings
 import sys
+import fnmatch
 
 class XMLSettings:
-	allowed_methods = ('GetSetting', 'SetInt', 'SetString')
+	allowed_methods = ('GetSetting', 'SetInt', 'SetString', 'Enumerate')
 
 	def __init__(self):
 		self.xsettings_manager = xsettings.Manager(0)
@@ -33,6 +34,10 @@ class XMLSettings:
 
 	def get(self, key, default):
 		return self.xsettings_manager.get(key, default)
+
+	def Enumerate(self, pattern='*'):
+		keys=self.xsettings_manager.enumerate()
+		return filter(lambda x: fnmatch.fnmatchcase(x, pattern), keys)
 
 settings = None
 def init():

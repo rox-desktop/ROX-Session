@@ -294,6 +294,9 @@ class Manager:
 		stream.close()
 		os.rename(settings_file + '.new', settings_file)
 
+	def enumerate(self):
+		return self._settings.keys()
+
 	_settings = {
 		'Gtk/FontName': StrXSetting('Sans 10'),
 		'Net/ThemeName': StrXSetting('Default'),
