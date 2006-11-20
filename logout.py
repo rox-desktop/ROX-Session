@@ -16,7 +16,7 @@ for name in ['rox-suspend', 'rox-halt']:
 	factory.add(name, g.IconSet(pixbuf = pixbuf))
 factory.add_default()
 
-def op_button(text, stock, command, message):
+def op_button(text, stock, command, message, dialog = None):
 	button = g.Button()
 
 	hbox = g.HBox(False, 0)
@@ -37,6 +37,8 @@ def op_button(text, stock, command, message):
 		def invoke(button):
 			print >>sys.stderr, message
 			os.system(command)
+			if dialog:
+				dialog.response(g.RESPONSE_ACCEPT)
 		button.connect('clicked', invoke)
 	else:
 		button.set_sensitive(False)
@@ -69,7 +71,7 @@ class LogoutBox(rox.Dialog):
 		
 		button = op_button(_('_Sleep'), 'rox-suspend',
 			session.o_suspend.value,
-			_('Attempting to enter suspend mode...'))
+			_('Attempting to enter suspend mode...'), self)
 		hbox.pack_end(button, False, True, 0)
 
 		vbox.pack_start(g.Label(
