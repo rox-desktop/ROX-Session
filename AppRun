@@ -103,7 +103,6 @@ for opt, value in options:
 			log_level = logging.INFO
 		logger.setLevel(log_level)
 		logging.info("Set verbose logging")
-		print "Verbose"
 	else:
 		raise Exception('Unknown option %s', opt)
 import interactive

@@ -57,9 +57,6 @@ def manage_session(test_mode):
 		session_dbus.destroy()
 
 def set_up_environment():
-	if 'CHOICESPATH' not in os.environ:
-		os.environ['CHOICESPATH'] = os.path.expanduser("~/Choices:/usr/local/share/Choices:/usr/share/Choices")
-
 	if 'BROWSER' not in os.environ:
 		os.environ['BROWSER'] = os.path.join(rox.app_dir, 'browser')
 

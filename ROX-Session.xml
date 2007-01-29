@@ -24,6 +24,6 @@ managers without logging out.
       <environment insert="ROX-Lib2/python" name="PYTHONPATH"/>
     </requires>
 
-    <implementation version="0.29" stability='testing' id="."/>
+    <implementation version="0.29" version-modifier='-post' stability='testing' id="."/>
   </group>
 </interface>
