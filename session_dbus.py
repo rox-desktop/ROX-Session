@@ -34,7 +34,10 @@ def init():
 		os.close(w)
 		addr = ''
 		while '\n' not in addr:
-			extra = os.read(r, 100)
+			try:
+				extra = os.read(r, 100)
+			except InterruptedException:
+				continue
 			if not extra:
 				if not dbus.dbus_version_ok:
 					break
