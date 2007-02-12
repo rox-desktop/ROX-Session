@@ -19,12 +19,18 @@ def init():
 			# We are the child
 			try:
 				os.close(r)
-				os.execlp(dbus.dbus_daemon, dbus.dbus_daemon,
-					'--session', '--print-address=%d' % w)
+				try:
+					os.execlp(dbus.dbus_daemon, dbus.dbus_daemon,
+						'--session', '--print-address=%d' % w)
+				except OSError:
+					raise
+				except:
+					import traceback
+					traceback.print_exc()
 			finally:
-				print >>sys.stderr, "Failed to exec", dbus.dbus_daemon
+				print >>sys.stderr, "Failed to exec '%s': %s" % (dbus.dbus_daemon, str(sys.exc_info()[1]))
 				sys.stderr.flush()
-				#os._exit(1)
+				os._exit(1)
 		os.close(w)
 		addr = ''
 		while '\n' not in addr:
