@@ -43,7 +43,8 @@ def init():
 					break
 				raise Exception('Failed to read D-BUS address!')
 			addr += extra
-		addr = addr[:addr.index('\n')]
+		if '\n' in addr:
+			addr = addr[:addr.index('\n')]
 		os.close(r)
 		if addr:
 			info('Started bus with address: "%s", PID %d', addr,
