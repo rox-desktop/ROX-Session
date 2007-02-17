@@ -1,35 +1,45 @@
 # Useful functions for setting the users environment.  The example
-# Environment.py file uses these functions/
+# Environment.py file uses these functions.
 
 import os, sys
 
 home=os.getenv('HOME')
 
-get=os.getenv
+def get(var):
+    try:
+        return os.environ[var]
+    except:
+        pass
 
 def set(var, val):
     val=os.path.expanduser(val)
-    os.putenv(var, val)
+    os.environ[var] = val
 
 def set_path(var, *vals):
     vals=map(os.path.expanduser, vals)
-    os.putenv(var, ':'.join(vals))
+    os.environ[var] = ':'.join(vals)
 
 def append_path(var, *vals):
     vals=map(os.path.expanduser, vals)
-    old=os.getenv(var)
+    try:
+        old=os.environ[var]
+    except:
+        old=None
     if old:
-        os.putenv(var, old+':'+(':'.join(vals)))
+        os.environ[var] = old+':'+(':'.join(vals))
     else:
-        os.putenv(var, ':'.join(vals))
+        os.environ[var] = ':'.join(vals)
 
 def prepend_path(var, *vals):
     vals=map(os.path.expanduser, vals)
-    old=os.getenv(var)
+    try:
+        old=os.environ[var]
+    except:
+        old=None
     if old:
-        os.putenv(var, (':'.join(vals))+':'+old)
+        os.environ[var] = (':'.join(vals))+':'+old
     else:
-        os.putenv(var, ':'.join(vals))
+        os.environ[var] = ':'.join(vals)
 
 # Ensure ssh-agent is running
 def parse_ssh_agent_cache():
@@ -76,3 +86,9 @@ def start_ssh_agent():
 
             parse_ssh_agent_cache()
 
+if __name__=='__main__':
+    print home, get('HOME')
+    print get('PATH')
+    prepend_path('PATH', '~/bin')
+    print get('PATH')
+    
