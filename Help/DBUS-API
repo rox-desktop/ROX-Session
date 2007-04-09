@@ -26,6 +26,7 @@ ROX-Session contains the following objects, available at the
 	net.sf.rox.Session.Settings.SetString(name, value)
 	net.sf.rox.Session.Settings.SetInt(name, value)
 	type, value = net.sf.rox.Session.Settings.GetSetting(name)
+	names = net.sf.rox.Session.Settings.Enumerate(pattern='*')
 
 You can test these methods using the dbus-send program. Eg:
 
