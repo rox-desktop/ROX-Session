@@ -7,6 +7,35 @@ Note: for a detailed changelog, use:
   svn log -v https://svn.sourceforge.net/svnroot/rox/trunk/ROX-Session
 
 
+Changes in release 0.30 (2007-04-09):
+
+- Use os.environ to set the environment, as recommended by the Python
+  documentation (Stephen Watson).
+
+- Cope with null reply from getting D-BUS address (Thomas Leonard).
+
+- Ignore InterruptedException from os.read() (Thomas Leonard; reported by
+  Michael Siegel).
+
+- If we fail to start the dbus daemon, report the error nicely (Thomas Leonard).
+
+- Don't set CHOICESPATH (Thomas Leonard).
+
+- Logout dialog is closed after Sleep (Tony Houghton).
+
+- Added ability to enumerate the xsettings (Stephen Watson).
+
+- Defer running external programs to an idle handler. Fixes spurious EINTR
+  errors under Solaris (Stephen Watson).
+
+- Simplified the example Environment.py by providing env_helper.py which
+  contains functions to aid in setting up the environment (Stephen Watson).
+
+- Workaround for Python 2.5 and pygtk < 2.8
+
+- Rate parameters to xset r are not portable (Stephen Watson).
+
+
 Changes in release 0.29 (2006-09-09):
 
 - Convert all settings names to plain strings, not unicode (Dennis Tomas).
