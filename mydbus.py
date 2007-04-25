@@ -5,6 +5,7 @@ dbus_version_ok = False
 version = (0, 0, 0)
 try:
 	from dbus import *
+	from dbus import version  # Package contents changed in 0.80
 	if version >= (0, 42, 0):
 		dbus_version_ok = True
 		info("D-BUS 0.3x detected. OK.")
