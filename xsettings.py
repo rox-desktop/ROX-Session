@@ -344,7 +344,7 @@ class Manager:
 			if os.spawnvp(os.P_WAIT, cmd[0], cmd):
 				warn(cmd[0]+' failed')
 		except OSError, exc:
-			warn('%s failed: %s', (cmd[0], exc))
+			warn('%s failed: %s', cmd[0], exc)
 		del self.to_run[0]
 
 		return len(self.to_run)>0
