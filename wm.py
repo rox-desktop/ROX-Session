@@ -12,6 +12,7 @@ autorestart_wm = False
 path_dirs = os.environ.get('PATH', '/bin:/usr/bin').split(':')
 
 window_managers = [
+	'x-window-manager',
 	'0launch http://rox.sourceforge.net/2005/interfaces/OroboROX',
 	'xfwm4',
 	'sawfish',
