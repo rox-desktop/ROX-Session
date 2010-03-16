@@ -1,17 +1,17 @@
 import sys
 
-import xxmlrpc
-
 import rox
 from rox import g
+import rox.session
+import rox.xxmlrpc
 import os.path
 import constants
 
 try:
-	rox_session = xxmlrpc.XXMLProxy(constants.session_service)
-	session_control = rox_session.get_object('/Session')
-except xxmlrpc.NoSuchService:
-	rox_session = None
+	rox_session = rox.session.running()
+	session_control = rox.session.get_session()
+except rox.xxmlrpc.NoSuchService:
+	rox_session = False
 
 def setup_or_logout():
 	if rox_session:
@@ -22,7 +22,7 @@ def setup_or_logout():
 		setup.setup_with_confirm()
 
 def show_options():
-	session_control.ShowOptions().get_response()
+	session_control.ShowOptions()
 
 def show_messages():
-	session_control.ShowMessages().get_response()
+	session_control.ShowMessages()

@@ -8,7 +8,7 @@ except ImportError:
 	print >>sys.stderr, "ROX-Session requires Python 2.3 or later!"
 
 import getopt		# (optparse is only in Python 2.3)
-import findrox; findrox.version(2, 0, 0)
+import findrox; findrox.version(2, 0, 5)
 import rox
 from rox import choices, options
 import constants

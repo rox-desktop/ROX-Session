@@ -3,6 +3,7 @@
 import sys
 from rox import g
 import xmlrpclib
+import gobject
 
 _message_prop = g.gdk.atom_intern('_XXMLRPC_MESSAGE', False)
 _message_id_prop = g.gdk.atom_intern('_XXMLRPC_ID', False)
@@ -144,6 +145,7 @@ class ClientCall(g.Invisible):
 	def __init__(self, service, method, params):
 		g.Invisible.__init__(self)
 		self.service = service
+		self.method_name = method
 		self.add_events(g.gdk.PROPERTY_NOTIFY)
 		self.realize()
 
@@ -189,11 +191,20 @@ class ClientCall(g.Invisible):
 	def get_response(self):
 		if self.response is None:
 			self.waiting = True
+			tag=gobject.timeout_add(60*1000, self.timed_out)
 			try:
 				g.main()
 			finally:
 				self.waiting = False
+				gobject.source_remove(tag)
 		assert self.response is not None
 		retval, method = xmlrpclib.loads(self.response)
 		assert len(retval) == 1
 		return retval[0]
+
+	def timed_out(self):
+		print >> sys.stderr, 'Timed out waiting for response to', self.method_name
+		if self.waiting:
+			g.main_quit()
+		raise Exception('No response to XML-RPC call')
+		
