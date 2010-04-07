@@ -22,7 +22,11 @@ def setup_or_logout():
 		setup.setup_with_confirm()
 
 def show_options():
+	if not rox_session:
+		raise Exception, 'No connection to ROX-Session'
 	session_control.ShowOptions()
 
 def show_messages():
+	if not rox_session:
+		raise Exception, 'No connection to ROX-Session'
 	session_control.ShowMessages()
