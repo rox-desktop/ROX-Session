@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 import sys, os
-try:
-	import logging
-except ImportError:
-	import mylogging as logging
-	sys.modules['logging'] = logging
-	print >>sys.stderr, "ROX-Session requires Python 2.3 or later!"
+import logging
 
-import getopt		# (optparse is only in Python 2.3)
+import optparse
 import findrox; findrox.version(2, 0, 5)
 import rox
 from rox import choices, options
@@ -34,76 +29,82 @@ __builtins__._ = rox.i18n.translation(os.path.join(rox.app_dir, 'Messages'), lan
 log_level = None
 test_mode = False
 
-usage = _("Usage: ROX-Session/AppRun [OPTION]...\n"	\
-       "If ROX-Session is already managing your session then display\n" \
+descr = _("If ROX-Session is already managing your session then display\n" \
        "the logout window. If not, offer to make ROX-Session your\n"	\
        "session manager for future sessions.\n\n"			\
-       "  -h, --help		display this help and exit\n"		\
-       "      --install		make ROX-Session your session manager\n"  \
-       "      --options		show options dialog\n"			\
-       "      --setup		configure initial environment and apps\n" \
-       "  -v, --version		display the version information and exit\n"   \
-       "  -w, --wait		simply wait until run again (internal use)\n" \
        "\nThe latest version can be found at:\n"			\
        "\thttp://rox.sourceforge.net\n"					\
-       "\nReport bugs to <tal197@users.sourceforge.net>.")
+	  "\nCopyright (C) 2005 Thomas Leonard.\n"
+	  "ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
+	  "to the extent permitted by law.\n"
+	  "You may redistribute copies of ROX-Session\n"
+	  "under the terms of the GNU General Public License.\n"
+	  "For more information about these matters, see the file named COPYING."
+	  "\nReport bugs to <tal197@users.sourceforge.net>.")
 
-version = "ROX-Session 0.27\n" + _(
-	    "Copyright (C) 2005 Thomas Leonard.\n"
-	    "ROX-Session comes with ABSOLUTELY NO WARRANTY,\n"
-	    "to the extent permitted by law.\n"
-	    "You may redistribute copies of ROX-Session\n"
-	    "under the terms of the GNU General Public License.\n"
-	    "For more information about these matters, see the file named COPYING.")
+version = "0.31"
 
-try:
-	options, args = getopt.getopt(sys.argv[1:], 'htvVwm',
-			['help', 'install', 'messages', 'options', 'setup', 'verbose', 'version', 'wait'])
-	if args:
-		raise getopt.GetoptError('Unexpected arguments: ' + str(args))
-except getopt.GetoptError, ex:
-	print >>sys.stderr, "Error:", str(ex)
-	print >>sys.stderr, usage
+parser=optparse.OptionParser(prog='ROX-Session', description=descr,
+			     version=version)
+
+parser.add_option('-t', '--test', action='store_true')
+parser.add_option('-w', '--wait', action='store_true',
+		  help='simply wait until run again (internal use)')
+parser.add_option ('--install', action='store_true',
+		  help='make ROX-Session your session manager')
+parser.add_option('--setup', action='store_true',
+		  help='configure initial environment and apps')
+parser.add_option('--options', action='store_true',
+		  help='show options dialog')
+parser.add_option('--messages', action='store_true',
+		  help='show the message log window')
+parser.add_option('-v', '--verbose', action='store_true')
+
+options, args=parser.parse_args()
+if args:
+	print >>sys.stderr, 'Unexpected arguments:', ' '.join(args)
+	print >>sys.stderr, 'use --help for usage'
 	sys.exit(1)
 
-for opt, value in options:
-	if opt in ('-h', '--help'):
-		print usage
-		sys.exit(0)
-	elif opt in ('-V', '--version'):
-		print version
-		sys.exit(0)
-	elif opt in ('-t', '--test'):
-		test_mode = True
-		constants.session_service += '-test'
-	elif opt in ('-w', '--wait'):
-		import main
-		main.manage_session(test_mode)
-		sys.exit(0)
-	elif opt == '--install':
-		import setup
-		setup.setup()
-		sys.exit(0)
-	elif opt == '--setup':
-		import AutoStart
-		sys.exit(0)
-	elif opt == '--options':
-		import interactive
-		interactive.show_options()
-		sys.exit(0)
-	elif opt == '--messages':
-		import interactive
-		interactive.show_messages()
-		sys.exit(0)
-	elif opt in ('-v', '--verbose'):
-		logger = logging.getLogger()
-		if log_level == logging.INFO:
-			log_level = logging.DEBUG
-		else:
-			log_level = logging.INFO
-		logger.setLevel(log_level)
-		logging.info("Set verbose logging")
+# Check for options that modify our behaviour
+if options.test:
+	test_mode = True
+	constants.session_service += '-test'
+
+if options.verbose:
+	logger = logging.getLogger()
+	if log_level == logging.INFO:
+		log_level = logging.DEBUG
 	else:
-		raise Exception('Unknown option %s', opt)
+		log_level = logging.INFO
+	logger.setLevel(log_level)
+	logging.info("Set verbose logging")
+
+# Now check for options that trigger actions
+if options.wait:
+	import main
+	main.manage_session(test_mode)
+	sys.exit(0)
+
+elif options.install:
+	import setup
+	setup.setup()
+	sys.exit(0)
+
+elif options.setup:
+	import AutoStart
+	sys.exit(0)
+
+elif options.options:
+	import interactive
+	interactive.show_options()
+	sys.exit(0)
+
+elif options.messages:
+	import interactive
+	interactive.show_messages()
+	sys.exit(0)
+
+# Must be interactive mode
 import interactive
 interactive.setup_or_logout()
