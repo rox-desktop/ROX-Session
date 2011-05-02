@@ -1,5 +1,4 @@
 """XML-RPC over X."""
-#from logging import warn		Not in Python2.2
 import sys
 from rox import g
 import xmlrpclib
@@ -7,6 +6,9 @@ import gobject
 
 _message_prop = g.gdk.atom_intern('_XXMLRPC_MESSAGE', False)
 _message_id_prop = g.gdk.atom_intern('_XXMLRPC_ID', False)
+
+# Communication via properies is broken in GTK+ 2.18
+working = g.gtk_version < (2, 17, 0) #or g.gtk_version >= (2, 20, 0)
 
 class NoSuchService(Exception):
 	pass

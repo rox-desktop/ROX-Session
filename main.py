@@ -22,9 +22,18 @@ if mydbus.dbus_version_ok:
 		mydbus.dbus_version_ok = False
 import log
 
+problem_msg=_('''Interprocess communication is not possible, session
+management will not work.  Your python dbus is too old %s,
+and your GTK+ version is too new %s.  Please update
+your python dbus to at least %s.''') % (mydbus.version, g.gtk_version,
+                                        mydbus.min_version)
+
 def manage_session(test_mode):
 	log.init()
 
+	if not mydbus.dbus_version_ok and not xxmlrpc.working:
+		rox.alert(problem_msg)
+		
 	set_up_environment()
 	session.init()
 	children.init()
