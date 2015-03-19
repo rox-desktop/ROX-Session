@@ -26,6 +26,14 @@ fi
 DIRS=$XDG_CONFIG_HOME:$XDG_CONFIG_DIRS
 IFS=":"
 
+if [ -x "`which rox`" ]; then
+    ROX=rox
+elif [ -x "`which 0launch`" ]; then
+    ROX=0launch http://rox.sourceforge.net/2005/interfaces/ROX-Filer
+else
+    exit 1
+fi
+
 # Run any other stuff the user wants by searching all the
 # Choices/ROX-Session/AutoStart directories...
 
@@ -33,13 +41,11 @@ AS=
 for DIR in $DIRS; do
   if [ -n "$DIR" ]; then
     AS="$DIR/rox.sourceforge.net/ROX-Session/AutoStart"
-    for PROG in $AS/*; do
-      if [ -d "$PROG" ]; then
-    	  $PROG/AppRun &
-      elif [ -x "$PROG" ]; then
-	$PROG &
-      fi
-    done
+    if [ -d "$AS" ]; then
+      for PROG in $AS/*; do
+        $ROX "$PROG" &
+      done
+    fi
   fi
 done
 
@@ -47,13 +53,11 @@ if [ -z "$AS" ] ; then
 for DIR in $CHOICESPATH; do
   if [ -n "$DIR" ]; then
     AS="$DIR/ROX-Session/AutoStart"
-    for PROG in $AS/*; do
-      if [ -d "$PROG" ]; then
-    	  $PROG/AppRun &
-      elif [ -x "$PROG" ]; then
-	$PROG &
-      fi
-    done
+    if [ -d "$AS" ]; then
+      for PROG in $AS/*; do
+        $ROX "$PROG" &
+      done
+    fi
   fi
 done
 fi
