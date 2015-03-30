@@ -275,6 +275,22 @@ class Manager:
 
 		self.to_run.append(params)
 
+		# XRandR arguments.
+		xrandr_args = self._settings['ROX/XRandRArgs'].value.split(' ')
+		if xrandr_args:
+			# Process the args of each output separately,
+			# in case one is disconnected and would cause xrandr
+			# to fail.
+			args = []
+			for arg in xrandr_args:
+				if arg == '--output':
+					if args:
+						self.to_run.append(['xrandr'] + args)
+					args = []
+				args.append(arg)
+			if args:
+				self.to_run.append(['xrandr'] + args)
+
 		gobject.idle_add(self.possibly_run)
 
 	def save(self):
@@ -330,6 +346,7 @@ class Manager:
 		'ROX/KbdDelay': IntXSetting(500),
 		'ROX/KbdInterval': IntXSetting(30),
 
+		'ROX/XRandRArgs': StrXSetting(''),
 		
 	}
 
